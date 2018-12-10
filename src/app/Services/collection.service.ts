@@ -6,6 +6,10 @@ import { Collection } from '../Entities/collection';
 })
 export class CollectionService {
 
+  createCollection(collection: Collection) {
+    throw new Error("Method not implemented.");
+  }
+
   constructor() { }
 
 

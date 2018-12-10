@@ -8,7 +8,7 @@ import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { AddCollectionComponent } from './add-collection/add-collection.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AddCustomFieldComponent } from './add-custom-field/add-custom-field.component';
+import { AddCustomFieldComponent } from './add-collection/add-custom-field/add-custom-field.component';
 
 
 @NgModule({

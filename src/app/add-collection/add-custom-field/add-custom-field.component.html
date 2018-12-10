@@ -1,19 +1,84 @@
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="card-title">Custom field {{ index + 1 }}</h5>
+
 <form [formGroup]="customFieldForm">
 
-    <div class="form-row">
+  <div class="form-row">
     <div class="form-group col">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Give unique name of the field" formControlName="name" required >
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Give unique name of the field" formControlName="name"
+        required>
+    </div>
+
+    <div class="form-group col">
+      <label for="name">Type</label>
+      <select class="form-control" id="name" formControlName="type" required>
+        <option *ngFor="let type of types" [ngValue]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="form-group col">
+      <label for="choises">Values</label>
+      <input type="text" class="form-control" id="choises" placeholder="Give the possible values of the field"
+        formControlName="choises">
+    </div>
+
+    <div class="form-group col">
+      <label for="PlaceHolder">PlaceHolder</label>
+      <input type="text" class="form-control" id="PlaceHolder" placeholder="Give the placeholder of the field"
+        formControlName="placeholder">
+    </div>
+
+    <div class="form-group col">
+      <label for="label">Label</label>
+      <input type="text" class="form-control" id="label" placeholder="Give the Label of the field" formControlName="label">
+    </div>
+
+  <a (click)="delete()"><fa-icon [icon]="removeIcon"></fa-icon></a>
+
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="required" formControlName="required">
+        <label class="form-check-label" for="required">
+          Required
+        </label>
       </div>
 
-      <div class="form-group col">
-          <label for="name">Type</label>
-          <input type="text" class="form-control" id="name" placeholder="Give unique name of the field" formControlName="type" required >
-        </div>
-
-        <!-- emit delete event up w/ index of player -->
-        <button (click)="delete()">Delete</button>
-
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="multiValue" formControlName="multiValue">
+        <label class="form-check-label" for="multiValue">
+          Allow multi values
+        </label>
       </div>
-  <pre>Player Form Status: <span class="status">{{customFieldForm.status}}</span></pre>
+    </div>
+
+    <div class="form-group col">
+      <label for="labelPosition">Label</label>
+      <select class="form-control" id="labelPosition" formControlName="labelposition">
+        <option *ngFor="let position of labelPositions" [ngValue]="position"> {{position}}</option>
+      </select>
+
+    </div>
+
+    <div class="form-group col">
+      <label for="place">Position</label>
+      <select class="form-control" id="place" formControlName="place">
+        <option *ngFor="let position of fieldPositions" [ngValue]="position"> {{position}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col">
+      <label for="fieldOrder">Order</label>
+      <input type="number" class="form-control" id="fieldOrder" formControlName="fieldOrder">
+    </div>
+
+  </div>
+
 </form>
+</div>
+</div>

@@ -9,8 +9,5 @@ export class CustomField {
         public place: string,
         public multivalues: boolean,
         public labelPosition: string,
-        public widget: string)
-        {
-
-        }
+        public label: string) {}
 }
