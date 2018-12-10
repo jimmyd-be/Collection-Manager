@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { AddCollectionComponent } from './add-collection/add-collection.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddCustomFieldComponent } from './add-collection/add-custom-field/add-custom-field.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { AddCustomFieldComponent } from './add-collection/add-custom-field/add-c
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

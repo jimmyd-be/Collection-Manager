@@ -3,15 +3,33 @@
   border-bottom: 2px solid #D9DEE4;
 }
 
+.userMenu
+{
+  left: -120px !important;
+}
+
+.userimage
+{
+  border: 1px solid #D9DEE4;
+  height: 40px;
+}
+
+.navbar{
+  padding: 0;
+}
+
+.brand-logo
+{
+  height: 50px;
+}
+
 .menuButton
 {
   background-color: #EDEDED;
   border: none;
 }
 
- body {
-    overflow-x: hidden;
-  }
+
   
   #wrapper {
     padding-left: 0;
