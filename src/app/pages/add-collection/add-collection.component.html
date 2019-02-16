@@ -1,0 +1,28 @@
+<nb-card>
+<nb-card-header>Add new Collections</nb-card-header>
+
+<nb-card-body>
+    <form [formGroup]="addCollectionGroup" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Give unique name of the collection" formControlName="name" required >
+        </div>
+        <div class="form-group">
+          <label for="type">Collection type</label>
+          <select class="form-control" id="type" formControlName="type" required>
+            <option *ngFor="let type of collectionTypes" [ngValue]="type">{{ type }}</option>
+          </select>
+        </div>
+      
+        <div *ngFor="let fields of customFields.controls; let i = index">
+            <app-add-custom-field [index]="i" [customFieldForm]="fields" (deleteCustomField)="deletePlayer($event)"></app-add-custom-field>
+          </div>
+      
+        <button nbButton status="primary" type="submit" [disabled]="!addCollectionGroup.valid">Submit</button>
+        <button nbButton type="button" status="info" (click)="addCustomField()">Add custom field</button>
+      
+      </form>
+
+</nb-card-body>
+
+</nb-card>

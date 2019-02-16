@@ -1,20 +1,21 @@
-import { Component } from '@angular/core';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+import { Component, OnInit } from '@angular/core';
+import { AnalyticsService } from './@core/utils/analytics.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'ngx-app',
+  template: '<router-outlet></router-outlet>',
 })
-export class AppComponent {
-  title = 'gui';
-  hamburgerIcon = faBars;
+export class AppComponent implements OnInit {
 
-  showMenu: boolean = true;
+  constructor(private analytics: AnalyticsService) {
+  }
 
-
-  collapseMenuHandler(){
-    this.showMenu = !this.showMenu;
-    }
+  ngOnInit() {
+    this.analytics.trackPageViews();
+  }
 }
