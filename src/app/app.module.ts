@@ -19,6 +19,7 @@ import { AddCustomFieldComponent } from './pages/add-collection/add-custom-field
 import { AddCollectionComponent } from './pages/add-collection/add-collection.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PagesComponent } from './pages/pages.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { PagesComponent } from './pages/pages.component';
     AppComponent,
     AddCollectionComponent,
     AddCustomFieldComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   bootstrap: [AppComponent],
   providers: [
