@@ -133,7 +133,7 @@ const NB_THEME_PROVIDERS = [
     {
       name: 'corporate',
     },
-    [ DEFAULT_THEME, CORPORATE_THEME ],
+    [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME ],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,

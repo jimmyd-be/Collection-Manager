@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CustomField } from '../Entities/custom-field';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,10 @@ export class CustomFieldService {
 
   getFieldPositions(): string[]{
     return ['left', 'main', 'right'];
+  }
+
+  getFieldsByCollection(collectionId: Number): CustomField[]{
+
+    return [new CustomField("Name", "text", "", true, "Give name of the item", 0, "", false, "left", "Name")];
   }
 }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-admin-demo": {
+    "cm-gui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -30,15 +30,10 @@
               "node_modules/socicon/css/socicon.css",
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "src/app/@theme/styles/styles.scss",
-              "node_modules/@nebular/bootstrap/styles/prebuilt/cosmic.css",
-              "node_modules/@nebular/bootstrap/styles/prebuilt/default.css",
-              "node_modules/@nebular/bootstrap/styles/prebuilt/corporate.css"
+              "src/app/@theme/styles/styles.scss"
             ],
             "scripts": [
-              "node_modules/pace-js/pace.min.js",
-              "node_modules/@fortawesome/fontawesome-free/js/all.js"
+              "node_modules/pace-js/pace.min.js"
             ]
           },
           "configurations": {
@@ -64,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-admin-demo:build"
+            "browserTarget": "cm-gui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-admin-demo:build:production"
+              "browserTarget": "cm-gui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-admin-demo:build"
+            "browserTarget": "cm-gui:build"
           }
         },
         "test": {
@@ -118,7 +113,7 @@
         }
       }
     },
-    "ngx-admin-demo-e2e": {
+    "cm-gui-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -127,7 +122,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "ngx-admin-demo:serve"
+            "devServerTarget": "cm-gui:serve"
           }
         },
         "lint": {
@@ -142,7 +137,7 @@
       }
     }
   },
-  "defaultProject": "ngx-admin-demo",
+  "defaultProject": "cm-gui",
   "schematics": {
     "@schematics/angular:component": {
       "styleext": "scss"

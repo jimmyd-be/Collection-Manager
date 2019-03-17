@@ -1,29 +1,5 @@
-<nb-card>
-  <nb-card-header>
-      Collections
-  </nb-card-header>
-  <nb-card-body>
-    <table class="table table-hover card-text">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Type</th>
-          <th scope="col">Members</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr *ngFor="let collection of collections">
-          <td>{{ collection.name }}</td>
-          <td>{{ collection.type }}</td>
-          <td>{{ collection.members }}</td>
-          <td><a routerLink=""><fa-icon [icon]="viewIcon" class="collectionIcon"></fa-icon> </a>
-            <a routerLink=""><fa-icon [icon]="editIcon"  class="collectionIcon"></fa-icon> </a>
-            <a routerLink=""><fa-icon [icon]="removeIcon"  class="collectionIcon"></fa-icon> </a></td>
-
-        </tr>
-      </tbody>
-    </table>
-  </nb-card-body>
-</nb-card>
+<div class="row">
+  <nb-card>
+    <nb-card-body>Hello from ngx-admin sandbox project.</nb-card-body>
+  </nb-card>
+</div>

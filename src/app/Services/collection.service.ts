@@ -15,7 +15,7 @@ export class CollectionService {
 
   getUserCollections(): Collection[]
   {
-      return [new Collection(1, 'Movies', 'Movies', ['Ikke', 'jef'])];
+      return [new Collection(1, 'Movies', 'Movies', ['Ikke', 'jef']),new Collection(2, 'Games', 'Games', ['Ikke', 'jef'])];
   }
 
   getCollectionTypes(): string[]{

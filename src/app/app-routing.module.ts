@@ -8,41 +8,9 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
-import { PagesComponent } from './pages/pages.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AddCollectionComponent } from './pages/add-collection/add-collection.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
-  {
-    path: 'pages',
-    component: PagesComponent,
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-      },
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
-      },
-      {
-        path: 'addCollection',
-        component: AddCollectionComponent
-      }
-    ],
-  },
-  {
-    path: 'profile',
-    component: PagesComponent,
-    children: [
-      {
-      path: 'view',
-      component: ProfileComponent,
-    }
-  ],
-  },
+  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
   {
     path: 'auth',
     component: NbAuthComponent,

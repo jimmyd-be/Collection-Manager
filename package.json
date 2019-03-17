@@ -1,7 +1,14 @@
 {
-  "name": "collection_manager",
-  "version": "1.0",
+  "name": "ngx-admin",
+  "version": "3.0.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akveo/ngx-admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akveo/ngx-admin/issues"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
@@ -38,14 +45,16 @@
     "@angular/platform-browser": "^7.2.1",
     "@angular/platform-browser-dynamic": "^7.2.1",
     "@angular/router": "^7.2.1",
+    "@fortawesome/angular-fontawesome": "^0.3.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/free-brands-svg-icons": "^5.7.2",
+    "@fortawesome/free-regular-svg-icons": "^5.7.2",
+    "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@nebular/auth": "3.0.0",
     "@nebular/bootstrap": "3.0.0",
     "@nebular/security": "3.0.0",
     "@nebular/theme": "3.0.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
-    "@fortawesome/angular-fontawesome": "^0.3.0",
-    "@fortawesome/fontawesome-svg-core": "^1.2.9",
-    "@fortawesome/free-solid-svg-icons": "^5.6.0",
     "bootstrap": "4.0.0",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.1",
@@ -54,7 +63,6 @@
     "ionicons": "2.0.1",
     "nebular-icons": "1.1.0",
     "normalize.css": "6.0.0",
-    "npm": "^6.7.0",
     "pace-js": "1.0.2",
     "roboto-fontface": "0.8.0",
     "rxjs": "6.3.0",
@@ -66,11 +74,10 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.10.2",
-    "@angular/cli": "^7.2.1",
     "@angular/compiler-cli": "^7.2.1",
+    "@angular/cli": "^7.2.1",
     "@angular/language-service": "7.0.0",
     "@compodoc/compodoc": "1.0.1",
-    "@fortawesome/fontawesome-free": "^5.6.3",
     "@types/jasmine": "2.5.54",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "6.0.90",

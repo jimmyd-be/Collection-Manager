@@ -14,33 +14,18 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AddCustomFieldComponent } from './pages/add-collection/add-custom-field/add-custom-field.component';
-import { AddCollectionComponent } from './pages/add-collection/add-collection.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PagesComponent } from './pages/pages.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-
 
 @NgModule({
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    FontAwesomeModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-  ],
-  declarations: [
-    PagesComponent,
-    AppComponent,
-    AddCollectionComponent,
-    AddCustomFieldComponent,
-    DashboardComponent,
-    ProfileComponent
   ],
   bootstrap: [AppComponent],
   providers: [
