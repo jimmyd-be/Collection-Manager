@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../../Services/collection.service';
 import { Collection } from '../../Entities/collection';
+import { CustomFieldService } from '../../Services/custom-field.service';
 
 @Component({
   selector: 'add-item-manually',
@@ -11,7 +12,7 @@ export class AddItemManuallyComponent implements OnInit {
 
 collectionList: Collection[];
 
-  constructor(private collectionService : CollectionService) { }
+  constructor(private collectionService : CollectionService, private customfieldService: CustomFieldService) { }
 
   ngOnInit() {
 
@@ -19,8 +20,8 @@ collectionList: Collection[];
   }
 
 
-  collectionSelectionChanged(event){
-    console.log(event);
-
+  collectionSelectionChanged(collectionId : Number){
+    
+    this.customfieldService.getFieldsByCollection(collectionId);
   }
 }
