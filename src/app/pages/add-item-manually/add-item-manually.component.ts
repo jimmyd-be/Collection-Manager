@@ -5,6 +5,7 @@ import { CustomFieldService } from '../../Services/custom-field.service';
 import { FormGroup } from '@angular/forms';
 import { ManualFormService } from '../../Services/manual-form.service';
 import { CustomField } from '../../Entities/custom-field';
+import { ItemService } from '../../Services/item.service';
 
 @Component({
   selector: 'add-item-manually',
@@ -13,12 +14,15 @@ import { CustomField } from '../../Entities/custom-field';
 })
 export class AddItemManuallyComponent implements OnInit {
 
-collectionList: Collection[];
-
+  collectionList: Collection[];
+  collectionId: Number;
   form: FormGroup;
   fields: CustomField[];
 
-  constructor(private collectionService : CollectionService, private customfieldService: CustomFieldService, private formService : ManualFormService) { }
+  constructor(private collectionService: CollectionService,
+    private customfieldService: CustomFieldService,
+    private formService: ManualFormService,
+    private itemService: ItemService) { }
 
   ngOnInit() {
 
@@ -26,15 +30,18 @@ collectionList: Collection[];
   }
 
 
-  collectionSelectionChanged(collectionId : Number){
+  collectionSelectionChanged(collectionId: Number) {
+
+    this.collectionId = collectionId;
 
     this.fields = this.customfieldService.getFieldsByCollection(collectionId);
-    
+
     this.form = this.formService.toFormGroup(this.fields);
 
   }
 
   onSubmit() {
-   // this.payLoad = JSON.stringify(this.form.value);
+    this.itemService.addItemToCollection(this.collectionId, JSON.stringify(this.form.value))
+
   }
 }
