@@ -1,13 +1,25 @@
 <nb-card>
   <nb-card-header>Add new Item</nb-card-header>
-  
+
   <nb-card-body>
-    <nb-select placeholder="Please select collection" status="primary" (selectedChange)="collectionSelectionChanged($event)">
+    <nb-select placeholder="Please select collection" status="primary"
+      (selectedChange)="collectionSelectionChanged($event)">
       <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
     </nb-select>
-
-    
-  
   </nb-card-body>
-  
-  </nb-card>
+
+  <nb-card-footer>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="fields">
+
+      <div *ngFor="let field of fields" class="form-row">
+        <custom-field-form [field]="field" [form]="form" class="col-12"></custom-field-form>
+      </div>
+
+      <div class="form-row">
+        <button type="submit" [disabled]="!form.valid">Save</button>
+      </div>
+    </form>
+  </nb-card-footer>
+
+</nb-card>

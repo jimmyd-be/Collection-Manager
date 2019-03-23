@@ -1,0 +1,42 @@
+<div [formGroup]="form">
+
+
+  <div [ngSwitch]="field.type" class="form-group row">
+
+    <div class="col-sm-1">
+      <label *ngIf="field.type != 'checkBox'" [attr.for]="field.name">{{field.label}}</label>
+    </div>
+
+    <div class="col-sm-11">
+      <input nbInput fullWidth *ngSwitchCase="'text'" [formControlName]="field.name" [id]="field.name"
+        [type]="field.type" [placeholder]="field.placeholder">
+
+      <nb-select [id]="field.name" *ngSwitchCase="'dropdown'" [formControlName]="field.name" status="primary"
+        class="col-sm-9" [placeholder]="field.placeholder">
+        <nb-option *ngFor="let opt of field.options" [value]="opt">{{opt}}</nb-option>
+      </nb-select>
+
+      <nb-checkbox *ngSwitchCase="'checkBox'" status="field.name">{{field.name}}</nb-checkbox>
+
+      <nb-radio-group *ngSwitchCase="'radio'" [id]="field.name" [formControlName]="field.name">
+        <nb-radio *ngFor="let option of field.options" [value]="option">
+          {{ option }}
+        </nb-radio>
+      </nb-radio-group>
+
+      <div class="row" *ngSwitchCase="'url'">
+      <div class="col-sm-6">
+          <input nbInput fullWidth type="url" [id]="field.name" [formControlName]="field.name"
+          placeholder="Place full URL">
+      </div>
+      <div class="col-sm-6">
+          <input nbInput fullWidth formControlName="{{field.name}}_label" id="{{field.name}}_description"
+          [type]="field.type" placeholder="Give a name for the URL">
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <!--<div class="errorMessage" *ngIf="!isValid">{{field.label}} is required</div>-->
+</div>

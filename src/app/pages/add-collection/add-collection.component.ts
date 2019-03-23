@@ -63,14 +63,14 @@ export class AddCollectionComponent implements OnInit {
       let newField = new CustomField(
       customField['name'],
       customField['type'],
-      customField['choises'],
+      customField['options'],
       customField['required'],
       customField['placeholder'],
       customField['fieldOrder'],
       customField['place'],
       customField['multiValue'],      
       customField['labelposition'],
-      customField['label']);
+      customField['label'], "");
 
       fields.push(newField);
     }

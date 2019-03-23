@@ -24,6 +24,11 @@ export class CustomFieldService {
 
   getFieldsByCollection(collectionId: Number): CustomField[]{
 
-    return [new CustomField("Name", "text", "", true, "Give name of the item", 0, "", false, "left", "Name")];
+    return [new CustomField("Name", "text", [], true, "Give name of the item", 0, "", false, "left", "Name", ""),
+    new CustomField("Type", "dropdown", ['Movie', 'old movie'], true, "Give name of the item", 0, "", false, "left", "Type", ""),
+    new CustomField("Original", "checkBox", [], false, "Is original movie?", 0, "", false, "left", "Original", ""),
+    new CustomField("Radio", "radio", ['Yes', 'No', 'Maybe'], true, "is this a good movie?", 0, "", false, "left", "Good movie?", ""),
+    new CustomField("url", "url", ['Yes', 'No', 'Maybe'], true, "Give url of the trailer", 0, "", false, "left", "Trailer", "")
+  ];
   }
 }
