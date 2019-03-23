@@ -3,13 +3,19 @@
 
   <div [ngSwitch]="field.type" class="form-group row">
 
-    <div class="col-sm-1">
+    <div class="col-sm-1 inputLabel">
       <label *ngIf="field.type != 'checkBox'" [attr.for]="field.name">{{field.label}}</label>
     </div>
 
     <div class="col-sm-11">
       <input nbInput fullWidth *ngSwitchCase="'text'" [formControlName]="field.name" [id]="field.name"
         [type]="field.type" [placeholder]="field.placeholder">
+
+      <input nbInput fullWidth *ngSwitchCase="'email'" [formControlName]="field.name" [id]="field.name"
+        [type]="field.type" [placeholder]="field.placeholder">
+
+      <input nbInput *ngSwitchCase="'rate'" [formControlName]="field.name" [id]="field.name" type="number"
+        [placeholder]="field.placeholder" min="0" max="10" step="0.1">
 
       <nb-select [id]="field.name" *ngSwitchCase="'dropdown'" [formControlName]="field.name" status="primary"
         class="col-sm-9" [placeholder]="field.placeholder">
@@ -24,16 +30,27 @@
         </nb-radio>
       </nb-radio-group>
 
+      <textarea nbInput fullWidth *ngSwitchCase="'textarea'" [formControlName]="field.name" [id]="field.name"
+        [placeholder]="field.placeholder"></textarea>
+
+      <input nbInput fullWidth *ngSwitchCase="'image'" type="url" [id]="field.name" [formControlName]="field.name"
+        placeholder="Place full URL" pattern="https?://.+">
+
+      <div *ngSwitchCase="'date'">
+        <input nbInput [placeholder]="field.placeholder" [nbDatepicker]="formpicker" [id]="field.name" [formControlName]="field.name">
+        <nb-datepicker #formpicker format="dd-MM-yyyy"></nb-datepicker>
+      </div>
+
       <div class="row" *ngSwitchCase="'url'">
-      <div class="col-sm-6">
+        <div class="col-sm-6">
           <input nbInput fullWidth type="url" [id]="field.name" [formControlName]="field.name"
-          placeholder="Place full URL">
-      </div>
-      <div class="col-sm-6">
+            placeholder="Place full URL" pattern="https?://.+">
+        </div>
+        <div class="col-sm-6">
           <input nbInput fullWidth formControlName="{{field.name}}_label" id="{{field.name}}_description"
-          [type]="field.type" placeholder="Give a name for the URL">
+            [type]="field.type" placeholder="Give a name for the URL">
+        </div>
       </div>
-    </div>
 
     </div>
   </div>
