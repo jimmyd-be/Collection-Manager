@@ -1,31 +1,26 @@
-<div class="card">
-    <div class="card-body">
-
-        <h5 class="card-title">Custom field {{ index + 1 }}</h5>
-
 <form [formGroup]="customFieldForm">
 
   <div class="form-row">
     <div class="form-group col">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="Give unique name of the field" formControlName="name"
-        required>
+      <input type="text" class="form-control" id="name" placeholder="Give unique name of the field"
+        formControlName="name" required>
     </div>
 
     <div class="form-group col">
-      <label for="name">Type</label>
-      <select class="form-control" id="name" formControlName="type" required>
-        <option *ngFor="let type of types" [ngValue]="type">{{ type }}</option>
-      </select>
-    </div>
+        <label for="name">Type</label>
+        <select class="form-control" id="name" formControlName="type" (change)="typeChanged($event.target.value)" required>
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+      </div>
 
-    <div class="form-group col">
+    <div class="form-group col" *ngIf="showValueField">
       <label for="choises">Values</label>
       <input type="text" class="form-control" id="choises" placeholder="Give the possible values of the field"
         formControlName="choises">
     </div>
 
-    <div class="form-group col">
+    <div class="form-group col" *ngIf="showPlaceholderField">
       <label for="PlaceHolder">PlaceHolder</label>
       <input type="text" class="form-control" id="PlaceHolder" placeholder="Give the placeholder of the field"
         formControlName="placeholder">
@@ -33,23 +28,26 @@
 
     <div class="form-group col">
       <label for="label">Label</label>
-      <input type="text" class="form-control" id="label" placeholder="Give the Label of the field" formControlName="label">
+      <input type="text" class="form-control" id="label" placeholder="Give the Label of the field"
+        formControlName="label">
     </div>
 
-  <a (click)="delete()"><fa-icon [icon]="removeIcon"></fa-icon></a>
+    <a (click)="delete()">
+      <fa-icon [icon]="removeIcon"></fa-icon>
+    </a>
 
   </div>
 
   <div class="form-row">
     <div class="form-group col">
-      <div class="form-check">
+      <div class="form-check" *ngIf="showRequiredField">
         <input class="form-check-input" type="checkbox" id="required" formControlName="required">
         <label class="form-check-label" for="required">
           Required
         </label>
       </div>
 
-      <div class="form-check">
+      <div class="form-check" *ngIf="showAllowMultiField">
         <input class="form-check-input" type="checkbox" id="multiValue" formControlName="multiValue">
         <label class="form-check-label" for="multiValue">
           Allow multi values
@@ -80,5 +78,3 @@
   </div>
 
 </form>
-</div>
-</div>

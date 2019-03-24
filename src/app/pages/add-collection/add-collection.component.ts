@@ -52,8 +52,6 @@ export class AddCollectionComponent implements OnInit {
     this.formService.deleteCustomField(index)
   }
 
-
-
   onSubmit(){
 
     let fields = [];
