@@ -10,7 +10,7 @@ export class CustomFieldService {
 
   getCustomFieldTypes(): string[]
   {
-    return ['number', 'text', 'url', 'text area', 'date'];
+    return ['text', 'url', 'textarea', 'date', 'dropdown', 'checkBox', 'radio', 'email', 'rate', 'image'];
   }
 
   getLabelPositions(): string[]

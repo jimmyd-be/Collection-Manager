@@ -11,7 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.component';
 import { ReactiveFormsModule }          from '@angular/forms';
 import { CustomFieldFormComponent } from './add-item-manually/custom-field-form/custom-field-form.component';
-import { NbInputModule, NbCheckboxModule, NbDatepickerModule } from '@nebular/theme';
+import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -24,14 +24,15 @@ import { NbInputModule, NbCheckboxModule, NbDatepickerModule } from '@nebular/th
     ReactiveFormsModule,
     NbInputModule,
     NbCheckboxModule,
-    NbDatepickerModule
+    NbDatepickerModule,
+    NbAccordionModule
   ],
   declarations: [
     PagesComponent, 
     AddCollectionComponent, 
     AddCustomFieldComponent,
     AddItemManuallyComponent,
-    CustomFieldFormComponent,
+    CustomFieldFormComponent
   ],
 })
 export class PagesModule {
