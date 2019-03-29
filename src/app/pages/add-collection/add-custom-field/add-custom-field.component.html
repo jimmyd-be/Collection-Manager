@@ -17,7 +17,7 @@
     <div class="form-group col" *ngIf="showValueField">
       <label for="choises">Values</label>
       <input type="text" class="form-control" id="choises" placeholder="Give the possible values of the field"
-        formControlName="choises">
+        formControlName="choises" required>
     </div>
 
     <div class="form-group col" *ngIf="showPlaceholderField">
@@ -29,7 +29,7 @@
     <div class="form-group col">
       <label for="label">Label</label>
       <input type="text" class="form-control" id="label" placeholder="Give the Label of the field"
-        formControlName="label">
+        formControlName="label" required>
     </div>
 
     <a (click)="delete()">
@@ -56,8 +56,8 @@
     </div>
 
     <div class="form-group col">
-      <label for="labelPosition">Label</label>
-      <select class="form-control" id="labelPosition" formControlName="labelposition">
+      <label for="labelPosition">Label Position</label>
+      <select class="form-control" id="labelPosition" formControlName="labelposition" required>
         <option *ngFor="let position of labelPositions" [ngValue]="position"> {{position}}</option>
       </select>
 
@@ -65,7 +65,7 @@
 
     <div class="form-group col">
       <label for="place">Position</label>
-      <select class="form-control" id="place" formControlName="place">
+      <select class="form-control" id="place" formControlName="place" required>
         <option *ngFor="let position of fieldPositions" [ngValue]="position"> {{position}}</option>
       </select>
     </div>
