@@ -1,5 +1,37 @@
-<div class="row">
-  <nb-card>
-    <nb-card-body>Hello from ngx-admin sandbox project.</nb-card-body>
+<nb-card>
+  <nb-card-header>Dashboard</nb-card-header>
+
+  <nb-card-body>
+
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Collection</th>
+          <th scope="col">Type</th>
+          <th scope="col">Members</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let col of collections">
+          <td>{{col.name}}</td>
+          <td>{{col.type}}</td>
+          <td>{{col.members}}</td>
+          <td>
+              <a (click)="editCollection(col.id)">
+                  <fa-icon [icon]="editIcon"></fa-icon>
+                </a>
+            
+            <a (click)="deleteCollection(col.id)">
+            <fa-icon [icon]="removeIcon"></fa-icon>
+          </a>
+        </td>
+        </tr>
+       
+      </tbody>
+    </table>
+
+
+  </nb-card-body>
+
   </nb-card>
-</div>

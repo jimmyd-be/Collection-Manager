@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 import { AddCollectionService } from '../../Services/add-collection.service';
 import { Collection } from '../../Entities/collection';
 import { CustomField } from '../../Entities/custom-field';
+import { ParamMap, ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { CustomFieldService } from '../../Services/custom-field.service';
 
 @Component({
   selector: 'app-add-collection',
@@ -19,10 +22,21 @@ export class AddCollectionComponent implements OnInit {
   collectionTypes: string[];
   customFields: FormArray = new FormArray([]);
 
-  constructor(private collectionService: CollectionService, private formBuilder: FormBuilder, private formService: AddCollectionService, private fb: FormBuilder) { }
+  collection: Collection;
+  fields: CustomField[];
+
+  constructor(private collectionService: CollectionService, private formBuilder: FormBuilder, private formService: AddCollectionService, private fb: FormBuilder, private route: ActivatedRoute, private customFieldService: CustomFieldService) { }
 
   ngOnInit() {
 
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if(params.has('id'))
+      {
+        this.collection = this.collectionService.getUserCollection(+params.get('id'));
+        this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
+      }
+    });
+    
     this.addCollectionGroup = new FormGroup({
       name: new FormControl(''),
       type: new FormControl(''),

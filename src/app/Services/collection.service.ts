@@ -5,12 +5,27 @@ import { Collection } from '../Entities/collection';
   providedIn: 'root'
 })
 export class CollectionService {
+  
+  deleteCollection(id: number) {
+    throw new Error("Method not implemented.");
+  }
 
   createCollection(collection: Collection) {
     throw new Error("Method not implemented.");
   }
 
   constructor() { }
+
+  getUserCollection(id: Number): Collection{
+    if(id == 1)
+    {
+    return new Collection(1, 'Movies', 'Movies', ['Ikke', 'jef'])
+    }
+    else if(id == 2)
+    {
+      return new Collection(2, 'Games', 'Games', ['Ikke', 'jef']);
+    }
+  }
 
 
   getUserCollections(): Collection[]

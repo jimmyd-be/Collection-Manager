@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
@@ -12,13 +11,13 @@ import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.
 import { ReactiveFormsModule }          from '@angular/forms';
 import { CustomFieldFormComponent } from './add-item-manually/custom-field-form/custom-field-form.component';
 import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule } from '@nebular/theme';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
   imports: [
     PagesRoutingModule,
     ThemeModule,
-    DashboardModule,
     MiscellaneousModule,
     FontAwesomeModule,
     ReactiveFormsModule,
@@ -32,7 +31,8 @@ import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule 
     AddCollectionComponent, 
     AddCustomFieldComponent,
     AddItemManuallyComponent,
-    CustomFieldFormComponent
+    CustomFieldFormComponent,
+    DashboardComponent
   ],
 })
 export class PagesModule {
