@@ -43,7 +43,7 @@ export class AddCollectionComponent implements OnInit {
       fields: new FormArray([])
     });
 
-    this.customFieldFormSub = this.formService.teamForm$
+    this.customFieldFormSub = this.formService.collectionForm
     .subscribe(team => {
         this.addCollectionGroup = team
         this.customFields = this.addCollectionGroup.get('fields') as FormArray
