@@ -12,6 +12,7 @@ import { ReactiveFormsModule }          from '@angular/forms';
 import { CustomFieldFormComponent } from './add-item-manually/custom-field-form/custom-field-form.component';
 import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ViewCollectionComponent } from './view-collection/view-collection.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AddCustomFieldComponent,
     AddItemManuallyComponent,
     CustomFieldFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    ViewCollectionComponent
   ],
 })
 export class PagesModule {

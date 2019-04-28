@@ -18,6 +18,10 @@
           <td>{{col.type}}</td>
           <td>{{col.members}}</td>
           <td>
+              <a (click)="viewCollection(col.id)">
+                  <fa-icon [icon]="viewIcon"></fa-icon>
+                </a>
+
               <a (click)="editCollection(col.id)">
                   <fa-icon [icon]="editIcon"></fa-icon>
                 </a>

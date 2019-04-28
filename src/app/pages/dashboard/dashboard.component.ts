@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Collection } from '../../Entities/collection';
 import { CollectionService } from '../../Services/collection.service';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 
@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
   removeIcon = faTrash;
   editIcon = faEdit;
+  viewIcon = faEye;
 
   collections: Collection[];
 
@@ -32,5 +33,10 @@ export class DashboardComponent implements OnInit {
   deleteCollection(id: number)
   {
     this.collectionService.deleteCollection(id);
+  }
+
+  viewCollection(id: Number)
+  {
+    this.router.navigate(['/pages/collection/view', id]);
   }
 }
