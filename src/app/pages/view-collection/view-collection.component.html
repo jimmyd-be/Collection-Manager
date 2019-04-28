@@ -28,7 +28,13 @@
       <a (click)="changeLetterFilter('ALL')" >
           ALL
         </a>
-
   </div>
+</div>
+
+<div class="row" class="search-results"
+infiniteScroll
+[infiniteScrollDistance]="2"
+[infiniteScrollThrottle]="50"
+(scrolled)="onScroll()">
 
 </div>

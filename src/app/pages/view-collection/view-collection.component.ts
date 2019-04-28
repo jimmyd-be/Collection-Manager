@@ -5,6 +5,8 @@ import { CustomFieldService } from '../../Services/custom-field.service';
 import { CustomField } from '../../Entities/custom-field';
 import { Collection } from '../../Entities/collection';
 import { faList, faThList, faTh } from '@fortawesome/free-solid-svg-icons';
+import { ItemService } from '../../Services/item.service';
+import { Item } from '../../Entities/item';
 
 @Component({
   selector: 'view-collection',
@@ -16,6 +18,8 @@ export class ViewCollectionComponent implements OnInit {
   listIcon = faList;
   cardIcon = faTh;
 
+  itemsPerPage: number = 50;
+  currentPage: number = 0;
   currentView: string = 'list';
   currentLetterFilter: string = 'ALL';
 
@@ -23,9 +27,10 @@ export class ViewCollectionComponent implements OnInit {
 
   collection: Collection; 
   fields: CustomField[];
+  items: Item[];
   
 
-  constructor(private route: ActivatedRoute, private collectionService: CollectionService, private customFieldService: CustomFieldService) { }
+  constructor(private route: ActivatedRoute, private collectionService: CollectionService, private customFieldService: CustomFieldService, private itemService: ItemService) { }
 
   ngOnInit() {
 
@@ -46,6 +51,14 @@ export class ViewCollectionComponent implements OnInit {
 
   changeLetterFilter(filter: string): void{
     this.currentLetterFilter = filter;
+  }
+
+  onScroll() {
+    this.currentPage += 1;
+    
+    let newItems = this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage);
+
+    this.items.push(newItems);
   }
 
 }

@@ -13,6 +13,7 @@ import { CustomFieldFormComponent } from './add-item-manually/custom-field-form/
 import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ViewCollectionComponent } from './view-collection/view-collection.compo
     NbInputModule,
     NbCheckboxModule,
     NbDatepickerModule,
-    NbAccordionModule
+    NbAccordionModule,
+    InfiniteScrollModule
   ],
   declarations: [
     PagesComponent, 
