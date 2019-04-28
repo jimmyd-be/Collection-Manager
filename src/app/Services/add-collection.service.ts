@@ -32,6 +32,32 @@ addCustomField() {
   this.collectionFormPrivate.next(currentForm)
 }
 
+addCustomFieldByField(field: CustomField): void{
+  const currentForm = this.collectionFormPrivate.getValue()
+  const currentFields = currentForm.get('fields') as FormArray
+
+  let form = new CollectionForm();
+
+  form.name.setValue(field.name);
+  form.type.setValue(field.type);
+  form.choises.setValue(field.options);
+  form.placeholder.setValue(field.placeholder);
+  form.required.setValue(field.required);
+  form.multiValue.setValue(field.multivalues);
+  form.fieldOrder.setValue(field.fieldOrder);
+  form.place.setValue(field.place);
+  form.labelposition.setValue(field.labelPosition);
+  form.label.setValue(field.label);
+
+  currentFields.push(
+    this.fb.group(
+      form
+    )
+  )
+
+  this.collectionFormPrivate.next(currentForm)
+}
+
 deleteCustomField(i: number) {
   const currentForm = this.collectionFormPrivate.getValue()
   const currentFields = currentForm.get('fields') as FormArray

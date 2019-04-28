@@ -24,6 +24,7 @@ export class AddCollectionComponent implements OnInit {
 
   collection: Collection;
   fields: CustomField[];
+  editMode: boolean = false;
 
   constructor(private collectionService: CollectionService, private formBuilder: FormBuilder, private formService: AddCollectionService, private fb: FormBuilder, private route: ActivatedRoute, private customFieldService: CustomFieldService) { }
 
@@ -32,23 +33,30 @@ export class AddCollectionComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       if(params.has('id'))
       {
+        this.editMode= true;
         this.collection = this.collectionService.getUserCollection(+params.get('id'));
         this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
+
+        for(let field of this.fields)
+        {
+          this.formService.addCustomFieldByField(field)
+
+        }
       }
     });
     
-    this.addCollectionGroup = new FormGroup({
-      name: new FormControl(''),
-      type: new FormControl(''),
-      fields: new FormArray([])
-    });
-
     this.customFieldFormSub = this.formService.collectionForm
-    .subscribe(team => {
-        this.addCollectionGroup = team
+    .subscribe(group => {
+        this.addCollectionGroup = group
         this.customFields = this.addCollectionGroup.get('fields') as FormArray
-      })
 
+        if(this.editMode)
+        {
+          this.addCollectionGroup.get('name').setValue(this.collection.name);
+          this.addCollectionGroup.get('type').setValue(this.collection.type);
+          this.addCollectionGroup.get('type').disable();
+        }      
+      });
 
     this.collectionTypes = this.collectionService.getCollectionTypes();
   }
@@ -87,10 +95,19 @@ export class AddCollectionComponent implements OnInit {
       fields.push(newField);
     }
 
+    if(!this.editMode)
+    {
+        let collection = new Collection(-1, this.addCollectionGroup.value.name, this.addCollectionGroup.value.type, [], fields);
 
-    let collection = new Collection(-1, this.addCollectionGroup.value.name, this.addCollectionGroup.value.type, [], fields);
+        this.collectionService.createCollection(collection);
+    }
+    else
+    {
+      this.collection.name = this.addCollectionGroup.value.name;
+      this.collection.fields = fields;
 
-    this.collectionService.createCollection(collection);
+      this.collectionService.editCollection( this.collection);
+    }
   }
 
 }

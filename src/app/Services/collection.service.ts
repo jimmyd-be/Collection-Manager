@@ -5,6 +5,9 @@ import { Collection } from '../Entities/collection';
   providedIn: 'root'
 })
 export class CollectionService {
+  editCollection(collection: Collection) {
+    throw new Error("Method not implemented.");
+  }
   
   deleteCollection(id: number) {
     throw new Error("Method not implemented.");

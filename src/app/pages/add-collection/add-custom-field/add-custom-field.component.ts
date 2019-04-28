@@ -34,6 +34,8 @@ export class AddCustomFieldComponent implements OnInit {
     this.labelPositions = this.fieldService.getLabelPositions();
     this.fieldPositions = this.fieldService.getFieldPositions();
 
+    this.typeChanged(this.customFieldForm.get('type').value);
+
   }
 
   delete() {
