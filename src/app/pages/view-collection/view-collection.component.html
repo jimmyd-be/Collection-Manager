@@ -1,3 +1,34 @@
-<p>
-  view-collection works!
-</p>
+<div class="row">
+  <div class="col">
+    <a (click)="changeView('list')">
+      <fa-icon [icon]="listIcon" class="fa-2x" [ngClass]="{'activeItem': currentView=='list'}"></fa-icon>
+    </a>
+
+    <a (click)="changeView('cards')">
+      <fa-icon [icon]="cardIcon" class="fa-2x" [ngClass]="{'activeItem': currentView=='cards'}"></fa-icon>
+    </a>
+
+  </div>
+  <div class="col collectionText">
+    {{collection.name}}
+  </div>
+  <div class="col">
+    <input type="text" placeholder="Search" class="rightAlign" />
+  </div>
+</div>
+<div class="row">
+
+  <div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
+      <a (click)="changeLetterFilter(filter)" >
+        {{filter}}
+      </a>
+  </div>
+
+  <div class="col" [ngClass]="{'activeItem': currentLetterFilter=='ALL'}">
+      <a (click)="changeLetterFilter('ALL')" >
+          ALL
+        </a>
+
+  </div>
+
+</div>

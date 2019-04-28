@@ -4,6 +4,7 @@ import { CollectionService } from '../../Services/collection.service';
 import { CustomFieldService } from '../../Services/custom-field.service';
 import { CustomField } from '../../Entities/custom-field';
 import { Collection } from '../../Entities/collection';
+import { faList, faThList, faTh } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'view-collection',
@@ -12,12 +13,23 @@ import { Collection } from '../../Entities/collection';
 })
 export class ViewCollectionComponent implements OnInit {
 
+  listIcon = faList;
+  cardIcon = faTh;
+
+  currentView: string = 'list';
+  currentLetterFilter: string = 'ALL';
+
+  firstLetterFilter: string[] ;
+
   collection: Collection; 
   fields: CustomField[];
+  
 
   constructor(private route: ActivatedRoute, private collectionService: CollectionService, private customFieldService: CustomFieldService) { }
 
   ngOnInit() {
+
+    this.firstLetterFilter = "#ABCDEFGHIJKLMNOPQRSTUVWQYZ".split('');
 
     this.route.paramMap.subscribe((params: ParamMap) => {
       if(params.has('id'))
@@ -26,6 +38,14 @@ export class ViewCollectionComponent implements OnInit {
         this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
       }
     });
+  }
+
+  changeView(view: string): void{
+    this.currentView = view;
+  }
+
+  changeLetterFilter(filter: string): void{
+    this.currentLetterFilter = filter;
   }
 
 }
