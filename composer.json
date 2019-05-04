@@ -1,0 +1,9 @@
+{
+    "name": "lonelobo0070/cm_backend",
+    "description": "Backend of Collection Manager application",
+    "type": "project",
+    "minimum-stability": "alpha",
+    "require": {
+        "slim/psr7": "^0.1.0"
+    }
+}
