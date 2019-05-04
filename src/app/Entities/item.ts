@@ -1,4 +1,4 @@
 export class Item {
 
-    constructor() {}
+    constructor(public name: string, public image: string) {}
 }

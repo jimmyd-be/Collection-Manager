@@ -19,22 +19,41 @@
 <div class="row">
 
   <div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
-      <a (click)="changeLetterFilter(filter)" >
-        {{filter}}
-      </a>
+    <a (click)="changeLetterFilter(filter)">
+      {{filter}}
+    </a>
   </div>
 
   <div class="col" [ngClass]="{'activeItem': currentLetterFilter=='ALL'}">
-      <a (click)="changeLetterFilter('ALL')" >
-          ALL
-        </a>
+    <a (click)="changeLetterFilter('ALL')">
+      ALL
+    </a>
   </div>
 </div>
 
-<div class="row" class="search-results"
-infiniteScroll
-[infiniteScrollDistance]="2"
-[infiniteScrollThrottle]="50"
-(scrolled)="onScroll()">
+<div class="row" class="search-results itemList" infiniteScroll [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+
+  <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
+    <nb-accordion>
+      <nb-accordion-item *ngFor="let item of items">
+        <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <view-item [item]="item"></view-item>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+
+  <div *ngIf="currentView === 'cards'">
+    <div class="card" *ngFor="let item of items">
+      <img src="{{item.image}}" class="card-img-top" alt="Cover" *ngIf="item.image != null">
+      <img src="../../../assets/images/noImage.jpeg" class="card-img-top" alt="Cover" *ngIf="item.image == null">
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+  </div>
 
 </div>

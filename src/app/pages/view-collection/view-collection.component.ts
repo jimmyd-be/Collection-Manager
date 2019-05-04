@@ -41,6 +41,8 @@ export class ViewCollectionComponent implements OnInit {
       {
         this.collection = this.collectionService.getUserCollection(+params.get('id'));
         this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
+
+        this.items = this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage);
       }
     });
   }
@@ -56,9 +58,12 @@ export class ViewCollectionComponent implements OnInit {
   onScroll() {
     this.currentPage += 1;
     
-    let newItems = this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage);
+    var newItems: Item[] = this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage);
 
-    this.items.push(newItems);
+    for(let item of newItems)
+    {
+      this.items.push(item);
+    }
   }
 
 }

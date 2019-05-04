@@ -14,6 +14,7 @@ import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ViewItemComponent } from './view-item/view-item.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     NbCheckboxModule,
     NbDatepickerModule,
     NbAccordionModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NbAccordionModule
   ],
   declarations: [
     PagesComponent, 
@@ -36,7 +38,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     AddItemManuallyComponent,
     CustomFieldFormComponent,
     DashboardComponent,
-    ViewCollectionComponent
+    ViewCollectionComponent,
+    ViewItemComponent
   ],
 })
 export class PagesModule {

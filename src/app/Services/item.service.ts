@@ -14,6 +14,6 @@ export class ItemService {
 
   getItemOfCollection(collectionId: number, page: number, itemsPerPage: number): Item[]
   {
-    throw new Error("Method not implemented.");
+    return [new Item('The Hobbit', null), new Item('The Matrix', 'http://upload.wikimedia.org/wikipedia/en/9/9a/The_Matrix_soundtrack_cover.jpg')];
   }
 }
