@@ -10,6 +10,14 @@ return function (App $app) {
     /** @var Container $container */
     $container = $app->getContainer();
 
-    // Here we map our UserRepository interface to its in memory implementation
-    $container->set(UserRepository::class, \DI\autowire(InMemoryUserRepository::class));
+    $container->set(UserRepository::class, UserRepository::class);
+    $container->set(CollectionRepository::class, CollectionRepository::class);
+    $container->set(CollectiontypeRepository::class, CollectiontypeRepository::class);
+    $container->set(FieldRepository::class, FieldRepository::class);
+    $container->set(FieldtypeRepository::class, FieldtypeRepository::class);
+    $container->set(ItemdataRepository::class, ItemdataRepository::class);
+    $container->set(ItemRepository::class, ItemRepository::class);
+    $container->set(RoleRepository::class, RoleRepository::class);
+    $container->set(UserCollectionRepository::class, UserCollectionRepository::class);
+
 };

@@ -17,5 +17,26 @@ return function (App $app) {
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => Logger::DEBUG,
         ],
+        'doctrine' => [
+            // if true, metadata caching is forcefully disabled
+            'dev_mode' => true,
+
+            // path where the compiled metadata info will be cached
+            // make sure the path exists and it is writable
+            'cache_dir' => __DIR__ . '/var/doctrine',
+
+            // you should add any other path containing annotated entity classes
+            'metadata_dirs' => [__DIR__ . '/src/Entity'],
+
+            'connection' => [
+                'driver' => 'pdo_mysql',
+                'host' => '172.17.0.2',
+                'port' => 3306,
+                'dbname' => 'cm',
+                'user' => 'root',
+                'password' => 'testDatabase',
+                'charset' => 'utf-8'
+            ]
+            ],
     ]);
 };

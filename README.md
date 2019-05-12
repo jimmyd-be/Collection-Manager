@@ -1,4 +1,4 @@
-# Slim Framework 4 Skeleton Application
+# Collection Manger backend (API)
 
 Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
 
@@ -30,4 +30,7 @@ Run this command in the application directory to run the test suite
 composer test
 ```
 
-That's it! Now go build something cool.
+
+## Generate entitites from Database
+
+php vendor/bin/doctrine orm:convert-mapping --from-database annotation src/Entity/

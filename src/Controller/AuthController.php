@@ -27,4 +27,10 @@ class AuthController
         // use $this->view to render the HTML
         return $response;
       }
+
+      public function register($request, $response, $args): Response {
+        // your code here
+        // use $this->view to render the HTML
+        return $response;
+      }
 }
