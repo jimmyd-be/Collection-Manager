@@ -1,15 +1,23 @@
 <?php
 declare(strict_types=1);
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManager;
-
 namespace App\Repository;
 
-class ItemdataRepository extends EntityRepository
+use Doctrine\ORM;
+
+use Doctrine\ORM\EntityRepository as EntityRepository;
+use Doctrine\ORM\EntityManager;
+use App\Entity\Itemdata;
+
+class ItemdataRepository
 {
+    private $em;
+    private $repo;
+
     function __construct(EntityManager $entityManager) {
-        parent::__construct($entityManager, Itemdata::class);
+        $this->em = $entityManager;
+        $this->repo = $entityManager->getRepository(Itemdata::class);
+
     }
 
 }

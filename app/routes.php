@@ -21,7 +21,7 @@ return function (App $app) {
         $group->post('/login', \AuthController::class . ':login');
         $group->post('/logout', \AuthController::class . ':logout');
         //$group->post('/request-pass', AuthController::class);
-        $group->post('/register', AuthController::class);
+        $group->post('/register', AuthController::class . ':register');
         //$group->post('/reset-pass', AuthController::class);
     });
 

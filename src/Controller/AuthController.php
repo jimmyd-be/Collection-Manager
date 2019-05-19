@@ -29,6 +29,8 @@ class AuthController
       }
 
       public function register($request, $response, $args): Response {
+
+        $input = $request->getParsedBody();
         // your code here
         // use $this->view to render the HTML
         return $response;

@@ -34,8 +34,8 @@ return function (App $app) {
                 'port' => 3306,
                 'dbname' => 'cm',
                 'user' => 'root',
-                'password' => 'testDatabase',
-                'charset' => 'utf-8'
+                'password' => 'testDatabase'
+                //,  'charset' => 'utf-8'
             ]
             ],
     ]);

@@ -7,9 +7,13 @@ use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Log\LoggerInterface;
 use Slim\App;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Cache\FilesystemCache;
 
 return function (App $app) {
-    /** @var Container $container */
     $container = $app->getContainer();
 
     $container->set(LoggerInterface::class, function (Container $c) {
@@ -25,5 +29,34 @@ return function (App $app) {
         $logger->pushHandler($handler);
 
         return $logger;
+    });
+
+    $container->set(EntityManager::class,function (Container $container): EntityManager {
+        $settings = $container->get('settings');
+
+        $config = Setup::createAnnotationMetadataConfiguration(
+            
+            $settings['doctrine']['metadata_dirs'],
+            $settings['doctrine']['dev_mode']
+        );
+
+        $config->setMetadataDriverImpl(
+            new AnnotationDriver(
+                new AnnotationReader,
+                $settings['doctrine']['metadata_dirs']
+            )
+        );
+
+        $config->setMetadataCacheImpl(
+            new FilesystemCache(
+                $settings['doctrine']['cache_dir']
+            )
+        );
+
+        return EntityManager::create(
+            $settings['doctrine']['connection'],
+            $config
+        );
+    
     });
 };

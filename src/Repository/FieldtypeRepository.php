@@ -1,15 +1,23 @@
 <?php
 declare(strict_types=1);
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManager;
-
 namespace App\Repository;
 
-class FieldtypeRepository extends EntityRepository
+use Doctrine\ORM;
+
+use Doctrine\ORM\EntityRepository as EntityRepository;
+use Doctrine\ORM\EntityManager;
+use App\Entity\Fieldtype;
+
+class FieldtypeRepository
 {
+    private $em;
+    private $repo;
+
     function __construct(EntityManager $entityManager) {
-        parent::__construct($entityManager, Fieldtype::class);
+        $this->em = $entityManager;
+        $this->repo = $entityManager->getRepository(Fieldtype::class);
+
     }
 
 }
