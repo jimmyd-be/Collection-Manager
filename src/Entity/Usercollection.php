@@ -48,5 +48,29 @@ class Usercollection
      */
     private $roleid;
 
+    public function getUserid(){
+		return $this->userid;
+	}
+
+	public function setUserid($userid){
+		$this->userid = $userid;
+	}
+
+	public function getCollectionid(){
+		return $this->collectionid;
+	}
+
+	public function setCollectionid($collectionid){
+		$this->collectionid = $collectionid;
+	}
+
+	public function getRoleid(){
+		return $this->roleid;
+	}
+
+	public function setRoleid($roleid){
+		$this->roleid = $roleid;
+	}
+
 
 }

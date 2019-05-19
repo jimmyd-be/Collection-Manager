@@ -63,5 +63,60 @@ class User
      */
     private $active;
 
+    public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getUsername(){
+		return $this->username;
+	}
+
+	public function setUsername($username){
+		$this->username = $username;
+	}
+
+	public function getMail(){
+		return $this->mail;
+	}
+
+	public function setMail($mail){
+		$this->mail = $mail;
+	}
+
+	public function getUserpassword(){
+		return $this->userpassword;
+	}
+
+	public function setUserpassword($userpassword){
+		$this->userpassword = $userpassword;
+	}
+
+	public function getCreationdate(){
+		return $this->creationdate;
+	}
+
+	public function setCreationdate($creationdate){
+		$this->creationdate = $creationdate;
+	}
+
+	public function getIsadmin(){
+		return $this->isadmin;
+	}
+
+	public function setIsadmin($isadmin){
+		$this->isadmin = $isadmin;
+	}
+
+	public function getActive(){
+		return $this->active;
+	}
+
+	public function setActive($active){
+		$this->active = $active;
+	}
 
 }

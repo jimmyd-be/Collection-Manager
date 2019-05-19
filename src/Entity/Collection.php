@@ -94,4 +94,60 @@ class Collection
         $this->itemid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getName(){
+		return $this->name;
+	}
+
+	public function setName($name){
+		$this->name = $name;
+	}
+
+	public function getActive(){
+		return $this->active;
+	}
+
+	public function setActive($active){
+		$this->active = $active;
+	}
+
+	public function getOwner(){
+		return $this->owner;
+	}
+
+	public function setOwner($owner){
+		$this->owner = $owner;
+	}
+
+	public function getTypeid(){
+		return $this->typeid;
+	}
+
+	public function setTypeid($typeid){
+		$this->typeid = $typeid;
+	}
+
+	public function getFieldid(){
+		return $this->fieldid;
+	}
+
+	public function setFieldid($fieldid){
+		$this->fieldid = $fieldid;
+	}
+
+	public function getItemid(){
+		return $this->itemid;
+	}
+
+	public function setItemid($itemid){
+		$this->itemid = $itemid;
+	}
+
 }

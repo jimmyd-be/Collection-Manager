@@ -88,4 +88,76 @@ class Item
         $this->collectionid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getName(){
+		return $this->name;
+	}
+
+	public function setName($name){
+		$this->name = $name;
+	}
+
+	public function getCreationdate(){
+		return $this->creationdate;
+	}
+
+	public function setCreationdate($creationdate){
+		$this->creationdate = $creationdate;
+	}
+
+	public function getLastmodified(){
+		return $this->lastmodified;
+	}
+
+	public function setLastmodified($lastmodified){
+		$this->lastmodified = $lastmodified;
+	}
+
+	public function getModifiedby(){
+		return $this->modifiedby;
+	}
+
+	public function setModifiedby($modifiedby){
+		$this->modifiedby = $modifiedby;
+	}
+
+	public function getActive(){
+		return $this->active;
+	}
+
+	public function setActive($active){
+		$this->active = $active;
+	}
+
+	public function getImage(){
+		return $this->image;
+	}
+
+	public function setImage($image){
+		$this->image = $image;
+	}
+
+	public function getAuthor(){
+		return $this->author;
+	}
+
+	public function setAuthor($author){
+		$this->author = $author;
+	}
+
+	public function getCollectionid(){
+		return $this->collectionid;
+	}
+
+	public function setCollectionid($collectionid){
+		$this->collectionid = $collectionid;
+	}
+
 }

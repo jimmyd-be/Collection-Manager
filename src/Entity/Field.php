@@ -140,4 +140,132 @@ class Field
         $this->collectionid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getName(){
+		return $this->name;
+	}
+
+	public function setName($name){
+		$this->name = $name;
+	}
+
+	public function getChoises(){
+		return $this->choises;
+	}
+
+	public function setChoises($choises){
+		$this->choises = $choises;
+	}
+
+	public function getRequired(){
+		return $this->required;
+	}
+
+	public function setRequired($required){
+		$this->required = $required;
+	}
+
+	public function getPlaceholder(){
+		return $this->placeholder;
+	}
+
+	public function setPlaceholder($placeholder){
+		$this->placeholder = $placeholder;
+	}
+
+	public function getLabel(){
+		return $this->label;
+	}
+
+	public function setLabel($label){
+		$this->label = $label;
+	}
+
+	public function getOtheroptions(){
+		return $this->otheroptions;
+	}
+
+	public function setOtheroptions($otheroptions){
+		$this->otheroptions = $otheroptions;
+	}
+
+	public function getFieldorder(){
+		return $this->fieldorder;
+	}
+
+	public function setFieldorder($fieldorder){
+		$this->fieldorder = $fieldorder;
+	}
+
+	public function getPlace(){
+		return $this->place;
+	}
+
+	public function setPlace($place){
+		$this->place = $place;
+	}
+
+	public function getMultivalues(){
+		return $this->multivalues;
+	}
+
+	public function setMultivalues($multivalues){
+		$this->multivalues = $multivalues;
+	}
+
+	public function getActive(){
+		return $this->active;
+	}
+
+	public function setActive($active){
+		$this->active = $active;
+	}
+
+	public function getLabelposition(){
+		return $this->labelposition;
+	}
+
+	public function setLabelposition($labelposition){
+		$this->labelposition = $labelposition;
+	}
+
+	public function getWidget(){
+		return $this->widget;
+	}
+
+	public function setWidget($widget){
+		$this->widget = $widget;
+	}
+
+	public function getType(){
+		return $this->type;
+	}
+
+	public function setType($type){
+		$this->type = $type;
+	}
+
+	public function getCollectionbasetype(){
+		return $this->collectionbasetype;
+	}
+
+	public function setCollectionbasetype($collectionbasetype){
+		$this->collectionbasetype = $collectionbasetype;
+	}
+
+	public function getCollectionid(){
+		return $this->collectionid;
+	}
+
+	public function setCollectionid($collectionid){
+		$this->collectionid = $collectionid;
+	}
+
 }

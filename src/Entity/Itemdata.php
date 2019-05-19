@@ -45,5 +45,29 @@ class Itemdata
      */
     private $fieldid;
 
+    public function getFieldvalue(){
+		return $this->fieldvalue;
+	}
+
+	public function setFieldvalue($fieldvalue){
+		$this->fieldvalue = $fieldvalue;
+	}
+
+	public function getItemid(){
+		return $this->itemid;
+	}
+
+	public function setItemid($itemid){
+		$this->itemid = $itemid;
+	}
+
+	public function getFieldid(){
+		return $this->fieldid;
+	}
+
+	public function setFieldid($fieldid){
+		$this->fieldid = $fieldid;
+	}
+
 
 }
