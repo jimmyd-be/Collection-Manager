@@ -7,6 +7,10 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use App\Repository\UserRepository;
 use App\Entity\User;
+use Firebase\JWT\JWT;
+use App\Entity\Token;
+use App\Entity\Dto\TokenDto;
+
 
 class AuthController
 {
@@ -22,8 +26,27 @@ class AuthController
     }
     
     public function login($request, $response, $args): Response{
-      // your code here
-      // use $this->view to render the HTML
+      
+      $input = $request->getParsedBody();
+
+      $currentUser =  $this->userRepo->getUserByNameOrMail($input['email'], $input['email']);
+
+      if($currentUser != null && password_verify($input['password'], $currentUser->getUserpassword()))
+      {
+        $token = new Token($currentUser->getId(), new \DateTime('tomorrow'));
+
+        $jwt = JWT::encode($token, $this->container->get('settings')['secureKey']);
+
+        $payload = json_encode(new TokenDto($jwt));
+        $response->getBody()->write($payload);
+
+      }
+      else{
+        $response = $response->withStatus(401);
+
+      }
+
+
       return $response;
     }
 
