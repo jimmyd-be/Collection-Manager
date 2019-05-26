@@ -7,9 +7,10 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use App\Repository\UserRepository;
 use App\Entity\User;
-use Firebase\JWT\JWT;
 use App\Entity\Token;
 use App\Entity\Dto\TokenDto;
+use ReallySimpleJWT\Token as JWT;
+
 
 
 class AuthController
@@ -35,7 +36,7 @@ class AuthController
       {
         $token = new Token($currentUser->getId(), new \DateTime('tomorrow'));
 
-        $jwt = JWT::encode($token, $this->container->get('settings')['secureKey']);
+        $jwt = JWT::create($currentUser->getId(), $this->container->get('settings')['secureKey'], time() + 86400, 'localhost');
 
         $payload = json_encode(new TokenDto($jwt));
         $response->getBody()->write($payload);
