@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NbDatepickerModule } from '@nebular/theme/components/datepicker/datepicker.module';
+import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,48 @@ import { NbDatepickerModule } from '@nebular/theme/components/datepicker/datepic
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    NbDatepickerModule.forRoot()
+    NbDatepickerModule.forRoot(),
+    NbAuthModule.forRoot({
+      strategies: [
+        NbPasswordAuthStrategy.setup({
+          name: 'email',
+          baseEndpoint: 'http://localhost:8080',
+          login: {
+            endpoint: '/auth/login',
+            method: 'post',
+            redirect: {
+              success: 'pages/dashboard',
+              failure: null,
+            }
+          },
+          register: {
+            endpoint: '/auth/register',
+            method: 'post',
+          },
+          logout: {
+            endpoint: '/auth/logout',
+            method: 'post',
+            redirect: {
+              success: '/',
+              failure: '/',
+            }
+          },
+          requestPass: {
+            endpoint: '/auth/request-pass',
+            method: 'post',
+          },
+          resetPass: {
+            endpoint: '/auth/reset-pass',
+            method: 'post',
+          },
+          token: {
+            class: NbAuthJWTToken,
+            key: 'token'
+          }
+        }),
+      ],
+      forms: {},
+    })
   ],
   bootstrap: [AppComponent],
   providers: [

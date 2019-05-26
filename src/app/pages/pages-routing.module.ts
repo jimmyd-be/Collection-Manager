@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddCollectionComponent } from './add-collection/add-collection.component';
 import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.component';
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [{
   path: '',
@@ -13,6 +14,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'dashboard',
+      canActivate: [AuthGuard],
       component: DashboardComponent,
     },
     {
@@ -20,14 +22,17 @@ const routes: Routes = [{
       children: [
         {
           path: 'add',
+          canActivate: [AuthGuard],
           component: AddCollectionComponent
         },
         {
           path: 'edit/:id',
+          canActivate: [AuthGuard],
           component: AddCollectionComponent
         },
         {
           path: 'view/:id',
+          canActivate: [AuthGuard],
           component: ViewCollectionComponent
         }
       ]
@@ -37,6 +42,7 @@ const routes: Routes = [{
       children: [
         {
           path: 'addManual',
+          canActivate: [AuthGuard],
           component: AddItemManuallyComponent
         }
       ]
@@ -45,7 +51,7 @@ const routes: Routes = [{
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
-    },
+   },
   ],
 }];
 
