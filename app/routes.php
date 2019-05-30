@@ -6,6 +6,7 @@ declare(strict_types=1);
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use App\Controller\AuthController;
+use App\Controller\CollectionController;
 use Psr\Container\ContainerInterface;
 
 
@@ -14,6 +15,10 @@ return function (App $app) {
 
     $container->set('AuthController', function (ContainerInterface $c) {
         return new AuthController($c);
+    });
+
+    $container->set('CollectionController', function (ContainerInterface $c) {
+        return new CollectionController($c);
     });
     
 
@@ -25,6 +30,10 @@ return function (App $app) {
         //$group->post('/reset-pass', AuthController::class);
     });
 
+    $app->group('/collection', function (Group $group) use ($container) {
+        $group->get('/user', \CollectionController::class . ':getByUser');
+    });
+
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
     });
@@ -32,7 +41,7 @@ return function (App $app) {
     $app->add(function ($request, $handler) {
         $response = $handler->handle($request);
         return $response
-                ->withHeader('Access-Control-Allow-Origin', 'http://localhost')
+                ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
                 ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     });

@@ -17,7 +17,15 @@ class CollectionRepository
     function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
         $this->repo = $entityManager->getRepository(Collection::class);
+    }
 
+    public function getByUser(int $userId): ?iterable
+    {
+        $query = $this->em->createQuery("SELECT c, t FROM App\Entity\Collection c JOIN c.owner u JOIN c.typeid t   WHERE u.id = :userId");
+
+        $query->setParameter('userId', $userId);
+
+        return $query->getResult();
     }
 
 }

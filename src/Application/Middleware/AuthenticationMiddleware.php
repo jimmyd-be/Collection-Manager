@@ -32,7 +32,6 @@ class AuthenticationMiddleware implements Middleware
         {
             $response = $handler->handle($request);
         }
-
         else if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
             $token = explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1];
@@ -50,7 +49,8 @@ class AuthenticationMiddleware implements Middleware
                 $response = $response->withStatus(401);
             }
         }
-        else{
+        else if($request->getMethod() != 'OPTIONS')
+        {
             $response = $response->withStatus(401);
         }
 
