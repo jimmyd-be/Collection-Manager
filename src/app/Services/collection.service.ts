@@ -23,7 +23,7 @@ export class CollectionService {
   }
 
   createCollection(collection: Collection) {
-    throw new Error("Method not implemented.");
+    return this.http.post<Collection>('/collection/add', collection);
   }
 
   getUserCollection(id: Number): Collection{

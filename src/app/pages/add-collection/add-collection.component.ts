@@ -99,7 +99,7 @@ export class AddCollectionComponent implements OnInit {
     {
         let collection = new Collection(-1, this.addCollectionGroup.value.name, this.addCollectionGroup.value.type, [], fields);
 
-        this.collectionService.createCollection(collection);
+        this.collectionService.createCollection(collection).subscribe();
     }
     else
     {
