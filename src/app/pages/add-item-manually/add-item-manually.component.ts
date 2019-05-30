@@ -26,7 +26,12 @@ export class AddItemManuallyComponent implements OnInit {
 
   ngOnInit() {
 
-    this.collectionList = this.collectionService.getUserCollections();
+    //this.collectionList = this.collectionService.getUserCollections();
+
+    this.collectionService.getUserCollections().subscribe(data => {
+
+      this.collectionList = data;
+    });
   }
 
 

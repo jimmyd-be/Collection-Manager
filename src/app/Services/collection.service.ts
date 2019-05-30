@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Collection } from '../Entities/collection';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CollectionService {
+
+  
+
+  constructor(private http: HttpClient) {
+  }
+
   editCollection(collection: Collection) {
     throw new Error("Method not implemented.");
   }
@@ -16,8 +25,6 @@ export class CollectionService {
   createCollection(collection: Collection) {
     throw new Error("Method not implemented.");
   }
-
-  constructor() { }
 
   getUserCollection(id: Number): Collection{
     if(id == 1)
@@ -31,9 +38,9 @@ export class CollectionService {
   }
 
 
-  getUserCollections(): Collection[]
+  getUserCollections(): Observable<Collection[]>
   {
-      return [new Collection(1, 'Movies', 'Movies', ['Ikke', 'jef']),new Collection(2, 'Games', 'Games', ['Ikke', 'jef'])];
+      return this.http.get<Collection[]>('/collection/user');
   }
 
   getCollectionTypes(): string[]{

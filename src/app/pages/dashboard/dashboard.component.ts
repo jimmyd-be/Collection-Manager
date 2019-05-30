@@ -21,7 +21,10 @@ export class DashboardComponent implements OnInit {
   constructor(private collectionService: CollectionService, private router: Router) { }
 
   ngOnInit() {
-    this.collections = this.collectionService.getUserCollections();
+    this.collectionService.getUserCollections().subscribe(data => {
+
+      this.collections = data;
+    });
   }
 
   editCollection(id: number)
