@@ -28,4 +28,13 @@ class CollectionRepository
         return $query->getResult();
     }
 
+
+    public function save(Collection $collection): Collection
+    {
+        $this->em->persist($collection);
+        $this->em->flush();
+
+        return $collection;
+    }
+
 }

@@ -17,7 +17,13 @@ class CollectiontypeRepository
     function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
         $this->repo = $entityManager->getRepository(Collectiontype::class);
-
     }
 
+    function getbyName(string $name): ?Collectiontype
+    {
+        $query =$this->em->createQuery("SELECT t FROM App\Entity\Collectiontype t WHERE t.type = :name AND t.active = 1");
+        $query->setParameter('name', $name);
+
+        return $query->getOneOrNullResult();
+    }
 }

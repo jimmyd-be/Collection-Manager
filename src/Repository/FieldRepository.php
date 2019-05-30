@@ -18,7 +18,14 @@ class FieldRepository
     function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
         $this->repo = $entityManager->getRepository(Field::class);
-
     }
+
+    public function save(Field $field): Field
+    {
+        $this->em->persist($field);
+        $this->em->flush();
+
+        return $field;
+    }       
 
 }

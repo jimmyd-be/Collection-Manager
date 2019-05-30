@@ -20,4 +20,12 @@ class FieldtypeRepository
 
     }
 
+    function getbyName(string $name): ?Fieldtype
+    {
+        $query =$this->em->createQuery("SELECT t FROM App\Entity\Fieldtype t WHERE t.type = :name AND t.active = 1");
+        $query->setParameter('name', $name);
+
+        return $query->getOneOrNullResult();
+    }
+
 }

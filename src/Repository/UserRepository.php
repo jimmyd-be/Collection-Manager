@@ -41,4 +41,13 @@ class UserRepository
         return null;
     }
 
+    public function getById(int $id)
+    {
+        $query = $this-> em->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id');
+        $query->setParameter('id', $id);
+
+        return $query->getOneOrNullResult();
+
+    }
+
 }
