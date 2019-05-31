@@ -18,6 +18,5 @@ export class CollectionForm {
 
     fields = new FormArray([]);
 
-    constructor(){
-      }
+    constructor() {}
 }

@@ -5,17 +5,17 @@ import { CustomFieldService } from '../../../Services/custom-field.service';
 
 
 @Component({
-  selector: 'app-add-custom-field',
+  selector: 'ngx-app-add-custom-field',
   templateUrl: './add-custom-field.component.html',
-  styleUrls: ['./add-custom-field.component.css']
+  styleUrls: ['./add-custom-field.component.css'],
 })
 export class AddCustomFieldComponent implements OnInit {
 
-  @Input() customFieldForm: FormGroup
-  @Input() index: number
-  @Output() deleteCustomField: EventEmitter<number> = new EventEmitter()
+  @Input() customFieldForm: FormGroup;
+  @Input() index: number;
+  @Output() deleteCustomField: EventEmitter<number> = new EventEmitter();
   removeIcon = faTrash;
-  fieldType: string
+  fieldType: string;
 
   types: string[];
   labelPositions: string[];
@@ -39,7 +39,7 @@ export class AddCustomFieldComponent implements OnInit {
   }
 
   delete() {
-    this.deleteCustomField.emit(this.index)
+    this.deleteCustomField.emit(this.index);
   }
 
   typeChanged(type: string): void {
@@ -50,35 +50,35 @@ export class AddCustomFieldComponent implements OnInit {
         this.showValueField = false;
         this.showPlaceholderField = true;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
 
       case 'url':
         this.showValueField = false;
         this.showPlaceholderField = false;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
 
       case 'textarea':
         this.showValueField = false;
         this.showPlaceholderField = true;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
 
       case 'date':
         this.showValueField = false;
         this.showPlaceholderField = true;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
 
       case 'dropdown':
         this.showValueField = true;
         this.showPlaceholderField = true;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
 
       case 'checkBox':
@@ -92,28 +92,28 @@ export class AddCustomFieldComponent implements OnInit {
         this.showValueField = true;
         this.showPlaceholderField = false;
         this.showRequiredField = true;
-        this.showAllowMultiField = false
+        this.showAllowMultiField = false;
         break;
 
       case 'email':
         this.showValueField = false;
         this.showPlaceholderField = false;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
 
       case 'rate':
         this.showValueField = false;
         this.showPlaceholderField = true;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
 
       case 'image':
         this.showValueField = false;
         this.showPlaceholderField = true;
         this.showRequiredField = true;
-        this.showAllowMultiField = true
+        this.showAllowMultiField = true;
         break;
     }
   }

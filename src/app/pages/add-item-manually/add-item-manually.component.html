@@ -13,7 +13,7 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="fields">
 
       <div *ngFor="let field of fields" class="form-row">
-        <custom-field-form [field]="field" [form]="form" class="col-12"></custom-field-form>
+        <ngx-custom-field-form [field]="field" [form]="form" class="col-12"></ngx-custom-field-form>
       </div>
 
       <div class="form-row">

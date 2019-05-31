@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CollectionService {
 
@@ -15,7 +15,7 @@ export class CollectionService {
   editCollection(collection: Collection) {
     return this.http.post<Collection>('/collection/edit', collection);
   }
-  
+
   deleteCollection(id: number) {
     return this.http.delete('/collection/' + id);
   }
@@ -24,16 +24,15 @@ export class CollectionService {
     return this.http.post<Collection>('/collection/add', collection);
   }
 
-  getUserCollection(id: Number): Observable<Collection>{
+  getUserCollection(id: Number): Observable<Collection> {
     return this.http.get<Collection>('/collection/' + id);
   }
 
-  getUserCollections(): Observable<Collection[]>
-  {
+  getUserCollections(): Observable<Collection[]> {
       return this.http.get<Collection[]>('/collection/user');
   }
 
-  getCollectionTypes(): string[]{
+  getCollectionTypes(): string[] {
     return ['Books', 'Comics', 'Games', 'Magazines', 'Movies'];
   }
 }

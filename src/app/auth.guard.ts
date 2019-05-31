@@ -5,7 +5,7 @@ import { NbAuthService } from '@nebular/auth';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
 
@@ -24,5 +24,5 @@ export class AuthGuard implements CanActivate {
       }),
     );
   }
-  
+
 }

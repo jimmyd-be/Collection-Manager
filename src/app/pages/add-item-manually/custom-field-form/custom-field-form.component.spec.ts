@@ -8,7 +8,7 @@ describe('CustomFieldFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomFieldFormComponent ]
+      declarations: [ CustomFieldFormComponent ],
     })
     .compileComponents();
   }));

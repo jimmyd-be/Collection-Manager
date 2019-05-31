@@ -8,7 +8,7 @@ describe('AddItemManuallyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddItemManuallyComponent ]
+      declarations: [ AddItemManuallyComponent ],
     })
     .compileComponents();
   }));

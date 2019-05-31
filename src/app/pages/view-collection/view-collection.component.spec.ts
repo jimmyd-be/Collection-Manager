@@ -8,7 +8,7 @@ describe('ViewCollectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewCollectionComponent ]
+      declarations: [ ViewCollectionComponent ],
     })
     .compileComponents();
   }));

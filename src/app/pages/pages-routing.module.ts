@@ -23,19 +23,19 @@ const routes: Routes = [{
         {
           path: 'add',
           canActivate: [AuthGuard],
-          component: AddCollectionComponent
+          component: AddCollectionComponent,
         },
         {
           path: 'edit/:id',
           canActivate: [AuthGuard],
-          component: AddCollectionComponent
+          component: AddCollectionComponent,
         },
         {
           path: 'view/:id',
           canActivate: [AuthGuard],
-          component: ViewCollectionComponent
-        }
-      ]
+          component: ViewCollectionComponent,
+        },
+      ],
     },
     {
       path: 'item',
@@ -43,9 +43,9 @@ const routes: Routes = [{
         {
           path: 'addManual',
           canActivate: [AuthGuard],
-          component: AddItemManuallyComponent
-        }
-      ]
+          component: AddItemManuallyComponent,
+        },
+      ],
     },
     {
       path: '',

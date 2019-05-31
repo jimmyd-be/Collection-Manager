@@ -8,7 +8,7 @@ describe('AddCustomFieldComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCustomFieldComponent ]
+      declarations: [ AddCustomFieldComponent ],
     })
     .compileComponents();
   }));

@@ -8,9 +8,9 @@ import { CustomField } from '../../Entities/custom-field';
 import { ItemService } from '../../Services/item.service';
 
 @Component({
-  selector: 'add-item-manually',
+  selector: 'ngx-add-item-manually',
   templateUrl: './add-item-manually.component.html',
-  styleUrls: ['./add-item-manually.component.scss']
+  styleUrls: ['./add-item-manually.component.scss'],
 })
 export class AddItemManuallyComponent implements OnInit {
 
@@ -25,9 +25,6 @@ export class AddItemManuallyComponent implements OnInit {
     private itemService: ItemService) { }
 
   ngOnInit() {
-
-    //this.collectionList = this.collectionService.getUserCollections();
-
     this.collectionService.getUserCollections().subscribe(data => {
 
       this.collectionList = data;
@@ -46,7 +43,7 @@ export class AddItemManuallyComponent implements OnInit {
   }
 
   onSubmit() {
-    this.itemService.addItemToCollection(this.collectionId, JSON.stringify(this.form.value))
+    this.itemService.addItemToCollection(this.collectionId, JSON.stringify(this.form.value));
 
   }
 }

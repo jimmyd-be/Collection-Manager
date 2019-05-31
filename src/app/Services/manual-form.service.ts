@@ -3,7 +3,7 @@ import { CustomField } from '../Entities/custom-field';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ManualFormService {
 
@@ -11,12 +11,11 @@ export class ManualFormService {
 
 
   toFormGroup(fields: CustomField[] ) {
-    let group: any = {};
+    const group: any = {};
 
     fields.forEach(field => {
 
-      if(field.type == 'url')
-      {
+      if (field.type === 'url') {
         group[field.name + '_label'] = field.required ? new FormControl(field.value || '', Validators.required)
                                               : new FormControl(field.value || '');
       }

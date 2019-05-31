@@ -41,7 +41,7 @@ import { ServerInterceptor } from './Interceptors/server-interceptor';
             redirect: {
               success: 'pages/dashboard',
               failure: null,
-            }
+            },
           },
           register: {
             endpoint: '/auth/register',
@@ -53,7 +53,7 @@ import { ServerInterceptor } from './Interceptors/server-interceptor';
             redirect: {
               success: '/',
               failure: '/',
-            }
+            },
           },
           requestPass: {
             endpoint: '/auth/request-pass',
@@ -65,12 +65,12 @@ import { ServerInterceptor } from './Interceptors/server-interceptor';
           },
           token: {
             class: NbAuthJWTToken,
-            key: 'token'
-          }
+            key: 'token',
+          },
         }),
       ],
       forms: {},
-    })
+    }),
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -78,8 +78,8 @@ import { ServerInterceptor } from './Interceptors/server-interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
 })
 export class AppModule {

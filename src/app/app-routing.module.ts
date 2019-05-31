@@ -10,8 +10,8 @@ import {
 } from '@nebular/auth';
 import { AuthGuard } from './auth.guard';
 
-const routes: Routes = [
-  { path: 'pages', 
+const routes: Routes = [{
+  path: 'pages',
   canActivate: [AuthGuard],
   loadChildren: 'app/pages/pages.module#PagesModule' },
   {

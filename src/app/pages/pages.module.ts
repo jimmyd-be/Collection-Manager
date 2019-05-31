@@ -8,7 +8,7 @@ import { AddCollectionComponent } from './add-collection/add-collection.componen
 import { AddCustomFieldComponent } from './add-collection/add-custom-field/add-custom-field.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.component';
-import { ReactiveFormsModule }          from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CustomFieldFormComponent } from './add-item-manually/custom-field-form/custom-field-form.component';
 import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -29,17 +29,17 @@ import { ViewItemComponent } from './view-item/view-item.component';
     NbDatepickerModule,
     NbAccordionModule,
     InfiniteScrollModule,
-    NbAccordionModule
+    NbAccordionModule,
   ],
   declarations: [
-    PagesComponent, 
-    AddCollectionComponent, 
+    PagesComponent,
+    AddCollectionComponent,
     AddCustomFieldComponent,
     AddItemManuallyComponent,
     CustomFieldFormComponent,
     DashboardComponent,
     ViewCollectionComponent,
-    ViewItemComponent
+    ViewItemComponent,
   ],
 })
 export class PagesModule {

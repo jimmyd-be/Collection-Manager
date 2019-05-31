@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'ngx-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -24,30 +24,26 @@ export class DashboardComponent implements OnInit {
     this.loadCollections();
   }
 
-  loadCollections()
-  {
+  loadCollections() {
     this.collectionService.getUserCollections().subscribe(data => {
 
       this.collections = data;
     });
   }
 
-  editCollection(id: number)
-  {
+  editCollection(id: number) {
     this.router.navigate(['/pages/collection/edit', id]);
   }
 
-  deleteCollection(id: number)
-  { 
+  deleteCollection(id: number) {
     this.collectionService.deleteCollection(id).subscribe(data => {
-      this.router.navigate(['/pages/dashboard']);      
+      this.router.navigate(['/pages/dashboard']);
 
       this.loadCollections();
     });
   }
 
-  viewCollection(id: Number)
-  {
+  viewCollection(id: Number) {
     this.router.navigate(['/pages/collection/view', id]);
   }
 }
