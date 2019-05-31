@@ -32,7 +32,7 @@ return function (App $app) {
 
     $app->group('/collection', function (Group $group) use ($container) {
         $group->get('/user', \CollectionController::class . ':getByUser');
-        $group->get('/add', \CollectionController::class . ':add');
+        $group->post('/add', \CollectionController::class . ':add');
     });
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

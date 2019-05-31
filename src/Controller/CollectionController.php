@@ -87,7 +87,11 @@ class CollectionController
             $newField->setChoises($field['value']);
             $newField->setRequired($field['required']);
             $newField->setPlaceholder($field['placeholder']);
-            $newField->setOtheroptions($field['options']);
+
+            if(isset($field['options']))
+            {
+                $newField->setOtheroptions($field['options']);
+            }
             $newField->setFieldorder($field['fieldOrder']);
             $newField->setPlace($field['place']);
             $newField->setLabel($field['label']);
