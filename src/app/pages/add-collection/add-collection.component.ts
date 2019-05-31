@@ -6,7 +6,7 @@ import { AddCollectionService } from '../../Services/add-collection.service';
 import { Collection } from '../../Entities/collection';
 import { CustomField } from '../../Entities/custom-field';
 import { ParamMap, ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import {Router} from "@angular/router"
 import { CustomFieldService } from '../../Services/custom-field.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class AddCollectionComponent implements OnInit {
   fields: CustomField[];
   editMode: boolean = false;
 
-  constructor(private collectionService: CollectionService, private formBuilder: FormBuilder, private formService: AddCollectionService, private fb: FormBuilder, private route: ActivatedRoute, private customFieldService: CustomFieldService) { }
+  constructor(private collectionService: CollectionService, private formBuilder: FormBuilder, private formService: AddCollectionService, private fb: FormBuilder, private route: ActivatedRoute, private customFieldService: CustomFieldService, private router: Router) { }
 
   ngOnInit() {
 
@@ -99,7 +99,9 @@ export class AddCollectionComponent implements OnInit {
     {
         let collection = new Collection(-1, this.addCollectionGroup.value.name, this.addCollectionGroup.value.type, [], fields);
 
-        this.collectionService.createCollection(collection).subscribe();
+        this.collectionService.createCollection(collection).subscribe(data => {
+          this.router.navigate(['/pages/dashboard'])
+        });
     }
     else
     {
