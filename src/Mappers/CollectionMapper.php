@@ -9,15 +9,19 @@ use App\Entity\Dto\FieldDto;
 use Psr\Container\ContainerInterface;
 use App\Repository\CollectiontypeRepository;
 use App\Repository\FieldtypeRepository;
+use App\Mappers\CollectionFieldMapper;
 
 class CollectionMapper
 {
     private $typeRepo;
     private $fieldTypeRepo;
+    private $fieldMapper;
 
     public function __construct(ContainerInterface $container) {
         $this->typeRepo = $container->get(CollectiontypeRepository::class);
         $this->fieldTypeRepo = $container->get(FieldtypeRepository::class);
+
+        $this->fieldMapper = new CollectionFieldMapper($container);
     }
 
     public function mapCollectionToDto(Collection $collection): CollectionDto
@@ -31,20 +35,7 @@ class CollectionMapper
 
         foreach($collection->getFieldid() as $field)
         {
-            $newField = new FieldDto();
-            $newField->id = $field->getId();
-            $newField->name = $field->getName();
-            $newField->type = $field->getType()->getType();
-            $newField->options = $field->getChoises();
-            $newField->required = $field->getRequired();
-            $newField->placeholder = $field->getPlaceholder();
-            $newField->fieldOrder = $field->getFieldorder();
-            $newField->place = $field->getPlace();
-            $newField->multivalues = $field->getMultivalues();
-            $newField->labelPosition = $field->getLabelposition();
-            $newField->label = $field->getLabel();
-            //$newField->value;  
-            array_push($fields, $newField);
+            array_push($fields, $this->fieldMapper->fieldToDto($field));
         }
         $newDto->fields = $fields;
 

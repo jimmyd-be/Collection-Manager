@@ -1,12 +1,11 @@
 <?php
 declare(strict_types=1);
 
-//use App\Application\Actions\User\ListUsersAction;
-//use App\Application\Actions\User\ViewUserAction;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use App\Controller\AuthController;
 use App\Controller\CollectionController;
+use App\Controller\FieldController;
 use Psr\Container\ContainerInterface;
 
 
@@ -19,6 +18,10 @@ return function (App $app) {
 
     $container->set('CollectionController', function (ContainerInterface $c) {
         return new CollectionController($c);
+    });
+
+    $container->set('FieldController', function (ContainerInterface $c) {
+        return new FieldController($c);
     });
     
 
@@ -36,6 +39,12 @@ return function (App $app) {
         $group->post('/edit', \CollectionController::class . ':edit');
         $group->delete('/{id}', \CollectionController::class . ':delete');
         $group->get('/{id}', \CollectionController::class . ':getById');
+    });
+
+    $app->group('/field', function (Group $group) use ($container) {
+        $group->get('/collection/{id}', \FieldController::class . ':getByCollection');
+        $group->get('/basic/collection/{id}', \FieldController::class . ':getBasicByCollection');
+        $group->get('/custom/collection/{id}', \FieldController::class . ':getCustomByCollection');
     });
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

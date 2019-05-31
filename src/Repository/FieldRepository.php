@@ -36,4 +36,30 @@ class FieldRepository
         return $field;
     }   
 
+    public function getCustomByCollectionId(int $collectionId)
+    {
+        $query = $this->em->createQuery("SELECT f, t FROM App\Entity\Field f JOIN f.collectionid c JOIN f.type t WHERE f.active = 1 AND c.id = :collectionId");
+        $query->setParameter('collectionId', $collectionId);
+
+        return $query->getResult();
+    }
+
+    public function getBasicByCollectionId(int $collectionId)
+    {
+        $query = $this->em->createQuery("SELECT c, t FROM App\Entity\Collection c JOIN c.typeid t WHERE c.id = :collectionId");
+        $query->setParameter('collectionId', $collectionId);
+
+        $collection = $query->getOneOrNullResult();
+
+        if($collection != null)
+        {
+            $query = $this->em->createQuery("SELECT f FROM App\Entity\Field f JOIN f.collectionbasetype t WHERE f.active = 1 AND t.id = :typeId");
+            $query->setParameter('typeId', $collection->getTypeid()->getId());
+
+            return $query->getResult();
+        }
+
+        return null;
+    }
+
 }
