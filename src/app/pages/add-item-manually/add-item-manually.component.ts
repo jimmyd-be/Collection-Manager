@@ -36,9 +36,10 @@ export class AddItemManuallyComponent implements OnInit {
 
     this.collectionId = collectionId;
 
-    this.fields = this.customfieldService.getFieldsByCollection(collectionId);
-
-    this.form = this.formService.toFormGroup(this.fields);
+    this.customfieldService.getFieldsByCollection(collectionId).subscribe(data => {
+      this.fields = data;
+      this.form = this.formService.toFormGroup(this.fields);
+    });
 
   }
 

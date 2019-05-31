@@ -3,8 +3,8 @@
 
   <nb-card-body>
     <nb-select placeholder="Please select collection" status="primary"
-      (selectedChange)="collectionSelectionChanged($event)">
-      <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
+      (selectedChange)="collectionSelectionChanged($event)" *ngFor="let collection of collectionList">
+      <nb-option [value]="collection.id">{{collection.name}}</nb-option>
     </nb-select>
   </nb-card-body>
 
