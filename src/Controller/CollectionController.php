@@ -15,6 +15,7 @@ use App\Entity\Field;
 use App\Entity\Token;
 use App\Entity\Dto\CollectionDto;
 use ReallySimpleJWT\Token as JWT;
+use App\Mappers\CollectionMapper;
 
 class CollectionController
 {
@@ -25,6 +26,7 @@ class CollectionController
     private $userRepo;
     private $fieldTypeRepo;
     private $fieldRepo;
+    private $collectionMapper;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container) {
@@ -35,6 +37,8 @@ class CollectionController
         $this->userRepo = $container->get(UserRepository::class);
         $this->fieldTypeRepo = $container->get(FieldtypeRepository::class);
         $this->fieldRepo = $container->get(FieldRepository::class);
+
+        $this->collectionMapper = new CollectionMapper($container);
         
     }
 
@@ -48,12 +52,7 @@ class CollectionController
 
         foreach($collections as $col)
         {
-            $newDto = new CollectionDto();
-            $newDto->id = $col->getId();
-            $newDto->name = $col->getName();
-            $newDto->type = $col->getTypeid()->getType();
-
-            array_push($dtoArray, $newDto);
+            array_push($dtoArray, $this->collectionMapper->mapCollectionToDto($col));
         }
 
         $response->getBody()->write(json_encode($dtoArray));
@@ -64,50 +63,123 @@ class CollectionController
     {
         $userId = (int)$request->getAttribute('userId');
         $input = $request->getParsedBody();
-
-        $type = $this->typeRepo->getbyName($input['type']);
         $user = $this->userRepo->getById($userId);
 
-        $newCollection = new Collection();
-        $newCollection->setName($input['name']);
-        $newCollection->setActive(true);
-        $newCollection->setTypeid($type);
+        $newCollection = $this->collectionMapper->mapDtoToCollection($input);
         $newCollection->setOwner($user);
 
-        $newCollection = $this->collectionRepo->save($newCollection);  
-        
         $collectionArray = array();
 
         array_push($collectionArray, $newCollection);
         
-        foreach($input['fields'] as $field)
+        foreach($newCollection->getFieldId() as $field)
         {
-            $newField = new field();
-            $newField->setName($field['name']);
-            $newField->setChoises($field['value']);
-            $newField->setRequired($field['required']);
-            $newField->setPlaceholder($field['placeholder']);
+            $newField = $this->fieldRepo->save($field);
 
-            if(isset($field['options']))
-            {
-                $newField->setOtheroptions($field['options']);
-            }
-            $newField->setFieldorder($field['fieldOrder']);
-            $newField->setPlace($field['place']);
-            $newField->setLabel($field['label']);
-            $newField->setMultivalues($field['multivalues']);
-            $newField->setActive(true);
-            $newField->setLabelposition($field['labelPosition']);
-            //$newField->setWidget($field['']);
-            $newField->setType($this->fieldTypeRepo->getbyName($field['type']));
-            //$newField->setCollectionbasetype($field['']);
-            $newField->setCollectionid($collectionArray);
-
-            $newField = $this->fieldRepo->save($newField);
-            $newCollection->addField($newField);
         }
 
         $this->collectionRepo->save($newCollection);  
+
+        return $response;
+    }
+
+    public function edit($request, $response, $args): Response
+    {
+        $userId = (int)$request->getAttribute('userId');
+        $input = $request->getParsedBody();
+        
+        $newCollection = $this->collectionMapper->mapDtoToCollection($input);
+
+        $collection = $this->collectionRepo->getById((int)$newCollection->getId());
+
+        if((int)$collection->getOwner()->getId() == $userId)
+        {
+
+            $collection = $this->collectionRepo->getById((int)$newCollection->getId());
+
+            $collection->setName($newCollection->getName());
+
+            //Add and edit actions
+            foreach($newCollection->getFieldId() as $field)
+            {
+                if($field->getId() == null)
+                {
+                    $newField = $this->fieldRepo->save($field);
+                    $collection->addField($newField);
+                }
+                else{
+                    $newField = $this->fieldRepo->edit($field);
+                }
+            }
+
+            //delete actions
+            foreach($collection->getFieldId() as $field)
+            {
+                $deleted = true;
+
+                foreach($newCollection->getFieldId() as $newField)
+                {
+                    if((int)$newField->getId() == (int)$field->getId())
+                    {
+                        $deleted = false;
+                    }
+
+                }
+
+                if($deleted)
+                {
+                    $collection->deleteField($field);
+
+                    $field->setActive(false);
+                    $this->fieldRepo->edit($field);
+                }
+            }
+
+            $this->collectionRepo->save($collection);
+        }
+        else{
+            $response = $response->withStatu(405);
+        }
+
+        return $response;
+    }
+
+    public function getById($request, $response, $args): Response
+    {
+        $userId = (int)$request->getAttribute('userId');
+        $collectionId = (int)$args['id'];
+        $collection = $this->collectionRepo->getById($collectionId);
+
+        $collections = $this->collectionRepo->getByUser($userId);
+
+        $hasPermission = true;
+
+        if($hasPermission)
+        {
+            $response->getBody()->write(json_encode($this->collectionMapper->mapCollectionToDto($collection)));
+        }
+        else{ 
+            $response = $response->withStatus(403);
+        }
+
+        return $response;
+    }
+
+    public function delete($request, $response, $args): Response
+    {
+        $userId = (int)$request->getAttribute('userId');
+
+        $collectionId = (int)$args['id'];
+        $collection = $this->collectionRepo->getById($collectionId);
+
+        if((int)$collection->getOwner()->getId() == $userId)
+        {
+            $collection->setActive(false);
+            $this->collectionRepo->save($collection); 
+        }
+        else{
+            $response = $response->withStatu(405);
+        }
 
         return $response;
     }

@@ -33,6 +33,9 @@ return function (App $app) {
     $app->group('/collection', function (Group $group) use ($container) {
         $group->get('/user', \CollectionController::class . ':getByUser');
         $group->post('/add', \CollectionController::class . ':add');
+        $group->post('/edit', \CollectionController::class . ':edit');
+        $group->delete('/{id}', \CollectionController::class . ':delete');
+        $group->get('/{id}', \CollectionController::class . ':getById');
     });
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

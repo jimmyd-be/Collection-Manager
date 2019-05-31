@@ -155,4 +155,9 @@ class Collection
         $this->fieldid[] = $field;
     }
 
+    public function deleteField(Field $field)
+    {
+        $this->fieldid->removeElement($field);
+    }
+
 }

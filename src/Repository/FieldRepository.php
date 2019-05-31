@@ -26,6 +26,14 @@ class FieldRepository
         $this->em->flush();
 
         return $field;
-    }       
+    }   
+    
+    public function edit(Field $field): Field
+    {
+        $this->em->merge($field);
+        $this->em->flush();
+
+        return $field;
+    }   
 
 }
