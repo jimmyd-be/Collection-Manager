@@ -19,7 +19,7 @@ export class CollectionService {
   }
   
   deleteCollection(id: number) {
-    throw new Error("Method not implemented.");
+    return this.http.delete('/collection/' + id);
   }
 
   createCollection(collection: Collection) {

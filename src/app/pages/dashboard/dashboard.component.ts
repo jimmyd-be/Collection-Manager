@@ -21,6 +21,11 @@ export class DashboardComponent implements OnInit {
   constructor(private collectionService: CollectionService, private router: Router) { }
 
   ngOnInit() {
+    this.loadCollections();
+  }
+
+  loadCollections()
+  {
     this.collectionService.getUserCollections().subscribe(data => {
 
       this.collections = data;
@@ -34,8 +39,12 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteCollection(id: number)
-  {
-    this.collectionService.deleteCollection(id);
+  { 
+    this.collectionService.deleteCollection(id).subscribe(data => {
+      this.router.navigate(['/pages/dashboard']);      
+
+      this.loadCollections();
+    });
   }
 
   viewCollection(id: Number)
