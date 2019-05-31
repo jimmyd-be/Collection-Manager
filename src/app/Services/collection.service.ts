@@ -9,13 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class CollectionService {
 
-  
-
   constructor(private http: HttpClient) {
   }
 
   editCollection(collection: Collection) {
-    throw new Error("Method not implemented.");
+    return this.http.post<Collection>('/collection/edit', collection);
   }
   
   deleteCollection(id: number) {
@@ -26,17 +24,9 @@ export class CollectionService {
     return this.http.post<Collection>('/collection/add', collection);
   }
 
-  getUserCollection(id: Number): Collection{
-    if(id == 1)
-    {
-    return new Collection(1, 'Movies', 'Movies', ['Ikke', 'jef'])
-    }
-    else if(id == 2)
-    {
-      return new Collection(2, 'Games', 'Games', ['Ikke', 'jef']);
-    }
+  getUserCollection(id: Number): Observable<Collection>{
+    return this.http.get<Collection>('/collection/' + id);
   }
-
 
   getUserCollections(): Observable<Collection[]>
   {

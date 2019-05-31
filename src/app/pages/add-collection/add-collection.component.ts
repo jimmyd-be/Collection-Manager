@@ -34,29 +34,27 @@ export class AddCollectionComponent implements OnInit {
       if(params.has('id'))
       {
         this.editMode= true;
-        this.collection = this.collectionService.getUserCollection(+params.get('id'));
-        this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
+        this.collectionService.getUserCollection(+params.get('id')).subscribe(data => {
+          this.collection = data;
+          this.fields = data.fields;
+
+          this.addCollectionGroup.get('name').setValue(this.collection.name);
+          this.addCollectionGroup.get('type').setValue(this.collection.type);
+          this.addCollectionGroup.get('type').disable();
 
         for(let field of this.fields)
         {
           this.formService.addCustomFieldByField(field)
-
         }
+        });
       }
-    });
-    
-    this.customFieldFormSub = this.formService.collectionForm
+
+      this.customFieldFormSub = this.formService.collectionForm
     .subscribe(group => {
         this.addCollectionGroup = group
-        this.customFields = this.addCollectionGroup.get('fields') as FormArray
-
-        if(this.editMode)
-        {
-          this.addCollectionGroup.get('name').setValue(this.collection.name);
-          this.addCollectionGroup.get('type').setValue(this.collection.type);
-          this.addCollectionGroup.get('type').disable();
-        }      
+        this.customFields = this.addCollectionGroup.get('fields') as FormArray   
       });
+    });
 
     this.collectionTypes = this.collectionService.getCollectionTypes();
   }
@@ -81,6 +79,7 @@ export class AddCollectionComponent implements OnInit {
     for(let customField of this.addCollectionGroup.value.fields)
     {
       let newField = new CustomField(
+        customField['id'],
       customField['name'],
       customField['type'],
       customField['options'],
@@ -100,7 +99,7 @@ export class AddCollectionComponent implements OnInit {
         let collection = new Collection(-1, this.addCollectionGroup.value.name, this.addCollectionGroup.value.type, [], fields);
 
         this.collectionService.createCollection(collection).subscribe(data => {
-          this.router.navigate(['/pages/dashboard'])
+          this.router.navigate(['/pages/dashboard']);
         });
     }
     else
@@ -108,7 +107,9 @@ export class AddCollectionComponent implements OnInit {
       this.collection.name = this.addCollectionGroup.value.name;
       this.collection.fields = fields;
 
-      this.collectionService.editCollection( this.collection);
+      this.collectionService.editCollection( this.collection).subscribe(data => {
+        this.router.navigate(['/pages/dashboard']);
+      });
     }
   }
 

@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
   editCollection(id: number)
   {
     this.router.navigate(['/pages/collection/edit', id]);
-
   }
 
   deleteCollection(id: number)

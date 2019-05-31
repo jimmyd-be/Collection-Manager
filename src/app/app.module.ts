@@ -34,7 +34,7 @@ import { ServerInterceptor } from './Interceptors/server-interceptor';
       strategies: [
         NbPasswordAuthStrategy.setup({
           name: 'email',
-          baseEndpoint: 'http://localhost:8080',
+          baseEndpoint: '',
           login: {
             endpoint: '/auth/login',
             method: 'post',

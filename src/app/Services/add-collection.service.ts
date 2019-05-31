@@ -38,6 +38,7 @@ addCustomFieldByField(field: CustomField): void{
 
   let form = new CollectionForm();
 
+  form.id.setValue(field.id);
   form.name.setValue(field.name);
   form.type.setValue(field.type);
   form.choises.setValue(field.options);

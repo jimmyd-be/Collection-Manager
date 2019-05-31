@@ -39,8 +39,14 @@ export class ViewCollectionComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       if(params.has('id'))
       {
-        this.collection = this.collectionService.getUserCollection(+params.get('id'));
-        this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
+
+        this.collectionService.getUserCollection(+params.get('id')).subscribe(data => {
+          this.collection = data;
+          this.fields = data.fields;
+        });
+
+        //this.collection = this.collectionService.getUserCollection(+params.get('id'));
+        //this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
 
         this.items = this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage);
       }

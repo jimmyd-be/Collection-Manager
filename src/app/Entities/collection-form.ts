@@ -2,6 +2,7 @@ import { FormControl, FormArray } from '@angular/forms';
 
 export class CollectionForm {
 
+    id = new FormControl();
     name = new FormControl();
     type = new FormControl();
     choises = new FormControl();
