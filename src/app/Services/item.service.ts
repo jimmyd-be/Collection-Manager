@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../Entities/item';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   addItemToCollection(collectionId: Number, arg1: string): any {
-    throw new Error('Method not implemented.');
+    return this.http.post('/item/add/collection/' + collectionId, arg1);
   }
 
   getItemOfCollection(collectionId: number, page: number, itemsPerPage: number): Item[] {

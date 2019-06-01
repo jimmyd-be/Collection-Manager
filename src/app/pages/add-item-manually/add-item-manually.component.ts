@@ -46,7 +46,7 @@ export class AddItemManuallyComponent implements OnInit {
   }
 
   onSubmit() {
-    this.itemService.addItemToCollection(this.collectionId, JSON.stringify(this.form.value));
+    this.itemService.addItemToCollection(this.collectionId, this.form.value).subscribe(data => {});
   }
 
   deleteField(field: CustomField) {
