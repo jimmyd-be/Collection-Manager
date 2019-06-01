@@ -17,7 +17,16 @@ class ItemdataRepository
     function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
         $this->repo = $entityManager->getRepository(Itemdata::class);
-
     }
+
+    public function save(Itemdata $item): Itemdata
+    {
+        $this->em->persist($item);
+        $this->em->flush();
+
+        return $item;
+    }
+
+
 
 }

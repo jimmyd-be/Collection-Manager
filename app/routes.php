@@ -6,6 +6,7 @@ use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use App\Controller\AuthController;
 use App\Controller\CollectionController;
 use App\Controller\FieldController;
+use App\Controller\ItemController;
 use Psr\Container\ContainerInterface;
 
 
@@ -23,7 +24,10 @@ return function (App $app) {
     $container->set('FieldController', function (ContainerInterface $c) {
         return new FieldController($c);
     });
-    
+
+    $container->set('ItemController', function (ContainerInterface $c) {
+        return new ItemController($c);
+    });
 
     $app->group('/auth', function (Group $group) use ($container) {
         $group->post('/login', \AuthController::class . ':login');
@@ -45,6 +49,10 @@ return function (App $app) {
         $group->get('/collection/{id}', \FieldController::class . ':getByCollection');
         $group->get('/basic/collection/{id}', \FieldController::class . ':getBasicByCollection');
         $group->get('/custom/collection/{id}', \FieldController::class . ':getCustomByCollection');
+    });
+
+    $app->group('/item', function (Group $group) use ($container) {
+        $group->post('/add/collection/{id}', \ItemController::class . ':addToCollection');
     });
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

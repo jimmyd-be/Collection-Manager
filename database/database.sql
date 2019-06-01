@@ -109,7 +109,7 @@ CREATE TABLE itemdata (
     FOREIGN KEY (fieldId) REFERENCES field(id)
 );
 
-CREATE TABLE collectionField(
+CREATE TABLE collectionfield(
     collectionId BIGINT UNSIGNED NOT NULL,
     fieldId BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (collectionId, fieldId),
