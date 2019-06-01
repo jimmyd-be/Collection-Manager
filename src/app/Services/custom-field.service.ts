@@ -27,4 +27,15 @@ export class CustomFieldService {
 
     return this.http.get<CustomField[]>('/field/collection/' + collectionId);
   }
+
+  sortFields(fields: CustomField[]): CustomField[] {
+
+    return fields.sort((f1, f2) => {
+      if (f1.fieldOrder === f2.fieldOrder) {
+        return f1.valueNumber - f2.valueNumber;
+      }
+
+      return f1.fieldOrder - f2.fieldOrder;
+    });
+  }
 }

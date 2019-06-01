@@ -37,14 +37,37 @@ export class AddItemManuallyComponent implements OnInit {
     this.collectionId = collectionId;
 
     this.customfieldService.getFieldsByCollection(collectionId).subscribe(data => {
-      this.fields = data;
+      this.fields = this.customfieldService.sortFields(data);
+
+      this.fields.forEach(field => field.valueNumber = 0);
+
       this.form = this.formService.toFormGroup(this.fields);
     });
-
   }
 
   onSubmit() {
     this.itemService.addItemToCollection(this.collectionId, JSON.stringify(this.form.value));
+  }
 
+  deleteField(field: CustomField) {
+
+    const index =  this.fields.indexOf(field, 0);
+    if (index > -1) {
+      this.fields.splice(index, 1);
+    }
+
+    this.formService.deleteFieldToForm(field, this.form);
+  }
+
+  addField(field: CustomField) {
+    const newField = new CustomField(field.id, field.name, field.type, field.options,
+      field.required, field.placeholder, field.fieldOrder, field.place, field.multivalues,
+      field.labelPosition, field.label, '', field.valueNumber + 1, '');
+
+    this.fields.push(newField);
+
+    this.fields = this.customfieldService.sortFields(this.fields);
+
+    this.formService.addFieldToForm(newField, this.form);
   }
 }

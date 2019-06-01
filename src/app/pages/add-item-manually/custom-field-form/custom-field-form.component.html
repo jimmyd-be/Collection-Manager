@@ -7,8 +7,8 @@
       <label *ngIf="field.type != 'checkBox'" [attr.for]="field.name">{{field.label}}</label>
     </div>
 
-    <div class="col-sm-11">
-      <input nbInput fullWidth *ngSwitchCase="'text'" [formControlName]="field.name" [id]="field.name"
+    <div class="col-sm-10">
+      <input nbInput fullWidth *ngSwitchCase="'text'" [formControlName]="field.formId" [id]="field.formId"
         [type]="field.type" [placeholder]="field.placeholder"> 
 
       <input nbInput fullWidth *ngSwitchCase="'email'" [formControlName]="field.name" [id]="field.name"
@@ -51,7 +51,17 @@
             [type]="field.type" placeholder="Give a name for the URL">
         </div>
       </div>
+    </div>
 
+    <div class="col-sm-1" *ngIf="field.multivalues">
+
+        <a (click)="addField()">
+            <fa-icon [icon]="addIcon"></fa-icon>
+          </a>
+
+      <a (click)="deleteField()" *ngIf="field.valueNumber !== 0">
+        <fa-icon [icon]="removeIcon"></fa-icon>
+      </a>
     </div>
   </div>
 

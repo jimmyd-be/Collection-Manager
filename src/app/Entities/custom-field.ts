@@ -12,5 +12,7 @@ export class CustomField {
         public multivalues: boolean,
         public labelPosition: string,
         public label: string,
-        public value: string) {}
+        public value: string,
+        public valueNumber: number = 0,
+        public formId: string = '') {}
 }
