@@ -50,9 +50,6 @@ import {
   EvaIconsPipe,
 } from './pipes';
 
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
 import { SampleLayoutComponent } from './layouts';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
@@ -110,7 +107,6 @@ const NB_THEME_PROVIDERS = [
     {
       name: 'corporate',
     },
-    [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME ],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
