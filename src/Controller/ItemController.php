@@ -10,10 +10,9 @@ use App\Repository\UserRepository;
 use App\Repository\CollectionRepository;
 use App\Repository\ItemRepository;
 use App\Repository\ItemdataRepository;
-use App\Entity\Field;
 use App\Entity\Item;
 use App\Entity\Itemdata;
-use App\Mappers\CollectionFieldMapper;
+use App\Mappers\ItemMapper;
 
 class ItemController
 {
@@ -24,6 +23,7 @@ class ItemController
     private $collectionRepo;
     private $itemRepo;
     private $itemDataRepo;
+    private $itemMapper;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container)
@@ -36,12 +36,11 @@ class ItemController
         $this->itemRepo = $container->get(ItemRepository::class);
         $this->itemDataRepo = $container->get(ItemdataRepository::class);
 
-        //$this->fieldMapper = new CollectionFieldMapper($container);
+        $this->itemMapper = new ItemMapper($container);
     }
 
     public function addToCollection($request, $response, $args): Response
     {
-
         $collectionId = (int)$args['id'];
         $userId = (int)$request->getAttribute('userId');
         $input = $request->getParsedBody();
@@ -92,5 +91,25 @@ class ItemController
         }
 
         return $response;
+    }
+
+    public function getItemFromCollection($request, $response, $args): Response
+    {
+        $collectionId = (int)$args['id'];
+        $page = (int)$args['page'];
+        $itemsOnPage = (int)$args['itemsOnPage'];
+        $userId = (int)$request->getAttribute('userId');
+
+        $items = $this->itemRepo->getItemsByCollection($collectionId, $page, $itemsOnPage);
+
+        $returnValue = array();
+
+        foreach($items as $item)
+        {
+            array_push($returnValue, $this->itemMapper->mapItemToDto($item));
+        }
+
+        $response->getBody()->write(json_encode($returnValue));
+        return  $response->withHeader('Content-Type', 'application/json');
     }
 }

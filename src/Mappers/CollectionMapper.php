@@ -5,7 +5,6 @@ namespace App\Mappers;
 use App\Entity\Collection;
 use App\Entity\Field;
 use App\Entity\Dto\CollectionDto;
-use App\Entity\Dto\FieldDto;
 use Psr\Container\ContainerInterface;
 use App\Repository\CollectiontypeRepository;
 use App\Repository\FieldtypeRepository;
