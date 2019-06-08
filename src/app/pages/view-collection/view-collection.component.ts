@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { CollectionService } from '../../Services/collection.service';
 import { CustomField } from '../../Entities/custom-field';
 import { Collection } from '../../Entities/collection';
@@ -26,7 +26,7 @@ export class ViewCollectionComponent implements OnInit {
 
   collection: Collection;
   fields: CustomField[];
-  items: Item[];
+  items: Item[] = Array();
 
   constructor(private route: ActivatedRoute, private collectionService: CollectionService,
     private itemService: ItemService) { }
@@ -35,20 +35,23 @@ export class ViewCollectionComponent implements OnInit {
 
     this.firstLetterFilter = '#ABCDEFGHIJKLMNOPQRSTUVWQYZ'.split('');
 
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      if (params.has('id')) {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
 
-        this.collectionService.getUserCollection(+params.get('id')).subscribe(data => {
-          this.collection = data;
-          this.fields = data.fields;
-        });
+    if (id !== null) {
 
-        // this.collection = this.collectionService.getUserCollection(+params.get('id'));
-        // this.fields = this.customFieldService.getFieldsByCollection(+params.get('id'));
+      this.collectionService.getUserCollection(id).subscribe(data => {
+        this.collection = data;
+        this.fields = data.fields;
+      });
 
-        this.items = this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage);
-      }
-    });
+      this.itemService.getItemOfCollection(id, this.currentPage, this.itemsPerPage).subscribe(items => {
+
+        for (const item of items)
+        {
+          this.items.push(item);
+        }
+      });
+    }
   }
 
   changeView(view: string): void {
@@ -62,12 +65,13 @@ export class ViewCollectionComponent implements OnInit {
   onScroll() {
     this.currentPage += 1;
 
-    const newItems: Item[] = this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage);
+    this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage).subscribe(items => {
+      for (const item of items)
+        {
+          this.items.push(item);
+        }
+    });
 
-    for (const item of newItems)
-    {
-      this.items.push(item);
-    }
   }
 
 }
