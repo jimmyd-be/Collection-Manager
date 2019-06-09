@@ -27,6 +27,15 @@ class ItemdataRepository
         return $item;
     }
 
+    public function getByItem(int $id)
+    {
+        $dql = "SELECT i, f FROM App\Entity\Itemdata i JOIN i.itemid c JOIN i.fieldid f WHERE c.id = :itemId AND f.active = 1";
+        $query = $this->em->createQuery($dql)
+                            ->setParameter('itemId', $id);
+
+        return $query->getResult();
+    }
+
 
 
 }

@@ -106,7 +106,7 @@ class ItemController
 
         foreach($items as $item)
         {
-            array_push($returnValue, $this->itemMapper->mapItemToDto($item));
+            array_push($returnValue, $this->itemMapper->mapItemToDto($item, $this->itemDataRepo->getByItem((int)$item->getId())));
         }
 
         $response->getBody()->write(json_encode($returnValue));
