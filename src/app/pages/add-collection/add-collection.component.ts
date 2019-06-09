@@ -86,7 +86,7 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
         customField['place'],
         customField['multiValue'],
         customField['labelposition'],
-        customField['label'], '');
+        customField['label'], '', '');
 
       fields.push(newField);
     }

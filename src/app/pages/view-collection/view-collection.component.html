@@ -39,7 +39,7 @@
       <nb-accordion-item *ngFor="let item of items">
         <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-view-item [item]="item"></ngx-view-item>
+          <ngx-view-item [item]="item" [fields]="fields"></ngx-view-item>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
@@ -47,8 +47,7 @@
 
   <div *ngIf="currentView === 'cards'">
     <div class="card" *ngFor="let item of items">
-      <img src="{{item.image}}" class="card-img-top" alt="Cover" *ngIf="item.image != null">
-      <img src="../../../assets/images/noImage.jpeg" class="card-img-top" alt="Cover" *ngIf="item.image == null">
+      <img src="{{getImage(item)}}" class="card-img-top" alt="Cover" >
       <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
       </div>

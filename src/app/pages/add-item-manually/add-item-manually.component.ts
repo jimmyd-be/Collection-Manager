@@ -62,7 +62,7 @@ export class AddItemManuallyComponent implements OnInit {
   addField(field: CustomField) {
     const newField = new CustomField(field.id, field.name, field.type, field.options,
       field.required, field.placeholder, field.fieldOrder, field.place, field.multivalues,
-      field.labelPosition, field.label, '', field.valueNumber + 1, '');
+      field.labelPosition, field.label, '', '', field.valueNumber + 1, '');
 
     this.fields.push(newField);
 

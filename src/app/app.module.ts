@@ -17,6 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NbDatepickerModule } from '@nebular/theme/components/datepicker/datepicker.module';
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { ServerInterceptor } from './Interceptors/server-interceptor';
+import { RatingModule } from 'ng-starrating';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +27,7 @@ import { ServerInterceptor } from './Interceptors/server-interceptor';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-
+    RatingModule,
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),

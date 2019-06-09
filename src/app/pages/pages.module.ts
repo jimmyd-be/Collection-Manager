@@ -15,6 +15,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ViewItemComponent } from './view-item/view-item.component';
+import { ItemFieldComponent } from './view-item/item-field/item-field.component';
+import { ImageWidgetComponent } from './view-item/item-field/image-widget/image-widget.component';
+import { RateWidgetComponent } from './view-item/item-field/rate-widget/rate-widget.component';
+import { DefaultWidgetComponent } from './view-item/item-field/default-widget/default-widget.component';
+import { RatingModule } from 'ng-starrating';
 
 
 @NgModule({
@@ -30,6 +35,7 @@ import { ViewItemComponent } from './view-item/view-item.component';
     NbAccordionModule,
     InfiniteScrollModule,
     NbAccordionModule,
+    RatingModule,
   ],
   declarations: [
     PagesComponent,
@@ -40,6 +46,10 @@ import { ViewItemComponent } from './view-item/view-item.component';
     DashboardComponent,
     ViewCollectionComponent,
     ViewItemComponent,
+    ItemFieldComponent,
+    ImageWidgetComponent,
+    RateWidgetComponent,
+    DefaultWidgetComponent,
   ],
 })
 export class PagesModule {

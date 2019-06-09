@@ -3,9 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CollectionService } from '../../Services/collection.service';
 import { CustomField } from '../../Entities/custom-field';
 import { Collection } from '../../Entities/collection';
-import { faList, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faList, faTh, faTintSlash } from '@fortawesome/free-solid-svg-icons';
 import { ItemService } from '../../Services/item.service';
 import { Item } from '../../Entities/item';
+import { FieldService } from '../../Services/field.service';
+import { ItemData } from '../../Entities/ItemData';
+import { count } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-view-collection',
@@ -29,7 +32,7 @@ export class ViewCollectionComponent implements OnInit {
   items: Item[] = Array();
 
   constructor(private route: ActivatedRoute, private collectionService: CollectionService,
-    private itemService: ItemService) { }
+    private itemService: ItemService, private fieldService: FieldService) { }
 
   ngOnInit() {
 
@@ -39,9 +42,12 @@ export class ViewCollectionComponent implements OnInit {
 
     if (id !== null) {
 
+      this.fieldService.getFieldsByCollection(id).subscribe(data => {
+        this.fields = data;
+      });
+
       this.collectionService.getUserCollection(id).subscribe(data => {
         this.collection = data;
-        this.fields = data.fields;
       });
 
       this.itemService.getItemOfCollection(id, this.currentPage, this.itemsPerPage).subscribe(items => {
@@ -52,6 +58,25 @@ export class ViewCollectionComponent implements OnInit {
         }
       });
     }
+  }
+
+  getImage(item: Item): string {
+
+    const coverField = this.fields.filter((field: CustomField) => {
+      return field.name === 'cover';
+    });
+
+    if (coverField != null && coverField.length > 0) {
+      const dataValue = item.data.filter((data: ItemData) => {
+        return data.fieldId === coverField[0].id;
+      });
+
+      if (dataValue != null && dataValue.length > 0) {
+        return dataValue[0].value;
+      }
+    }
+
+    return '../../../assets/images/noImage.jpeg';
   }
 
   changeView(view: string): void {

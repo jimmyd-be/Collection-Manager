@@ -64,6 +64,7 @@
     "ionicons": "2.0.1",
     "moment": "^2.24.0",
     "nebular-icons": "1.1.0",
+    "ng-starrating": "^1.0.6",
     "ngx-infinite-scroll": "^7.1.0",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
