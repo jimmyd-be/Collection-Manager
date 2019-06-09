@@ -103,7 +103,7 @@ CREATE TABLE field (
 CREATE TABLE itemdata (
     itemId BIGINT UNSIGNED NOT NULL,
     fieldId BIGINT UNSIGNED NOT NULL,
-    fieldValue varchar(255),
+    fieldValue VARCHAR(1024),
     PRIMARY KEY (itemId, fieldId, fieldValue),
     FOREIGN KEY (itemId) REFERENCES item(id),
     FOREIGN KEY (fieldId) REFERENCES field(id)

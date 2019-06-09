@@ -158,6 +158,6 @@ class Item
 
 	public function setCollectionid($collectionid){
 		$this->collectionid = $collectionid;
-	}
+    }
 
 }

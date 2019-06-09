@@ -45,6 +45,8 @@ class ItemController
         $userId = (int)$request->getAttribute('userId');
         $input = $request->getParsedBody();
 
+        $collection = $this->collectionRepo->getById($collectionId);
+
         $customFields = $this->fieldRepo->getCustomByCollectionId($collectionId);
         $basicFields = $this->fieldRepo->getBasicByCollectionId($collectionId);
 
@@ -55,25 +57,24 @@ class ItemController
         $titleKey = '';
 
         foreach ($basicFields as $field) {
-            if ($field->getName() == 'Title') {
+            if ($field->getName() == 'title') {
                 $titleKey = $field->getId() . "_0";
             }
         }
-
-        $collections = array();
-
-        array_push($collections, $this->collectionRepo->getById($collectionId));
 
         $newItem = new Item();
         $newItem->setName($input[$titleKey]);
         $newItem->setCreationdate(new \DateTime());
         $newItem->setAuthor($this->userRepo->getById($userId));
         $newItem->setActive(true);
-        $newItem->setCollectionid($collections);
         $newItem = $this->itemRepo->save($newItem);
 
+        $collection->addItem($newItem);
+
+        $this->collectionRepo->save($collection);
+
         foreach ($allFields as $field) {
-            if ($field->getName() != 'Title') {
+            if ($field->getName() != 'title') {
                 $keysFound = array_filter($keys, function ($var) use ($field) {
                     return (stripos($var, $field->getId()) !== false);
                 });

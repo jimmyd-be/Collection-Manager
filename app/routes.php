@@ -7,6 +7,7 @@ use App\Controller\AuthController;
 use App\Controller\CollectionController;
 use App\Controller\FieldController;
 use App\Controller\ItemController;
+use App\Controller\UserController;
 use Psr\Container\ContainerInterface;
 
 
@@ -28,6 +29,9 @@ return function (App $app) {
     $container->set('ItemController', function (ContainerInterface $c) {
         return new ItemController($c);
     });
+    $container->set('UserController', function (ContainerInterface $c) {
+        return new UserController($c);
+    });
 
     $app->group('/auth', function (Group $group) use ($container) {
         $group->post('/login', \AuthController::class . ':login');
@@ -35,6 +39,10 @@ return function (App $app) {
         //$group->post('/request-pass', AuthController::class);
         $group->post('/register', AuthController::class . ':register');
         //$group->post('/reset-pass', AuthController::class);
+    });
+
+    $app->group('/user', function (Group $group) use ($container) {
+        $group->get('', \UserController::class . ':getUser');
     });
 
     $app->group('/collection', function (Group $group) use ($container) {

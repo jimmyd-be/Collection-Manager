@@ -149,6 +149,11 @@ class Collection
 	public function setItemid($itemid){
 		$this->itemid = $itemid;
     }
+
+    public function addItem(Item $item)
+    {
+        $this->itemid[] = $item;
+    }
     
     public function addField(Field $field)
     {
