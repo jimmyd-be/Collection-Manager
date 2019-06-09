@@ -30,7 +30,7 @@ class CollectionFieldMapper
         $newField->multivalues = $field->getMultivalues();
         $newField->labelPosition = $field->getLabelposition();
         $newField->label = $field->getLabel();
-        //$newField->value;  
+        $newField->widget = $field->getWidget();  
 
         return $newField;
     }

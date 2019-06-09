@@ -16,5 +16,6 @@ class FieldDto
     public $multivalues;
     public $labelPosition;
     public $label;
-    public $value;    
+    public $value;
+    public $widget;
 }
