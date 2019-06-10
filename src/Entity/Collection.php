@@ -154,6 +154,11 @@ class Collection
     {
         $this->itemid[] = $item;
     }
+
+    public function deleteItem(Item $item)
+    {
+        $this->itemid->removeElement($item);
+    }
     
     public function addField(Field $field)
     {

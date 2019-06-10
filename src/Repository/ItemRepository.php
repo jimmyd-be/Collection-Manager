@@ -40,4 +40,13 @@ class ItemRepository
         return $query->getResult();
     }
 
+    public function getItembyId(int $itemId): ?Item
+    {
+        $dql = "SELECT i, c FROM App\Entity\Item i LEFT JOIN i.collectionid c WHERE i.id = :itemId";
+        $query = $this->em->createQuery($dql)
+                            ->setParameter('itemId', $itemId);
+
+        return $query->getOneOrNullResult();
+    }
+
 }

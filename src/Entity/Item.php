@@ -160,4 +160,8 @@ class Item
 		$this->collectionid = $collectionid;
     }
 
+  public function deleteCollection($collecion) {
+    $this->collectionid->removeElement($collecion);
+  }
+
 }

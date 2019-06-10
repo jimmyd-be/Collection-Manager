@@ -113,4 +113,33 @@ class ItemController
         $response->getBody()->write(json_encode($returnValue));
         return  $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function deleteItemFromCollection($request, $response, $args): Response
+    {
+        $itemId = (int)$args['itemId'];
+        $collectionId = (int)$args['collectionId'];
+
+        $item = $this->itemRepo->getItembyId($itemId);
+        $collection = $this->collectionRepo->getById($collectionId);
+
+        if($item != null && $collection != null)
+        {
+            $collection->deleteItem($item);
+
+            $this->collectionRepo->save($collection);
+
+            $item->deleteCollection($collection);
+
+            if(count($item->getCollectionid()) == 0)
+            {
+                $item->setActive(false);
+                $this->itemRepo->save($item);
+            }
+        }
+        else{
+            $response = $response->withStatus(400);
+        }
+
+        return $response;
+    }
 }

@@ -62,6 +62,7 @@ return function (App $app) {
     $app->group('/item', function (Group $group) use ($container) {
         $group->post('/add/collection/{id}', \ItemController::class . ':addToCollection');
         $group->get('/get/collection/{id}/{page}/{itemsOnPage}', \ItemController::class . ':getItemFromCollection');
+        $group->delete('/{itemId}/collection/{collectionId}', \ItemController::class . ':deleteItemFromCollection');
     });
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
