@@ -7,6 +7,7 @@ import { ManualFormService } from '../../Services/manual-form.service';
 import { CustomField } from '../../Entities/custom-field';
 import { ItemService } from '../../Services/item.service';
 import { NbToastrService } from '@nebular/theme';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-add-item-manually',
@@ -24,15 +25,20 @@ export class AddItemManuallyComponent implements OnInit {
     private customfieldService: CustomFieldService,
     private formService: ManualFormService,
     private itemService: ItemService,
-    private toastrService: NbToastrService) { }
+    private toastrService: NbToastrService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.collectionService.getUserCollections().subscribe(data => {
 
+    const itemId = Number(this.route.snapshot.paramMap.get('id'));
+    const collectionId = Number(this.route.snapshot.paramMap.get('colId'));
+
+    this.collectionService.getUserCollections().subscribe(data => {
       this.collectionList = data;
+
+      this.collectionSelectionChanged(collectionId);
     });
   }
-
 
   collectionSelectionChanged(collectionId: Number) {
 

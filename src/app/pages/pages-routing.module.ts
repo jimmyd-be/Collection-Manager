@@ -45,6 +45,11 @@ const routes: Routes = [{
           canActivate: [AuthGuard],
           component: AddItemManuallyComponent,
         },
+        {
+          path: 'edit/:colId/:id',
+          canActivate: [AuthGuard],
+          component: AddItemManuallyComponent,
+        },
       ],
     },
     {

@@ -3,6 +3,8 @@ import { Collection } from '../../Entities/collection';
 import { CollectionService } from '../../Services/collection.service';
 import { faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
@@ -18,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   collections: Collection[];
 
-  constructor(private collectionService: CollectionService, private router: Router) { }
+  constructor(private collectionService: CollectionService, private router: Router, private dialogService: NbDialogService) { }
 
   ngOnInit() {
     this.loadCollections();
@@ -36,11 +38,18 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteCollection(id: number) {
-    this.collectionService.deleteCollection(id).subscribe(data => {
-      this.router.navigate(['/pages/dashboard']);
 
-      this.loadCollections();
-    });
+    this.dialogService.open(ConfirmationDialogComponent)
+      .onClose.subscribe(response => {
+        if (response === 'delete') {
+
+          this.collectionService.deleteCollection(id).subscribe(data => {
+            this.router.navigate(['/pages/dashboard']);
+
+            this.loadCollections();
+          });
+        }
+      });
   }
 
   viewCollection(id: Number) {

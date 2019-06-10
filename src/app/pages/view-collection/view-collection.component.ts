@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CollectionService } from '../../Services/collection.service';
 import { CustomField } from '../../Entities/custom-field';
 import { Collection } from '../../Entities/collection';
@@ -11,6 +11,7 @@ import { ItemData } from '../../Entities/ItemData';
 import { NbDialogService } from '@nebular/theme';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { ItemField } from '../../Entities/ItemField';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'ngx-view-collection',
@@ -36,7 +37,8 @@ export class ViewCollectionComponent implements OnInit {
   items: Item[] = Array();
 
   constructor(private route: ActivatedRoute, private collectionService: CollectionService,
-    private itemService: ItemService, private fieldService: FieldService, private dialogService: NbDialogService) { }
+    private itemService: ItemService, private fieldService: FieldService, private dialogService: NbDialogService,
+    private router: Router) { }
 
   ngOnInit() {
 
@@ -104,16 +106,22 @@ export class ViewCollectionComponent implements OnInit {
   }
 
   editItem(item: Item) {
-    throw new Error("Method not implemented.");
+    this.router.navigate(['/pages/item/edit/' + this.collection.id + '/' + item.id]);
   }
 
   deleteItem(item: Item) {
-    this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
-      const index = this.items.indexOf(item, 0);
-      if (index > -1) {
-        this.items.splice(index, 1);
-      }
-      });
+
+    this.dialogService.open(ConfirmationDialogComponent)
+    .onClose.subscribe(response => {
+        if (response === 'delete') {
+          this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
+            const index = this.items.indexOf(item, 0);
+            if (index > -1) {
+              this.items.splice(index, 1);
+            }
+            });
+        }
+    });
   }
 
   onScroll() {

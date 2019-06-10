@@ -21,6 +21,7 @@ import { RateWidgetComponent } from './view-item/item-field/rate-widget/rate-wid
 import { DefaultWidgetComponent } from './view-item/item-field/default-widget/default-widget.component';
 import { RatingModule } from 'ng-starrating';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   imports: [
@@ -54,8 +55,9 @@ import { ItemDialogComponent } from './item-dialog/item-dialog.component';
     RateWidgetComponent,
     DefaultWidgetComponent,
     ItemDialogComponent,
+    ConfirmationDialogComponent,
   ],
-  entryComponents: [ItemDialogComponent],
+  entryComponents: [ItemDialogComponent, ConfirmationDialogComponent],
 })
 export class PagesModule {
 }
