@@ -17,4 +17,8 @@ export class ItemService {
   getItemOfCollection(collectionId: number, page: number, itemsPerPage: number): Observable<Item[]> {
     return this.http.get<Item[]>('/item/get/collection/' + collectionId + '/' + page + '/' + itemsPerPage);
   }
+
+  deleteItemFromCollection(id: number, collectionId: number) {
+    return this.http.delete('/item/' + id + '/collection/' + collectionId);
+  }
 }

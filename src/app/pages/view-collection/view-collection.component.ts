@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CollectionService } from '../../Services/collection.service';
 import { CustomField } from '../../Entities/custom-field';
 import { Collection } from '../../Entities/collection';
-import { faList, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faList, faTh, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { ItemService } from '../../Services/item.service';
 import { Item } from '../../Entities/item';
 import { FieldService } from '../../Services/field.service';
@@ -21,6 +21,8 @@ export class ViewCollectionComponent implements OnInit {
 
   listIcon = faList;
   cardIcon = faTh;
+  deleteIcon = faTrash;
+  editIcon = faEdit;
 
   itemsPerPage: number = 50;
   currentPage: number = 0;
@@ -90,7 +92,28 @@ export class ViewCollectionComponent implements OnInit {
   }
 
   openModal(item: Item) {
-    this.dialogService.open(ItemDialogComponent, {context: new ItemField(item, this.fields)});
+    this.dialogService.open(ItemDialogComponent, {context: new ItemField(item, this.fields, this.collection)})
+    .onClose.subscribe(
+      data => {
+        if (data === 'delete') {
+          this.deleteItem(item);
+        } else if (data === 'edit') {
+          this.editItem(item);
+        }
+      });
+  }
+
+  editItem(item: Item) {
+    throw new Error("Method not implemented.");
+  }
+
+  deleteItem(item: Item) {
+    this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
+      const index = this.items.indexOf(item, 0);
+      if (index > -1) {
+        this.items.splice(index, 1);
+      }
+      });
   }
 
   onScroll() {
