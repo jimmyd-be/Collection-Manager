@@ -42,6 +42,10 @@ export class ViewCollectionComponent implements OnInit {
 
   ngOnInit() {
 
+    if(localStorage.getItem('collectionView') !== null) {
+      this.currentView = localStorage.getItem('collectionView');
+    }
+
     this.firstLetterFilter = '#ABCDEFGHIJKLMNOPQRSTUVWQYZ'.split('');
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -87,6 +91,7 @@ export class ViewCollectionComponent implements OnInit {
 
   changeView(view: string): void {
     this.currentView = view;
+    localStorage.setItem('collectionView', view);
   }
 
   changeLetterFilter(filter: string): void {
