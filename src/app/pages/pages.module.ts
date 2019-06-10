@@ -10,7 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomFieldFormComponent } from './add-item-manually/custom-field-form/custom-field-form.component';
-import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule } from '@nebular/theme';
+import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule, NbToastrModule, NbDialogModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -20,7 +20,7 @@ import { ImageWidgetComponent } from './view-item/item-field/image-widget/image-
 import { RateWidgetComponent } from './view-item/item-field/rate-widget/rate-widget.component';
 import { DefaultWidgetComponent } from './view-item/item-field/default-widget/default-widget.component';
 import { RatingModule } from 'ng-starrating';
-
+import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 
 @NgModule({
   imports: [
@@ -34,8 +34,11 @@ import { RatingModule } from 'ng-starrating';
     NbDatepickerModule,
     NbAccordionModule,
     InfiniteScrollModule,
-    NbAccordionModule,
+    NbDialogModule.forRoot(),
     RatingModule,
+    NbToastrModule.forRoot({
+      duration: 5000,
+    }),
   ],
   declarations: [
     PagesComponent,
@@ -50,7 +53,9 @@ import { RatingModule } from 'ng-starrating';
     ImageWidgetComponent,
     RateWidgetComponent,
     DefaultWidgetComponent,
+    ItemDialogComponent,
   ],
+  entryComponents: [ItemDialogComponent],
 })
 export class PagesModule {
 }

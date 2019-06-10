@@ -6,6 +6,7 @@ import { FormGroup } from '@angular/forms';
 import { ManualFormService } from '../../Services/manual-form.service';
 import { CustomField } from '../../Entities/custom-field';
 import { ItemService } from '../../Services/item.service';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-add-item-manually',
@@ -22,7 +23,8 @@ export class AddItemManuallyComponent implements OnInit {
   constructor(private collectionService: CollectionService,
     private customfieldService: CustomFieldService,
     private formService: ManualFormService,
-    private itemService: ItemService) { }
+    private itemService: ItemService,
+    private toastrService: NbToastrService) { }
 
   ngOnInit() {
     this.collectionService.getUserCollections().subscribe(data => {
@@ -46,7 +48,11 @@ export class AddItemManuallyComponent implements OnInit {
   }
 
   onSubmit() {
-    this.itemService.addItemToCollection(this.collectionId, this.form.value).subscribe(data => {});
+    this.itemService.addItemToCollection(this.collectionId, this.form.value).subscribe(data => {
+      this.form.reset();
+
+      this.toastrService.success('success', 'Item has been added to collection.');
+    });
   }
 
   deleteField(field: CustomField) {

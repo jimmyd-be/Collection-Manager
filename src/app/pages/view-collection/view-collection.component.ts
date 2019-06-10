@@ -3,12 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { CollectionService } from '../../Services/collection.service';
 import { CustomField } from '../../Entities/custom-field';
 import { Collection } from '../../Entities/collection';
-import { faList, faTh, faTintSlash } from '@fortawesome/free-solid-svg-icons';
+import { faList, faTh } from '@fortawesome/free-solid-svg-icons';
 import { ItemService } from '../../Services/item.service';
 import { Item } from '../../Entities/item';
 import { FieldService } from '../../Services/field.service';
 import { ItemData } from '../../Entities/ItemData';
-import { count } from 'rxjs/operators';
+import { NbDialogService } from '@nebular/theme';
+import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
+import { ItemField } from '../../Entities/ItemField';
 
 @Component({
   selector: 'ngx-view-collection',
@@ -32,7 +34,7 @@ export class ViewCollectionComponent implements OnInit {
   items: Item[] = Array();
 
   constructor(private route: ActivatedRoute, private collectionService: CollectionService,
-    private itemService: ItemService, private fieldService: FieldService) { }
+    private itemService: ItemService, private fieldService: FieldService, private dialogService: NbDialogService) { }
 
   ngOnInit() {
 
@@ -71,7 +73,7 @@ export class ViewCollectionComponent implements OnInit {
         return data.fieldId === coverField[0].id;
       });
 
-      if (dataValue != null && dataValue.length > 0) {
+      if (dataValue != null && dataValue.length > 0 && dataValue[0].value && dataValue[0].value.length > 0) {
         return dataValue[0].value;
       }
     }
@@ -85,6 +87,10 @@ export class ViewCollectionComponent implements OnInit {
 
   changeLetterFilter(filter: string): void {
     this.currentLetterFilter = filter;
+  }
+
+  openModal(item: Item) {
+    this.dialogService.open(ItemDialogComponent, {context: new ItemField(item, this.fields)});
   }
 
   onScroll() {

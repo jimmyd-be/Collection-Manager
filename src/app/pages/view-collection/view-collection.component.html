@@ -9,15 +9,15 @@
     </a>
 
   </div>
-  <div class="col collectionText">
+  <div class="col collectionText" *ngIf="collection">
     {{collection.name}}
   </div>
   <div class="col">
     <input type="text" placeholder="Search" class="rightAlign" />
   </div>
 </div>
-<div class="row">
 
+<div class="row">
   <div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
     <a (click)="changeLetterFilter(filter)">
       {{filter}}
@@ -46,8 +46,8 @@
   </div>
 
   <div *ngIf="currentView === 'cards'">
-    <div class="card" *ngFor="let item of items">
-      <img src="{{getImage(item)}}" class="card-img-top" alt="Cover" >
+    <div class="card" *ngFor="let item of items" (click)="openModal(item)">
+      <img src="{{getImage(item)}}" class="card-img-top" alt="Cover">
       <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
       </div>
