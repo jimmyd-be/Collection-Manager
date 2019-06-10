@@ -59,7 +59,7 @@ class FieldRepository
             return $query->getResult();
         }
 
-        return null;
+        return array();
     }
 
 }
