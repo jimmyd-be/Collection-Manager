@@ -22,6 +22,7 @@ import { DefaultWidgetComponent } from './view-item/item-field/default-widget/de
 import { RatingModule } from 'ng-starrating';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     DefaultWidgetComponent,
     ItemDialogComponent,
     ConfirmationDialogComponent,
+    ViewUserComponent,
   ],
   entryComponents: [ItemDialogComponent, ConfirmationDialogComponent],
 })

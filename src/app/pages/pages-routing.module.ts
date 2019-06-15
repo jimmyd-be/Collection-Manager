@@ -7,6 +7,7 @@ import { AddCollectionComponent } from './add-collection/add-collection.componen
 import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.component';
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
 import { AuthGuard } from '../auth.guard';
+import { ViewUserComponent } from './view-user/view-user.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,11 @@ const routes: Routes = [{
       path: 'dashboard',
       canActivate: [AuthGuard],
       component: DashboardComponent,
+    },
+    {
+      path: 'profile',
+      canActivate: [AuthGuard],
+      component: ViewUserComponent,
     },
     {
       path: 'collection',

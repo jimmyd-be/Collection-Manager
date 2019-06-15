@@ -1,0 +1,22 @@
+
+<div class="container">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-12 col-lg-6">
+    <nb-card>
+      <nb-card-header>{{user.username}}</nb-card-header>
+      <nb-card-body>
+        <p>Email: {{user.mail}}</p>
+        <p>Is admin: {{user.isAdmin}}</p>
+        <p>Created on: {{user.creationDate}}</p>
+      </nb-card-body>
+      <nb-card-footer>
+          <button nbButton size="small" status="primary">Edit account</button>
+          <button nbButton size="small" status="primary">Change password</button>
+          <button nbButton size="small" status="danger">Delete account</button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+  </div>
+</div>

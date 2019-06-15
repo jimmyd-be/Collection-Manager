@@ -32,6 +32,13 @@ The backend of this project can be found on [GitHub](https://github.com/lonelobo
 	- Html 5 browser
 	- Apache HTTPD or equivalents
 
+### Build docker image
+	sudo docker build -t cm_frontend .
+
+
+create container
+sudo docker create -p 80:80 cm_frontend
+
 
  ### License
  MIT License
