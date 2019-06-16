@@ -77,4 +77,24 @@ class UserController
         return $response;
     }
 
+    public function editPassword($request, $response, $args): Response
+    {
+        $userId = (int)$request->getAttribute('userId');
+        $currentUser = $this->userRepo->getById($userId);
+
+        $input = $request->getParsedBody();
+
+        if($currentUser != null && password_verify($input['currentPassword'], $currentUser->getUserpassword()) && 
+        !empty($input['password']) && $input['password'] == $input['passwordRepeat'])
+        {
+            $currentUser->setUserpassword(password_hash($input['password'], PASSWORD_DEFAULT));
+            $this->userRepo->save($currentUser);
+        }
+        else {
+            $response = $response->withStatus(405);
+        }
+
+        return $response;
+    }
+
 }
