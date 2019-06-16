@@ -32,7 +32,7 @@ class AuthController
 
       $currentUser =  $this->userRepo->getUserByNameOrMail($input['email'], $input['email']);
 
-      if($currentUser != null && password_verify($input['password'], $currentUser->getUserpassword()))
+      if($currentUser != null && $currentUser->getActive() && password_verify($input['password'], $currentUser->getUserpassword()))
       {
         $token = new Token($currentUser->getId(), new \DateTime('tomorrow'));
 

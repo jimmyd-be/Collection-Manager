@@ -43,6 +43,8 @@ return function (App $app) {
 
     $app->group('/user', function (Group $group) use ($container) {
         $group->get('', \UserController::class . ':getUser');
+        $group->delete('', \UserController::class . ':deleteUser');
+        $group->post('/edit', \UserController::class . ':editUser');
     });
 
     $app->group('/collection', function (Group $group) use ($container) {

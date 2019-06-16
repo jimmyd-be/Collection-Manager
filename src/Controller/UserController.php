@@ -31,4 +31,50 @@ class UserController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function deleteUser($request, $response, $args): Response
+    {
+        $userId = (int)$request->getAttribute('userId');
+        $currentUser = $this->userRepo->getById($userId);
+
+        $input = $request->getParsedBody();
+
+        if($currentUser != null && password_verify($input['password'], $currentUser->getUserpassword()))
+        {
+            $currentUser->setActive(false);
+            $this->userRepo->save($currentUser);
+        }
+        else {
+            $response = $response->withStatus(405);
+        }
+
+        return $response;
+    }
+
+    public function editUser($request, $response, $args): Response
+    {
+        $userId = (int)$request->getAttribute('userId');
+        $currentUser = $this->userRepo->getById($userId);
+
+        $input = $request->getParsedBody();
+
+        if($currentUser != null && password_verify($input['password'], $currentUser->getUserpassword()))
+        {
+            if($input['newUser'] && !empty($input['newUser']))
+            {
+                $currentUser->setUsername($input['newUser']);
+            }
+
+            if($input['newMail'] && !empty($input['newMail']))
+            {
+                $currentUser->setMail($input['newMail']);
+            }
+            $this->userRepo->save($currentUser);
+        }
+        else {
+            $response = $response->withStatus(405);
+        }
+
+        return $response;
+    }
+
 }
