@@ -8,6 +8,9 @@ import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
 import { AuthGuard } from '../auth.guard';
 import { ViewUserComponent } from './view-user/view-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditPasswordUserComponent } from './edit-password-user/edit-password-user.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,8 +23,28 @@ const routes: Routes = [{
     },
     {
       path: 'profile',
-      canActivate: [AuthGuard],
-      component: ViewUserComponent,
+      children: [
+        {
+          path: '',
+          canActivate: [AuthGuard],
+          component: ViewUserComponent,
+        },
+        {
+          path: 'edit',
+          canActivate: [AuthGuard],
+          component: EditUserComponent,
+        },
+        {
+          path: 'delete',
+          canActivate: [AuthGuard],
+          component: DeleteUserComponent,
+        },
+        {
+          path: 'edit/password',
+          canActivate: [AuthGuard],
+          component: EditPasswordUserComponent,
+        },
+      ],
     },
     {
       path: 'collection',

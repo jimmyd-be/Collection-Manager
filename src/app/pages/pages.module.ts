@@ -23,6 +23,9 @@ import { RatingModule } from 'ng-starrating';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ViewUserComponent } from './view-user/view-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditPasswordUserComponent } from './edit-password-user/edit-password-user.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 @NgModule({
   imports: [
@@ -58,6 +61,9 @@ import { ViewUserComponent } from './view-user/view-user.component';
     ItemDialogComponent,
     ConfirmationDialogComponent,
     ViewUserComponent,
+    EditUserComponent,
+    EditPasswordUserComponent,
+    DeleteUserComponent,
   ],
   entryComponents: [ItemDialogComponent, ConfirmationDialogComponent],
 })

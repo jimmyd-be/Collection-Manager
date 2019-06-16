@@ -42,7 +42,7 @@ export class ViewCollectionComponent implements OnInit {
 
   ngOnInit() {
 
-    if(localStorage.getItem('collectionView') !== null) {
+    if (localStorage.getItem('collectionView') !== null) {
       this.currentView = localStorage.getItem('collectionView');
     }
 
