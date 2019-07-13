@@ -21,4 +21,12 @@ export class ItemService {
   deleteItemFromCollection(id: number, collectionId: number) {
     return this.http.delete('/item/' + id + '/collection/' + collectionId);
   }
+
+  editItemToCollection(itemid: number, collectionId: number, value: any) {
+    return this.http.post('/item/edit/' + itemid + '/' + collectionId, value);
+  }
+
+  getItemById(itemId: Number): Observable<Item> {
+    return this.http.get<Item>('/item/get/' + itemId);
+  }
 }

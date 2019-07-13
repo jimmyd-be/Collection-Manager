@@ -20,7 +20,8 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              "src/favicon.png"
+              "src/favicon.png",
+              "src/manifest.json"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
@@ -52,7 +53,9 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json"
             }
           }
         },
@@ -87,24 +90,24 @@
       },
       "schematics": {
         "@schematics/angular:component": {
-            "spec": false
+          "spec": false
         },
         "@schematics/angular:directive": {
-            "spec": false
+          "spec": false
         },
         "@schematics/angular:modules": {
-            "spec": false
+          "spec": false
         },
         "@schematics/angular:pipe": {
-            "spec": false
+          "spec": false
         },
         "@schematics/angular:service": {
-            "spec": false
+          "spec": false
         },
         "@schematics/angular:class": {
-            "spec": false
+          "spec": false
         }
-    }
+      }
     },
     "cm-gui-e2e": {
       "root": "",

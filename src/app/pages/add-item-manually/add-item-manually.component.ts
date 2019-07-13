@@ -8,6 +8,7 @@ import { CustomField } from '../../Entities/custom-field';
 import { ItemService } from '../../Services/item.service';
 import { NbToastrService } from '@nebular/theme';
 import { ActivatedRoute } from '@angular/router';
+import { Item } from '../../Entities/item';
 
 @Component({
   selector: 'ngx-add-item-manually',
@@ -17,13 +18,13 @@ import { ActivatedRoute } from '@angular/router';
 export class AddItemManuallyComponent implements OnInit {
 
   collectionList: Collection[];
-  collectionId: Number;
+  collectionId: number;
   form: FormGroup;
-  fields: CustomField[];
+  item: Item;
 
   constructor(private collectionService: CollectionService,
     private customfieldService: CustomFieldService,
-    private formService: ManualFormService,
+    public formService: ManualFormService,
     private itemService: ItemService,
     private toastrService: NbToastrService,
     private route: ActivatedRoute) { }
@@ -31,55 +32,54 @@ export class AddItemManuallyComponent implements OnInit {
   ngOnInit() {
 
     const itemId = Number(this.route.snapshot.paramMap.get('id'));
-    const collectionId = Number(this.route.snapshot.paramMap.get('colId'));
+    this.collectionId = Number(this.route.snapshot.paramMap.get('colId'));
+
+    this.itemService.getItemById(itemId).subscribe(data => this.item = data);
 
     this.collectionService.getUserCollections().subscribe(data => {
       this.collectionList = data;
 
-      this.collectionSelectionChanged(collectionId);
+      this.collectionSelectionChanged(this.collectionId);
     });
   }
 
-  collectionSelectionChanged(collectionId: Number) {
+  collectionSelectionChanged(collectionId: number) {
 
     this.collectionId = collectionId;
 
     this.customfieldService.getFieldsByCollection(collectionId).subscribe(data => {
-      this.fields = this.customfieldService.sortFields(data);
+      this.formService.fields = this.customfieldService.sortFields(data);
 
-      this.fields.forEach(field => field.valueNumber = 0);
+      this.formService.fields.forEach(field => field.valueNumber = 0);
 
-      this.form = this.formService.toFormGroup(this.fields);
+      this.form = this.formService.toFormGroup(this.item);
     });
   }
 
   onSubmit() {
-    this.itemService.addItemToCollection(this.collectionId, this.form.value).subscribe(data => {
-      this.form.reset();
 
-      this.toastrService.success('success', 'Item has been added to collection.');
-    });
+    if (this.item) {
+      this.itemService.editItemToCollection(this.item.id, this.collectionId, this.form.value).subscribe(data => {
+        this.form.reset();
+
+        this.toastrService.success('success', 'Item has been changed.');
+      });
+    } else {
+      this.itemService.addItemToCollection(this.collectionId, this.form.value).subscribe(data => {
+        this.form.reset();
+
+        this.toastrService.success('success', 'Item has been added to collection.');
+      });
+    }
   }
 
   deleteField(field: CustomField) {
 
-    const index =  this.fields.indexOf(field, 0);
-    if (index > -1) {
-      this.fields.splice(index, 1);
-    }
-
-    this.formService.deleteFieldToForm(field, this.form);
+    this.formService.deleteField(field, this.form);
   }
 
   addField(field: CustomField) {
-    const newField = new CustomField(field.id, field.name, field.type, field.options,
-      field.required, field.placeholder, field.fieldOrder, field.place, field.multivalues,
-      field.labelPosition, field.label, '', '', field.valueNumber + 1, '');
 
-    this.fields.push(newField);
-
-    this.fields = this.customfieldService.sortFields(this.fields);
-
-    this.formService.addFieldToForm(newField, this.form);
+  this.formService.addField(field, this.form);
   }
 }

@@ -1,30 +1,93 @@
 import { Injectable } from '@angular/core';
 import { CustomField } from '../Entities/custom-field';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Item } from '../Entities/item';
+import { isDefined } from '@angular/compiler/src/util';
+import { CustomFieldService } from './custom-field.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ManualFormService {
-  constructor() { }
 
+  fields: CustomField[];
 
-  toFormGroup(fields: CustomField[] ) {
+  constructor(private customfieldService: CustomFieldService) { }
+
+  addFieldToList(field: CustomField, number: number) {
+
+    let value = field.valueNumber + 1;
+    if (number) {
+      value = number;
+    }
+
+    const newField = new CustomField(field.id, field.name, field.type, field.options,
+      field.required, field.placeholder, field.fieldOrder, field.place, field.multivalues,
+      field.labelPosition, field.label, '', '', value, '');
+
+    this.fields.push(newField);
+
+    this.fields = this.customfieldService.sortFields(this.fields);
+
+    return newField;
+  }
+
+  addField(field: CustomField, form: FormGroup) {
+
+    const newField = this.addFieldToList(field, null);
+
+    this.addFieldToForm(newField, form);
+  }
+
+  toFormGroup(item: Item ) {
     const group: any = {};
 
-    fields.forEach(field => {
+    this.fields.forEach(field => {
 
-      field.formId = field.id + '_' + field.valueNumber;
+      let currentField = field;
 
-      if (field.type === 'url') {
-        group[field.formId + '_label'] = field.required ? new FormControl(field.value || '', Validators.required)
-                                              : new FormControl(field.value || '');
+      if (currentField.valueNumber === 0) {
+
+      const value: String[] = this.getValueOfField(currentField, item);
+
+      for (let i = 0; i < value.length; i++) {
+
+        if (i > 0) {
+          currentField = this.addFieldToList(field, i);
+        }
+
+        currentField.formId = currentField.id + '_' + currentField.valueNumber;
+
+        if (currentField.type === 'url') {
+          group[currentField.formId + '_label'] = currentField.required ? new FormControl(value[i] || '', Validators.required)
+                                                : new FormControl(value[i] || '');
+        }
+
+        group[currentField.formId] = currentField.required ? new FormControl(value[i] || '', Validators.required)
+                                                : new FormControl(value[i] || '');
       }
-
-      group[field.formId] = field.required ? new FormControl(field.value || '', Validators.required)
-                                              : new FormControl(field.value || '');
+    }
     });
     return new FormGroup(group);
+  }
+  getValueOfField(field: CustomField, item: Item): String[] {
+    let value: Array<string> = new Array();
+
+    if (isDefined(item)) {
+      if (field.name === 'title') {
+        value.push(item.name);
+      } else if (field.name === 'cover') {
+        value.push(item.image);
+      } else {
+        value = item.data.filter(data => data.fieldId === field.id).map(data => data.value);
+      }
+    }
+
+    if (value.length === 0) {
+      value.push('');
+    }
+
+    return value;
   }
 
   addFieldToForm(field: CustomField, form: FormGroup) {
@@ -36,5 +99,14 @@ export class ManualFormService {
 
   deleteFieldToForm(field: CustomField, form: FormGroup) {
     form.removeControl(field.formId);
+  }
+
+  deleteField(field: CustomField, form: FormGroup) {
+    const index =  this.fields.indexOf(field, 0);
+    if (index > -1) {
+      this.fields.splice(index, 1);
+    }
+
+    this.deleteFieldToForm(field, form);
   }
 }

@@ -18,6 +18,8 @@ import { NbDatepickerModule } from '@nebular/theme/components/datepicker/datepic
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { ServerInterceptor } from './Interceptors/server-interceptor';
 import { RatingModule } from 'ng-starrating';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -73,6 +75,7 @@ import { RatingModule } from 'ng-starrating';
       ],
       forms: {},
     }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   bootstrap: [AppComponent],
   providers: [

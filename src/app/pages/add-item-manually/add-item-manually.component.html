@@ -10,9 +10,9 @@
 
   <nb-card-footer>
 
-    <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="fields">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="formService.fields">
 
-      <div *ngFor="let field of fields" class="form-row">
+      <div *ngFor="let field of formService.fields" class="form-row">
         <ngx-custom-field-form [field]="field" [form]="form" [parentComponent]="this" class="col-12"></ngx-custom-field-form>
       </div>
 
