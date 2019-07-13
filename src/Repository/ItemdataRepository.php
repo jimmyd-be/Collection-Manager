@@ -36,6 +36,12 @@ class ItemdataRepository
         return $query->getResult();
     }
 
+    public function deleteFromItem(int $itemId)
+    {
+        $dql = "DELETE FROM itemdata WHERE itemId = ?";
+        $this->em->getConnection()->executeUpdate($dql, array($itemId));
+    }
+
 
 
 }

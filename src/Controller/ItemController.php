@@ -142,4 +142,66 @@ class ItemController
 
         return $response;
     }
+
+    public function getItemById($request, $response, $args): Response
+    {
+        $itemid = (int)$args['id'];
+        $userId = (int)$request->getAttribute('userId');
+
+        $item = $this->itemRepo->getItembyId($itemid);
+
+        $fullItem = $this->itemMapper->mapItemToDto($item, $this->itemDataRepo->getByItem((int)$item->getId()));
+
+        $response->getBody()->write(json_encode($fullItem));
+        return  $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function editItem($request, $response, $args): Response
+    {
+        $itemId = (int)$args['id'];
+        $collectionId = (int)$args['collectionId'];
+        $userId = (int)$request->getAttribute('userId');
+        $input = $request->getParsedBody();
+
+        $customFields = $this->fieldRepo->getCustomByCollectionId($collectionId);
+        $basicFields = $this->fieldRepo->getBasicByCollectionId($collectionId);
+
+        $allFields = array_merge($customFields, $basicFields);
+
+        $keys = array_keys($input);
+
+        $titleKey = '';
+
+        foreach ($basicFields as $field) {
+            if ($field->getName() == 'title') {
+                $titleKey = $field->getId() . "_0";
+            }
+        }
+
+        $newItem = $this->itemRepo->getItembyId($itemId);
+        $newItem->setName($input[$titleKey]);
+        $newItem = $this->itemRepo->save($newItem);
+
+        $this->itemDataRepo->deleteFromItem($itemId);
+
+        foreach ($allFields as $field) {
+            if ($field->getName() != 'title') {
+                $keysFound = array_filter($keys, function ($var) use ($field) {
+                    return (stripos($var, $field->getId()) !== false);
+                });
+
+                if (count($keysFound) > 0) {
+                    foreach ($keysFound as $key) {
+                        $newItemData = new Itemdata();
+                        $newItemData->setFieldvalue($input[$key]);
+                        $newItemData->setItemid($newItem);
+                        $newItemData->setFieldid($field);
+                        $this->itemDataRepo->save($newItemData);
+                    }
+                }
+            }
+        }
+
+        return $response;
+    }
 }
