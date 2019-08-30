@@ -22,13 +22,17 @@
                   <fa-icon [icon]="viewIcon"></fa-icon>
                 </a>
 
+                <a (click)="shareCollection(col.id)">
+                  <fa-icon [icon]="shareIcon"></fa-icon>
+                </a>
+
               <a (click)="editCollection(col.id)">
                   <fa-icon [icon]="editIcon"></fa-icon>
                 </a>
             
-            <a (click)="deleteCollection(col.id)">
-            <fa-icon [icon]="removeIcon"></fa-icon>
-          </a>
+              <a (click)="deleteCollection(col.id)">
+                <fa-icon [icon]="removeIcon"></fa-icon>
+            </a>
         </td>
         </tr>
        

@@ -11,6 +11,7 @@ import { ViewUserComponent } from './view-user/view-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditPasswordUserComponent } from './edit-password-user/edit-password-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { ShareCollectionComponent } from './share-collection/share-collection.component';
 
 const routes: Routes = [{
   path: '',
@@ -63,6 +64,11 @@ const routes: Routes = [{
           path: 'view/:id',
           canActivate: [AuthGuard],
           component: ViewCollectionComponent,
+        },
+        {
+          path: 'share/:id',
+          canActivate: [AuthGuard],
+          component: ShareCollectionComponent,
         },
       ],
     },

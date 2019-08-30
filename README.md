@@ -21,6 +21,10 @@ The backend of this project can be found on [GitHub](https://github.com/lonelobo
 	- by external system search
 	- Input manually
 	- Import from file
+- User Management (role based)
+	- Admin (can perform all actions on a collection)
+	- Editor (can insert, edit and delete items from a collection)
+	- Viewer (can only view the collection and his items)
 
  
 
@@ -28,16 +32,19 @@ The backend of this project can be found on [GitHub](https://github.com/lonelobo
 - For developers:
 	- Node.js verion 8.x or greater
 	- Angular CLI
+	- Apache HTTPD or equivalents
 - For users:
 	- Html 5 browser
-	- Apache HTTPD or equivalents
+	
+
 
 ### Build docker image
 	sudo docker build -t cm_frontend .
 
 
 create container
-sudo docker create -p 80:80 cm_frontend
+
+	sudo docker create -p 80:80 cm_frontend
 
 
  ### License

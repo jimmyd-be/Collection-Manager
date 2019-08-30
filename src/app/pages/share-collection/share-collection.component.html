@@ -1,0 +1,15 @@
+<nb-card>
+  <nb-card-header>Share collection with other users</nb-card-header>
+
+  <nb-card-body>
+    <nb-select placeholder="Please select collection" status="primary"
+      *ngFor="let collection of collectionList">
+      <nb-option [value]="collection.id">{{collection.name}}</nb-option>
+    </nb-select>
+  </nb-card-body>
+
+  <nb-card-footer>
+
+  </nb-card-footer>
+
+</nb-card>

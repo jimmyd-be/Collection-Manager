@@ -26,6 +26,7 @@ import { ViewUserComponent } from './view-user/view-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditPasswordUserComponent } from './edit-password-user/edit-password-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { ShareCollectionComponent } from './share-collection/share-collection.component';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
     EditUserComponent,
     EditPasswordUserComponent,
     DeleteUserComponent,
+    ShareCollectionComponent,
   ],
   entryComponents: [ItemDialogComponent, ConfirmationDialogComponent],
 })
