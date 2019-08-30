@@ -13,7 +13,7 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [{
   path: 'pages',
   canActivate: [AuthGuard],
-  loadChildren: 'app/pages/pages.module#PagesModule' },
+  loadChildren: () => import('app/pages/pages.module').then(m => m.PagesModule) },
   {
     path: 'auth',
     component: NbAuthComponent,
