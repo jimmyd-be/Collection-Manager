@@ -11,7 +11,7 @@
           <form (ngSubmit)="onSubmit()" #editForm="ngForm">
               <div class="form-group">
                 <label for="password">Current password</label>
-                <input type="password" class="form-control" id="password"
+                <input type="password" nbInput class="form-control" id="password"
                        required
                        [(ngModel)]="model.password" name="password"
                        #name="ngModel">
@@ -19,13 +19,13 @@
          
               <div class="form-group">
                   <label for="username">New username</label>
-                  <input type="text" class="form-control" id="username" required
+                  <input type="text" nbInput class="form-control" id="username" required
                          [(ngModel)]="model.newUser" name="username">
                 </div>
 
                 <div class="form-group">
                     <label for="newmail">New mail</label>
-                    <input type="email" class="form-control" id="newmail" required
+                    <input type="email" nbInput class="form-control" id="newmail" required
                            [(ngModel)]="model.newMail" name="newmail">
                   </div>
          

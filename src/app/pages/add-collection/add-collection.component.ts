@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'ngx-app-add-collection',
   templateUrl: './add-collection.component.html',
-  styleUrls: ['./add-collection.component.css'],
+  styleUrls: ['./add-collection.component.scss'],
 })
 export class AddCollectionComponent implements OnInit, OnDestroy {
 

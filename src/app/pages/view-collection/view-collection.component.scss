@@ -1,3 +1,6 @@
+@import '../../@theme/styles/themes';
+
+@include nb-install-component() {
 fa-icon {
     margin: 5px;
 }
@@ -5,7 +8,7 @@ fa-icon {
 .collectionText {
     text-align: center;
     font-size: 32px;
-    color: black;
+    color: nb-theme(text-basic-color);
 }
 
 .rightAlign {
@@ -14,11 +17,11 @@ fa-icon {
 }
 
 .activeItem {
-    color:black;
+    color: nb-theme(text-alternate-color);
 }
 
 .itemList {
-    color:black;
+    color:nb-theme(text-basic-color);
     margin-top: 20px;
 }
 
@@ -26,4 +29,18 @@ fa-icon {
     display:inline-block;
     width: 200px;
     margin-right: 20px;
+}
+
+.searchBar {
+    background-color: nb-theme(background-basic-color-1);
+    color:nb-theme(text-basic-color);
+    border-color: nb-theme(border-basic-color-1	);
+}
+
+
+.itemCard {
+    background-color: nb-theme(background-basic-color-1);
+
+    	
+}
 }

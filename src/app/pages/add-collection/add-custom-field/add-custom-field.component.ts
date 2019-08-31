@@ -7,7 +7,7 @@ import { CustomFieldService } from '../../../Services/custom-field.service';
 @Component({
   selector: 'ngx-app-add-custom-field',
   templateUrl: './add-custom-field.component.html',
-  styleUrls: ['./add-custom-field.component.css'],
+  styleUrls: ['./add-custom-field.component.scss'],
 })
 export class AddCustomFieldComponent implements OnInit {
 

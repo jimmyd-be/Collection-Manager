@@ -6,12 +6,12 @@
 
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Give unique name of the collection"
+        <input type="text" nbInput class="form-control" id="name" placeholder="Give unique name of the collection"
           formControlName="name" required>
       </div>
       <div class="form-group">
         <label for="type">Collection type</label>
-        <select class="form-control" id="type" formControlName="type" required>
+        <select class="form-control" nbInput id="type" formControlName="type" required>
           <option *ngFor="let type of collectionTypes" [ngValue]="type">{{ type }}</option>
         </select>
       </div>

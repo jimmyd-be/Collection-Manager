@@ -13,7 +13,7 @@
     {{collection.name}}
   </div>
   <div class="col">
-    <input type="text" placeholder="Search" class="rightAlign" />
+    <input type="text" placeholder="Search" class="rightAlign searchBar" />
   </div>
 </div>
 
@@ -52,7 +52,7 @@
   </div>
 
   <div *ngIf="currentView === 'cards'">
-    <div class="card" *ngFor="let item of items" (click)="openModal(item)">
+    <div class="card itemCard" *ngFor="let item of items" (click)="openModal(item)">
       <img src="{{getImage(item)}}" class="card-img-top" alt="Cover">
       <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
