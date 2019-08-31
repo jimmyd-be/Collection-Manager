@@ -7,10 +7,10 @@ import { NbMenuItem } from '@nebular/theme';
 @Component({
   selector: 'ngx-pages',
   template: `
-    <ngx-sample-layout>
+    <ngx-one-column-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
-    </ngx-sample-layout>
+    </ngx-one-column-layout>
   `,
 })
 export class PagesComponent implements OnInit {
@@ -27,7 +27,7 @@ export class PagesComponent implements OnInit {
         const newItem = new NbMenuItem();
         newItem.title = collection.name;
         newItem.link = '/pages/collection/view/' + collection.id;
-        newItem.icon = 'nb-grid-b-outline';
+        newItem.icon = 'grid-outline';
 
         this.menu.push(newItem);
       }

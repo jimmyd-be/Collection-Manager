@@ -3,22 +3,22 @@ import { NbMenuItem } from '@nebular/theme';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Dashboard',
-    icon: 'nb-home',
+    icon: 'home-outline',
     link: '/pages/dashboard',
     home: true,
   },
   {
     title: 'Add Collection',
-    icon: 'nb-plus',
+    icon: 'plus-outline',
     link: '/pages/collection/add',
   },
   {
     title: 'Add items',
-    icon: 'nb-plus-circled',
+    icon: 'plus-circle-outline',
     children: [
       {
        title: 'Manual',
-       icon: 'nb-compose',
+       icon: 'edit-outline',
        link: '/pages/item/addManual',
     },
     ],

@@ -14,12 +14,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NbDatepickerModule } from '@nebular/theme/components/datepicker/datepicker.module';
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { ServerInterceptor } from './Interceptors/server-interceptor';
 import { RatingModule } from 'ng-starrating';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { NbDatepickerModule, NbMenuModule, NbSidebarService } from '@nebular/theme';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,11 +30,14 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     RatingModule,
-    NgbModule.forRoot(),
+    NgbModule,
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     NbDatepickerModule.forRoot(),
+    NbMenuModule.forRoot(),
     NbAuthModule.forRoot({
       strategies: [
         NbPasswordAuthStrategy.setup({
@@ -85,6 +89,7 @@ import { environment } from '../environments/environment';
       useClass: ServerInterceptor,
       multi: true,
     },
+    NbSidebarService,
   ],
 })
 export class AppModule {

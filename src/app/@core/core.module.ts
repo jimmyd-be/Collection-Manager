@@ -5,25 +5,31 @@ import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { DataModule } from './data/data.module';
-import { AnalyticsService } from './utils/analytics.service';
+import { AnalyticsService } from './utils';
+import { UserData } from './data/users';
+import { UserService } from './mock/users.service';
+import { MockDataModule } from './mock/mock-data.module';
 
 const socialLinks = [
   {
     url: 'https://github.com/akveo/nebular',
     target: '_blank',
-    icon: 'socicon-github',
+    icon: 'github',
   },
   {
     url: 'https://www.facebook.com/akveo/',
     target: '_blank',
-    icon: 'socicon-facebook',
+    icon: 'facebook',
   },
   {
     url: 'https://twitter.com/akveo_inc',
     target: '_blank',
-    icon: 'socicon-twitter',
+    icon: 'twitter',
   },
+];
+
+const DATA_SERVICES = [
+  { provide: UserData, useClass: UserService },
 ];
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
@@ -34,7 +40,8 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
 }
 
 export const NB_CORE_PROVIDERS = [
-  ...DataModule.forRoot().providers,
+  ...MockDataModule.forRoot().providers,
+  ...DATA_SERVICES,
   ...NbAuthModule.forRoot({
 
     strategies: [

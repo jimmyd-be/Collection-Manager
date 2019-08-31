@@ -8,9 +8,10 @@ import { AddCollectionComponent } from './add-collection/add-collection.componen
 import { AddCustomFieldComponent } from './add-collection/add-custom-field/add-custom-field.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CustomFieldFormComponent } from './add-item-manually/custom-field-form/custom-field-form.component';
-import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule, NbToastrModule, NbDialogModule } from '@nebular/theme';
+import { NbInputModule, NbCheckboxModule, NbDatepickerModule, NbAccordionModule, NbToastrModule,
+  NbDialogModule, NbCardModule, NbSelectModule, NbMenuModule, NbRadioModule } from '@nebular/theme';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewCollectionComponent } from './view-collection/view-collection.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -27,6 +28,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditPasswordUserComponent } from './edit-password-user/edit-password-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { ShareCollectionComponent } from './share-collection/share-collection.component';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   imports: [
@@ -39,9 +41,16 @@ import { ShareCollectionComponent } from './share-collection/share-collection.co
     NbCheckboxModule,
     NbDatepickerModule,
     NbAccordionModule,
+    NbCardModule,
+    NbEvaIconsModule,
+    NbRadioModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbSelectModule,
     InfiniteScrollModule,
     NbDialogModule.forRoot(),
     RatingModule,
+    NbMenuModule,
     NbToastrModule.forRoot({
       duration: 5000,
     }),
