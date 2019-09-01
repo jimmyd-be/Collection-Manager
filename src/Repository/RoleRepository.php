@@ -17,7 +17,12 @@ class RoleRepository
     function __construct(EntityManager $entityManager) {
         $this->em = $entityManager;
         $this->repo = $entityManager->getRepository(Role::class);
+    }
 
+    function getActiveRoles() {
+        $query =$this->em->createQuery("SELECT t FROM App\Entity\Role t WHERE t.active = 1");
+
+        return $query->getResult();
     }
 
 }

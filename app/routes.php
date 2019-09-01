@@ -8,6 +8,7 @@ use App\Controller\CollectionController;
 use App\Controller\FieldController;
 use App\Controller\ItemController;
 use App\Controller\UserController;
+use App\Controller\RoleController;
 use Psr\Container\ContainerInterface;
 
 
@@ -32,6 +33,11 @@ return function (App $app) {
     $container->set('UserController', function (ContainerInterface $c) {
         return new UserController($c);
     });
+    $container->set('RoleController', function (ContainerInterface $c) {
+        return new RoleController($c);
+    });
+
+
 
     $app->group('/auth', function (Group $group) use ($container) {
         $group->post('/login', \AuthController::class . ':login');
@@ -60,6 +66,10 @@ return function (App $app) {
         $group->get('/collection/{id}', \FieldController::class . ':getByCollection');
         $group->get('/basic/collection/{id}', \FieldController::class . ':getBasicByCollection');
         $group->get('/custom/collection/{id}', \FieldController::class . ':getCustomByCollection');
+    });
+
+    $app->group('/role', function (Group $group) use ($container) {
+        $group->get('/active', \RoleController::class . ':getActiveRoles');
     });
 
     $app->group('/item', function (Group $group) use ($container) {

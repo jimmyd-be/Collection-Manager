@@ -17,6 +17,12 @@ INSERT INTO cm.fieldType (id, `type`,active) VALUES
 ,(11, 'barcode',1),
 (12, 'number', 1);
 
+INSERT INTO cm.`role` (id, role, active) VALUES
+(1, 'Admin', 1),
+(2, 'Editor', 1),
+(3, 'Viewer', 1)
+
+
 
 INSERT INTO cm.field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
