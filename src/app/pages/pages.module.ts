@@ -29,6 +29,7 @@ import { EditPasswordUserComponent } from './edit-password-user/edit-password-us
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { ShareCollectionComponent } from './share-collection/share-collection.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { ShareCollectionDialogComponent } from './share-collection-dialog/share-collection-dialog.component';
 
 @NgModule({
   imports: [
@@ -75,8 +76,9 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     EditPasswordUserComponent,
     DeleteUserComponent,
     ShareCollectionComponent,
+    ShareCollectionDialogComponent,
   ],
-  entryComponents: [ItemDialogComponent, ConfirmationDialogComponent],
+  entryComponents: [ItemDialogComponent, ConfirmationDialogComponent, ShareCollectionDialogComponent],
 })
 export class PagesModule {
 }

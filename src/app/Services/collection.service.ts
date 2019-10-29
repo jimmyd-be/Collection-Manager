@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Collection } from '../Entities/collection';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CollectionShare } from '../Entities/collectionShare';
+import { UserCollection } from '../Entities/UserCollection';
 
 
 @Injectable({
@@ -10,6 +12,10 @@ import { Observable } from 'rxjs';
 export class CollectionService {
 
   constructor(private http: HttpClient) {
+  }
+  
+  deleteUserFromCollection(userId: Number, collectionId: number) {
+    return this.http.delete('/collection/' + collectionId + '/user/' + userId);
   }
 
   editCollection(collection: Collection) {
@@ -30,6 +36,14 @@ export class CollectionService {
 
   getUserCollections(): Observable<Collection[]> {
       return this.http.get<Collection[]>('/collection/user');
+  }
+
+  getUsers(id: Number): Observable<UserCollection[]> {
+    return this.http.get<UserCollection[]>('/collection/' + id + '/users');
+  }
+
+  shareCollection(collectionShare: CollectionShare, collectionId: Number) {
+    return this.http.post('/collection/' + collectionId + '/share', collectionShare);
   }
 
   getCollectionTypes(): string[] {
