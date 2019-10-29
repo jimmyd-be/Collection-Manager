@@ -21,7 +21,8 @@ class CollectionRepository
 
     public function getByUser(int $userId): ?iterable
     {
-        $query = $this->em->createQuery("SELECT c, t FROM App\Entity\Collection c JOIN c.owner u JOIN c.typeid t WHERE u.id = :userId AND c.active = 1");
+        $query = $this->em->createQuery("SELECT c, t FROM App\Entity\Collection c JOIN c.typeid t WHERE c.active = 1 
+        AND c.id IN (SELECT cu.id FROM APP\Entity\Usercollection u JOIN u.userid us JOIN u.collectionid cu WHERE us.id = :userId)");
 
         $query->setParameter('userId', $userId);
 
@@ -30,7 +31,7 @@ class CollectionRepository
 
     public function getById(int $collectionId): ?Collection
     {
-        $query = $this->em->createQuery("SELECT c, t, u FROM App\Entity\Collection c JOIN c.owner u JOIN c.typeid t WHERE c.id = :id");
+        $query = $this->em->createQuery("SELECT c, t FROM App\Entity\Collection c JOIN c.typeid t WHERE c.id = :id");
 
         $query->setParameter('id', $collectionId);
 

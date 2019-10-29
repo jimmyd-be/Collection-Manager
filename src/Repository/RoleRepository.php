@@ -25,4 +25,11 @@ class RoleRepository
         return $query->getResult();
     }
 
+    function getById(int $id): ?Role {
+        $query =$this->em->createQuery("SELECT t FROM App\Entity\Role t WHERE t.active = 1 and t.id = :id");
+        $query->setParameter('id', $id);
+
+        return $query->getOneOrNullResult();
+    }
+
 }

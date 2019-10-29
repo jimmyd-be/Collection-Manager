@@ -32,11 +32,8 @@ CREATE TABLE collection (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     typeId int NOT NULL,
-    owner BIGINT UNSIGNED NOT NULL,
     active BOOL NULL,
     PRIMARY KEY (id),
-    CONSTRAINT collection_UN_name_owner UNIQUE KEY (name, owner),
-    FOREIGN KEY (owner)  REFERENCES `user`(id),
     FOREIGN KEY (typeId)  REFERENCES collectionType(id)
 );
 

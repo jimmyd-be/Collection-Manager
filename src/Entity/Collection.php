@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Collection
  *
- * @ORM\Table(name="collection", uniqueConstraints={@ORM\UniqueConstraint(name="collection_UN_name_owner", columns={"name", "owner"})}, indexes={@ORM\Index(name="typeId", columns={"typeId"}), @ORM\Index(name="owner", columns={"owner"})})
+ * @ORM\Table(name="collection", indexes={@ORM\Index(name="typeId", columns={"typeId"})})
  * @ORM\Entity
  */
 class Collection
@@ -34,16 +34,6 @@ class Collection
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
     private $active;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="owner", referencedColumnName="id")
-     * })
-     */
-    private $owner;
 
     /**
      * @var \Collectiontype
@@ -116,14 +106,6 @@ class Collection
 
 	public function setActive($active){
 		$this->active = $active;
-	}
-
-	public function getOwner(){
-		return $this->owner;
-	}
-
-	public function setOwner($owner){
-		$this->owner = $owner;
 	}
 
 	public function getTypeid(){

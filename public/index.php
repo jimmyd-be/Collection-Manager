@@ -18,6 +18,8 @@ $container = new Container();
 // Instantiate the app
 AppFactory::setContainer($container);
 $app = AppFactory::create();
+$callableResolver = $app->getCallableResolver();
+
 
 // Set up settings
 $settings = require __DIR__ . '/../app/settings.php';
@@ -48,22 +50,23 @@ $request = $serverRequestCreator->createServerRequestFromGlobals();
 
 // Create Error Handler
 $responseFactory = $app->getResponseFactory();
-$errorHandler = new HttpErrorHandler($responseFactory);
+$errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
 
 // Create Shutdown Handler
 $shutdownHandler = new ShutdownHandler($request, $errorHandler, $displayErrorDetails);
 register_shutdown_function($shutdownHandler);
 
 // Add Routing Middleware
-$routeResolver = $app->getRouteResolver();
-$routingMiddleware = new RoutingMiddleware($routeResolver);
-$app->add($routingMiddleware);
+$app->addRoutingMiddleware();
+
 
 // Add Error Middleware
-$callableResolver = $app->getCallableResolver();
+/*$callableResolver = $app->getCallableResolver();
 $errorMiddleware = new ErrorMiddleware($callableResolver, $responseFactory, $displayErrorDetails, false, false);
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
-$app->add($errorMiddleware);
+$app->add($errorMiddleware);*/
+$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, false, false);
+$errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 // Run App & Emit Response
 $response = $app->handle($request);

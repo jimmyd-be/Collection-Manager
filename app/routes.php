@@ -60,6 +60,9 @@ return function (App $app) {
         $group->post('/edit', \CollectionController::class . ':edit');
         $group->delete('/{id}', \CollectionController::class . ':delete');
         $group->get('/{id}', \CollectionController::class . ':getById');
+        $group->post('/{id}/share', \CollectionController::class . ':share');
+        $group->get('/{id}/users', \CollectionController::class . ':getAllCollectionUsers');
+        $group->delete('/{id}/user/{userId}', \CollectionController::class . ':deleteUserFromCollection');
     });
 
     $app->group('/field', function (Group $group) use ($container) {
