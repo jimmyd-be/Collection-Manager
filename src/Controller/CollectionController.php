@@ -20,6 +20,7 @@ use App\Entity\Usercollection;
 use ReallySimpleJWT\Token as JWT;
 use App\Mappers\CollectionMapper;
 use App\Mappers\CollectionUserMapper;
+use App\Utils\PermissionUtil;
 
 class CollectionController
 {
@@ -35,6 +36,7 @@ class CollectionController
     private $roleRepository;
     private $userCollectionRepository;
     private $collectionUserMapper;
+    private $permissionUtil;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container) {
@@ -51,7 +53,7 @@ class CollectionController
 
         $this->collectionMapper = new CollectionMapper($container);
         $this->collectionUserMapper = new CollectionUserMapper($container);
-        
+        $this->permissionUtil = new PermissionUtil($container);
     }
 
     public function getByUser($request, $response, $args): Response
@@ -78,7 +80,6 @@ class CollectionController
         $user = $this->userRepo->getById($userId);
 
         $newCollection = $this->collectionMapper->mapDtoToCollection($input);
-        //$newCollection->setOwner($user);
 
         $collectionArray = array();
 
@@ -90,7 +91,16 @@ class CollectionController
 
         }
 
-        $this->collectionRepo->save($newCollection);  
+        $collection = $this->collectionRepo->save($newCollection);
+        $role = $this->roleRepository->getByName("Owner");
+
+        $userCollection = new Usercollection();
+
+        $userCollection->setCollectionid($collection);
+        $userCollection->setUserid($user);
+        $userCollection->setRoleid($role);
+        
+        $this->userCollectionRepository->save($userCollection);        
 
         return $response;
     }
@@ -103,10 +113,9 @@ class CollectionController
         $newCollection = $this->collectionMapper->mapDtoToCollection($input);
 
         $collection = $this->collectionRepo->getById((int)$newCollection->getId());
-//TODO check for owner permission
-        if((int)$collection->getOwner()->getId() == $userId)
-        {
 
+        if($this->permissionUtil->checkUserPermission(intval($collection->getId()), $userId, "Owner"))
+        {
             $collection = $this->collectionRepo->getById((int)$newCollection->getId());
 
             $collection->setName($newCollection->getName());
@@ -160,19 +169,17 @@ class CollectionController
     {
         $userId = (int)$request->getAttribute('userId');
         $collectionId = (int)$args['id'];
-        $collection = $this->collectionRepo->getById($collectionId);
 
-        $collections = $this->collectionRepo->getByUser($userId);
-
-        $hasPermission = true;
-
-        if($hasPermission)
+        if($this->permissionUtil->checkUserPermission($collectionId, $userId, "Viewer"))
         {
+            $collection = $this->collectionRepo->getById($collectionId);
+       
             $response->getBody()->write(json_encode($this->collectionMapper->mapCollectionToDto($collection)));
         }
         else{ 
             $response = $response->withStatus(403);
         }
+
 
         return $response;
     }
@@ -183,8 +190,8 @@ class CollectionController
 
         $collectionId = (int)$args['id'];
         $collection = $this->collectionRepo->getById($collectionId);
-//TODO check for owner permission
-        if((int)$collection->getOwner()->getId() == $userId)
+
+        if($this->permissionUtil->checkUserPermission($collectionId, $userId, "Owner"))
         {
             $collection->setActive(false);
             $this->collectionRepo->save($collection); 
@@ -198,54 +205,95 @@ class CollectionController
 
     public function share($request, $response, $args): Response
     {
-        //TODO check for owner permission
         $userId = (int)$request->getAttribute('userId');
         $input = $request->getParsedBody();
 
         $collectionId = (int)$args['id'];
-        $collection = $this->collectionRepo->getById($collectionId);
-        $user = $this->userRepository->getUserByNameOrMail($input['username'], $input['username']);
-        $role = $this->roleRepository->getById($input['role']);
 
-        $userCollection = $this->userCollectionRepository->getByUserAndCollection($collection->getId(), $user->getId());
-
-        if(empty($userCollection))
+        if($this->permissionUtil->checkUserPermission($collectionId, $userId, "Owner"))
         {
-            $userCollection = new Usercollection();
-            $userCollection->setCollectionid($collection);
-            $userCollection->setUserid($user);
+            $collection = $this->collectionRepo->getById($collectionId);
+            $user = $this->userRepository->getUserByNameOrMail($input['username'], $input['username']);
+            $role = $this->roleRepository->getById($input['role']);
+
+            $userCollection = $this->userCollectionRepository->getByUserAndCollection($collection->getId(), $user->getId());
+
+            if(empty($userCollection))
+            {
+                $userCollection = new Usercollection();
+                $userCollection->setCollectionid($collection);
+                $userCollection->setUserid($user);
+            }
+
+            $userCollection->setRoleid($role);
+
+            $this->userCollectionRepository->save($userCollection);
         }
-
-        $userCollection->setRoleid($role);
-
-        $this->userCollectionRepository->save($userCollection);
+        else{
+            $response = $response->withStatu(405);
+        }
 
         return $response;
     }
 
     function getAllCollectionUsers($request, $response, $args): Response
     {
-        //TODO check permission
+        if($this->permissionUtil->checkUserPermission((int)$args['id'], (int)$request->getAttribute('userId'), "Owner"))
+        {
+            $users = $this->userCollectionRepository->getByCollection((int)$args['id']);
 
-        $users = $this->userCollectionRepository->getByCollection((int)$args['id']);
+            $results = $this->collectionUserMapper->mapListToDtoList($users);
 
-        $results = $this->collectionUserMapper->mapListToDtoList($users);
-
-        $response->getBody()->write(json_encode($results));
-        return  $response->withHeader('Content-Type', 'application/json');
+            $response->getBody()->write(json_encode($results));
+            return  $response->withHeader('Content-Type', 'application/json');
+        }
+        else{
+            $response = $response->withStatu(405);
+            return $response;
+        }
     }
 
     function deleteUserFromCollection($request, $response, $args): Response
     {
-        //TODO check permissions + check if one owner is still available
+        $userId = (int)$args['userId'];
+        $collectionId = (int)$args['id'];
 
-        $userCollection = $this->userCollectionRepository->getByUserAndCollection((int)$args['id'], (int)$args['userId']);
-
-        if(!empty($userCollection))
+        if($this->permissionUtil->checkUserPermission($collectionId, $userId, "Owner"))
         {
-            $this->userCollectionRepository->delete($userCollection);
+            $userCollection = $this->userCollectionRepository->getByUserAndCollection($collectionId, $userId);
+
+            $canBeDeleted = true;
+
+            if($userCollection->getRoleid()->getRole() === 'Owner'){
+                $ownerCount = 0;
+
+                foreach($userCollection as $uCol)
+                {
+                    if($uCol->getRoleid()->getRole() === 'Owner')
+                    {
+                        $ownerCount++;
+                    }
+                }
+
+                if($ownerCount <= 1)
+                {
+                    $canBeDeleted = false;
+                }
+
+            }
+
+            if(!empty($userCollection) && $canBeDeleted)
+            {
+                $this->userCollectionRepository->delete($userCollection);
+            }
+            else {
+                $response = $response->withStatus(405);
+            }
         }
-        
+        else{
+            $response = $response->withStatus(405);
+        }
+
         return $response;
     }
 

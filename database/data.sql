@@ -18,6 +18,7 @@ INSERT INTO cm.fieldType (id, `type`,active) VALUES
 (12, 'number', 1);
 
 INSERT INTO cm.`role` (id, role, active) VALUES
+(0, 'Owner', 1),
 (1, 'Admin', 1),
 (2, 'Editor', 1),
 (3, 'Viewer', 1)
