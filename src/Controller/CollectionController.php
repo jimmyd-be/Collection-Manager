@@ -213,7 +213,7 @@ class CollectionController
         if($this->permissionUtil->checkUserPermission($collectionId, $userId, "Owner"))
         {
             $collection = $this->collectionRepo->getById($collectionId);
-            $user = $this->userRepository->getUserByNameOrMail($input['username'], $input['username']);
+            $user = $this->userRepository->getUserByNameOrMail($input['userName'], $input['userName']);
             $role = $this->roleRepository->getById($input['role']);
 
             $userCollection = $this->userCollectionRepository->getByUserAndCollection($collection->getId(), $user->getId());
