@@ -40,11 +40,14 @@ export class ShareCollectionComponent implements OnInit {
 
   openDialog() {
 
-      this.dialogService.open(ShareCollectionDialogComponent, {context: {collectionId: this.collectionId}});
+      this.dialogService.open(ShareCollectionDialogComponent, {context: {collectionId: this.collectionId}}).onClose.subscribe(response => {
+        this.collectionService.getUsers(this.collectionId).subscribe(data => this.userCollections = data);
+      });
   }
 
   deleteUser(userId: Number) {
-    this.collectionService.deleteUserFromCollection(userId, this.collectionId).subscribe();
+    this.collectionService.deleteUserFromCollection(userId, this.collectionId).subscribe(d =>
+      this.collectionService.getUsers(this.collectionId).subscribe(data => this.userCollections = data));
   }
 
 }
