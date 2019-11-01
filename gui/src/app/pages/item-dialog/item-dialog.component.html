@@ -1,0 +1,16 @@
+<nb-card>
+  <nb-card-header>{{item.name}}
+
+      <a (click)="editItem()">
+          <fa-icon [icon]="editIcon"></fa-icon>
+        </a>
+        <a (click)="deleteItem()">
+            <fa-icon [icon]="deleteIcon"></fa-icon>
+          </a>
+
+
+  </nb-card-header>
+  <nb-card-body>
+      <ngx-view-item [item]="item" [fields]="field"></ngx-view-item>
+  </nb-card-body>
+</nb-card>

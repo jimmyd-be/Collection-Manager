@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col">
+    <a (click)="changeView('list')">
+      <fa-icon [icon]="listIcon" class="fa-2x" [ngClass]="{'activeItem': currentView=='list'}"></fa-icon>
+    </a>
+
+    <a (click)="changeView('cards')">
+      <fa-icon [icon]="cardIcon" class="fa-2x" [ngClass]="{'activeItem': currentView=='cards'}"></fa-icon>
+    </a>
+
+  </div>
+  <div class="col collectionText" *ngIf="collection">
+    {{collection.name}}
+  </div>
+  <div class="col">
+    <input type="text" placeholder="Search" class="rightAlign searchBar" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
+    <a (click)="changeLetterFilter(filter)">
+      {{filter}}
+    </a>
+  </div>
+
+  <div class="col" [ngClass]="{'activeItem': currentLetterFilter=='ALL'}">
+    <a (click)="changeLetterFilter('ALL')">
+      ALL
+    </a>
+  </div>
+</div>
+
+<div class="row" class="search-results itemList" infiniteScroll [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+
+  <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
+    <nb-accordion>
+      <nb-accordion-item *ngFor="let item of items">
+        <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+            <a (click)="editItem(item)">
+                <fa-icon [icon]="editIcon"></fa-icon>
+              </a>
+              <a (click)="deleteItem(item)">
+                  <fa-icon [icon]="deleteIcon"></fa-icon>
+                </a>
+          <ngx-view-item [item]="item" [fields]="fields"></ngx-view-item>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+
+  <div *ngIf="currentView === 'cards'">
+    <div class="card itemCard" *ngFor="let item of items" (click)="openModal(item)">
+      <img src="{{getImage(item)}}" class="card-img-top" alt="Cover">
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+      </div>
+    </div>
+  </div>
+
+</div>

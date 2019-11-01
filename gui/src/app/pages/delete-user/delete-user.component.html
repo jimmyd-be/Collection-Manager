@@ -1,0 +1,40 @@
+
+<div class="container">
+
+    <div class="row justify-content-center">
+  
+      <div class="col-md-12 col-lg-6">
+      <nb-card>
+        <nb-card-header>Delete user</nb-card-header>
+        <nb-card-body>
+  
+            <form (ngSubmit)="onSubmit()" #editForm="ngForm">
+                <div class="form-group">
+                    <label for="password">Current password</label>
+                    <input type="password" class="form-control" id="password"
+                           required
+                           [(ngModel)]="model.password" name="password"
+                           #name="ngModel">
+                  </div>
+           
+                  
+                  <div class="form-group">
+                      <label for="confirmation">Type 'DELETE' to confirm you want to remove this account</label>
+                      <input type="text" class="form-control" id="confirmation"
+                             required
+                             name="confirmation" pattern="[D][E][L][E][T][E]" 
+                             [(ngModel)]="model.confirmation"
+                             #name="ngModel">
+                    </div>
+               
+                <button type="submit" class="btn btn-success" [disabled]="!editForm.form.valid">Delete user</button>
+              </form>
+  
+        </nb-card-body>
+        <nb-card-footer>
+            
+        </nb-card-footer>
+      </nb-card>
+    </div>
+    </div>
+  </div>

@@ -1,0 +1,36 @@
+<nb-card>
+  <nb-card-header>Share collection with other users</nb-card-header>
+
+  <nb-card-body>
+
+    <table class="table">
+        <thead class="headerTable">
+          <tr>
+            <th scope="col">User</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let col of userCollections">
+            <td>{{col.userName}}</td>
+            <td>{{col.roleName}}</td>
+            <td>
+                <a (click)="deleteUser(col.userId)">
+                  <fa-icon [icon]="removeIcon"></fa-icon>
+              </a> 
+          </td>
+          </tr>
+         
+        </tbody>
+      </table>
+
+  </nb-card-body>
+
+  <nb-card-footer>
+      <button (click)="openDialog()" nbButton status="primary">Add user</button>
+
+
+  </nb-card-footer>
+
+</nb-card>
