@@ -1,0 +1,5 @@
+/api/vendor/
+/api/logs/*
+!/logs/README.md
+
+/api/app/var/doctrine/*
