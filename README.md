@@ -1,7 +1,12 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
-# Collection manager Gui
+# Collection manager
+
+Collection manager is a tool to manager different collection like movies, games, ...
+
+
+
 
 Collection manager Gui is the frontend of a full stack application that can manage your collections of different types. The project is written in [Angular 7](https://angular.io/) and [Nebular](https://akveo.github.io/nebular/).
 
@@ -41,6 +46,25 @@ The backend of this project can be found on [GitHub](https://github.com/lonelobo
 
 - [Angular]([https://angular.io/](https://angular.io/))
 - [Nebular]([https://akveo.github.io/nebular/](https://akveo.github.io/nebular/))
+- [ReallySimpleJWT](https://github.com/RobDWaller/ReallySimpleJWT)
+- [Slim Framework](http://www.slimframework.com/)
+
+## Requirements
+- PHP 7.3
+- Apacke HTTP server or equivalent
+
+
+## How to build the code
+
+The application contains a dockerfile soe we can build the code by running:
+
+    sudo docker build -t cm_backend .
+
+
+After building the source code into an image we can create a container:
+
+    sudo docker create -p 8080:8080 cm_backend
+
 
 
 ### Build docker image
