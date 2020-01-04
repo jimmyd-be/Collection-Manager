@@ -15,12 +15,11 @@ export class ServerInterceptor implements HttpInterceptor {
     token: string;
 
     constructor(private tokenService: NbTokenService) {
-        this.tokenService.get().subscribe(data => {this.token = data.getValue(); });
+        this.tokenService.tokenChange().subscribe(data => {this.token = data.getValue(); });
     }
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(  request: HttpRequest<any>,
+              next: HttpHandler): Observable<HttpEvent<any>> {
 
     const updatedRequest = request.clone({
         setHeaders: {'Authorization': 'Bearer ' + this.token},
