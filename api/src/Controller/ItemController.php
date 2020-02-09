@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace App\Controller;
 
+use App\Domain\External\External;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use App\Repository\FieldRepository;
@@ -24,6 +25,7 @@ class ItemController
     private $itemRepo;
     private $itemDataRepo;
     private $itemMapper;
+    private $external;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container)
@@ -37,6 +39,7 @@ class ItemController
         $this->itemDataRepo = $container->get(ItemdataRepository::class);
 
         $this->itemMapper = new ItemMapper($container);
+        $this->external = new External($container);
     }
 
     public function addToCollection($request, $response, $args): Response
@@ -203,5 +206,16 @@ class ItemController
         }
 
         return $response;
+    }
+
+    public function searchItemExternally($request, $response, $args): Response
+    {
+        $type = $args['type'];
+        $search = $request->getQueryParams()['search'];
+
+        $result = $this->external->search($search, $type);
+
+        $response->getBody()->write(json_encode($result));
+        return  $response->withHeader('Content-Type', 'application/json');
     }
 }

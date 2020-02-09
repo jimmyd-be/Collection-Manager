@@ -12,6 +12,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditPasswordUserComponent } from './edit-password-user/edit-password-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { ShareCollectionComponent } from './share-collection/share-collection.component';
+import { AddItemExternallyComponent } from './add-item-externally/add-item-externally.component';
 
 const routes: Routes = [{
   path: '',
@@ -79,6 +80,11 @@ const routes: Routes = [{
           path: 'addManual',
           canActivate: [AuthGuard],
           component: AddItemManuallyComponent,
+        },
+        {
+          path: 'addExternally',
+          canActivate: [AuthGuard],
+          component: AddItemExternallyComponent,
         },
         {
           path: 'edit/:colId/:id',

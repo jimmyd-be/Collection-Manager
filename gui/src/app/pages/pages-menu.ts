@@ -21,6 +21,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
        icon: 'edit-outline',
        link: '/pages/item/addManual',
     },
+    {
+      title: 'Search',
+      icon: 'search-outline',
+      link: '/pages/item/addExternally',
+    },
     ],
   },
   {

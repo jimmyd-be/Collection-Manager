@@ -80,6 +80,7 @@ return function (App $app) {
         $group->post('/edit/{id}/{collectionId}', \ItemController::class . ':editItem');
         $group->get('/get/collection/{id}/{page}/{itemsOnPage}', \ItemController::class . ':getItemFromCollection');
         $group->get('/get/{id}', \ItemController::class . ':getItemById');
+        $group->get('/external/{type}', \ItemController::class . ':searchItemExternally');
         $group->delete('/{itemId}/collection/{collectionId}', \ItemController::class . ':deleteItemFromCollection');
     });
 

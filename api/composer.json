@@ -9,6 +9,7 @@
         "php": ">=7.1",
         "ext-json": "*",
         "doctrine/orm": "^2",
+        "imdbphp/imdbphp": "^6.3",
         "monolog/monolog": "^1.24",
         "php-di/php-di": "^6.0",
         "rbdwllr/reallysimplejwt": "^2.0",
