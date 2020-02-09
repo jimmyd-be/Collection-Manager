@@ -23,7 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install
       working-directory: ${{env.working-directory}}
-    - run: npm install
+      run: npm install
     - name: Use Angular NG
       uses: mayur-rawte/github-angular-actions@latest
     - name: Angular Lint
