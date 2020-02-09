@@ -6,5 +6,6 @@ export class Collection {
         public name: string,
         public type: string,
         public members: string[] = [],
-        public fields: CustomField[] = []) {}
+        public fields: CustomField[] = [],
+    ) {}
 }
