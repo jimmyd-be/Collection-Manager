@@ -1,0 +1,60 @@
+name: Angular build (develop)
+
+on:
+  push:
+    branches: 
+      - develop
+    paths: 'gui/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./gui
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install
+      working-directory: ${{env.working-directory}}
+      run: npm install
+    - name: Use Angular NG
+      uses: mayur-rawte/github-angular-actions@latest
+    - name: Angular Lint
+      working-directory: ${{env.working-directory}}
+      run: ng lint
+    - name: Angular prod build
+      working-directory: ${{env.working-directory}}
+      run: ng build --prod
+    - name: Create zip
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r ./gui.zip ./gui/dist
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Prerelease ${{ github.ref }}
+        draft: false
+        prerelease: true
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./gui.zip
+        asset_name: gui.zip
+        asset_content_type: application/zip
