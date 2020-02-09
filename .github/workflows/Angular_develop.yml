@@ -69,9 +69,8 @@ jobs:
         with:
           php-version: '7.4'
           tools: composer
-      - name: Composer install --working-dir api 
-        working-directory: ${{env.working-directory-api}}
-        run: composer install
+      - name: Composer install
+        run: composer install --working-dir ${{env.working-directory-api}} 
       - name: Create zip
         uses: montudor/action-zip@v0.1.0
         with:
