@@ -8,6 +8,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./gui
 
     strategy:
       matrix:
@@ -19,10 +21,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: npm install
+      working-directory: ${{env.working-directory}}
     - run: npm install
     - name: Use Angular NG
       uses: mayur-rawte/github-angular-actions@latest
     - name: Angular Lint
+      working-directory: ${{env.working-directory}}
       run: ng lint
     - name: Angular prod build
+      working-directory: ${{env.working-directory}}
       run: ng build --prod
