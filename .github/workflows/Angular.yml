@@ -20,7 +20,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - name: Angular build
+    - name: Use Angular NG
       uses: mayur-rawte/github-angular-actions@latest
+    - name: Angular build
       run: ng lint
       run: ng build --prod
