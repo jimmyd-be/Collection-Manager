@@ -6,7 +6,7 @@ import { DeleteUser } from '../../Entities/DeleteUser';
 @Component({
   selector: 'ngx-delete-user',
   templateUrl: './delete-user.component.html',
-  styleUrls: ['./delete-user.component.scss']
+  styleUrls: ['./delete-user.component.scss'],
 })
 export class DeleteUserComponent implements OnInit {
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../Entities/item';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ItemSearch } from '../Entities/ItemSearch';
 

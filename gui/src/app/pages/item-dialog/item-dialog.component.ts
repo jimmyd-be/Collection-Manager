@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Item } from '../../Entities/item';
 import { CustomField } from '../../Entities/custom-field';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { ItemService } from '../../Services/item.service';
 import { Collection } from '../../Entities/collection';
 import { NbDialogRef } from '@nebular/theme';
 
@@ -20,7 +19,7 @@ export class ItemDialogComponent implements OnInit {
   field: CustomField[];
   collection: Collection;
 
-  constructor(private itemService: ItemService, private dialogRef: NbDialogRef<ItemDialogComponent>) { }
+  constructor(private dialogRef: NbDialogRef<ItemDialogComponent>) { }
 
   ngOnInit() {}
 

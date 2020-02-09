@@ -13,7 +13,7 @@ export class CollectionService {
 
   constructor(private http: HttpClient) {
   }
-  
+
   deleteUserFromCollection(userId: Number, collectionId: number) {
     return this.http.delete('/collection/' + collectionId + '/user/' + userId);
   }

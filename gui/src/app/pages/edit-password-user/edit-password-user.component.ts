@@ -6,7 +6,7 @@ import { UserService } from '../../Services/user.service';
 @Component({
   selector: 'ngx-edit-password-user',
   templateUrl: './edit-password-user.component.html',
-  styleUrls: ['./edit-password-user.component.scss']
+  styleUrls: ['./edit-password-user.component.scss'],
 })
 export class EditPasswordUserComponent implements OnInit {
 
