@@ -64,7 +64,11 @@ jobs:
           path: vendor
           key: ${{ runner.OS }}-build-${{ hashFiles('api/composer.lock') }}
           
-      - uses: php-actions/composer@master
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+          tools: composer
       - name: Composer install 
         working-directory: ${{env.working-directory-api}}
         run: composer install
