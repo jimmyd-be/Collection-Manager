@@ -62,8 +62,7 @@ export class ViewCollectionComponent implements OnInit {
 
       this.itemService.getItemOfCollection(id, this.currentPage, this.itemsPerPage).subscribe(items => {
 
-        for (const item of items)
-        {
+        for (const item of items) {
           this.items.push(item);
         }
       });
@@ -133,8 +132,7 @@ export class ViewCollectionComponent implements OnInit {
     this.currentPage += 1;
 
     this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage).subscribe(items => {
-      for (const item of items)
-        {
+      for (const item of items) {
           this.items.push(item);
         }
     });

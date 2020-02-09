@@ -5,7 +5,6 @@ import { CollectionShare } from '../../Entities/collectionShare';
 import { CollectionService } from '../../Services/collection.service';
 import { Role } from '../../Entities/Role';
 import { RoleService } from '../../Services/role.service';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'ngx-share-collection-dialog',

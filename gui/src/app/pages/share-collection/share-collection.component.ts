@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { ShareCollectionDialogComponent } from '../share-collection-dialog/share-collection-dialog.component';
 import { UserCollection } from '../../Entities/UserCollection';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

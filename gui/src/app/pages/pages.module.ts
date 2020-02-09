@@ -30,6 +30,8 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { ShareCollectionComponent } from './share-collection/share-collection.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ShareCollectionDialogComponent } from './share-collection-dialog/share-collection-dialog.component';
+import { AddItemExternallyComponent } from './add-item-externally/add-item-externally.component';
+import { SearchItemResultComponent } from './search-item-result/search-item-result.component';
 
 @NgModule({
   imports: [
@@ -77,6 +79,8 @@ import { ShareCollectionDialogComponent } from './share-collection-dialog/share-
     DeleteUserComponent,
     ShareCollectionComponent,
     ShareCollectionDialogComponent,
+    AddItemExternallyComponent,
+    SearchItemResultComponent,
   ],
   entryComponents: [ItemDialogComponent, ConfirmationDialogComponent, ShareCollectionDialogComponent],
 })

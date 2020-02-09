@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use App\Repository\CollectionRepository;
 use App\Repository\CollectiontypeRepository;
@@ -24,19 +25,19 @@ use App\Utils\PermissionUtil;
 
 class CollectionController
 {
-    protected $container;
+    protected ContainerInterface $container;
 
-    private $collectionRepo;
-    private $typeRepo;
-    private $userRepo;
-    private $fieldTypeRepo;
-    private $fieldRepo;
-    private $collectionMapper;
-    private $userRepository;
-    private $roleRepository;
-    private $userCollectionRepository;
-    private $collectionUserMapper;
-    private $permissionUtil;
+    private CollectionRepository $collectionRepo;
+    private CollectiontypeRepository $typeRepo;
+    private UserRepository $userRepo;
+    private FieldtypeRepository $fieldTypeRepo;
+    private FieldRepository $fieldRepo;
+    private CollectionMapper $collectionMapper;
+    private UserRepository $userRepository;
+    private RoleRepository $roleRepository;
+    private UserCollectionRepository $userCollectionRepository;
+    private CollectionUserMapper $collectionUserMapper;
+    private PermissionUtil $permissionUtil;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container) {
@@ -56,7 +57,7 @@ class CollectionController
         $this->permissionUtil = new PermissionUtil($container);
     }
 
-    public function getByUser($request, $response, $args): Response
+    public function getByUser(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
 
@@ -73,7 +74,7 @@ class CollectionController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function add($request, $response, $args): Response
+    public function add(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $input = $request->getParsedBody();
@@ -105,7 +106,7 @@ class CollectionController
         return $response;
     }
 
-    public function edit($request, $response, $args): Response
+    public function edit(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $input = $request->getParsedBody();
@@ -159,13 +160,13 @@ class CollectionController
             $this->collectionRepo->save($collection);
         }
         else{
-            $response = $response->withStatu(405);
+            $response = $response->withStatus(405);
         }
 
         return $response;
     }
 
-    public function getById($request, $response, $args): Response
+    public function getById(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $collectionId = (int)$args['id'];
@@ -184,7 +185,7 @@ class CollectionController
         return $response;
     }
 
-    public function delete($request, $response, $args): Response
+    public function delete(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
 
@@ -197,13 +198,13 @@ class CollectionController
             $this->collectionRepo->save($collection); 
         }
         else{
-            $response = $response->withStatu(405);
+            $response = $response->withStatus(405);
         }
 
         return $response;
     }
 
-    public function share($request, $response, $args): Response
+    public function share(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $input = $request->getParsedBody();
@@ -230,13 +231,13 @@ class CollectionController
             $this->userCollectionRepository->save($userCollection);
         }
         else{
-            $response = $response->withStatu(405);
+            $response = $response->withStatus(405);
         }
 
         return $response;
     }
 
-    function getAllCollectionUsers($request, $response, $args): Response
+    function getAllCollectionUsers(Request $request, Response $response, array $args): Response
     {
         if($this->permissionUtil->checkUserPermission((int)$args['id'], (int)$request->getAttribute('userId'), "Owner"))
         {
@@ -248,12 +249,12 @@ class CollectionController
             return  $response->withHeader('Content-Type', 'application/json');
         }
         else{
-            $response = $response->withStatu(405);
+            $response = $response->withStatus(405);
             return $response;
         }
     }
 
-    function deleteUserFromCollection($request, $response, $args): Response
+    function deleteUserFromCollection(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$args['userId'];
         $collectionId = (int)$args['id'];

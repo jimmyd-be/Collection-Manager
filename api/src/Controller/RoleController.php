@@ -4,16 +4,17 @@ declare (strict_types = 1);
 namespace App\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use App\Repository\RoleRepository;
 use App\Mappers\RoleMapper;
 
 class RoleController
 {
-    protected $container;
+    protected ContainerInterface $container;
 
-    private $roleRepo;
-    private $roleMapper;
+    private RoleRepository $roleRepo;
+    private RoleMapper $roleMapper;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container)
@@ -24,7 +25,7 @@ class RoleController
         $this->roleMapper = new RoleMapper($container);
     }
 
-    public function getActiveRoles($request, $response, $args): Response
+    public function getActiveRoles(Request $request, Response $response, array $args): Response
     {
         $roles = $this->roleRepo->getActiveRoles();
 

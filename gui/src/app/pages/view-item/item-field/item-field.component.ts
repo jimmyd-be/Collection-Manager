@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Item } from '../../../Entities/item';
 import { CustomField } from '../../../Entities/custom-field';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { ItemData } from '../../../Entities/ItemData';
 
 @Component({

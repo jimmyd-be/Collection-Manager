@@ -3,7 +3,9 @@ declare (strict_types = 1);
 
 namespace App\Controller;
 
+use App\Domain\External\External;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use App\Repository\FieldRepository;
 use App\Repository\UserRepository;
@@ -16,14 +18,15 @@ use App\Mappers\ItemMapper;
 
 class ItemController
 {
-    protected $container;
+    protected ContainerInterface $container;
 
-    private $fieldRepo;
-    private $userRepo;
-    private $collectionRepo;
-    private $itemRepo;
-    private $itemDataRepo;
-    private $itemMapper;
+    private FieldRepository $fieldRepo;
+    private UserRepository $userRepo;
+    private CollectionRepository $collectionRepo;
+    private ItemRepository $itemRepo;
+    private ItemdataRepository $itemDataRepo;
+    private ItemMapper $itemMapper;
+    private External $external;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container)
@@ -37,9 +40,10 @@ class ItemController
         $this->itemDataRepo = $container->get(ItemdataRepository::class);
 
         $this->itemMapper = new ItemMapper($container);
+        $this->external = new External($container);
     }
 
-    public function addToCollection($request, $response, $args): Response
+    public function addToCollection(Request $request, Response $response, array $args): Response
     {
         $collectionId = (int)$args['id'];
         $userId = (int)$request->getAttribute('userId');
@@ -94,7 +98,7 @@ class ItemController
         return $response;
     }
 
-    public function getItemFromCollection($request, $response, $args): Response
+    public function getItemFromCollection(Request $request, Response $response, array $args): Response
     {
         $collectionId = (int)$args['id'];
         $page = (int)$args['page'];
@@ -114,7 +118,7 @@ class ItemController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function deleteItemFromCollection($request, $response, $args): Response
+    public function deleteItemFromCollection(Request $request, Response $response, array $args): Response
     {
         $itemId = (int)$args['itemId'];
         $collectionId = (int)$args['collectionId'];
@@ -143,7 +147,7 @@ class ItemController
         return $response;
     }
 
-    public function getItemById($request, $response, $args): Response
+    public function getItemById(Request $request, Response $response, array $args): Response
     {
         $itemid = (int)$args['id'];
         $userId = (int)$request->getAttribute('userId');
@@ -156,7 +160,7 @@ class ItemController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function editItem($request, $response, $args): Response
+    public function editItem(Request $request, Response $response, array $args): Response
     {
         $itemId = (int)$args['id'];
         $collectionId = (int)$args['collectionId'];
@@ -200,6 +204,51 @@ class ItemController
                     }
                 }
             }
+        }
+
+        return $response;
+    }
+
+    public function searchItemExternally(Request $request, Response $response, array $args): Response
+    {
+        $type = $args['type'];
+        $search = $request->getQueryParams()['search'];
+
+        $result = $this->external->search($search, $type);
+
+        $response->getBody()->write(json_encode($result));
+        return  $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function addExternalItemToCollection($request, $response, $args): Response
+    {
+        $collectionId = (int)$args['collectionId'];
+        $source = $args['source'];
+        $externalId = $args['externalId'];
+        $userId = (int)$request->getAttribute('userId');
+
+        $collection = $this->collectionRepo->getById($collectionId);
+        $fields = $this->fieldRepo->getBasicByCollectionId($collectionId);
+
+        $itemArray = $this->external->getItem($source, $externalId, $fields);
+        
+        $itemData = $itemArray['itemData'];
+        
+        $item = $itemArray['item'];
+        $item->setCreationdate(new \DateTime());
+        $item->setAuthor($this->userRepo->getById($userId));
+        $item->setActive(true);
+        $item = $this->itemRepo->save($item);
+
+        $collection->addItem($item);
+
+        $this->collectionRepo->save($collection);
+
+        foreach($itemData as &$data)
+        {
+            $data->setItemid($item);
+
+            $this->itemDataRepo->save($data);
         }
 
         return $response;

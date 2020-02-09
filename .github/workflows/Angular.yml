@@ -1,0 +1,34 @@
+name: Angular build
+
+on:
+  push:
+    paths: 'gui/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./gui
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install
+      working-directory: ${{env.working-directory}}
+      run: npm install
+    - name: Use Angular NG
+      uses: mayur-rawte/github-angular-actions@latest
+    - name: Angular Lint
+      working-directory: ${{env.working-directory}}
+      run: ng lint
+    - name: Angular prod build
+      working-directory: ${{env.working-directory}}
+      run: ng build --prod

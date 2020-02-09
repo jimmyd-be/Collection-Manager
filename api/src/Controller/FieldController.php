@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace App\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use App\Repository\FieldRepository;
 use App\Entity\Field;
@@ -11,10 +12,10 @@ use App\Mappers\CollectionFieldMapper;
 
 class FieldController
 {
-    protected $container;
+    protected ContainerInterface $container;
 
-    private $fieldRepo;
-    private $fieldMapper;
+    private FieldRepository $fieldRepo;
+    private CollectionFieldMapper $fieldMapper;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container)
@@ -25,7 +26,7 @@ class FieldController
         $this->fieldMapper = new CollectionFieldMapper($container);
     }
 
-    public function getByCollection($request, $response, $args): Response
+    public function getByCollection(Request $request, Response $response, array $args): Response
     {
 
         $userId = (int)$request->getAttribute('userId');
@@ -50,7 +51,7 @@ class FieldController
         return $response;
     }
 
-    public function getBasicByCollection($request, $response, $args): Response
+    public function getBasicByCollection(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $collectionId = (int)$args['id'];
@@ -68,7 +69,7 @@ class FieldController
         return $response;
     }
 
-    public function getCustomByCollection($request, $response, $args): Response
+    public function getCustomByCollection(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $collectionId = (int)$args['id'];

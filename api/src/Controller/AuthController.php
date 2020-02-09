@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use App\Repository\UserRepository;
 use App\Entity\User;
@@ -12,12 +13,11 @@ use App\Entity\Dto\TokenDto;
 use ReallySimpleJWT\Token as JWT;
 
 
-
 class AuthController
 {
-    protected $container;
+    protected ContainerInterface $container;
 
-    private $userRepo;
+    private UserRepository $userRepo;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container) {
@@ -26,7 +26,7 @@ class AuthController
         $this->userRepo = $container->get(UserRepository::class);
     }
     
-    public function login($request, $response, $args): Response{
+    public function login(Request $request, Response $response, array $args): Response {
       
       $input = $request->getParsedBody();
 
@@ -52,13 +52,13 @@ class AuthController
     }
 
 
-    public function logout($request, $response, $args): Response {
+    public function logout(Request $request, Response $response, array $args): Response {
         // your code here
         // use $this->view to render the HTML
         return $response;
       }
 
-      public function register($request, $response, $args): Response {
+      public function register(Request $request, Response $response, array $args): Response {
 
         $input = $request->getParsedBody();
 

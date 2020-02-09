@@ -1,0 +1,23 @@
+<nb-card>
+    <nb-card-header>Search for items on external databases</nb-card-header>
+  
+    <nb-card-body>
+      <nb-select placeholder="Please select collection" status="primary"
+        (selectedChange)="collectionSelectionChanged($event)">
+        <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
+      </nb-select>
+      <input type="text" nbInput fieldSize="medium" placeholder="Input" (change)="onKey($event)">
+
+    </nb-card-body>
+  
+    <nb-card-footer>
+
+      <div *ngFor="let item of searchResults">
+      
+        <ngx-search-item-result [item]="item" [collectionId]="collectionId"></ngx-search-item-result>
+      </div>
+
+
+    </nb-card-footer>
+  
+  </nb-card>

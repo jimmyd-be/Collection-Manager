@@ -12,7 +12,7 @@ use App\Entity\Field;
 
 class FieldRepository
 {
-    private $em;
+    private EntityManager $em;
     private $repo;
 
     function __construct(EntityManager $entityManager) {
@@ -36,7 +36,7 @@ class FieldRepository
         return $field;
     }   
 
-    public function getCustomByCollectionId(int $collectionId)
+    public function getCustomByCollectionId(int $collectionId): array
     {
         $query = $this->em->createQuery("SELECT f, t FROM App\Entity\Field f JOIN f.collectionid c JOIN f.type t WHERE f.active = 1 AND c.id = :collectionId");
         $query->setParameter('collectionId', $collectionId);
@@ -44,7 +44,7 @@ class FieldRepository
         return $query->getResult();
     }
 
-    public function getBasicByCollectionId(int $collectionId)
+    public function getBasicByCollectionId(int $collectionId): array
     {
         $query = $this->em->createQuery("SELECT c, t FROM App\Entity\Collection c JOIN c.typeid t WHERE c.id = :collectionId");
         $query->setParameter('collectionId', $collectionId);

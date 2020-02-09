@@ -20,7 +20,7 @@ class RoleMapper
         return $roleDto;
     }
 
-    public function mapListToDtoList($roles)
+    public function mapListToDtoList($roles): array
     {
         $result = array();
 

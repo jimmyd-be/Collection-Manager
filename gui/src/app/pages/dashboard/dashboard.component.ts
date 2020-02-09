@@ -5,6 +5,7 @@ import { faTrash, faEdit, faEye, faShareAltSquare } from '@fortawesome/free-soli
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { NbAuthService, NbAuthJWTToken } from '@nebular/auth';
 
 
 @Component({
@@ -21,16 +22,20 @@ export class DashboardComponent implements OnInit {
 
   collections: Collection[];
 
-  constructor(private collectionService: CollectionService, private router: Router, private dialogService: NbDialogService) { }
+  constructor(private collectionService: CollectionService, private router: Router, private dialogService: NbDialogService,
+    private authService: NbAuthService) { }
 
   ngOnInit() {
     this.loadCollections();
   }
 
   loadCollections() {
-    this.collectionService.getUserCollections().subscribe(data => {
 
-      this.collections = data;
+    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
+      this.collectionService.getUserCollections().subscribe(data => {
+
+        this.collections = data;
+      });
     });
   }
 

@@ -11,7 +11,7 @@ use App\Entity\Item;
 
 class ItemRepository
 {
-    private $em;
+    private EntityManager $em;
     private $repo;
 
     function __construct(EntityManager $entityManager) {
@@ -27,7 +27,7 @@ class ItemRepository
         return $item;
     }
 
-    public function getItemsByCollection(int $collectionId, int $page, int $totalItems)
+    public function getItemsByCollection(int $collectionId, int $page, int $totalItems): array
     {
         $dql = "SELECT i FROM App\Entity\Item i JOIN i.collectionid c WHERE c.id = :colId AND i.active = 1 ORDER BY i.name";
         $query = $this->em->createQuery($dql)
