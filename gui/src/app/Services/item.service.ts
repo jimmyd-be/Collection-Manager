@@ -35,4 +35,8 @@ export class ItemService {
     return this.http.get<ItemSearch[]>('/item/external/movie?search=' + search);
   }
 
+  addExternalItemToCollection(collectionId: Number, source: string, externalId: string): Observable<any> {
+    return this.http.post('/item/external/add/collection/' + collectionId + '/' + source + '/' + externalId, '');
+  }
+
 }

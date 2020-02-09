@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Collection } from '../../Entities/collection';
 import { CollectionService } from '../../Services/collection.service';
 import { ItemService } from '../../Services/item.service';
@@ -16,7 +16,8 @@ export class AddItemExternallyComponent implements OnInit {
   searchResults: ItemSearch[];
 
   constructor(private collectionService: CollectionService,
-              private itemService: ItemService) { }
+              private itemService: ItemService,
+              private chRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.collectionService.getUserCollections().subscribe(data => {
@@ -33,7 +34,10 @@ export class AddItemExternallyComponent implements OnInit {
     const inputValue = event.target.value;
 
     if (inputValue.length % 2 === 0) {
-      this.itemService.searchItem(inputValue).subscribe(data => this.searchResults = data);
+      this.itemService.searchItem(inputValue).subscribe(data => {
+        this.searchResults = data;
+        this.chRef.detectChanges();
+      });
     }
   }
 

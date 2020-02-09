@@ -218,4 +218,38 @@ class ItemController
         $response->getBody()->write(json_encode($result));
         return  $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function addExternalItemToCollection($request, $response, $args): Response
+    {
+        $collectionId = (int)$args['collectionId'];
+        $source = $args['source'];
+        $externalId = $args['externalId'];
+        $userId = (int)$request->getAttribute('userId');
+
+        $collection = $this->collectionRepo->getById($collectionId);
+        $fields = $this->fieldRepo->getBasicByCollectionId($collectionId);
+
+        $itemArray = $this->external->getItem($source, $externalId, $fields);
+        
+        $itemData = $itemArray['itemData'];
+        
+        $item = $itemArray['item'];
+        $item->setCreationdate(new \DateTime());
+        $item->setAuthor($this->userRepo->getById($userId));
+        $item->setActive(true);
+        $item = $this->itemRepo->save($item);
+
+        $collection->addItem($item);
+
+        $this->collectionRepo->save($collection);
+
+        foreach($itemData as &$data)
+        {
+            $data->setItemid($item);
+
+            $this->itemDataRepo->save($data);
+        }
+
+        return $response;
+    }
 }

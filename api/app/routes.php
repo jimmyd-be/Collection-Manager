@@ -77,6 +77,7 @@ return function (App $app) {
 
     $app->group('/item', function (Group $group) use ($container) {
         $group->post('/add/collection/{id}', \ItemController::class . ':addToCollection');
+        $group->post('/external/add/collection/{collectionId}/{source}/{externalId}', \ItemController::class . ':addExternalItemToCollection');
         $group->post('/edit/{id}/{collectionId}', \ItemController::class . ':editItem');
         $group->get('/get/collection/{id}/{page}/{itemsOnPage}', \ItemController::class . ':getItemFromCollection');
         $group->get('/get/{id}', \ItemController::class . ':getItemById');

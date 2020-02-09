@@ -5,6 +5,7 @@ namespace App\Domain\External;
 
 use Psr\Container\ContainerInterface;
 use App\Domain\External\Movie\Imdb;
+use App\Entity\Item;
 
 class External {
 
@@ -26,6 +27,15 @@ class External {
         }
         
         return $result;
+    }
+
+    public function getItem($source, $externalId, $fields) {
+        foreach($this->externalSources as $externalSource){
+            if(strcasecmp($externalSource->getSource(),$source) ==0)
+            {
+                return $externalSource->getItem($externalId, $fields);
+            }
+        }
     }
 
 }

@@ -10,4 +10,5 @@ class ItemSearchDto
     public $image;
     public $releaseDate;
     public $source;
+    public $url;
 }

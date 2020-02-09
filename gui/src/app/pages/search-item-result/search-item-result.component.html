@@ -1,6 +1,12 @@
 <nb-card>
-<nb-header>{{item.name}}</nb-header>
+    <nb-card-header>{{item.name}} 
+      <span *ngIf="item.reaseDate">({{item.reaseDate}})</span>
+    </nb-card-header>
     <nb-card-body>
-      Card
+      <img src="{{item.image}}">
     </nb-card-body>
+    <nb-card-footer>
+      <a href="{{item.url}}" target="_blank">{{item.source}}</a>
+      <button nbButton (click)="addItemToCollection(item.source, item.externalId)" status="primary">Add to collection</button>
+    </nb-card-footer>
   </nb-card>
