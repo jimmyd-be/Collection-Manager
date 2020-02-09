@@ -22,6 +22,7 @@ jobs:
     - run: npm install
     - name: Use Angular NG
       uses: mayur-rawte/github-angular-actions@latest
-    - name: Angular build
+    - name: Angular Lint
       run: ng lint
+    - name: Angular prod build
       run: ng build --prod
