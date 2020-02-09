@@ -4,7 +4,6 @@ on:
   push:
     branches: 
       - develop
-    paths: 'gui/**'
 
 jobs:
   gui:
