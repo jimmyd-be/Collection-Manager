@@ -69,7 +69,7 @@ jobs:
         with:
           php-version: '7.4'
           tools: composer
-      - name: Composer -d ./api install 
+      - name: Composer install --working-dir api 
         working-directory: ${{env.working-directory-api}}
         run: composer install
       - name: Create zip
