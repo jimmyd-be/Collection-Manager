@@ -11,7 +11,7 @@ use App\Entity\Collection;
 
 class CollectionRepository
 {
-    private $em;
+    private EntityManager $em;
     private $repo;
 
     function __construct(EntityManager $entityManager) {

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Domain\External\External;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use App\Repository\FieldRepository;
 use App\Repository\UserRepository;
@@ -17,15 +18,15 @@ use App\Mappers\ItemMapper;
 
 class ItemController
 {
-    protected $container;
+    protected ContainerInterface $container;
 
-    private $fieldRepo;
-    private $userRepo;
-    private $collectionRepo;
-    private $itemRepo;
-    private $itemDataRepo;
-    private $itemMapper;
-    private $external;
+    private FieldRepository $fieldRepo;
+    private UserRepository $userRepo;
+    private CollectionRepository $collectionRepo;
+    private ItemRepository $itemRepo;
+    private ItemdataRepository $itemDataRepo;
+    private ItemMapper $itemMapper;
+    private External $external;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container)
@@ -42,7 +43,7 @@ class ItemController
         $this->external = new External($container);
     }
 
-    public function addToCollection($request, $response, $args): Response
+    public function addToCollection(Request $request, Response $response, array $args): Response
     {
         $collectionId = (int)$args['id'];
         $userId = (int)$request->getAttribute('userId');
@@ -97,7 +98,7 @@ class ItemController
         return $response;
     }
 
-    public function getItemFromCollection($request, $response, $args): Response
+    public function getItemFromCollection(Request $request, Response $response, array $args): Response
     {
         $collectionId = (int)$args['id'];
         $page = (int)$args['page'];
@@ -117,7 +118,7 @@ class ItemController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function deleteItemFromCollection($request, $response, $args): Response
+    public function deleteItemFromCollection(Request $request, Response $response, array $args): Response
     {
         $itemId = (int)$args['itemId'];
         $collectionId = (int)$args['collectionId'];
@@ -146,7 +147,7 @@ class ItemController
         return $response;
     }
 
-    public function getItemById($request, $response, $args): Response
+    public function getItemById(Request $request, Response $response, array $args): Response
     {
         $itemid = (int)$args['id'];
         $userId = (int)$request->getAttribute('userId');
@@ -159,7 +160,7 @@ class ItemController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function editItem($request, $response, $args): Response
+    public function editItem(Request $request, Response $response, array $args): Response
     {
         $itemId = (int)$args['id'];
         $collectionId = (int)$args['collectionId'];
@@ -208,7 +209,7 @@ class ItemController
         return $response;
     }
 
-    public function searchItemExternally($request, $response, $args): Response
+    public function searchItemExternally(Request $request, Response $response, array $args): Response
     {
         $type = $args['type'];
         $search = $request->getQueryParams()['search'];

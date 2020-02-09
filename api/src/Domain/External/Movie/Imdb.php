@@ -15,10 +15,10 @@ use App\Entity\Itemdata;
 class Imdb implements IExternal
 {
 
-    private $imdb;
-    private $maxReturnItems;
+    private TitleSearch $imdb;
+    private int $maxReturnItems;
 
-    public function __construct(ContainerInterface $container, $maxReturnItems)
+    public function __construct(ContainerInterface $container, int $maxReturnItems)
     {
         $this->imdb = new TitleSearch();
         $this->maxReturnItems = $maxReturnItems;
@@ -34,9 +34,8 @@ class Imdb implements IExternal
         return 'IMDB';
     }
 
-    public function searchItem($search)
+    public function searchItem(string $search): array
     {
-
         $movies = array();
         $imdbResult = $this->imdb->search($search, array(TitleSearch::MOVIE));
 
@@ -61,7 +60,7 @@ class Imdb implements IExternal
         return $movies;
     }
 
-    public function getItem($externalId, $fields)
+    public function getItem(string $externalId, array $fields): array
     {
         $title = new Title($externalId);
         $newItem = new Item();

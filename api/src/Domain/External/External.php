@@ -16,7 +16,7 @@ class External {
         array_push($this->externalSources, new Imdb($container, $this->maxReturnItems));
     }
 
-    public function search($search, $type ) {
+    public function search(string $search, string $type ): array {
 
         $result = array();
         foreach($this->externalSources as $source){
@@ -29,7 +29,7 @@ class External {
         return $result;
     }
 
-    public function getItem($source, $externalId, $fields) {
+    public function getItem(string $source, string $externalId, array $fields) {
         foreach($this->externalSources as $externalSource){
             if(strcasecmp($externalSource->getSource(),$source) ==0)
             {

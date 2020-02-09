@@ -4,15 +4,16 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use App\Repository\UserRepository;
 use App\Mappers\UserMapper;
 
 class UserController
 {
-    protected $container;
-    private $userMapper;
-    private $userRepo;
+    protected ContainerInterface $container;
+    private UserMapper $userMapper;
+    private UserRepository $userRepo;
 
     // constructor receives container instance
     public function __construct(ContainerInterface $container) {
@@ -22,7 +23,7 @@ class UserController
         $this->userMapper = new UserMapper($container);
     }
 
-    public function getUser($request, $response, $args): Response
+    public function getUser(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $user = $this->userRepo->getById($userId);
@@ -31,7 +32,7 @@ class UserController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function deleteUser($request, $response, $args): Response
+    public function deleteUser(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $currentUser = $this->userRepo->getById($userId);
@@ -50,7 +51,7 @@ class UserController
         return $response;
     }
 
-    public function editUser($request, $response, $args): Response
+    public function editUser(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $currentUser = $this->userRepo->getById($userId);
@@ -77,7 +78,7 @@ class UserController
         return $response;
     }
 
-    public function editPassword($request, $response, $args): Response
+    public function editPassword(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
         $currentUser = $this->userRepo->getById($userId);

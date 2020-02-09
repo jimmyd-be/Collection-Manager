@@ -11,7 +11,7 @@ use App\Entity\Itemdata;
 
 class ItemdataRepository
 {
-    private $em;
+    private EntityManager $em;
     private $repo;
 
     function __construct(EntityManager $entityManager) {
@@ -27,7 +27,7 @@ class ItemdataRepository
         return $item;
     }
 
-    public function getByItem(int $id)
+    public function getByItem(int $id): array
     {
         $dql = "SELECT i, f FROM App\Entity\Itemdata i JOIN i.itemid c JOIN i.fieldid f WHERE c.id = :itemId AND f.active = 1";
         $query = $this->em->createQuery($dql)
@@ -36,7 +36,7 @@ class ItemdataRepository
         return $query->getResult();
     }
 
-    public function deleteFromItem(int $itemId)
+    public function deleteFromItem(int $itemId): void
     {
         $dql = "DELETE FROM itemdata WHERE itemId = ?";
         $this->em->getConnection()->executeUpdate($dql, array($itemId));

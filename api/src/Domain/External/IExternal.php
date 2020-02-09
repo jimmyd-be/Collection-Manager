@@ -8,7 +8,7 @@ interface IExternal {
 
     public function getType(): string;
     public function getSource(): string;
-    public function searchItem($search);
-    public function getItem($externalId, $fields);
+    public function searchItem(string $search): array;
+    public function getItem(string $externalId, array $fields): array;
     
 }

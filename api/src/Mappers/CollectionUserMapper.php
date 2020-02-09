@@ -21,7 +21,7 @@ class CollectionUserMapper
         return $userCollecctionDto;
     }
 
-    public function mapListToDtoList($userCollections)
+    public function mapListToDtoList($userCollections): array
     {
         $result = array();
 

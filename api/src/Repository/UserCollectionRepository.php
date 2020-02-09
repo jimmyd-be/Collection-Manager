@@ -11,7 +11,7 @@ use App\Entity\Usercollection;
 
 class UserCollectionRepository
 {
-    private $em;
+    private EntityManager $em;
     private $repo;
 
     function __construct(EntityManager $entityManager) {
@@ -27,13 +27,13 @@ class UserCollectionRepository
         return $userCollection;
     }
 
-    public function delete(Usercollection $userCollection)
+    public function delete(Usercollection $userCollection): void
     {
         $this->em->remove($userCollection);
         $this->em->flush();
     }
 
-    public function getByUserAndCollection($collectionId, $userId): ?Usercollection
+    public function getByUserAndCollection(int $collectionId, int $userId): ?Usercollection
     {
         $query = $this->em->createQuery("SELECT c FROM App\Entity\Usercollection c JOIN c.userid u JOIN c.collectionid ci WHERE u.id = :userId and ci.id = :collectionId");
 
@@ -43,7 +43,7 @@ class UserCollectionRepository
         return $query->getOneOrNullResult();
     }
 
-    public function getByCollection(int $collectionId)
+    public function getByCollection(int $collectionId): array
     {
         $query = $this->em->createQuery("SELECT c FROM App\Entity\Usercollection c JOIN c.userid u JOIN c.collectionid ci JOIN c.roleid r WHERE ci.id = :collectionId and ci.active = 1");
 

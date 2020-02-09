@@ -11,7 +11,7 @@ use App\Entity\User;
 
 class UserRepository
 {
-    private $em;
+    private EntityManager $em;
     private $repo;
 
     function __construct(EntityManager $entityManager) {
@@ -19,7 +19,7 @@ class UserRepository
         $this->repo = $entityManager->getRepository(User::class);
     }
 
-    public function save(User $user)
+    public function save(User $user): void
     {
         $this->em->persist($user);
         $this->em->flush();
@@ -41,7 +41,7 @@ class UserRepository
         return null;
     }
 
-    public function getById(int $id)
+    public function getById(int $id): ?User
     {
         $query = $this-> em->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id');
         $query->setParameter('id', $id);
