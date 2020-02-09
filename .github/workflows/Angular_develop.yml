@@ -7,8 +7,7 @@ on:
     paths: 'gui/**'
 
 jobs:
-  build:
-
+  gui:
     runs-on: ubuntu-latest
     env:
       working-directory: ./gui
@@ -23,6 +22,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Cache node modules
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./gui/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
     - name: npm install
       working-directory: ${{env.working-directory}}
       run: npm install
@@ -38,23 +48,8 @@ jobs:
       uses: montudor/action-zip@v0.1.0
       with:
         args: zip -qq -r ./gui.zip ./gui/dist
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload math result for job 2
+      uses: actions/upload-artifact@v1
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Prerelease ${{ github.ref }}
-        draft: false
-        prerelease: true
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./gui.zip
-        asset_name: gui.zip
-        asset_content_type: application/zip
+        name: Gui
+        path: ./gui.zip
