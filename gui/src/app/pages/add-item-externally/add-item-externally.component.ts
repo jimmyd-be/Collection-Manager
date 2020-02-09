@@ -33,7 +33,7 @@ export class AddItemExternallyComponent implements OnInit {
     const inputValue = event.target.value;
 
     if (inputValue.length % 2 === 0) {
-      this.itemService.searchItem(inputValue).subscribe(data => this.searchResults = data);
+   //   this.itemService.searchItem(inputValue).subscribe(data => this.searchResults = data);
     }
   }
 
