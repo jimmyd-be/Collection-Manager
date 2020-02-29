@@ -1,0 +1,83 @@
+name: Full build (develop)
+
+on:
+  push:
+    branches: 
+      - develop
+
+jobs:
+  gui:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./gui
+      working-directory-api: ./api 
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Cache node modules
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('gui/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - name: npm install
+      working-directory: ${{env.working-directory}}
+      run: npm install
+    - name: Use Angular NG
+      uses: mayur-rawte/github-angular-actions@latest
+    - name: Angular Lint
+      working-directory: ${{env.working-directory}}
+      run: ng lint
+    - name: Angular prod build
+      working-directory: ${{env.working-directory}}
+      run: ng build --prod
+    - name: Create zip
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r ./gui.zip ./gui/dist
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: Gui
+        path: ./gui.zip
+  api:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v1
+      
+      - name: Cache PHP dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: ${{ runner.OS }}-build-${{ hashFiles('api/composer.lock') }}
+          
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+          tools: composer
+      - name: Composer install
+        run: composer install --working-dir api
+      - name: Create zip
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r ./api.zip ./api
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Api
+          path: ./api.zip
+

@@ -29,10 +29,10 @@ Collection manager is a tool to manager different collection like movies, games,
 
 ### Requirements
 - For developers:
-	- Node.js verion 8.x or greater
+	- Node.js verion 10.x or greater
 	- Angular CLI
 	- Apache HTTPD or equivalents
-	- PHP 7.3
+	- PHP 7.4
 - For users:
 	- Html 5 browser
 	
