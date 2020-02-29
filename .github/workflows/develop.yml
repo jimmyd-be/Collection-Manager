@@ -1,4 +1,4 @@
-name: Angular build (develop)
+name: Full build (develop)
 
 on:
   push:
