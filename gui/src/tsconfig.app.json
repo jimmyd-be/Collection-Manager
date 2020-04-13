@@ -12,6 +12,10 @@
       ]
     }
   },
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
   "exclude": [
     "test.ts",
     "**/*.spec.ts",
@@ -19,7 +23,7 @@
   ],
   "include": [
     "../src/*.ts",
-    "../src/**/*.ts",
+    "../src/**/*.d.ts",
     "../node_modules/@nebular/**/*.ts"
   ]
 }
