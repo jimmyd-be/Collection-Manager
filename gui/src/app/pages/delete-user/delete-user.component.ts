@@ -17,7 +17,7 @@ export class DeleteUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit () {
+  onSubmit() {
 
     this.userService.deleteUser(this.model).subscribe(data => {
       this.router.navigate(['/auth/logout']);

@@ -7,10 +7,12 @@
 @import '~@nebular/theme/styles/globals';
 @import '~@nebular/auth/styles/all';
 
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
-@import '~bootstrap/scss/grid';
+@import "~bootstrap/scss/bootstrap";
+
+//@import '~bootstrap/scss/functions';
+//@import '~bootstrap/scss/variables';
+//@import '~bootstrap/scss/mixins';
+//@import '~bootstrap/scss/grid';
 
 // loading progress bar theme
 @import './pace.theme';
