@@ -6,7 +6,7 @@ import { Collection } from '../../Entities/collection';
 import { NbDialogRef } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-item-dialog',
+  selector: 'app-item-dialog',
   templateUrl: './item-dialog.component.html',
   styleUrls: ['./item-dialog.component.scss'],
 })

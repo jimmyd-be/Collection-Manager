@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Item } from '../../Entities/item';
 
 @Component({
-  selector: 'ngx-add-item-manually',
+  selector: 'app-add-item-manually',
   templateUrl: './add-item-manually.component.html',
   styleUrls: ['./add-item-manually.component.scss'],
 })
@@ -23,11 +23,11 @@ export class AddItemManuallyComponent implements OnInit {
   item: Item;
 
   constructor(private collectionService: CollectionService,
-    private customfieldService: CustomFieldService,
-    public formService: ManualFormService,
-    private itemService: ItemService,
-    private toastrService: NbToastrService,
-    private route: ActivatedRoute) { }
+              private customfieldService: CustomFieldService,
+              public formService: ManualFormService,
+              private itemService: ItemService,
+              private toastrService: NbToastrService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
 

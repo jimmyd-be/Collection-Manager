@@ -5,12 +5,12 @@ import { CollectionService } from '../Services/collection.service';
 import { NbMenuItem } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-pages',
+  selector: 'app-pages',
   template: `
-    <ngx-one-column-layout>
+    <app-one-column-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
-    </ngx-one-column-layout>
+    </app-one-column-layout>
   `,
 })
 export class PagesComponent implements OnInit {

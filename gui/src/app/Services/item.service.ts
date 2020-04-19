@@ -11,7 +11,7 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
-  addItemToCollection(collectionId: Number, arg1: string): any {
+  addItemToCollection(collectionId: number, arg1: string): any {
     return this.http.post('/item/add/collection/' + collectionId, arg1);
   }
 
@@ -27,7 +27,7 @@ export class ItemService {
     return this.http.post('/item/edit/' + itemid + '/' + collectionId, value);
   }
 
-  getItemById(itemId: Number): Observable<Item> {
+  getItemById(itemId: number): Observable<Item> {
     return this.http.get<Item>('/item/get/' + itemId);
   }
 
@@ -35,7 +35,7 @@ export class ItemService {
     return this.http.get<ItemSearch[]>('/item/external/movie?search=' + search);
   }
 
-  addExternalItemToCollection(collectionId: Number, source: string, externalId: string): Observable<any> {
+  addExternalItemToCollection(collectionId: number, source: string, externalId: string): Observable<any> {
     return this.http.post('/item/external/add/collection/' + collectionId + '/' + source + '/' + externalId, '');
   }
 

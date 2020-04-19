@@ -14,7 +14,7 @@ import { ItemField } from '../../Entities/ItemField';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
-  selector: 'ngx-view-collection',
+  selector: 'app-view-collection',
   templateUrl: './view-collection.component.html',
   styleUrls: ['./view-collection.component.scss'],
 })
@@ -25,10 +25,10 @@ export class ViewCollectionComponent implements OnInit {
   deleteIcon = faTrash;
   editIcon = faEdit;
 
-  itemsPerPage: number = 50;
-  currentPage: number = 0;
-  currentView: string = 'list';
-  currentLetterFilter: string = 'ALL';
+  itemsPerPage = 50;
+  currentPage = 0;
+  currentView = 'list';
+  currentLetterFilter = 'ALL';
 
   firstLetterFilter: string[] ;
 
@@ -36,9 +36,12 @@ export class ViewCollectionComponent implements OnInit {
   fields: CustomField[];
   items: Item[] = Array();
 
-  constructor(private route: ActivatedRoute, private collectionService: CollectionService,
-    private itemService: ItemService, private fieldService: FieldService, private dialogService: NbDialogService,
-    private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private collectionService: CollectionService,
+              private itemService: ItemService,
+              private fieldService: FieldService,
+              private dialogService: NbDialogService,
+              private router: Router) { }
 
   ngOnInit() {
 

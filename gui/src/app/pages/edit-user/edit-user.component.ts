@@ -4,7 +4,7 @@ import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ngx-edit-user',
+  selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss'],
 })
@@ -20,7 +20,7 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-  onSubmit () {
+  onSubmit() {
 
     this.userService.editUser(this.model).subscribe(data => {
       this.router.navigate(['/pages/profile']);

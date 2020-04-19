@@ -40,7 +40,6 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
     RatingModule,
     NgbModule,
     ThemeModule.forRoot(),
-   
     NbDatepickerModule.forRoot(),
     NbMenuModule.forRoot(),
     NbAuthModule.forRoot({

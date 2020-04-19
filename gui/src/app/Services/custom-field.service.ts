@@ -23,7 +23,7 @@ export class CustomFieldService {
     return ['left', 'main', 'right'];
   }
 
-  getFieldsByCollection(collectionId: Number): Observable<CustomField[]> {
+  getFieldsByCollection(collectionId: number): Observable<CustomField[]> {
 
     return this.http.get<CustomField[]>('/field/collection/' + collectionId);
   }

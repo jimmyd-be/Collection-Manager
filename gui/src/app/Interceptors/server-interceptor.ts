@@ -22,7 +22,7 @@ export class ServerInterceptor implements HttpInterceptor {
               next: HttpHandler): Observable<HttpEvent<any>> {
 
     const updatedRequest = request.clone({
-        setHeaders: {'Authorization': 'Bearer ' + this.token},
+        setHeaders: {Authorization: 'Bearer ' + this.token},
       url: environment.apiUrl + request.url,
     });
 

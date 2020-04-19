@@ -78,7 +78,7 @@ const PIPES = [
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders>{
+    return {
       ngModule: ThemeModule,
       providers: [
         ...NbThemeModule.forRoot(
@@ -88,6 +88,6 @@ export class ThemeModule {
           [ DEFAULT_THEME, DARK_THEME ],
         ).providers,
       ],
-    };
+    } as ModuleWithProviders;
   }
 }

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DeleteUser } from '../../Entities/DeleteUser';
 
 @Component({
-  selector: 'ngx-delete-user',
+  selector: 'app-delete-user',
   templateUrl: './delete-user.component.html',
   styleUrls: ['./delete-user.component.scss'],
 })

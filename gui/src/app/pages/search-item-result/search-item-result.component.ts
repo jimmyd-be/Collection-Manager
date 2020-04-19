@@ -3,7 +3,7 @@ import { ItemSearch } from '../../Entities/ItemSearch';
 import { ItemService } from '../../Services/item.service';
 
 @Component({
-  selector: 'ngx-search-item-result',
+  selector: 'app-search-item-result',
   templateUrl: './search-item-result.component.html',
   styleUrls: ['./search-item-result.component.scss'],
 })

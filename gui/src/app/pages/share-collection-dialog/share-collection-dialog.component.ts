@@ -7,13 +7,16 @@ import { Role } from '../../Entities/Role';
 import { RoleService } from '../../Services/role.service';
 
 @Component({
-  selector: 'ngx-share-collection-dialog',
+  selector: 'app-share-collection-dialog',
   templateUrl: './share-collection-dialog.component.html',
   styleUrls: ['./share-collection-dialog.component.scss'],
 })
 export class ShareCollectionDialogComponent implements OnInit {
 
-  @Input() public collectionId: Number;
+  @Input() public collectionId: number;
+
+  private usernameLabel = 'userName';
+  private roleLabel = 'role';
 
   roles: Role[];
 
@@ -22,7 +25,7 @@ export class ShareCollectionDialogComponent implements OnInit {
     role: new FormControl(''),
   });
 
-  constructor(private dialogRef: NbDialogRef<Number>, private collectionService: CollectionService, private roleService: RoleService) { }
+  constructor(private dialogRef: NbDialogRef<number>, private collectionService: CollectionService, private roleService: RoleService) { }
 
   ngOnInit() {
     this.roleService.getActiveRoles().subscribe(data => this.roles = data);
@@ -33,7 +36,7 @@ export class ShareCollectionDialogComponent implements OnInit {
   }
 
   share() {
-    const shareDto = new CollectionShare(this.form.controls['userName'].value, this.form.controls['role'].value);
+    const shareDto = new CollectionShare(this.form.controls[this.usernameLabel].value, this.form.controls[this.roleLabel].value);
 
     this.collectionService.shareCollection(shareDto, this.collectionId).subscribe();
 

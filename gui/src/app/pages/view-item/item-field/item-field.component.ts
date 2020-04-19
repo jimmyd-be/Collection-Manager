@@ -4,7 +4,7 @@ import { CustomField } from '../../../Entities/custom-field';
 import { ItemData } from '../../../Entities/ItemData';
 
 @Component({
-  selector: 'ngx-item-field',
+  selector: 'app-item-field',
   templateUrl: './item-field.component.html',
   styleUrls: ['./item-field.component.scss'],
 })

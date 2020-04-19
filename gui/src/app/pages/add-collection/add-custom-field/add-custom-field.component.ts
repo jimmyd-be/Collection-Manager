@@ -5,7 +5,7 @@ import { CustomFieldService } from '../../../Services/custom-field.service';
 
 
 @Component({
-  selector: 'ngx-app-add-custom-field',
+  selector: 'app-add-custom-field',
   templateUrl: './add-custom-field.component.html',
   styleUrls: ['./add-custom-field.component.scss'],
 })
@@ -21,10 +21,10 @@ export class AddCustomFieldComponent implements OnInit {
   labelPositions: string[];
   fieldPositions: string[];
 
-  showValueField: boolean = false;
-  showPlaceholderField: boolean = false;
-  showRequiredField: boolean = false;
-  showAllowMultiField: boolean = false;
+  showValueField = false;
+  showPlaceholderField = false;
+  showRequiredField = false;
+  showAllowMultiField = false;
 
   constructor(private fieldService: CustomFieldService) { }
 

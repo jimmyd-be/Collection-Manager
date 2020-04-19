@@ -2,7 +2,7 @@
   <span *ngIf="field.labelPosition === 'top'" class="label">{{field.label}}<br /></span> 
   <span *ngIf="field.labelPosition === 'left'" class="label">{{field.label}}: </span> 
   
-  <ngx-image-widget *ngIf="field.widget === 'image'" [value]="getItemValue()" ></ngx-image-widget>
-  <ngx-default-widget *ngIf="field.widget === 'default'" [value]="getItemValue()"></ngx-default-widget>
-  <ngx-rate-widget *ngIf="field.widget === 'rate'" [value]="getItemValue()" ></ngx-rate-widget>
+  <app-image-widget *ngIf="field.widget === 'image'" [value]="getItemValue()" ></app-image-widget>
+  <app-default-widget *ngIf="field.widget === 'default'" [value]="getItemValue()"></app-default-widget>
+  <app-rate-widget *ngIf="field.widget === 'rate'" [value]="getItemValue()" ></app-rate-widget>
 </p>

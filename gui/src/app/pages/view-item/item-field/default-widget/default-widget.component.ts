@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'ngx-default-widget',
+  selector: 'app-default-widget',
   templateUrl: './default-widget.component.html',
   styleUrls: ['./default-widget.component.scss'],
 })

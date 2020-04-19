@@ -5,7 +5,7 @@ import { ItemService } from '../../Services/item.service';
 import { ItemSearch } from '../../Entities/ItemSearch';
 
 @Component({
-  selector: 'ngx-add-item-externally',
+  selector: 'app-add-item-externally',
   templateUrl: './add-item-externally.component.html',
   styleUrls: ['./add-item-externally.component.scss'],
 })

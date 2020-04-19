@@ -2,12 +2,12 @@
   <div class="row">
       <div class="col-sm-3 text-truncate">
           <div class="row" *ngFor="let field of getFieldsByLocation('left')">
-            <ngx-item-field [item]="item" [field]="field"></ngx-item-field>
+            <app-item-field [item]="item" [field]="field"></app-item-field>
           </div>  
         </div>
         <div class="col-sm-9">
             <div class="row" *ngFor="let field of getFieldsByLocation('main')">
-                <ngx-item-field [item]="item" [field]="field"></ngx-item-field>
+                <app-item-field [item]="item" [field]="field"></app-item-field>
               </div>
         </div>
     </div>

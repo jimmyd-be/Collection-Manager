@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'ngx-rate-widget',
+  selector: 'app-rate-widget',
   templateUrl: './rate-widget.component.html',
   styleUrls: ['./rate-widget.component.scss'],
 })
