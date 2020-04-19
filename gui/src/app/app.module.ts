@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CoreModule } from './@core/core.module';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,8 +17,15 @@ import { NbDatepickerModule, NbMenuModule, NbSidebarService } from '@nebular/the
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
 import { AppRoutingModule } from './app-routing.module';
+import { NbRoleProvider, NbSecurityModule } from '@nebular/security';
+import { of as observableOf } from 'rxjs';
 
-
+export class NbSimpleRoleProvider extends NbRoleProvider {
+  getRole() {
+    // here you could provide any role based on any auth flow
+    return observableOf('guest');
+  }
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,8 +40,7 @@ import { AppRoutingModule } from './app-routing.module';
     RatingModule,
     NgbModule,
     ThemeModule.forRoot(),
-    //CoreModule.forRoot(),
-    
+   
     NbDatepickerModule.forRoot(),
     NbMenuModule.forRoot(),
     NbAuthModule.forRoot({
@@ -90,6 +95,22 @@ import { AppRoutingModule } from './app-routing.module';
       multi: true,
     },
     NbSidebarService,
+    {
+      provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
+    },
+    NbSecurityModule.forRoot({
+      accessControl: {
+        guest: {
+          view: '*',
+        },
+        user: {
+          parent: 'guest',
+          create: '*',
+          edit: '*',
+          remove: '*',
+        },
+      },
+    }).providers,
   ],
 })
 export class AppModule { }
