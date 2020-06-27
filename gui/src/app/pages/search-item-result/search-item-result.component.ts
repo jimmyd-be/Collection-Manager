@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ItemSearch } from '../../Entities/ItemSearch';
+import { ItemSearchDirective } from '../../Entities/ItemSearch';
 import { ItemService } from '../../Services/item.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ItemService } from '../../Services/item.service';
 })
 export class SearchItemResultComponent implements OnInit {
 
-  @Input() item: ItemSearch;
+  @Input() item: ItemSearchDirective;
   @Input() collectionId: number;
 
   constructor(private itemService: ItemService) { }

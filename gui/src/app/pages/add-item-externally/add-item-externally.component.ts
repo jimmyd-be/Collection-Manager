@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Collection } from '../../Entities/collection';
 import { CollectionService } from '../../Services/collection.service';
 import { ItemService } from '../../Services/item.service';
-import { ItemSearch } from '../../Entities/ItemSearch';
+import { ItemSearchDirective } from '../../Entities/ItemSearch';
 
 @Component({
   selector: 'app-add-item-externally',
@@ -13,7 +13,7 @@ export class AddItemExternallyComponent implements OnInit {
 
   collectionList: Collection[];
   collectionId: number;
-  searchResults: ItemSearch[];
+  searchResults: ItemSearchDirective[];
 
   constructor(private collectionService: CollectionService,
               private itemService: ItemService,

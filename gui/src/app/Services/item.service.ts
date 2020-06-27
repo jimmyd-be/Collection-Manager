@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Item } from '../Entities/item';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ItemSearch } from '../Entities/ItemSearch';
+import { ItemSearchDirective } from '../Entities/ItemSearch';
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +31,8 @@ export class ItemService {
     return this.http.get<Item>('/item/get/' + itemId);
   }
 
-  searchItem(search: string): Observable<ItemSearch[]> {
-    return this.http.get<ItemSearch[]>('/item/external/movie?search=' + search);
+  searchItem(search: string): Observable<ItemSearchDirective[]> {
+    return this.http.get<ItemSearchDirective[]>('/item/external/movie?search=' + search);
   }
 
   addExternalItemToCollection(collectionId: number, source: string, externalId: string): Observable<any> {

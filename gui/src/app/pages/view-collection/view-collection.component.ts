@@ -10,7 +10,7 @@ import { FieldService } from '../../Services/field.service';
 import { ItemData } from '../../Entities/ItemData';
 import { NbDialogService } from '@nebular/theme';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
-import { ItemField } from '../../Entities/ItemField';
+import { ItemFieldDirective } from '../../Entities/ItemField';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -101,7 +101,7 @@ export class ViewCollectionComponent implements OnInit {
   }
 
   openModal(item: Item) {
-    this.dialogService.open(ItemDialogComponent, {context: new ItemField(item, this.fields, this.collection)})
+    this.dialogService.open(ItemDialogComponent, {context: new ItemFieldDirective(item, this.fields, this.collection)})
     .onClose.subscribe(
       data => {
         if (data === 'delete') {
