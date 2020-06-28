@@ -56,6 +56,7 @@ return function (App $app) {
 
     $app->group('/collection', function (Group $group) use ($container) {
         $group->get('/user', \CollectionController::class . ':getByUser');
+        $group->get('/types', \CollectionController::class . ':getCollectionTypes');
         $group->post('/add', \CollectionController::class . ':add');
         $group->post('/edit', \CollectionController::class . ':edit');
         $group->delete('/{id}', \CollectionController::class . ':delete');

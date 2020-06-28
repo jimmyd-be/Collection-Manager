@@ -46,7 +46,7 @@ export class CollectionService {
     return this.http.post('/collection/' + collectionId + '/share', collectionShare);
   }
 
-  getCollectionTypes(): string[] {
-    return ['Books', 'Comics', 'Games', 'Magazines', 'Movies'];
+  getCollectionTypes(): Observable<string[]> {
+    return this.http.get<string[]>('/collection/types');
   }
 }

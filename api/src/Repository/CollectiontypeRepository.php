@@ -26,4 +26,11 @@ class CollectiontypeRepository
 
         return $query->getOneOrNullResult();
     }
+
+    function getAll()
+    {
+        $query =$this->em->createQuery("SELECT t FROM App\Entity\Collectiontype t WHERE t.active = 1");
+
+        return $query->getResult();
+    }
 }

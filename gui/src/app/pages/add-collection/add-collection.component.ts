@@ -68,7 +68,9 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
         });
     });
 
-    this.collectionTypes = this.collectionService.getCollectionTypes();
+    this.collectionService.getCollectionTypes().subscribe(type => {
+      this.collectionTypes = type;
+    });
   }
 
   ngOnDestroy() {

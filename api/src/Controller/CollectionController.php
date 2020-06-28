@@ -74,6 +74,21 @@ class CollectionController
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function getCollectionTypes(Request $request, Response $response, array $args): Response
+    {
+        $types = $this->typeRepo->getAll();
+
+        $dtoArray = array();
+
+        foreach($types as $type)
+        {
+            array_push($dtoArray, $type->getType());
+        }
+
+        $response->getBody()->write(json_encode($dtoArray));
+        return  $response->withHeader('Content-Type', 'application/json');
+    }
+
     public function add(Request $request, Response $response, array $args): Response
     {
         $userId = (int)$request->getAttribute('userId');
