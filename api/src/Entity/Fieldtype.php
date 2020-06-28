@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Fieldtype
  *
- * @ORM\Table(name="fieldType", uniqueConstraints={@ORM\UniqueConstraint(name="fieldType_UN_type", columns={"type"})})
+ * @ORM\Table(name="fieldtype", uniqueConstraints={@ORM\UniqueConstraint(name="fieldType_UN_type", columns={"type"})})
  * @ORM\Entity
  */
 class Fieldtype

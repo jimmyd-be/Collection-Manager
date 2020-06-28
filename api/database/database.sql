@@ -20,7 +20,7 @@ CREATE TABLE role (
     CONSTRAINT role_UN_role UNIQUE KEY (role)
 );
 
-CREATE TABLE collectionType (
+CREATE TABLE collectiontype (
     id int NOT NULL AUTO_INCREMENT,
     type varchar(255) NOT NULL,
     active BOOL NULL,
@@ -34,10 +34,10 @@ CREATE TABLE collection (
     typeId int NOT NULL,
     active BOOL NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (typeId)  REFERENCES collectionType(id)
+    FOREIGN KEY (typeId)  REFERENCES collectiontype(id)
 );
 
-CREATE TABLE userCollection (
+CREATE TABLE usercollection (
     userId BIGINT UNSIGNED NOT NULL,
     collectionId BIGINT UNSIGNED NOT NULL,
     roleId int NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE item (
     FOREIGN KEY (author)  REFERENCES user(id)
 );
 
-CREATE TABLE collectionItem (
+CREATE TABLE collectionitem (
     collectionId BIGINT UNSIGNED NOT NULL,
     itemId BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (collectionId, itemId),
@@ -68,7 +68,7 @@ CREATE TABLE collectionItem (
     FOREIGN KEY (itemId)  REFERENCES item(id)
 );
 
-CREATE TABLE fieldType (
+CREATE TABLE fieldtype (
     id int NOT NULL AUTO_INCREMENT,
     type varchar(255) NOT NULL,
     active BOOL NULL,
@@ -93,8 +93,8 @@ CREATE TABLE field (
   labelPosition varchar(45) NULL,
   widget varchar(45) NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (type)  REFERENCES fieldType(id),
-  FOREIGN KEY (collectionBaseType)  REFERENCES collectionType(id)
+  FOREIGN KEY (type)  REFERENCES fieldtype(id),
+  FOREIGN KEY (collectionBaseType)  REFERENCES collectiontype(id)
 );
 
 CREATE TABLE itemdata (

@@ -244,9 +244,11 @@ class ItemController
 
         $this->collectionRepo->save($collection);
 
+        $count = 0;
         foreach($itemData as &$data)
         {
             $data->setItemid($item);
+            $data->setValueCount($count++);
 
             $this->itemDataRepo->save($data);
         }

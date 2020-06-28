@@ -1,9 +1,9 @@
-INSERT INTO cm.collectionType (`id`, `type`, `active`) VALUES
+INSERT INTO cm.collectiontype (`id`, `type`, `active`) VALUES
 (1, 'Movies', 1),
 (2, 'Games', 1);
 
 
-INSERT INTO cm.fieldType (id, `type`,active) VALUES 
+INSERT INTO cm.fieldtype (id, `type`,active) VALUES 
 (1, 'text',1)
 ,(2, 'url',1)
 ,(3, 'textarea',1)

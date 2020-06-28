@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Collectiontype
  *
- * @ORM\Table(name="collectionType", uniqueConstraints={@ORM\UniqueConstraint(name="collectionType_UN_type", columns={"type"})})
+ * @ORM\Table(name="collectiontype", uniqueConstraints={@ORM\UniqueConstraint(name="collectionType_UN_type", columns={"type"})})
  * @ORM\Entity
  */
 class Collectiontype

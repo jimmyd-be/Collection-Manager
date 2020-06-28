@@ -33,6 +33,7 @@ class Itemdata
      */
     private $itemid;
 
+ 
     /**
      * @var \Field
      *
@@ -44,6 +45,23 @@ class Itemdata
      * })
      */
     private $fieldid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="valueCount", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $valueCount;
+
+    public function getValueCount(){
+      return $this->valueCount;
+    }
+
+    public function setValueCount($count){
+      $this->valueCount = $count;
+    }
 
     public function getFieldvalue(){
 		return $this->fieldvalue;
