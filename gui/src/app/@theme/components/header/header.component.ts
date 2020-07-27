@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  
+
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly = false;
   user: User;
@@ -27,12 +27,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
     this.userService.getUser()
-      .subscribe((user: User) => {this.user = user;
-      this.themeService.changeTheme(user.theme);});
+      .subscribe((user: User) => {
+        this.user = user;
+        this.themeService.changeTheme(user.theme);
+    });
 
-      const { xl } = this.breakpointService.getBreakpointsMap();
+    const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(
         map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
@@ -46,7 +47,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
 

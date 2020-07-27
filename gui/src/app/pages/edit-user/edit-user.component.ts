@@ -15,10 +15,8 @@ export class EditUserComponent implements OnInit {
 
   private destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private userService: UserService, private router: Router, 
-    private themeService: NbThemeService) { }
+  constructor(private userService: UserService, private router: Router, private themeService: NbThemeService) { }
 
-  
   model: EditUser = new EditUser('', '', '', 'default');
 
   themes = [
