@@ -135,7 +135,7 @@ INSERT INTO fieldtype (id, `type`,active) VALUES
 ,(11, 'barcode',1),
 (12, 'number', 1);
 
-INSERT INTO newcm.`role` (id, role, active) VALUES
+INSERT INTO `role` (id, `role`, active) VALUES
 (0, 'Owner', 1),
 (1, 'Admin', 1),
 (2, 'Editor', 1),
