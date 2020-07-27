@@ -5,6 +5,7 @@ CREATE TABLE user (
 	userPassword VARCHAR(255) NULL,
     creationDate DATETIME NOT NULL,
     isAdmin BOOL NULL,
+    theme VARCHAR(255) NULL,
 	active BOOL NULL,
 	PRIMARY KEY (id),
 	CONSTRAINT user_UN_mail UNIQUE KEY (mail),

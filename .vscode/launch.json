@@ -5,7 +5,9 @@
             "name": "Listen for XDebug",
             "type": "php",
             "request": "launch",
+            "hostname": "127.0.0.1",
             "port": 9000,
+            "cwd":"${workspaceRoot}/api"
         },
         {
             "type": "chrome",
@@ -13,7 +15,7 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:4200",
             "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
+            "webRoot": "${workspaceRoot}/gui"
         }
         
     ]

@@ -9,5 +9,6 @@ class UserDto
     public $mail;
     public $username;
     public $isAdmin;
-    public $creationDate;    
+    public $creationDate;
+    public $theme;    
 }

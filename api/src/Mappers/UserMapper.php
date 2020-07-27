@@ -18,6 +18,7 @@ class UserMapper
         $userDto->username = $user->getUsername();
         $userDto->isAdmin = $user->getIsadmin();
         $userDto->creationDate = $user->getCreationdate()->format('Y-m-d H:i:s');
+        $userDto->theme = $user->getTheme();
 
         return $userDto;
     }

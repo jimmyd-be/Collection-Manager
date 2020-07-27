@@ -57,6 +57,13 @@ class User
     private $isadmin;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="theme", type="string", length=255, nullable=true)
+     */
+    private $theme;
+
+    /**
      * @var bool|null
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
@@ -85,6 +92,14 @@ class User
 
 	public function setMail($mail){
 		$this->mail = $mail;
+  }
+  
+  public function getTheme(){
+		return $this->theme;
+	}
+
+	public function setTheme($theme){
+		$this->theme = $theme;
 	}
 
 	public function getUserpassword(){

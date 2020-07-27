@@ -69,6 +69,12 @@ class UserController
             {
                 $currentUser->setMail($input['newMail']);
             }
+
+            if($input['theme'] && !empty($input['theme']))
+            {
+                $currentUser->setTheme($input['theme']);
+            }
+
             $this->userRepo->save($currentUser);
         }
         else {
