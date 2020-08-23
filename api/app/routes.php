@@ -47,6 +47,10 @@ return function (App $app) {
         //$group->post('/reset-pass', AuthController::class);
     });
 
+    $app->group('/users', function (Group $group) use ($container) {
+        $group->get('', \UserController::class . ':getAllUser');
+    });
+
     $app->group('/user', function (Group $group) use ($container) {
         $group->get('', \UserController::class . ':getUser');
         $group->post('/delete', \UserController::class . ':deleteUser');

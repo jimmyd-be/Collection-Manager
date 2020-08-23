@@ -104,4 +104,20 @@ class UserController
         return $response;
     }
 
+    public function getAllUser (Request $request, Response $response, array $args): Response
+    {
+        $userId = (int)$request->getAttribute('userId');
+        $currentUser = $this->userRepo->getById($userId);
+
+        if($currentUser->getIsadmin()) {
+            $users = $this->userRepo->getAll();
+            $response->getBody()->write(json_encode($this->userMapper->mapListToDto($users)));
+        }
+        else {
+            $response = $response->withStatus(401);
+        }
+
+        return $response->withHeader('Content-Type', 'application/json');;
+    }
+
 }

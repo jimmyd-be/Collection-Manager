@@ -27,7 +27,7 @@ class UserRepository
 
     public function getUserByNameOrMail(string $username, string $mail): ?User
     {
-        $query = $this-> em->createQuery('SELECT u FROM App\Entity\User u WHERE u.mail = :mail or u.username = :username');
+        $query = $this->em->createQuery('SELECT u FROM App\Entity\User u WHERE u.mail = :mail or u.username = :username');
         $query->setParameter('username', $username);
         $query->setParameter('mail', $mail);
 
@@ -43,11 +43,18 @@ class UserRepository
 
     public function getById(int $id): ?User
     {
-        $query = $this-> em->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id');
+        $query = $this->em->createQuery('SELECT u FROM App\Entity\User u WHERE u.id = :id');
         $query->setParameter('id', $id);
 
         return $query->getOneOrNullResult();
 
+    }
+
+    public function getAll()
+    {
+        $query = $this->em->createQuery('SELECT u FROM App\Entity\User u');
+
+        return $query->getResult();
     }
 
 }

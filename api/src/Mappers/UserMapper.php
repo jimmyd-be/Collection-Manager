@@ -23,4 +23,15 @@ class UserMapper
         return $userDto;
     }
 
+    public function mapListToDto($users)
+    {
+        $result = array();
+
+        foreach ($users as &$user) {
+            array_push($result, $this->mapToDto($user));
+        }
+
+        return $result;
+    }
+
 }
