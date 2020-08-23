@@ -73,6 +73,7 @@ class AuthController
           $user->setUserpassword(password_hash($input['password'], PASSWORD_DEFAULT));
           $user->setCreationdate(new \DateTime("now"));
           $user->setIsadmin(false);
+          $user->setTheme("default");
 
           $this->userRepo->save($user);
           $newResponse = $response->withStatus(200);
