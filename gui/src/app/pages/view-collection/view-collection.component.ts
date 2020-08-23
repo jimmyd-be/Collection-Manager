@@ -25,6 +25,7 @@ export class ViewCollectionComponent implements OnInit {
   deleteIcon = faTrash;
   editIcon = faEdit;
 
+  id: number;
   itemsPerPage = 50;
   currentPage = 0;
   currentView = 'list';
@@ -51,25 +52,30 @@ export class ViewCollectionComponent implements OnInit {
 
     this.firstLetterFilter = '#ABCDEFGHIJKLMNOPQRSTUVWQYZ'.split('');
 
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.router.events.subscribe((val) => {
+      const currentId = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (id !== null) {
+      if (currentId !== null && this.id !== currentId) {
 
-      this.fieldService.getFieldsByCollection(id).subscribe(data => {
-        this.fields = data;
-      });
+        this.id = currentId;
 
-      this.collectionService.getUserCollection(id).subscribe(data => {
-        this.collection = data;
-      });
+        this.fieldService.getFieldsByCollection(currentId).subscribe(data => {
+          this.fields = data;
+        });
 
-      this.itemService.getItemOfCollection(id, this.currentPage, this.itemsPerPage).subscribe(items => {
+        this.collectionService.getUserCollection(currentId).subscribe(data => {
+          this.collection = data;
+        });
 
-        for (const item of items) {
-          this.items.push(item);
-        }
-      });
-    }
+        this.items = [];
+
+        this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage).subscribe(items => {
+          for (const item of items) {
+            this.items.push(item);
+          }
+        });
+      }
+    });
   }
 
   getImage(item: Item): string {
