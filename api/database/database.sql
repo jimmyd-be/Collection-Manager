@@ -159,8 +159,8 @@ INSERT INTO field
 ('director', 1, NULL, 0, 'Director', 'Director', NULL, 1, 50, 'main', 1, 1, 'top', 'default'),
 ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 1, 60, 'main', 1, 1, 'top', 'default'),
 ('cast', 1, NULL, 0, 'Cast', 'Cast', NULL, 1, 60, 'main', 1, 1, 'top', 'default'),
-('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 1, 70, 'left', 1, 0, 'hidden', 'image'),
-('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 1, 80, 'left', 1, 0, 'hidden', 'rate');
+('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 1, 70, 'left', 0, 1, 'hidden', 'image'),
+('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 1, 80, 'left', 0, 1, 'hidden', 'rate');
 
 
 /* Games default fields */
@@ -173,8 +173,8 @@ INSERT INTO field
 ('platform', 1, NULL, 0, 'Platform', 'Platform', NULL, 2, 20, 'main', 1, 1, 'left', 'default'),
 ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 2, 30, 'main', 1, 1, 'left', 'default'),
 ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 2, 40, 'main', 0, 1, 'top', 'default'),
-('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 2, 70, 'left', 1, 0, 'hidden', 'image'),
-('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 2, 80, 'left', 1, 0, 'hidden', 'rate');
+('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 2, 70, 'left', 0, 1, 'hidden', 'image'),
+('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 2, 80, 'left', 0, 1, 'hidden', 'rate');
 
 
 /* Magazines default fields */
@@ -182,7 +182,7 @@ INSERT INTO field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 3, 0, 'top', 0, 1, 'hidden', 'default'),
-('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 3, 70, 'left', 1, 0, 'hidden', 'image'),
+('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 3, 70, 'left', 0, 1, 'hidden', 'image'),
 ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 3, 30, 'main', 0, 1, 'left', 'default'),
 ('content', 3, NULL, 0, 'Content', 'Content', NULL, 3, 40, 'main', 0, 1, 'top', 'default');
 
@@ -191,7 +191,7 @@ INSERT INTO field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 4, 0, 'top', 0, 1, 'hidden', 'default'),
-('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 4, 70, 'left', 1, 0, 'hidden', 'image'),
+('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 4, 70, 'left', 0, 1, 'hidden', 'image'),
 ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 4, 30, 'main', 0, 1, 'left', 'default'),
 ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 4, 0, 'main', 0, 1, 'hidden', 'default'),
 ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 4, 30, 'main', 1, 1, 'left', 'default'),
@@ -199,7 +199,7 @@ INSERT INTO field
 ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 4, 50, 'main', 0, 1, 'top', 'default'),
 ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 4, 40, 'main', 0, 1, 'top', 'default'),
 ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 4, 10, 'main', 1, 1, 'left', 'default'),
-('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 4, 80, 'left', 1, 0, 'hidden', 'rate');
+('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 4, 80, 'left', 0, 1, 'hidden', 'rate');
 
 
 /* Disks default fields */
@@ -210,7 +210,7 @@ INSERT INTO field
 ('artist', 1, NULL, 0, 'Artist', 'Artist', NULL, 5, 30, 'main', 1, 1, 'left', 'default'),
 ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 5, 30, 'main', 0, 1, 'left', 'default'),
 ('song', 1, NULL, 0, 'Song', 'Song', NULL, 5, 100, 'main', 1, 1, 'left', 'default'),
-('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 5, 70, 'left', 1, 0, 'hidden', 'image');
+('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 5, 70, 'left', 0, 1, 'hidden', 'image');
 
 
 /* Comics default fields */
@@ -218,7 +218,7 @@ INSERT INTO field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 6, 0, 'top', 0, 1, 'hidden', 'default'),
-('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 6, 70, 'left', 1, 0, 'hidden', 'image'),
+('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 6, 70, 'left', 0, 1, 'hidden', 'image'),
 ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 6, 0, 'main', 0, 1, 'hidden', 'default'),
 ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 6, 30, 'main', 1, 1, 'left', 'default'),
 ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 6, 30, 'main', 0, 1, 'left', 'default'),
@@ -226,4 +226,4 @@ INSERT INTO field
 ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 6, 50, 'main', 0, 1, 'top', 'default'),
 ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 6, 40, 'main', 0, 1, 'top', 'default'),
 ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 6, 10, 'main', 1, 1, 'left', 'default'),
-('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 6, 80, 'left', 1, 0, 'hidden', 'rate');
+('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 6, 80, 'left', 0, 1, 'hidden', 'rate');

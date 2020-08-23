@@ -39,7 +39,10 @@ export class AddItemManuallyComponent implements OnInit {
     this.collectionService.getUserCollections().subscribe(data => {
       this.collectionList = data;
 
-      this.collectionSelectionChanged(this.collectionId);
+      if (this.collectionId !== 0) {
+        this.collectionSelectionChanged(this.collectionId);
+      }
+
     });
   }
 
