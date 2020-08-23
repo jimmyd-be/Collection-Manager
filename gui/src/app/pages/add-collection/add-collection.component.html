@@ -29,8 +29,9 @@
     </nb-card-body>
 
     <nb-card-footer>
-      <button nbButton status="primary" type="submit" [disabled]="!addCollectionGroup.valid">Submit</button>
-      <button nbButton type="button" status="info" (click)="addCustomField()">Add custom field</button>
+      <button nbButton status="primary"
+      class="appearance-filled size-medium status-primary shape-rectangle nb-transition"type="submit" [disabled]="!addCollectionGroup.valid">Submit</button>
+      <button nbButton type="button" class="appearance-filled size-medium status-info shape-rectangle nb-transition" status="info" (click)="addCustomField()">Add custom field</button>
     </nb-card-footer>
 
   </nb-card>

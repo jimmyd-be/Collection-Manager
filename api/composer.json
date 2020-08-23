@@ -1,12 +1,12 @@
 {
-    "name": "lonelobo0070/collection-manager-backend",
+    "name": "jimmyd-be/collection-manager-backend",
     "description": "Collection manager backend",
     "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "https://github.com/lonelobo0070/Collection-Manager-Backend",
+    "homepage": "https://github.com/jimmyd-be/Collection-Manager-Backend",
     "license": "MIT",
     "authors": [],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "ext-json": "*",
         "doctrine/orm": "^2",
         "imdbphp/imdbphp": "^6.3",
@@ -14,7 +14,7 @@
         "php-di/php-di": "^6.0",
         "rbdwllr/reallysimplejwt": "^2.0",
         "slim/psr7": "dev-master",
-        "slim/slim": "^4.0"
+        "slim/slim": "^4.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"

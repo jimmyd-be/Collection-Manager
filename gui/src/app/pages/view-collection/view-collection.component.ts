@@ -52,30 +52,38 @@ export class ViewCollectionComponent implements OnInit {
 
     this.firstLetterFilter = '#ABCDEFGHIJKLMNOPQRSTUVWQYZ'.split('');
 
+    if (this.id == null) {
+      this.loadData();
+    }
+
     this.router.events.subscribe((val) => {
-      const currentId = Number(this.route.snapshot.paramMap.get('id'));
-
-      if (currentId !== null && this.id !== currentId) {
-
-        this.id = currentId;
-
-        this.fieldService.getFieldsByCollection(currentId).subscribe(data => {
-          this.fields = data;
-        });
-
-        this.collectionService.getUserCollection(currentId).subscribe(data => {
-          this.collection = data;
-        });
-
-        this.items = [];
-
-        this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage).subscribe(items => {
-          for (const item of items) {
-            this.items.push(item);
-          }
-        });
-      }
+      this.loadData();
     });
+  }
+
+  private loadData() {
+    const currentId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (currentId !== null && this.id !== currentId) {
+
+      this.id = currentId;
+
+      this.fieldService.getFieldsByCollection(currentId).subscribe(data => {
+        this.fields = data;
+      });
+
+      this.collectionService.getUserCollection(currentId).subscribe(data => {
+        this.collection = data;
+      });
+
+      this.items = [];
+
+      this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage).subscribe(items => {
+        for (const item of items) {
+          this.items.push(item);
+        }
+      });
+    }
   }
 
   getImage(item: Item): string {
