@@ -27,7 +27,22 @@ export class PagesComponent implements OnInit {
         const newItem = new NbMenuItem();
         newItem.title = collection.name;
         newItem.link = '/pages/collection/view/' + collection.id;
-        newItem.icon = 'grid-outline';
+
+        if (collection.type === 'Books') {
+          newItem.icon = 'book-outline';
+        } else if (collection.type === 'Disks') {
+          newItem.icon = 'music-outline';
+        } else if (collection.type === 'Movies') {
+          newItem.icon = 'film-outline';
+        } else if (collection.type === 'Magazines') {
+          newItem.icon = 'map-outline';
+        } else if (collection.type === 'Comics') {
+          newItem.icon = 'layers-outline';
+        } else if (collection.type === 'Games') {
+          newItem.icon = 'tv-outline';
+        } else {
+          newItem.icon = 'grid-outline';
+        }
 
         this.menu.push(newItem);
       }
