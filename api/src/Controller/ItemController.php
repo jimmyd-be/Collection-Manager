@@ -77,19 +77,23 @@ class ItemController
 
         $this->collectionRepo->save($collection);
 
+        $count = 0;
+
         foreach ($allFields as $field) {
             if ($field->getName() != 'title') {
                 $keysFound = array_filter($keys, function ($var) use ($field) {
                     return (stripos($var, $field->getId()) !== false);
                 });
-
+                
                 if (count($keysFound) > 0) {
                     foreach ($keysFound as $key) {
                         $newItemData = new Itemdata();
                         $newItemData->setFieldvalue($input[$key]);
+                        $newItemData->setValueCount($count);
                         $newItemData->setItemid($newItem);
                         $newItemData->setFieldid($field);
                         $this->itemDataRepo->save($newItemData);
+                        $count = $count + 1;
                     }
                 }
             }
@@ -188,6 +192,8 @@ class ItemController
 
         $this->itemDataRepo->deleteFromItem($itemId);
 
+        $count = 0;
+
         foreach ($allFields as $field) {
             if ($field->getName() != 'title') {
                 $keysFound = array_filter($keys, function ($var) use ($field) {
@@ -198,9 +204,11 @@ class ItemController
                     foreach ($keysFound as $key) {
                         $newItemData = new Itemdata();
                         $newItemData->setFieldvalue($input[$key]);
+                        $newItemData->setValueCount($count);
                         $newItemData->setItemid($newItem);
                         $newItemData->setFieldid($field);
                         $this->itemDataRepo->save($newItemData);
+                        $count = $count + 1;
                     }
                 }
             }
