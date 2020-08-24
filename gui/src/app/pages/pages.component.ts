@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from './pages-menu';
 import { CollectionService } from '../Services/collection.service';
 import { NbMenuItem } from '@nebular/theme';
+import { UserService } from '../Services/user.service';
 
 @Component({
   selector: 'app-pages',
@@ -17,9 +18,21 @@ export class PagesComponent implements OnInit {
 
   menu = MENU_ITEMS;
 
-  constructor(private collectionService: CollectionService) { }
+  constructor(private collectionService: CollectionService, private userService: UserService) { }
 
   ngOnInit() {
+
+    const isAdmin = this.userService.getUser().toPromise().then(user => {
+      return user.isAdmin;
+    });
+
+    if (!isAdmin) {
+        this.menu.forEach( (item, index) => {
+          if (item.title === 'Admin') {
+            this.menu.splice(index, 1);
+          }
+        });
+    }
 
     this.collectionService.getUserCollections().subscribe(collections => {
 
@@ -47,5 +60,6 @@ export class PagesComponent implements OnInit {
         this.menu.push(newItem);
       }
     });
+  
   }
 }

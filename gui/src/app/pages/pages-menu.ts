@@ -29,6 +29,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: 'Admin',
+    icon: 'alert-circle-outline',
+    children: [
+      {
+       title: 'Settings',
+       icon: 'settings-outline',
+       link: '/pages/admin/settings',
+    },
+    {
+      title: 'Users',
+      icon: 'people-outline',
+      link: '/pages/admin/users',
+    },
+    ],
+  },
+  {
     title: 'Collections',
     group: true,
   },
