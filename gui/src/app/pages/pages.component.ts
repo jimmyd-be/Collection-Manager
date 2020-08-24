@@ -60,6 +60,6 @@ export class PagesComponent implements OnInit {
         this.menu.push(newItem);
       }
     });
-  
+
   }
 }
