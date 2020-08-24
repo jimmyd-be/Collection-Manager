@@ -44,26 +44,11 @@ Collection manager is a tool to manager different collection like movies, games,
 - [Slim Framework](http://www.slimframework.com/)
 
 
-## How to build the code
+## How to build the code (using Docker)
 
-The application contains a dockerfile soe we can build the code by running:
+The application contains a script that will build the Angular code and create the needed docker files.
 
-    sudo docker build -t cm_backend ./api
-
-
-After building the source code into an image we can create a container:
-
-    sudo docker create -p 8080:8080 cm_backend
-
-
-
-### Build docker image
-	sudo docker build -t cm_frontend ./gui
-
-
-create container
-
-	sudo docker create -p 80:80 cm_frontend
+    sudo sh ./run.sh
 
 
  ## How to contribute to this project
