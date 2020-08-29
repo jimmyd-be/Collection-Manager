@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Field
  *
- * @ORM\Table(name="field", indexes={@ORM\Index(name="collectionBaseType", columns={"collectionBaseType"}), @ORM\Index(name="type", columns={"type"})})
+ * @ORM\Table(name="cm_field", indexes={@ORM\Index(name="collectionBaseType", columns={"collectionBaseType"}), @ORM\Index(name="type", columns={"type"})})
  * @ORM\Entity
  */
 class Field

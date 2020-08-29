@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Collection
  *
- * @ORM\Table(name="collection", indexes={@ORM\Index(name="typeId", columns={"typeId"})})
+ * @ORM\Table(name="cm_collection", indexes={@ORM\Index(name="typeId", columns={"typeId"})})
  * @ORM\Entity
  */
 class Collection

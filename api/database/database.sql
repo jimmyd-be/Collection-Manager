@@ -1,4 +1,4 @@
-CREATE TABLE user (
+CREATE TABLE cm_user (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	username varchar(255) NOT NULL,
 	mail varchar(255) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE user (
 );
 
 
-CREATE TABLE role (
+CREATE TABLE cm_role (
     id int NOT NULL AUTO_INCREMENT,
     role varchar(255) NOT NULL,
     active BOOL NULL,
@@ -21,7 +21,7 @@ CREATE TABLE role (
     CONSTRAINT role_UN_role UNIQUE KEY (role)
 );
 
-CREATE TABLE collectiontype (
+CREATE TABLE cm_collectiontype (
     id int NOT NULL AUTO_INCREMENT,
     type varchar(255) NOT NULL,
     active BOOL NULL,
@@ -29,26 +29,26 @@ CREATE TABLE collectiontype (
     CONSTRAINT collectionType_UN_type UNIQUE KEY (type)
 );
 
-CREATE TABLE collection (
+CREATE TABLE cm_collection (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     typeId int NOT NULL,
     active BOOL NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (typeId)  REFERENCES collectiontype(id)
+    FOREIGN KEY (typeId)  REFERENCES cm_collectiontype(id)
 );
 
-CREATE TABLE usercollection (
+CREATE TABLE cm_usercollection (
     userId BIGINT UNSIGNED NOT NULL,
     collectionId BIGINT UNSIGNED NOT NULL,
     roleId int NOT NULL,
     PRIMARY KEY (userId, collectionId, roleId),
-    FOREIGN KEY (userId)  REFERENCES user(id),
-    FOREIGN KEY (collectionId)  REFERENCES collection(id),
-    FOREIGN KEY (roleId)  REFERENCES role(id)
+    FOREIGN KEY (userId)  REFERENCES cm_user(id),
+    FOREIGN KEY (collectionId)  REFERENCES cm_collection(id),
+    FOREIGN KEY (roleId)  REFERENCES cm_role(id)
 );
 
-CREATE TABLE item (
+CREATE TABLE cm_item (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     image varchar(255) NULL,
@@ -58,18 +58,18 @@ CREATE TABLE item (
     modifiedBy BIGINT UNSIGNED NULL,
     active BOOl NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (author)  REFERENCES user(id)
+    FOREIGN KEY (author)  REFERENCES cm_user(id)
 );
 
-CREATE TABLE collectionitem (
+CREATE TABLE cm_collectionitem (
     collectionId BIGINT UNSIGNED NOT NULL,
     itemId BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (collectionId, itemId),
-    FOREIGN KEY (collectionId)  REFERENCES collection(id),
-    FOREIGN KEY (itemId)  REFERENCES item(id)
+    FOREIGN KEY (collectionId)  REFERENCES cm_collection(id),
+    FOREIGN KEY (itemId)  REFERENCES cm_item(id)
 );
 
-CREATE TABLE fieldtype (
+CREATE TABLE cm_fieldtype (
     id int NOT NULL AUTO_INCREMENT,
     type varchar(255) NOT NULL,
     active BOOL NULL,
@@ -77,7 +77,7 @@ CREATE TABLE fieldtype (
     CONSTRAINT fieldType_UN_type UNIQUE KEY (type)
 );
 
-CREATE TABLE field (
+CREATE TABLE cm_field (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   name varchar(255) NULL,
   type int NOT NULL,
@@ -94,30 +94,30 @@ CREATE TABLE field (
   labelPosition varchar(45) NULL,
   widget varchar(45) NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (type)  REFERENCES fieldtype(id),
-  FOREIGN KEY (collectionBaseType)  REFERENCES collectiontype(id)
+  FOREIGN KEY (type)  REFERENCES cm_fieldtype(id),
+  FOREIGN KEY (collectionBaseType)  REFERENCES cm_collectiontype(id)
 );
 
-CREATE TABLE itemdata (
+CREATE TABLE cm_itemdata (
     itemId BIGINT UNSIGNED NOT NULL,
     fieldId BIGINT UNSIGNED NOT NULL,
     valueCount BIGINT UNSIGNED NOT NULL,
     fieldValue TEXT,
     PRIMARY KEY (itemId, fieldId, valueCount),
-    FOREIGN KEY (itemId) REFERENCES item(id),
-    FOREIGN KEY (fieldId) REFERENCES field(id)
+    FOREIGN KEY (itemId) REFERENCES cm_item(id),
+    FOREIGN KEY (fieldId) REFERENCES cm_field(id)
 );
 
-CREATE TABLE collectionfield(
+CREATE TABLE cm_collectionfield(
     collectionId BIGINT UNSIGNED NOT NULL,
     fieldId BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (collectionId, fieldId),
-    FOREIGN KEY (fieldId) REFERENCES field(id),
-    FOREIGN KEY (collectionId) REFERENCES collection(id)
+    FOREIGN KEY (fieldId) REFERENCES cm_field(id),
+    FOREIGN KEY (collectionId) REFERENCES cm_collection(id)
 );
 
 
-INSERT INTO collectiontype (`id`, `type`, `active`) VALUES
+INSERT INTO cm_collectiontype (`id`, `type`, `active`) VALUES
 (1, 'Movies', 1),
 (2, 'Games', 1),
 (3, 'Magazines', 1),
@@ -126,7 +126,7 @@ INSERT INTO collectiontype (`id`, `type`, `active`) VALUES
 (6, 'Comics', 1);
 
 
-INSERT INTO fieldtype (id, `type`,active) VALUES 
+INSERT INTO cm_fieldtype (`id`, `type`, `active`) VALUES 
 (1, 'text',1)
 ,(2, 'url',1)
 ,(3, 'textarea',1)
@@ -140,7 +140,7 @@ INSERT INTO fieldtype (id, `type`,active) VALUES
 ,(11, 'barcode',1),
 (12, 'number', 1);
 
-INSERT INTO `role` (id, `role`, active) VALUES
+INSERT INTO cm_role (`id`, `role`, `active`) VALUES
 (0, 'Owner', 1),
 (1, 'Admin', 1),
 (2, 'Editor', 1),
@@ -148,7 +148,7 @@ INSERT INTO `role` (id, `role`, active) VALUES
 
 
 /* Movie default fields */
-INSERT INTO field
+INSERT INTO cm_field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 1, 0, 'top', 0, 1, 'hidden', 'default'),
@@ -164,7 +164,7 @@ INSERT INTO field
 
 
 /* Games default fields */
-INSERT INTO field
+INSERT INTO cm_field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 2, 0, 'top', 0, 1, 'hidden', 'default'),
@@ -178,7 +178,7 @@ INSERT INTO field
 
 
 /* Magazines default fields */
-INSERT INTO field
+INSERT INTO cm_field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 3, 0, 'top', 0, 1, 'hidden', 'default'),
@@ -187,7 +187,7 @@ INSERT INTO field
 ('content', 3, NULL, 0, 'Content', 'Content', NULL, 3, 40, 'main', 0, 1, 'top', 'default');
 
 /* Books default fields */
-INSERT INTO field
+INSERT INTO cm_field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 4, 0, 'top', 0, 1, 'hidden', 'default'),
@@ -203,7 +203,7 @@ INSERT INTO field
 
 
 /* Disks default fields */
-INSERT INTO field
+INSERT INTO cm_field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 5, 0, 'top', 0, 1, 'hidden', 'default'),
@@ -214,7 +214,7 @@ INSERT INTO field
 
 
 /* Comics default fields */
-INSERT INTO field
+INSERT INTO cm_field
 (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`, 
 `active`, `labelPosition`, `widget`) VALUES
 ('title', 1, NULL, 1, 'Title', 'Title', NULL, 6, 0, 'top', 0, 1, 'hidden', 'default'),

@@ -31,8 +31,8 @@ return function (App $app) {
 
             'connection' => [
                 'driver' => 'pdo_mysql',
-                'host' => '127.0.0.1',
-                'port' => 32768,
+                'host' => 'db',
+                'port' => 3306,
                 'dbname' => 'newcm',
                 'user' => 'root',
                 'password' => 'testDatabase'
