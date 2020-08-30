@@ -1,2 +1,2 @@
-cd gui && ng build --prod
+cd gui && npm install && ng build --prod
 docker-compose up

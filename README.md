@@ -32,7 +32,7 @@ Collection manager is a tool to manager different collection like movies, games,
 	- Node.js verion 10.x or greater
 	- Angular CLI
 	- Apache HTTPD or equivalents
-	- PHP 7.4
+	- PHP 7.4 or greater
 - For users:
 	- Html 5 browser
 	
