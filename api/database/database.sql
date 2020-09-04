@@ -15,10 +15,10 @@ CREATE TABLE cm_user (
 
 CREATE TABLE cm_role (
     id int NOT NULL AUTO_INCREMENT,
-    role varchar(255) NOT NULL,
+    name varchar(255) NOT NULL,
     active BOOL NULL,
     PRIMARY KEY (id),
-    CONSTRAINT role_UN_role UNIQUE KEY (role)
+    CONSTRAINT role_UN_role UNIQUE KEY (name)
 );
 
 CREATE TABLE cm_collectiontype (
@@ -140,11 +140,11 @@ INSERT INTO cm_fieldtype (`id`, `type`, `active`) VALUES
 ,(11, 'barcode',1),
 (12, 'number', 1);
 
-INSERT INTO cm_role (`id`, `role`, `active`) VALUES
+INSERT INTO cm_role (`id`, `name`, `active`) VALUES
 (0, 'Owner', 1),
 (1, 'Admin', 1),
 (2, 'Editor', 1),
-(3, 'Viewer', 1);
+(3, 'Viewer', 1) ON DUPLICATE KEY UPDATE id=id;
 
 
 /* Movie default fields */

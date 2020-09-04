@@ -39,7 +39,7 @@ return function (App $app) {
 
 
 
-    $app->group('/auth', function (Group $group) use ($container) {
+    $app->group('/api/auth', function (Group $group) use ($container) {
         $group->post('/login', \AuthController::class . ':login');
         $group->post('/logout', \AuthController::class . ':logout');
         //$group->post('/request-pass', AuthController::class);
@@ -47,18 +47,18 @@ return function (App $app) {
         //$group->post('/reset-pass', AuthController::class);
     });
 
-    $app->group('/users', function (Group $group) use ($container) {
+    $app->group('/api/users', function (Group $group) use ($container) {
         $group->get('', \UserController::class . ':getAllUser');
     });
 
-    $app->group('/user', function (Group $group) use ($container) {
+    $app->group('/api/user', function (Group $group) use ($container) {
         $group->get('', \UserController::class . ':getUser');
         $group->post('/delete', \UserController::class . ':deleteUser');
         $group->post('/edit', \UserController::class . ':editUser');
         $group->post('/edit/password', \UserController::class . ':editPassword');
     });
 
-    $app->group('/collection', function (Group $group) use ($container) {
+    $app->group('/api/collection', function (Group $group) use ($container) {
         $group->get('/user', \CollectionController::class . ':getByUser');
         $group->get('/types', \CollectionController::class . ':getCollectionTypes');
         $group->post('/add', \CollectionController::class . ':add');
@@ -70,17 +70,17 @@ return function (App $app) {
         $group->delete('/{id}/user/{userId}', \CollectionController::class . ':deleteUserFromCollection');
     });
 
-    $app->group('/field', function (Group $group) use ($container) {
+    $app->group('/api/field', function (Group $group) use ($container) {
         $group->get('/collection/{id}', \FieldController::class . ':getByCollection');
         $group->get('/basic/collection/{id}', \FieldController::class . ':getBasicByCollection');
         $group->get('/custom/collection/{id}', \FieldController::class . ':getCustomByCollection');
     });
 
-    $app->group('/role', function (Group $group) use ($container) {
+    $app->group('/api/role', function (Group $group) use ($container) {
         $group->get('/active', \RoleController::class . ':getActiveRoles');
     });
 
-    $app->group('/item', function (Group $group) use ($container) {
+    $app->group('/api/item', function (Group $group) use ($container) {
         $group->post('/add/collection/{id}', \ItemController::class . ':addToCollection');
         $group->post('/external/add/collection/{collectionId}/{source}/{externalId}', \ItemController::class . ':addExternalItemToCollection');
         $group->post('/edit/{id}/{collectionId}', \ItemController::class . ':editItem');

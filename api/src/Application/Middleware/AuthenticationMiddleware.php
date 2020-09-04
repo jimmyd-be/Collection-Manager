@@ -28,7 +28,7 @@ class AuthenticationMiddleware implements Middleware
     {
         $response = new Response();
 
-        if(strtolower(substr($request->getUri()->getPath(), 0, 5 )) =='/auth')
+        if(strtolower(substr($request->getUri()->getPath(), 0, 9 )) =='/api/auth')
         {
             $response = $handler->handle($request);
         }
