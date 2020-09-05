@@ -33,7 +33,7 @@ class RoleRepository
     }
 
     function getByName(string $name): ?Role {
-        $query =$this->em->createQuery("SELECT t FROM App\Entity\Role t WHERE t.active = 1 and t.role = :name");
+        $query =$this->em->createQuery("SELECT t FROM App\Entity\Role t WHERE t.active = 1 and t.name = :name");
         $query->setParameter('name', $name);
 
         return $query->getOneOrNullResult();

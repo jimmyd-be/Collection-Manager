@@ -49,7 +49,7 @@ class Collection
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Field", inversedBy="collectionid")
-     * @ORM\JoinTable(name="collectionfield",
+     * @ORM\JoinTable(name="cm_collectionfield",
      *   joinColumns={
      *     @ORM\JoinColumn(name="collectionId", referencedColumnName="id")
      *   },
@@ -64,7 +64,7 @@ class Collection
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Item", inversedBy="collectionid")
-     * @ORM\JoinTable(name="collectionitem",
+     * @ORM\JoinTable(name="cm_collectionitem",
      *   joinColumns={
      *     @ORM\JoinColumn(name="collectionId", referencedColumnName="id")
      *   },

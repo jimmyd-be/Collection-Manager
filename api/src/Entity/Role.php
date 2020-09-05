@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Role
  *
- * @ORM\Table(name="cm_role", uniqueConstraints={@ORM\UniqueConstraint(name="role_UN_role", columns={"role"})})
+ * @ORM\Table(name="cm_role", uniqueConstraints={@ORM\UniqueConstraint(name="role_UN_role", columns={"name"})})
  * @ORM\Entity
  */
 class Role
@@ -26,7 +26,7 @@ class Role
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $role;
+    private $name;
 
     /**
      * @var bool|null
@@ -43,12 +43,12 @@ class Role
 		$this->id = $id;
 	}
 
-	public function getRole(){
-		return $this->role;
+	public function getName(){
+		return $this->name;
 	}
 
-	public function setRole($role){
-		$this->role = $role;
+	public function setName($name){
+		$this->name = $name;
 	}
 
 	public function getActive(){

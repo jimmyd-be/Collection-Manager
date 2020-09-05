@@ -16,7 +16,7 @@ class CollectionUserMapper
         $userCollecctionDto->userId = $userCollection->getUserid()->getId();
         $userCollecctionDto->userName = $userCollection->getUserid()->getUsername();
         $userCollecctionDto->roleId = $userCollection->getRoleid()->getId();
-        $userCollecctionDto->roleName = $userCollection->getRoleid()->getRole();
+        $userCollecctionDto->roleName = $userCollection->getRoleid()->getName();
 
         return $userCollecctionDto;
     }

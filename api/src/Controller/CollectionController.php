@@ -280,12 +280,12 @@ class CollectionController
 
             $canBeDeleted = true;
 
-            if($userCollection->getRoleid()->getRole() === 'Owner'){
+            if($userCollection->getRoleid()->getName() === 'Owner'){
                 $ownerCount = 0;
 
                 foreach($userCollection as $uCol)
                 {
-                    if($uCol->getRoleid()->getRole() === 'Owner')
+                    if($uCol->getRoleid()->getName() === 'Owner')
                     {
                         $ownerCount++;
                     }

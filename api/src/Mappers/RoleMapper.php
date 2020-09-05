@@ -14,7 +14,7 @@ class RoleMapper
     {
         $roleDto = new RoleDto();
         $roleDto->id = $role->getId();
-        $roleDto->name = $role->getRole();
+        $roleDto->name = $role->getName();
         $roleDto->active = $role->getActive();
 
         return $roleDto;
