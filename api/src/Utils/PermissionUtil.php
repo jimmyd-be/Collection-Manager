@@ -25,7 +25,7 @@ class PermissionUtil
         {
             return false;
         }
-        else if($userCollection->getRoleid()->getId() >= $roleId){
+        else if($userCollection->getRoleid()->getId() <= $roleId){
             return true;
         }
 
