@@ -19,43 +19,43 @@ class Role
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
-    private $active;
+    private ?bool $active;
 
-    public function getId(){
+    public function getId() : int{
 		return $this->id;
 	}
 
-	public function setId($id){
+	public function setId(int $id){
 		$this->id = $id;
 	}
 
-	public function getName(){
+	public function getName() : string{
 		return $this->name;
 	}
 
-	public function setName($name){
+	public function setName(string $name){
 		$this->name = $name;
 	}
 
-	public function getActive(){
+	public function getActive(): ?bool{
 		return $this->active;
 	}
 
-	public function setActive($active){
+	public function setActive(?bool $active){
 		$this->active = $active;
 	}
 

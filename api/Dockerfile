@@ -1,7 +1,7 @@
 FROM php:7-alpine
 COPY . /var/www/html
 WORKDIR /var/www/html
-RUN apk update && apk add curl && \
+RUN apk update && apk add curl && apk add git && \
   curl -sS https://getcomposer.org/installer | php \
   && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer
 RUN composer install

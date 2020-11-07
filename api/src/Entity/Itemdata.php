@@ -19,10 +19,10 @@ class Itemdata
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $fieldvalue;
+    private string $fieldvalue;
 
     /**
-     * @var \Item
+     * @var Item
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -31,11 +31,11 @@ class Itemdata
      *   @ORM\JoinColumn(name="itemId", referencedColumnName="id")
      * })
      */
-    private $itemid;
+    private Item $itemid;
 
  
     /**
-     * @var \Field
+     * @var Field
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -44,7 +44,7 @@ class Itemdata
      *   @ORM\JoinColumn(name="fieldId", referencedColumnName="id")
      * })
      */
-    private $fieldid;
+    private Field $fieldid;
 
     /**
      * @var string
@@ -53,37 +53,37 @@ class Itemdata
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $valueCount;
+    private int $valueCount;
 
-    public function getValueCount(){
+    public function getValueCount() : int{
       return $this->valueCount;
     }
 
-    public function setValueCount($count){
+    public function setValueCount(int $count){
       $this->valueCount = $count;
     }
 
-    public function getFieldvalue(){
+    public function getFieldvalue() : Field{
 		return $this->fieldvalue;
 	}
 
-	public function setFieldvalue($fieldvalue){
+	public function setFieldvalue(Field $fieldvalue){
 		$this->fieldvalue = $fieldvalue;
 	}
 
-	public function getItemid(){
+	public function getItemid() : Item{
 		return $this->itemid;
 	}
 
-	public function setItemid($itemid){
+	public function setItemid(Item $itemid){
 		$this->itemid = $itemid;
 	}
 
-	public function getFieldid(){
+	public function getFieldid() : Field{
 		return $this->fieldid;
 	}
 
-	public function setFieldid($fieldid){
+	public function setFieldid(Field $fieldid){
 		$this->fieldid = $fieldid;
 	}
 

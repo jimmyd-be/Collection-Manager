@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,73 +12,83 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Item
 {
+
     /**
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="bigint", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /**
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
+     *
      * @var \DateTime
      *
      * @ORM\Column(name="creationDate", type="datetime", nullable=false)
      */
-    private $creationdate;
+    private DateTime $creationdate;
 
     /**
+     *
      * @var \DateTime|null
      *
      * @ORM\Column(name="lastModified", type="datetime", nullable=true)
      */
-    private $lastmodified;
+    private ?DateTime $lastmodified;
 
     /**
+     *
      * @var int|null
      *
      * @ORM\Column(name="modifiedBy", type="bigint", nullable=true, options={"unsigned"=true})
      */
-    private $modifiedby;
+    private ?int $modifiedby;
 
     /**
+     *
      * @var bool|null
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
-    private $active;
+    private ?bool $active;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
-    private $image;
+    private ?string $image;
 
     /**
-     * @var \User
+     *
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="author", referencedColumnName="id")
      * })
      */
-    private $author;
+    private User $author;
 
     /**
+     *
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Collection", mappedBy="itemid")
      */
-    private $collectionid;
+    private Collection $collectionid;
 
     /**
      * Constructor
@@ -88,80 +98,98 @@ class Item
         $this->collectionid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getId(){
-		return $this->id;
-	}
-
-	public function setId($id){
-		$this->id = $id;
-	}
-
-	public function getName(){
-		return $this->name;
-	}
-
-	public function setName($name){
-		$this->name = $name;
-	}
-
-	public function getCreationdate(){
-		return $this->creationdate;
-	}
-
-	public function setCreationdate($creationdate){
-		$this->creationdate = $creationdate;
-	}
-
-	public function getLastmodified(){
-		return $this->lastmodified;
-	}
-
-	public function setLastmodified($lastmodified){
-		$this->lastmodified = $lastmodified;
-	}
-
-	public function getModifiedby(){
-		return $this->modifiedby;
-	}
-
-	public function setModifiedby($modifiedby){
-		$this->modifiedby = $modifiedby;
-	}
-
-	public function getActive(){
-		return $this->active;
-	}
-
-	public function setActive($active){
-		$this->active = $active;
-	}
-
-	public function getImage(){
-		return $this->image;
-	}
-
-	public function setImage($image){
-		$this->image = $image;
-	}
-
-	public function getAuthor(){
-		return $this->author;
-	}
-
-	public function setAuthor($author){
-		$this->author = $author;
-	}
-
-	public function getCollectionid(){
-		return $this->collectionid;
-	}
-
-	public function setCollectionid($collectionid){
-		$this->collectionid = $collectionid;
+    public function getId(): int
+    {
+        return $this->id;
     }
 
-  public function deleteCollection($collecion) {
-    $this->collectionid->removeElement($collecion);
-  }
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function getCreationdate(): DateTime
+    {
+        return $this->creationdate;
+    }
+
+    public function setCreationdate(DateTime $creationdate)
+    {
+        $this->creationdate = $creationdate;
+    }
+
+    public function getLastmodified(): DateTime
+    {
+        return $this->lastmodified;
+    }
+
+    public function setLastmodified(DateTime $lastmodified)
+    {
+        $this->lastmodified = $lastmodified;
+    }
+
+    public function getModifiedby(): int
+    {
+        return $this->modifiedby;
+    }
+
+    public function setModifiedby(int $modifiedby)
+    {
+        $this->modifiedby = $modifiedby;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active)
+    {
+        $this->active = $active;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image)
+    {
+        $this->image = $image;
+    }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author)
+    {
+        $this->author = $author;
+    }
+
+    public function getCollectionid(): Collection
+    {
+        return $this->collectionid;
+    }
+
+    public function setCollectionid(Collection $collectionid)
+    {
+        $this->collectionid = $collectionid;
+    }
+
+    public function deleteCollection(Collection $collecion)
+    {
+        $this->collectionid->removeElement($collecion);
+    }
 }

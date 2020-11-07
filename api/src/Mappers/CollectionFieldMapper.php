@@ -25,12 +25,18 @@ class CollectionFieldMapper
         $newField->options = $field->getChoises();
         $newField->required = $field->getRequired();
         $newField->placeholder = $field->getPlaceholder();
-        $newField->fieldOrder = $field->getFieldorder();
         $newField->place = $field->getPlace();
         $newField->multivalues = $field->getMultivalues();
         $newField->labelPosition = $field->getLabelposition();
         $newField->label = $field->getLabel();
         $newField->widget = $field->getWidget();  
+
+        if (null !== $field->getFieldorder()) {
+            $newField->fieldOrder = $field->getFieldorder();
+        }
+        else {
+            $newField->fieldOrder = 0;
+        }
 
         return $newField;
     }

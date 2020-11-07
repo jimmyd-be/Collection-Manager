@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Usercollection
 {
     /**
-     * @var \User
+     * @var User
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -22,10 +22,10 @@ class Usercollection
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
      */
-    private $userid;
+    private User $userid;
 
     /**
-     * @var \Collection
+     * @var Collection
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -34,10 +34,10 @@ class Usercollection
      *   @ORM\JoinColumn(name="collectionId", referencedColumnName="id")
      * })
      */
-    private $collectionid;
+    private Collection $collectionid;
 
     /**
-     * @var \Role
+     * @var Role
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -46,29 +46,30 @@ class Usercollection
      *   @ORM\JoinColumn(name="roleId", referencedColumnName="id")
      * })
      */
-    private $roleid;
+    private Role $roleid;
 
-    public function getUserid(){
+    public function getUserid(): User{
 		return $this->userid;
 	}
 
-	public function setUserid($userid){
+	public function setUserid(User $userid){
 		$this->userid = $userid;
 	}
 
-	public function getCollectionid(){
+  public function getCollectionid() : Collection
+  {
 		return $this->collectionid;
 	}
 
-	public function setCollectionid($collectionid){
+	public function setCollectionid(Collection $collectionid){
 		$this->collectionid = $collectionid;
 	}
 
-	public function getRoleid(){
+	public function getRoleid() : Role{
 		return $this->roleid;
 	}
 
-	public function setRoleid($roleid){
+	public function setRoleid(Role $roleid){
 		$this->roleid = $roleid;
 	}
 

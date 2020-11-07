@@ -20,7 +20,6 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
 
-
 // Set up settings
 $settings = require __DIR__ . '/../app/settings.php';
 $settings($app);
@@ -29,13 +28,13 @@ $settings($app);
 $dependencies = require __DIR__ . '/../app/dependencies.php';
 $dependencies($app);
 
-// Register middleware
-$middleware = require __DIR__ . '/../app/middleware.php';
-$middleware($app);
-
 // Set up repositories
 $repositories = require __DIR__ . '/../app/repositories.php';
 $repositories($app);
+
+// Register middleware
+$middleware = require __DIR__ . '/../app/middleware.php';
+$middleware($app);
 
 // Register routes
 $routes = require __DIR__ . '/../app/routes.php';

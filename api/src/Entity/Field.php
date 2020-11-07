@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,125 +11,142 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Field
 {
+
     /**
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="bigint", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
-    private $name;
+    private ?string $name;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="choises", type="string", length=255, nullable=true)
      */
-    private $choises;
+    private ?string $choises;
 
     /**
+     *
      * @var bool|null
      *
      * @ORM\Column(name="required", type="boolean", nullable=true)
      */
-    private $required;
+    private ?bool $required;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="placeHolder", type="string", length=255, nullable=true)
      */
-    private $placeholder;
+    private ?string $placeholder;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="label", type="string", length=255, nullable=true)
      */
-    private $label;
+    private ?string $label;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="otherOptions", type="string", length=255, nullable=true)
      */
-    private $otheroptions;
+    private ?string $otheroptions;
 
     /**
+     *
      * @var int
      *
      * @ORM\Column(name="fieldOrder", type="integer", nullable=false)
      */
-    private $fieldorder;
+    private int $fieldorder;
 
     /**
+     *
      * @var string
      *
      * @ORM\Column(name="place", type="string", length=10, nullable=false)
      */
-    private $place;
+    private string $place;
 
     /**
+     *
      * @var bool|null
      *
      * @ORM\Column(name="multiValues", type="boolean", nullable=true)
      */
-    private $multivalues;
+    private ?bool $multivalues;
 
     /**
+     *
      * @var bool|null
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
-    private $active;
+    private ?bool $active;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="labelPosition", type="string", length=45, nullable=true)
      */
-    private $labelposition;
+    private ?string $labelposition;
 
     /**
+     *
      * @var string|null
      *
      * @ORM\Column(name="widget", type="string", length=45, nullable=true)
      */
-    private $widget;
+    private ?string $widget;
 
     /**
-     * @var \Fieldtype
+     *
+     * @var Fieldtype
      *
      * @ORM\ManyToOne(targetEntity="Fieldtype")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id")
      * })
      */
-    private $type;
+    private Fieldtype $type;
 
     /**
-     * @var \Collectiontype
+     *
+     * @var Collectiontype
      *
      * @ORM\ManyToOne(targetEntity="Collectiontype")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="collectionBaseType", referencedColumnName="id")
      * })
      */
-    private $collectionbasetype;
+    private Collectiontype $collectionbasetype;
 
     /**
+     *
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Collection", mappedBy="fieldid")
      */
-    private $collectionid;
+    private Collection $collectionid;
 
     /**
      * Constructor
@@ -140,132 +156,163 @@ class Field
         $this->collectionid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getId(){
-		return $this->id;
-	}
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-	public function setId($id){
-		$this->id = $id;
-	}
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
 
-	public function getName(){
-		return $this->name;
-	}
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
-	public function setName($name){
-		$this->name = $name;
-	}
+    public function setName(?string $name)
+    {
+        $this->name = $name;
+    }
 
-	public function getChoises(){
-		return $this->choises;
-	}
+    public function getChoises(): ?string
+    {
+        return $this->choises;
+    }
 
-	public function setChoises($choises){
-		$this->choises = $choises;
-	}
+    public function setChoises(?string $choises)
+    {
+        $this->choises = $choises;
+    }
 
-	public function getRequired(){
-		return $this->required;
-	}
+    public function getRequired(): ?bool
+    {
+        return $this->required;
+    }
 
-	public function setRequired($required){
-		$this->required = $required;
-	}
+    public function setRequired(?bool $required)
+    {
+        $this->required = $required;
+    }
 
-	public function getPlaceholder(){
-		return $this->placeholder;
-	}
+    public function getPlaceholder(): ?string
+    {
+        return $this->placeholder;
+    }
 
-	public function setPlaceholder($placeholder){
-		$this->placeholder = $placeholder;
-	}
+    public function setPlaceholder(?string $placeholder)
+    {
+        $this->placeholder = $placeholder;
+    }
 
-	public function getLabel(){
-		return $this->label;
-	}
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
 
-	public function setLabel($label){
-		$this->label = $label;
-	}
+    public function setLabel(?string $label)
+    {
+        $this->label = $label;
+    }
 
-	public function getOtheroptions(){
-		return $this->otheroptions;
-	}
+    public function getOtheroptions(): ?string
+    {
+        return $this->otheroptions;
+    }
 
-	public function setOtheroptions($otheroptions){
-		$this->otheroptions = $otheroptions;
-	}
+    public function setOtheroptions(?string $otheroptions)
+    {
+        $this->otheroptions = $otheroptions;
+    }
 
-	public function getFieldorder(){
-		return $this->fieldorder;
-	}
+    public function getFieldorder(): int
+    {
+        return $this->fieldorder;
+    }
 
-	public function setFieldorder($fieldorder){
-		$this->fieldorder = $fieldorder;
-	}
+    public function setFieldorder(int $fieldorder)
+    {
+        $this->fieldorder = $fieldorder;
+    }
 
-	public function getPlace(){
-		return $this->place;
-	}
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
 
-	public function setPlace($place){
-		$this->place = $place;
-	}
+    public function setPlace(?string $place)
+    {
+        $this->place = $place;
+    }
 
-	public function getMultivalues(){
-		return $this->multivalues;
-	}
+    public function getMultivalues(): ?bool
+    {
+        return $this->multivalues;
+    }
 
-	public function setMultivalues($multivalues){
-		$this->multivalues = $multivalues;
-	}
+    public function setMultivalues(?bool $multivalues)
+    {
+        $this->multivalues = $multivalues;
+    }
 
-	public function getActive(){
-		return $this->active;
-	}
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
 
-	public function setActive($active){
-		$this->active = $active;
-	}
+    public function setActive(?bool $active)
+    {
+        $this->active = $active;
+    }
 
-	public function getLabelposition(){
-		return $this->labelposition;
-	}
+    public function getLabelposition(): ?string
+    {
+        return $this->labelposition;
+    }
 
-	public function setLabelposition($labelposition){
-		$this->labelposition = $labelposition;
-	}
+    public function setLabelposition(?string $labelposition)
+    {
+        $this->labelposition = $labelposition;
+    }
 
-	public function getWidget(){
-		return $this->widget;
-	}
+    public function getWidget(): ?string
+    {
+        return $this->widget;
+    }
 
-	public function setWidget($widget){
-		$this->widget = $widget;
-	}
+    public function setWidget(?string $widget)
+    {
+        $this->widget = $widget;
+    }
 
-	public function getType(){
-		return $this->type;
-	}
+    public function getType(): Fieldtype
+    {
+        return $this->type;
+    }
 
-	public function setType($type){
-		$this->type = $type;
-	}
+    public function setType(Fieldtype $type)
+    {
+        $this->type = $type;
+    }
 
-	public function getCollectionbasetype(){
-		return $this->collectionbasetype;
-	}
+    public function getCollectionbasetype(): Collectiontype
+    {
+        return $this->collectionbasetype;
+    }
 
-	public function setCollectionbasetype($collectionbasetype){
-		$this->collectionbasetype = $collectionbasetype;
-	}
+    public function setCollectionbasetype(Collectiontype $collectionbasetype)
+    {
+        $this->collectionbasetype = $collectionbasetype;
+    }
 
-	public function getCollectionid(){
-		return $this->collectionid;
-	}
+    public function getCollectionid(): Collection
+    {
+        return $this->collectionid;
+    }
 
-	public function setCollectionid($collectionid){
-		$this->collectionid = $collectionid;
-	}
-
+    public function setCollectionid(Collection $collectionid)
+    {
+        $this->collectionid = $collectionid;
+    }
 }

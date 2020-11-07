@@ -1,19 +1,17 @@
 <?php
 declare(strict_types=1);
 
-use App\Infrastructure\Persistence\User\InMemoryUserRepository;
-use DI\Container;
-use Slim\App;
-use Doctrine\ORM\EntityManager;
 use App\Repository\CollectionRepository;
-use App\Repository\UserRepository;
 use App\Repository\CollectiontypeRepository;
 use App\Repository\FieldRepository;
 use App\Repository\FieldtypeRepository;
-use App\Repository\ItemdataRepository;
 use App\Repository\ItemRepository;
+use App\Repository\ItemdataRepository;
 use App\Repository\RoleRepository;
 use App\Repository\UserCollectionRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Slim\App;
 
 
 return function (App $app) {

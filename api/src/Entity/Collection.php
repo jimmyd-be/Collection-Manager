@@ -19,31 +19,31 @@ class Collection
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
-    private $active;
+    private ?bool $active;
 
     /**
-     * @var \Collectiontype
+     * @var Collectiontype
      *
      * @ORM\ManyToOne(targetEntity="Collectiontype")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="typeId", referencedColumnName="id")
      * })
      */
-    private $typeid;
+    private Collectiontype $typeid;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -58,7 +58,7 @@ class Collection
      *   }
      * )
      */
-    private $fieldid;
+    private Field $fieldid;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -73,7 +73,7 @@ class Collection
      *   }
      * )
      */
-    private $itemid;
+    private Item $itemid;
 
     /**
      * Constructor
@@ -83,52 +83,53 @@ class Collection
         $this->fieldid = new \Doctrine\Common\Collections\ArrayCollection();
         $this->itemid = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
 
-    public function getId(){
+    public function getId() : int{
 		return $this->id;
 	}
 
-	public function setId($id){
+	public function setId(int $id){
 		$this->id = $id;
 	}
 
-	public function getName(){
+	public function getName() : string{
 		return $this->name;
 	}
 
-	public function setName($name){
+	public function setName(string $name){
 		$this->name = $name;
 	}
 
-	public function getActive(){
+	public function getActive(): ?bool{
 		return $this->active;
 	}
 
-	public function setActive($active){
+	public function setActive(?bool $active){
 		$this->active = $active;
 	}
 
-	public function getTypeid(){
+	public function getTypeid() : Collectiontype{
 		return $this->typeid;
 	}
 
-	public function setTypeid($typeid){
+	public function setTypeid(Collectiontype $typeid){
 		$this->typeid = $typeid;
 	}
 
-	public function getFieldid(){
+	public function getFieldid() : Field{
 		return $this->fieldid;
 	}
 
-	public function setFieldid($fieldid){
+	public function setFieldid(Field $fieldid){
 		$this->fieldid = $fieldid;
 	}
 
-	public function getItemid(){
+	public function getItemid() : Item{
 		return $this->itemid;
 	}
 
-	public function setItemid($itemid){
+	public function setItemid(Item $itemid){
 		$this->itemid = $itemid;
     }
 

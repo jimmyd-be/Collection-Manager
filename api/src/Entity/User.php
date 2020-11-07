@@ -19,118 +19,118 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
      */
-    private $username;
+    private string $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255, nullable=false)
      */
-    private $mail;
+    private string $mail;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="userPassword", type="string", length=255, nullable=true)
      */
-    private $userpassword;
+    private ?string $userpassword;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="creationDate", type="datetime", nullable=false)
      */
-    private $creationdate;
+    private \DateTime $creationdate;
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="isAdmin", type="boolean", nullable=true)
      */
-    private $isadmin;
+    private ?bool $isadmin;
 
     /**
      * @var string
      *
      * @ORM\Column(name="theme", type="string", length=255, nullable=true)
      */
-    private $theme;
+    private ?string $theme;
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
-    private $active;
+    private ?bool $active;
 
-    public function getId(){
+    public function getId() : int{
 		return $this->id;
 	}
 
-	public function setId($id){
+	public function setId(int $id){
 		$this->id = $id;
 	}
 
-	public function getUsername(){
+	public function getUsername(): string{
 		return $this->username;
 	}
 
-	public function setUsername($username){
+	public function setUsername(string $username){
 		$this->username = $username;
 	}
 
-	public function getMail(){
+	public function getMail() : string{
 		return $this->mail;
 	}
 
-	public function setMail($mail){
+	public function setMail(string $mail){
 		$this->mail = $mail;
   }
   
-  public function getTheme(){
+  public function getTheme() : ?string{
 		return $this->theme;
 	}
 
-	public function setTheme($theme){
+	public function setTheme(?string $theme){
 		$this->theme = $theme;
 	}
 
-	public function getUserpassword(){
+	public function getUserpassword(): ?string{
 		return $this->userpassword;
 	}
 
-	public function setUserpassword($userpassword){
+	public function setUserpassword(?string $userpassword){
 		$this->userpassword = $userpassword;
 	}
 
-	public function getCreationdate(){
+	public function getCreationdate(): \DateTime{
 		return $this->creationdate;
 	}
 
-	public function setCreationdate($creationdate){
+	public function setCreationdate(\DateTime $creationdate){
 		$this->creationdate = $creationdate;
 	}
 
-	public function getIsadmin(){
+	public function getIsadmin() : ?bool{
 		return $this->isadmin;
 	}
 
-	public function setIsadmin($isadmin){
+	public function setIsadmin(?bool $isadmin){
 		$this->isadmin = $isadmin;
 	}
 
-	public function getActive(){
+	public function getActive() : bool{
 		return $this->active;
 	}
 
-	public function setActive($active){
+	public function setActive(bool $active){
 		$this->active = $active;
 	}
 
