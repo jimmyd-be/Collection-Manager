@@ -20,7 +20,7 @@ export class ServerInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>,
-    next: HttpHandler): Observable<HttpEvent<any>> {
+            next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (this.token != null && this.token.length > 0) {
       const updatedRequest = request.clone({
