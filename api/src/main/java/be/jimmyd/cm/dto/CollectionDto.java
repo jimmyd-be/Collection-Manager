@@ -10,5 +10,6 @@ public class CollectionDto {
     public long id;
     public String name;
     public String type;
+    public List<String> members;
     public List<FieldDto> fields;
 }
