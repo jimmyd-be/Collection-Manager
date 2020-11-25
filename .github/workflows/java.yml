@@ -3,7 +3,7 @@ name: Full build
 on:
   push:
     branches: 
-      - java
+      - feature/java
 
 jobs:
   gui:
