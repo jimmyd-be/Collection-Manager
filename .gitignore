@@ -48,3 +48,5 @@ Thumbs.db
 gui/node_modules/
 gui/dist/
 /api/nbproject/private/
+
+*.iml

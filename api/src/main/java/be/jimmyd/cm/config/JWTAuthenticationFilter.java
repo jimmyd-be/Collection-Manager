@@ -1,5 +1,7 @@
 package be.jimmyd.cm.config;
 
+import be.jimmyd.cm.dto.TokenDto;
+import be.jimmyd.cm.dto.UserDetailsImpl;
 import be.jimmyd.cm.dto.UserLoginDto;
 import be.jimmyd.cm.entities.User;
 import com.auth0.jwt.JWT;
@@ -10,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -20,16 +23,20 @@ import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    public static final String SECRET = "SECRET_KEY";
-    public static final long EXPIRATION_TIME = 900_000; // 15 mins
-    public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String HEADER_STRING = "Authorization";
-    public static final String SIGN_UP_URL = "/api/auth/login";
+
+    private final String secret;
+
+    private long expirationTime;
+
+    private final String SIGN_UP_URL = "/api/auth/login";
 
     private AuthenticationManager authenticationManager;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager,  @Value("${cm.secretKey}") String secret,
+                                   @Value("${cm.secret.expiration}") long expirationTime) {
         this.authenticationManager = authenticationManager;
+        this.secret = secret;
+        this.expirationTime = expirationTime;
 
         setFilterProcessesUrl(SIGN_UP_URL);
     }
@@ -58,13 +65,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
         String token = JWT.create()
-                .withSubject(((User) auth.getPrincipal()).getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) //TODO change to Java 8 times when library updates
-                .sign(Algorithm.HMAC512(SECRET.getBytes()));
+                .withSubject(((UserDetailsImpl)auth.getPrincipal()).getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime)) //TODO change to Java 8 times when library updates
+                .sign(Algorithm.HMAC512(secret.getBytes()));
 
-        String body = ((User) auth.getPrincipal()).getUsername() + " " + token;
-
-        res.getWriter().write(body);
+        TokenDto dto = new TokenDto(token);
+        res.getWriter().write(new ObjectMapper().writeValueAsString(dto));
         res.getWriter().flush();
     }
 }
