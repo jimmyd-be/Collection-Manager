@@ -59,4 +59,12 @@ public class Field {
             inverseJoinColumns = { @JoinColumn(name = "fieldId") }
     )
     private List<Collection> collections;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "collectionBaseType")
+    private CollectionType collectionType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type")
+    private FieldType type;
 }

@@ -1,15 +1,13 @@
 package be.jimmyd.cm.domain.logic;
 
+import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.mappers.UserMapper;
-import be.jimmyd.cm.dto.UserLoginDto;
-import be.jimmyd.cm.dto.UserRegisterDto;
+import be.jimmyd.cm.dto.*;
 import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class UserLogic {
@@ -26,7 +24,7 @@ public class UserLogic {
 
         final User userCheck = userRepository.findByMail(userDto.getEmail());
 
-        if(userCheck != null) {
+        if (userCheck != null) {
             throw new UserAlreadyExists("User with mail " + userDto.getEmail() + " already exists");
         }
 
@@ -34,10 +32,52 @@ public class UserLogic {
 
         user.setUserPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        if(userRepository.count() == 0) {
+        if (userRepository.count() == 0) {
             user.setAdmin(true);
         }
 
         userRepository.save(user);
+    }
+
+    public UserDto getUserByMail(String mail) {
+        final User user = userRepository.findByMail(mail);//TODO return list
+
+        return UserMapper.INSTANCE.userToDto(user);
+    }
+
+    public void deleteUser(String mail) {
+        final User user = userRepository.findByMail(mail);
+
+        //TODO delete all resource from the user
+        userRepository.delete(user);
+    }
+
+    public void editUser(UserEditDto userEditDto, String currentMail) throws PasswordIncorrectException {
+        final User user = userRepository.findByMail(currentMail);
+
+        if (user.getUserPassword().equals(passwordEncoder.encode(userEditDto.getNewMail()))) {
+            user.setUsername(userEditDto.getNewUser());
+            user.setMail(userEditDto.getNewMail());
+            user.setTheme(userEditDto.getTheme());
+
+            userRepository.save(user);
+        } else {
+            throw new PasswordIncorrectException("User " + currentMail + " cannot be update because password is incorrect");
+        }
+
+    }
+
+    public void editPassword(UserEditPasswordDto userEditPasswordDto, String mail) throws PasswordIncorrectException {
+        final User user = userRepository.findByMail(mail);
+
+        if (!user.getUserPassword().equals(passwordEncoder.encode(userEditPasswordDto.getCurrentpassword()))) {
+            throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password is incorrect");
+        } else if (userEditPasswordDto.getPassword().equals(userEditPasswordDto.getPasswordRepeat())) {
+            throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password and repeat password are not the same");
+        } else {
+            user.setUserPassword(passwordEncoder.encode(userEditPasswordDto.getPassword()));
+
+            userRepository.save(user);
+        }
     }
 }

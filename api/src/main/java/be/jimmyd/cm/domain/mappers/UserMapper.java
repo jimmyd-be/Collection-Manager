@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.mappers;
 
+import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserRegisterDto;
 import be.jimmyd.cm.entities.User;
 import org.mapstruct.Mapper;
@@ -29,4 +30,14 @@ public interface UserMapper {
     static LocalDateTime currentDateTime(String fullName) {
         return LocalDateTime.now();
     }
+
+    @Mappings({
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "mail", target = "mail"),
+            @Mapping(source = "username", target = "username"),
+            @Mapping(source = "admin", target = "isAdmin"),
+            @Mapping(source = "creationDate", target = "creationDate"),
+            @Mapping(source = "theme", target = "theme"),
+    })
+    UserDto userToDto(User user);
 }

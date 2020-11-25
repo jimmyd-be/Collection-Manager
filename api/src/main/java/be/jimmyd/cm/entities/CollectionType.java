@@ -3,6 +3,7 @@ package be.jimmyd.cm.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,5 +20,11 @@ public class CollectionType {
     private String type;
 
     @Column(name = "active")
-    private Byte active;
+    private boolean active;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Field> fields;
 }
