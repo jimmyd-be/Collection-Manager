@@ -1,0 +1,370 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="jimmy (generated)" id="1606306592150-1">
+        <createTable tableName="cm_collection">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="typeId" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="active" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-2">
+        <createTable tableName="cm_collectionfield">
+            <column name="collectionId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fieldId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-3">
+        <createTable tableName="cm_collectionitem">
+            <column name="collectionId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="itemId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-4">
+        <createTable tableName="cm_collectiontype">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column defaultValueBoolean="false" name="active" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-5">
+        <createTable tableName="cm_field">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="type" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="choises" type="VARCHAR(255)"/>
+            <column defaultValueBoolean="false" name="required" type="BIT"/>
+            <column name="placeHolder" type="VARCHAR(255)"/>
+            <column name="label" type="VARCHAR(255)"/>
+            <column name="otherOptions" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="collectionBaseType" type="INT"/>
+            <column name="fieldOrder" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="place" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="multiValues" type="BIT"/>
+            <column defaultValueBoolean="false" name="active" type="BIT"/>
+            <column name="labelPosition" type="VARCHAR(45)"/>
+            <column name="widget" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-6">
+        <createTable tableName="cm_fieldtype">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column defaultValueBoolean="false" name="active" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-7">
+        <createTable tableName="cm_item">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="VARCHAR(255)"/>
+            <column name="author" type="BIGINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creationDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="lastModified" type="datetime"/>
+            <column defaultValueComputed="NULL" name="modifiedBy" type="BIGINT UNSIGNED"/>
+            <column defaultValueBoolean="false" name="active" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-8">
+        <createTable tableName="cm_itemdata">
+            <column name="itemId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fieldId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="valueCount" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fieldValue" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-9">
+        <createTable tableName="cm_role">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="active" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-10">
+        <createTable tableName="cm_user">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="mail" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="userPassword" type="VARCHAR(255)"/>
+            <column name="creationDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="isAdmin" type="BIT"/>
+            <column name="theme" type="VARCHAR(255)"/>
+            <column defaultValueBoolean="false" name="active" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-11">
+        <createTable tableName="cm_usercollection">
+            <column name="userId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="collectionId" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="roleId" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-12">
+        <createIndex indexName="author" tableName="cm_item">
+            <column name="author"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-13">
+        <createIndex indexName="collectionBaseType" tableName="cm_field">
+            <column defaultValueComputed="NULL" name="collectionBaseType"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-14">
+        <createIndex indexName="collectionId" tableName="cm_usercollection">
+            <column name="collectionId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-15">
+        <createIndex indexName="fieldId" tableName="cm_collectionfield">
+            <column name="fieldId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-16">
+        <createIndex indexName="fieldId" tableName="cm_itemdata">
+            <column name="fieldId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-17">
+        <createIndex indexName="itemId" tableName="cm_collectionitem">
+            <column name="itemId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-18">
+        <createIndex indexName="roleId" tableName="cm_usercollection">
+            <column name="roleId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-19">
+        <createIndex indexName="role_UN_role" tableName="cm_role" unique="true">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-20">
+        <createIndex indexName="type" tableName="cm_field">
+            <column name="type"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-21">
+        <createIndex indexName="typeId" tableName="cm_collection">
+            <column name="typeId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-22">
+        <addForeignKeyConstraint baseColumnNames="typeId" baseTableName="cm_collection" constraintName="cm_collection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collectiontype" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-23">
+        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-24">
+        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-25">
+        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-26">
+        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-27">
+        <addForeignKeyConstraint baseColumnNames="type" baseTableName="cm_field" constraintName="cm_field_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_fieldtype" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-28">
+        <addForeignKeyConstraint baseColumnNames="collectionBaseType" baseTableName="cm_field" constraintName="cm_field_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collectiontype" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-29">
+        <addForeignKeyConstraint baseColumnNames="author" baseTableName="cm_item" constraintName="cm_item_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-30">
+        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-31">
+        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-32">
+        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-33">
+        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+    </changeSet>
+    <changeSet author="jimmy (generated)" id="1606306592150-34">
+        <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_role" validate="true"/>
+    </changeSet>
+
+    <changeSet id="1606306592150-35" author="jimmy">
+        <sql>
+
+            INSERT INTO cm_collectiontype (`id`, `type`, `active`) VALUES
+            (1, 'Movies', 1),
+            (2, 'Games', 1),
+            (3, 'Magazines', 1),
+            (4, 'Books', 1),
+            (5, 'Disks', 1),
+            (6, 'Comics', 1);
+
+
+            INSERT INTO cm_fieldtype (`id`, `type`, `active`) VALUES
+            (1, 'text',1)
+            ,(2, 'url',1)
+            ,(3, 'textarea',1)
+            ,(4, 'date',1)
+            ,(5, 'dropdown',1)
+            ,(6, 'checkbox',1)
+            ,(7, 'radio',1)
+            ,(8, 'email',1)
+            ,(9, 'rate',1)
+            ,(10, 'image',1)
+            ,(11, 'barcode',1),
+            (12, 'number', 1);
+
+            INSERT INTO cm_role (`id`, `name`, `active`) VALUES
+            (0, 'Owner', 1),
+            (1, 'Admin', 1),
+            (2, 'Editor', 1),
+            (3, 'Viewer', 1) ON DUPLICATE KEY UPDATE id=id;
+
+
+            /* Movie default fields */
+            INSERT INTO cm_field
+            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
+            `active`, `labelPosition`, `widget`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 1, 0, 'top', 0, 1, 'hidden', 'default'),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 1, 10, 'main', 1, 1, 'left', 'default'),
+            ('runtime', 12, NULL, 0, '', 'Runtime', NULL, 1, 20, 'main', 0, 1, 'left', 'default'),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 1, 30, 'main', 0, 1, 'left', 'default'),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 1, 40, 'main', 0, 1, 'top', 'default'),
+            ('director', 1, NULL, 0, 'Director', 'Director', NULL, 1, 50, 'main', 1, 1, 'top', 'default'),
+            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 1, 60, 'main', 1, 1, 'top', 'default'),
+            ('cast', 1, NULL, 0, 'Cast', 'Cast', NULL, 1, 60, 'main', 1, 1, 'top', 'default'),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 1, 70, 'left', 0, 1, 'hidden', 'image'),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 1, 80, 'left', 0, 1, 'hidden', 'rate');
+
+
+            /* Games default fields */
+            INSERT INTO cm_field
+            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
+            `active`, `labelPosition`, `widget`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 2, 0, 'top', 0, 1, 'hidden', 'default'),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 2, 10, 'main', 1, 1, 'left', 'default'),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 2, 30, 'main', 0, 1, 'left', 'default'),
+            ('platform', 1, NULL, 0, 'Platform', 'Platform', NULL, 2, 20, 'main', 1, 1, 'left', 'default'),
+            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 2, 30, 'main', 1, 1, 'left', 'default'),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 2, 40, 'main', 0, 1, 'top', 'default'),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 2, 70, 'left', 0, 1, 'hidden', 'image'),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 2, 80, 'left', 0, 1, 'hidden', 'rate');
+
+
+            /* Magazines default fields */
+            INSERT INTO cm_field
+            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
+            `active`, `labelPosition`, `widget`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 3, 0, 'top', 0, 1, 'hidden', 'default'),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 3, 70, 'left', 0, 1, 'hidden', 'image'),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 3, 30, 'main', 0, 1, 'left', 'default'),
+            ('content', 3, NULL, 0, 'Content', 'Content', NULL, 3, 40, 'main', 0, 1, 'top', 'default');
+
+            /* Books default fields */
+            INSERT INTO cm_field
+            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
+            `active`, `labelPosition`, `widget`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 4, 0, 'top', 0, 1, 'hidden', 'default'),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 4, 70, 'left', 0, 1, 'hidden', 'image'),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 4, 30, 'main', 0, 1, 'left', 'default'),
+            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 4, 0, 'main', 0, 1, 'hidden', 'default'),
+            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 4, 30, 'main', 1, 1, 'left', 'default'),
+            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 4, 30, 'main', 1, 1, 'left', 'default'),
+            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 4, 50, 'main', 0, 1, 'top', 'default'),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 4, 40, 'main', 0, 1, 'top', 'default'),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 4, 10, 'main', 1, 1, 'left', 'default'),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 4, 80, 'left', 0, 1, 'hidden', 'rate');
+
+
+            /* Disks default fields */
+            INSERT INTO cm_field
+            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
+            `active`, `labelPosition`, `widget`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 5, 0, 'top', 0, 1, 'hidden', 'default'),
+            ('artist', 1, NULL, 0, 'Artist', 'Artist', NULL, 5, 30, 'main', 1, 1, 'left', 'default'),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 5, 30, 'main', 0, 1, 'left', 'default'),
+            ('song', 1, NULL, 0, 'Song', 'Song', NULL, 5, 100, 'main', 1, 1, 'left', 'default'),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 5, 70, 'left', 0, 1, 'hidden', 'image');
+
+
+            /* Comics default fields */
+            INSERT INTO cm_field
+            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
+            `active`, `labelPosition`, `widget`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 6, 0, 'top', 0, 1, 'hidden', 'default'),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 6, 70, 'left', 0, 1, 'hidden', 'image'),
+            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 6, 0, 'main', 0, 1, 'hidden', 'default'),
+            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 6, 30, 'main', 1, 1, 'left', 'default'),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 6, 30, 'main', 0, 1, 'left', 'default'),
+            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 6, 30, 'main', 1, 1, 'left', 'default'),
+            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 6, 50, 'main', 0, 1, 'top', 'default'),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 6, 40, 'main', 0, 1, 'top', 'default'),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 6, 10, 'main', 1, 1, 'left', 'default'),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 6, 80, 'left', 0, 1, 'hidden', 'rate');
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>
