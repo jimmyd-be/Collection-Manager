@@ -56,14 +56,14 @@ public class CollectionController {
     }
 
     @PostMapping("/add")
-    public void addCollection(@RequestBody CollectionDto collectionDto) {
-        //TODO add action
+    public void addCollection(@RequestBody CollectionDto collectionDto, UsernamePasswordAuthenticationToken user) {
+        collectionLogic.createCollection(collectionDto, user.getPrincipal().toString());
 
     }
 
     @PostMapping("/{id}/share")
     public void share(@PathVariable("id") long collectionId, @RequestBody CollectionShareDto collectionShareDto) {
-        //TODO add action
+        userCollectionLogic.shareCollection(collectionId, collectionShareDto);
     }
 
     @DeleteMapping("/{id}")

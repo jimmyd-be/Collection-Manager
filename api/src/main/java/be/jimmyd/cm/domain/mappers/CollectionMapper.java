@@ -35,4 +35,5 @@ public interface CollectionMapper {
 
         return FieldMapper.INSTANCE.mapMultiFieldToDto(fields);
     }
+
 }
