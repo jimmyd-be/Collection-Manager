@@ -2,7 +2,6 @@ package be.jimmyd.cm.domain.mappers;
 
 import be.jimmyd.cm.dto.FieldDto;
 import be.jimmyd.cm.entities.Field;
-import be.jimmyd.cm.entities.FieldType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

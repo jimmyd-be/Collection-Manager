@@ -3,30 +3,27 @@ package be.jimmyd.cm.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "cm_fieldtype")
 @Data
 public class FieldType {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Basic
     @Column(name = "type")
     private String type;
 
+    @Basic
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @JoinColumn(name = "fieldId")
+    @OneToMany
     private List<Field> fields;
 
 }

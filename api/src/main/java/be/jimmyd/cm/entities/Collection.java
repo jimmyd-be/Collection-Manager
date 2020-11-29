@@ -1,11 +1,9 @@
 package be.jimmyd.cm.entities;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "cm_collection")
@@ -23,18 +21,28 @@ public class Collection {
 
     @Basic
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
 
     @ManyToOne
+    @JoinColumn(name = "typeId", referencedColumnName = "id", nullable = false)
     private CollectionType type;
 
-    @ManyToMany(mappedBy = "collections", cascade = CascadeType.REMOVE)
-    private List<Item> items;
-
-    @ManyToMany(mappedBy = "collections")
+    @ManyToMany
+    @JoinTable(
+            name = "cm_collectionfield",
+            joinColumns = @JoinColumn(name = "collectionId"),
+            inverseJoinColumns = @JoinColumn(name = "fieldId"))
     private List<Field> fields;
 
-    @OneToMany(cascade=CascadeType.REMOVE)
+    @ManyToMany
+    @JoinTable(
+            name="cm_collectionItem",
+            joinColumns = {@JoinColumn(name="itemId")},
+            inverseJoinColumns = {@JoinColumn(name="collectionId")}
+    )
+    private List<Item> items;
+
+    @OneToMany
     @JoinColumn(name = "collectionId")
     private List<UserCollection> userCollections;
 }

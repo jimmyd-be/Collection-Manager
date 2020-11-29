@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface CollectionUserRepository extends JpaRepository<UserCollection, Long> {
 
-    @Query("SELECT u FROM UserCollection u JOIN FETCH u.user JOIN FETCH u.roleId WHERE u.collectionId.id = :id")
+    @Query("SELECT u FROM UserCollection u JOIN FETCH u.user JOIN FETCH u.role WHERE u.collection.id = :id")
     List<UserCollection> getByCollectionId(@Param("id") long collectionId);
 
-    @Query("SELECT u FROM UserCollection u WHERE u.user.id = :userId AND u.collectionId.id = :collectionId")
+    @Query("SELECT u FROM UserCollection u WHERE u.user.id = :userId AND u.collection.id = :collectionId")
     UserCollection  getByCollectionAndUser(@Param("collectionId")long collectionId, @Param("userId")long userId);
 }

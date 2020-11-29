@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "cm_collectiontype")
@@ -16,19 +15,18 @@ public class CollectionType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Basic
     @Column(name = "type")
     private String type;
 
+    @Basic
     @Column(name = "active")
-    private boolean active;
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Field> fields;
+    private Boolean active;
 
     @OneToMany
-    @JoinColumn(name = "collectionId")
     private List<Collection> collections;
+
+    @OneToMany
+    private List<Field> fields;
+
 }

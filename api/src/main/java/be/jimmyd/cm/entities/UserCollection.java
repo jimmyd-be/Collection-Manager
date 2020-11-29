@@ -14,15 +14,15 @@ public class UserCollection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "collectionId")
-    private Collection collectionId;
+    @ManyToOne
+    @JoinColumn(name = "collectionId", referencedColumnName = "id", nullable = false)
+    private Collection collection;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roleId")
-    private Role roleId;
+    @ManyToOne
+    @JoinColumn(name = "roleId", referencedColumnName = "id", nullable = false)
+    private Role role;
 }

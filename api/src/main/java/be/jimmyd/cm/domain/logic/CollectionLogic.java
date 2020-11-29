@@ -79,7 +79,7 @@ public class CollectionLogic {
 
         for(FieldDto dto : collectionDto.getFields()) {
             final Field field = fieldMapper.dtoToField(dto);
-            final FieldType fieldType = fieldTypeRepository.findbyName(dto.getType());
+            final FieldType fieldType = fieldTypeRepository.findByName(dto.getType());
             field.setType(fieldType);
 
             collection.getFields().add(field);

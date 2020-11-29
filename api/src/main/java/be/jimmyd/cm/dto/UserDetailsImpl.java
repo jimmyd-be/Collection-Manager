@@ -24,7 +24,7 @@ public class UserDetailsImpl implements UserDetails {
             authorities.add(new SimpleGrantedAuthority("USER"));
         }
 
-        if(user.isAdmin()) {
+        if(user.getIsAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ADMIN"));
         }
 
@@ -58,6 +58,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isActive();
+        return user.getActive();
     }
 }

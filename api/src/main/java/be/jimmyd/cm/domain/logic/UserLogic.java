@@ -33,7 +33,7 @@ public class UserLogic {
         user.setUserPassword(passwordEncoder.encode(userDto.getPassword()));
 
         if (userRepository.count() == 0) {
-            user.setAdmin(true);
+            user.setIsAdmin(true);
         }
 
         userRepository.save(user);

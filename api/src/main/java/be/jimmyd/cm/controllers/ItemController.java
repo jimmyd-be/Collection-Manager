@@ -2,7 +2,6 @@ package be.jimmyd.cm.controllers;
 
 
 import be.jimmyd.cm.dto.ItemDto;
-import be.jimmyd.cm.entities.Item;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

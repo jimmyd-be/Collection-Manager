@@ -3,10 +3,8 @@ package be.jimmyd.cm.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "cm_user")
@@ -18,29 +16,38 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Basic
     @Column(name = "username")
     private String username;
 
+    @Basic
     @Column(name = "mail")
     private String mail;
 
+    @Basic
     @Column(name = "userPassword")
     private String userPassword;
 
+    @Basic
     @Column(name = "creationDate")
     private LocalDateTime creationDate;
 
+    @Basic
     @Column(name = "isAdmin")
-    private boolean isAdmin;
+    private Boolean isAdmin;
 
+    @Basic
     @Column(name = "theme")
     private String theme;
 
+    @Basic
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
 
     @OneToMany
-    @JoinColumn(name = "userId")
+    private List<Item> items;
+
+    @OneToMany
     private List<UserCollection> userCollections;
 
 }

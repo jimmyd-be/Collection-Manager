@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "cm_role")
@@ -16,13 +15,14 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Basic
     @Column(name = "name")
     private String name;
 
+    @Basic
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
 
     @OneToMany
-    @JoinColumn(name = "roleId")
     private List<UserCollection> userCollections;
 }

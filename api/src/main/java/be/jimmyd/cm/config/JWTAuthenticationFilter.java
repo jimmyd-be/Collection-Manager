@@ -3,7 +3,6 @@ package be.jimmyd.cm.config;
 import be.jimmyd.cm.dto.TokenDto;
 import be.jimmyd.cm.dto.UserDetailsImpl;
 import be.jimmyd.cm.dto.UserLoginDto;
-import be.jimmyd.cm.entities.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;

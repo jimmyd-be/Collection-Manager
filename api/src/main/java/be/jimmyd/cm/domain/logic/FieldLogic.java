@@ -6,7 +6,6 @@ import be.jimmyd.cm.entities.Field;
 import be.jimmyd.cm.repositories.FieldRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 
 @Component

@@ -56,16 +56,16 @@ public class UserCollectionLogic {
         UserCollection userCollection = collectionUserRepository.getByCollectionAndUser(collectionId, user.getId());
 
         if (userCollection != null) {
-            userCollection.setRoleId(role);
+            userCollection.setRole(role);
             collectionUserRepository.save(userCollection);
         } else {
             final Optional<Collection> collectionOptional = collectionRepository.findById(collectionId);
 
             if(collectionOptional.isPresent()) {
                 userCollection = new UserCollection();
-                userCollection.setRoleId(role);
+                userCollection.setRole(role);
                 userCollection.setUser(user);
-                userCollection.setCollectionId(collectionOptional.get());
+                userCollection.setCollection(collectionOptional.get());
                 collectionUserRepository.save(userCollection);
             }
         }
@@ -78,8 +78,8 @@ public class UserCollectionLogic {
         final Role role = roleRepository.getByName(roleName);
 
         UserCollection userCollection = new UserCollection();
-        userCollection.setCollectionId(collection);
-        userCollection.setRoleId(role);
+        userCollection.setCollection(collection);
+        userCollection.setRole(role);
         userCollection.setUser(user);
 
         collectionUserRepository.save(userCollection);

@@ -1,7 +1,5 @@
 package be.jimmyd.cm.domain.logic;
 
-import be.jimmyd.cm.dto.CollectionTypeDto;
-import be.jimmyd.cm.entities.CollectionType;
 import be.jimmyd.cm.repositories.CollectionTypeRepository;
 import org.springframework.stereotype.Component;
 
