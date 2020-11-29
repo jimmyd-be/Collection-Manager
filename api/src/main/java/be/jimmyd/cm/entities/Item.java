@@ -43,4 +43,7 @@ public class Item {
             inverseJoinColumns = { @JoinColumn(name = "itemId") }
     )
     private List<Collection> collections;
+
+    @OneToMany
+    private List<Item> ItemDatas;
 }

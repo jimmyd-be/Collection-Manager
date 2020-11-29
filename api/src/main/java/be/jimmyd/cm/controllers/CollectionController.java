@@ -1,11 +1,16 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.logic.CollectionLogic;
+import be.jimmyd.cm.domain.logic.CollectionTypeLogic;
+import be.jimmyd.cm.domain.logic.UserCollectionLogic;
+import be.jimmyd.cm.domain.logic.UserLogic;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
 import be.jimmyd.cm.dto.CollectionTypeDto;
+import be.jimmyd.cm.dto.UserCollectionDto;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,32 +18,35 @@ import java.util.List;
 @RequestMapping("/api/collection")
 public class CollectionController {
 
-    @GetMapping("/user")
-    public List<CollectionDto> getByUser(Principal user) {
-        //TODO add action
+    private final CollectionLogic collectionLogic;
+    private final CollectionTypeLogic collectionTypeLogic;
+    private final UserCollectionLogic userCollectionLogic;
 
-        return new ArrayList<>();
+    public CollectionController(final CollectionLogic collectionLogic, final CollectionTypeLogic collectionTypeLogic,
+                                final UserCollectionLogic userCollectionLogic) {
+        this.collectionLogic = collectionLogic;
+        this.collectionTypeLogic = collectionTypeLogic;
+        this.userCollectionLogic = userCollectionLogic;
+    }
+
+    @GetMapping("/user")
+    public List<CollectionDto> getByUser(UsernamePasswordAuthenticationToken user) {
+        return collectionLogic.getByUser(user.getPrincipal().toString());
     }
 
     @GetMapping("/types")
-    public List<CollectionTypeDto> getCollectionTypes() {
-        //TODO add action
-
-        return new ArrayList<>();
+    public List<String> getCollectionTypes() {
+        return collectionTypeLogic.getAllTypes();
     }
 
     @GetMapping("/{id}")
-    public CollectionDto getById(@PathVariable("id") long collectionid) {
-        //TODO add action
-
-        return null;
+    public CollectionDto getById(@PathVariable("id") long collectionId) {
+        return collectionLogic.getById(collectionId);
     }
 
     @GetMapping("/{id}/users")
-    public List<CollectionDto> getAllCollectionUsers(@PathVariable("id") long collectionid) {
-        //TODO add action
-
-        return new ArrayList<>();
+    public List<UserCollectionDto> getAllCollectionUsers(@PathVariable("id") long collectionId) {
+        return userCollectionLogic.getUsersByCollection(collectionId);
     }
 
     @PatchMapping("/edit")
@@ -60,12 +68,12 @@ public class CollectionController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") long collectionId) {
-        //TODO add action
+        collectionLogic.deleteById(collectionId);
     }
 
     @DeleteMapping("/{id}/user/{userId}")
     public void deleteUserFromCollection(@PathVariable("id") long collectionId, @PathVariable("userId") long userId) {
-        //TODo add action
+        userCollectionLogic.deleteUserFromCollection(collectionId, userId);
     }
 
 }

@@ -7,18 +7,22 @@ import javax.persistence.*;
 @Entity
 @Table(name = "cm_usercollection")
 @Data
-@IdClass(UserCollectionPK.class)
 public class UserCollection {
 
     @Id
-    @Column(name = "userId")
-    private long userId;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    @Id
-    @Column(name = "collectionId")
-    private long collectionId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private User user;
 
-    @Id
-    @Column(name = "roleId")
-    private int roleId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "collectionId")
+    private Collection collectionId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "roleId")
+    private Role roleId;
 }

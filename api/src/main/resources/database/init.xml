@@ -367,4 +367,40 @@
 
         </sql>
     </changeSet>
+
+    <changeSet id="1606306592150-36" author="jimmy">
+        <sql>
+            DROP TABLE cm_usercollection;
+
+            CREATE TABLE cm_usercollection (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            userId BIGINT UNSIGNED NOT NULL,
+            collectionId BIGINT UNSIGNED NOT NULL,
+            roleId int NOT NULL,
+            PRIMARY KEY (id),
+            FOREIGN KEY (userId)  REFERENCES cm_user(id),
+            FOREIGN KEY (collectionId)  REFERENCES cm_collection(id),
+            FOREIGN KEY (roleId)  REFERENCES cm_role(id),
+            UNIQUE(userId, collectionId)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="1606306592150-37" author="jimmy">
+        <sql>
+            DROP TABLE cm_itemdata;
+
+            CREATE TABLE cm_itemdata (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            itemId BIGINT UNSIGNED NOT NULL,
+            fieldId BIGINT UNSIGNED NOT NULL,
+            valueCount BIGINT UNSIGNED NOT NULL,
+            fieldValue TEXT,
+            PRIMARY KEY (id),
+            FOREIGN KEY (itemId) REFERENCES cm_item(id),
+            FOREIGN KEY (fieldId) REFERENCES cm_field(id)
+            );
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

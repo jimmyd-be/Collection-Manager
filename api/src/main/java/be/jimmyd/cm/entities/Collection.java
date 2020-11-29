@@ -25,9 +25,16 @@ public class Collection {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToMany(mappedBy = "collections")
+    @ManyToOne
+    private CollectionType type;
+
+    @ManyToMany(mappedBy = "collections", cascade = CascadeType.REMOVE)
     private List<Item> items;
 
     @ManyToMany(mappedBy = "collections")
     private List<Field> fields;
+
+    @OneToMany(cascade=CascadeType.REMOVE)
+    @JoinColumn(name = "collectionId")
+    private List<UserCollection> userCollections;
 }

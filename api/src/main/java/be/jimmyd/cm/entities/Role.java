@@ -3,6 +3,7 @@ package be.jimmyd.cm.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,4 +21,8 @@ public class Role {
 
     @Column(name = "active")
     private boolean active;
+
+    @OneToMany
+    @JoinColumn(name = "roleId")
+    private List<UserCollection> userCollections;
 }

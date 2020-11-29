@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -37,5 +38,9 @@ public class User {
 
     @Column(name = "active")
     private boolean active;
+
+    @OneToMany
+    @JoinColumn(name = "userId")
+    private List<UserCollection> userCollections;
 
 }

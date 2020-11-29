@@ -67,4 +67,7 @@ public class Field {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type")
     private FieldType type;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Item> ItemDatas;
 }

@@ -27,4 +27,8 @@ public class CollectionType {
             orphanRemoval = true
     )
     private List<Field> fields;
+
+    @OneToMany
+    @JoinColumn(name = "collectionId")
+    private List<Collection> collections;
 }

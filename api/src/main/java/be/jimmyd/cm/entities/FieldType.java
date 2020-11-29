@@ -26,6 +26,7 @@ public class FieldType {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JoinColumn(name = "fieldId")
     private List<Field> fields;
 
 }
