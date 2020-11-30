@@ -4,6 +4,7 @@ package be.jimmyd.cm.controllers;
 import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
 import be.jimmyd.cm.domain.logic.ItemLogic;
 import be.jimmyd.cm.dto.ItemDto;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,15 +41,13 @@ public class ItemController {
 
 
     @GetMapping("/get/collection/{id}/{page}/{itemsOnPage}")
-    public List<ItemDto> getItemFromCollection(@PathVariable("id") long collectionId, @PathVariable("page") long page,
-    @PathVariable("itemsOnPage") long itemsOnPage) {
-        //TODO add logic
-
-        return new ArrayList<>();
+    public List<ItemDto> getItemFromCollection(@PathVariable("id") long collectionId, @PathVariable("page") int page,
+    @PathVariable("itemsOnPage") int itemsOnPage) {
+        return itemLogic.getItemsByCollection(collectionId, PageRequest.of(page, itemsOnPage));
     }
 
     @GetMapping("/get/{id}")
-    public ItemDto getitemById(@PathVariable("id") long itemId) throws ItemNotExistException {
+    public ItemDto getItemById(@PathVariable("id") long itemId) throws ItemNotExistException {
         return itemLogic.getById(itemId);
     }
 

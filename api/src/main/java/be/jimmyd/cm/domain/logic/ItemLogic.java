@@ -6,6 +6,7 @@ import be.jimmyd.cm.dto.ItemDto;
 import be.jimmyd.cm.entities.*;
 import be.jimmyd.cm.repositories.*;
 import liquibase.pro.packaged.I;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -102,5 +103,13 @@ public class ItemLogic {
         else {
             throw new ItemNotExistException("Item with id " + itemId + " does not exist");
         }
+    }
+
+    public List<ItemDto> getItemsByCollection(long collectionId, PageRequest page) {
+        //TODo check user permission
+
+        final List<Item> items = itemRepository.getByCollectionId(collectionId, page);
+
+        return ItemMapper.INSTANCE.itemToDto(items);
     }
 }

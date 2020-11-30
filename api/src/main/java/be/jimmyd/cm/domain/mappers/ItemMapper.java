@@ -36,4 +36,8 @@ public interface ItemMapper {
             return dto;
         }).collect(Collectors.toList());
     }
+
+    default List<ItemDto> itemToDto(List<Item> items) {
+        return items.stream().map(item -> itemToDto(item)).collect(Collectors.toList());
+    }
 }
