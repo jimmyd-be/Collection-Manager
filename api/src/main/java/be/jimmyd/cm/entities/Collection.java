@@ -36,13 +36,13 @@ public class Collection {
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
-            name="cm_collectionItem",
+            name="cm_collectionitem",
             joinColumns = {@JoinColumn(name="itemId")},
             inverseJoinColumns = {@JoinColumn(name="collectionId")}
     )
     private List<Item> items;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "collectionId")
     private List<UserCollection> userCollections;
 }

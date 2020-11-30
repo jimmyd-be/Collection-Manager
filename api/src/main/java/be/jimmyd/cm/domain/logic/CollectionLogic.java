@@ -116,7 +116,7 @@ public class CollectionLogic {
                     .stream()
                     .filter(field -> field.getId() != 0)
                     .forEach(fieldDto -> {
-            //TODO check what can be changed in a field of a collection
+                        //TODO check what can be changed in a field of a collection
             });
 
             //Delete deleted fields

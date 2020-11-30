@@ -42,7 +42,7 @@ public class Item {
 
     @ManyToMany
     @JoinTable(
-            name="cm_collectionItem",
+            name="cm_collectionitem",
             joinColumns = {@JoinColumn(name="collectionId")},
             inverseJoinColumns = {@JoinColumn(name="itemId")}
     )

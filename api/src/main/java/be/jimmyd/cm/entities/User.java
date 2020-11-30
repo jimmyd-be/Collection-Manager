@@ -44,10 +44,12 @@ public class User {
     @Column(name = "active")
     private Boolean active;
 
-/*    @OneToMany
+  /*  @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private List<Item> items;*/
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "userId")
     private List<UserCollection> userCollections;
 
 }

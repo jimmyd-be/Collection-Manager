@@ -52,11 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     // Secure the endpoins with HTTP Basic authentication
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -68,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), secret, expirationtime))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), secret))
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/admin/**").hasRole("ADMIN")
