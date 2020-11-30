@@ -1,6 +1,7 @@
 package be.jimmyd.cm.controllers;
 
 
+import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
 import be.jimmyd.cm.domain.logic.ItemLogic;
 import be.jimmyd.cm.dto.ItemDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,16 +26,11 @@ public class ItemController {
         itemLogic.addItemToCollection(collectionid, itemData, user.getPrincipal().toString());
     }
 
-    @PostMapping("/external/add/collection/{collectionId}/{source}/{externalId}")
-    public void addItemToCollection(@PathVariable("collectionId") long collectionId, @PathVariable("source") String source,
-                                    @PathVariable("externalId") String externalId) {
-        //TODO add logic
-    }
-
     @PatchMapping("/edit/{id}/{collectionId}")
     public void editItem(@PathVariable("id") long itemId, @PathVariable("collectionId") long collectionId,
-                                    @RequestBody ItemDto itemDto) {
-        //TODO add logic + find requestBody
+                                    @RequestBody Map<String, String> itemData, UsernamePasswordAuthenticationToken user) {
+        //TODO add logic
+        itemLogic.editItem(collectionId, itemId, itemData, user.getPrincipal().toString());
     }
 
     @DeleteMapping("/{itemId}/collection/{collectionId}")
@@ -52,10 +48,8 @@ public class ItemController {
     }
 
     @GetMapping("/get/{id}")
-    public ItemDto getitembyId(@PathVariable("id") long itemId) {
-        //TODO add logic
-
-        return null;
+    public ItemDto getitemById(@PathVariable("id") long itemId) throws ItemNotExistException {
+        return itemLogic.getById(itemId);
     }
 
     @GetMapping("/external/{type}")
@@ -63,5 +57,11 @@ public class ItemController {
         //TODO add logic
 
         return null;
+    }
+
+    @PostMapping("/external/add/collection/{collectionId}/{source}/{externalId}")
+    public void addItemToCollection(@PathVariable("collectionId") long collectionId, @PathVariable("source") String source,
+                                    @PathVariable("externalId") String externalId) {
+        //TODO add logic
     }
 }

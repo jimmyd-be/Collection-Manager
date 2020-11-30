@@ -53,5 +53,6 @@ public class Item {
     private User author;
 
     @OneToMany
+    @JoinColumn(name = "itemId")
     private List<Itemdata> itemdata;
 }

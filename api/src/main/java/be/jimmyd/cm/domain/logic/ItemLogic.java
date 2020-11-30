@@ -1,5 +1,7 @@
 package be.jimmyd.cm.domain.logic;
 
+import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
+import be.jimmyd.cm.domain.mappers.ItemMapper;
 import be.jimmyd.cm.dto.ItemDto;
 import be.jimmyd.cm.entities.*;
 import be.jimmyd.cm.repositories.*;
@@ -83,6 +85,22 @@ public class ItemLogic {
     }
 
     private long getFieldIDFromKey(String key) {
-        return Long.valueOf(key.substring(0, key.indexOf("_")));
+        return Long.parseLong(key.substring(0, key.indexOf("_")));
+    }
+
+    public void editItem(long collectionId, long itemId, Map<String, String> itemData, String userMail) {
+    }
+
+    public ItemDto getById(long itemId) throws ItemNotExistException {
+        //TODo check user permission
+
+        final Optional<Item> itemOptional = itemRepository.findById(itemId);
+
+        if(itemOptional.isPresent()) {
+            return ItemMapper.INSTANCE.itemToDto(itemOptional.get());
+        }
+        else {
+            throw new ItemNotExistException("Item with id " + itemId + " does not exist");
+        }
     }
 }
