@@ -52,7 +52,7 @@ public class FieldController {
         List<FieldDto> result = new ArrayList<>();
 
         if(securityUtil.hasUserReadAccessToCollection(user.getPrincipal().toString(), id)) {
-            result.addAll(fieldLogic.getBasicFieldsByCollection(id));
+            result.addAll(fieldLogic.getCustomFieldsByCollection(id));
         }
 
         return result;

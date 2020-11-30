@@ -12,9 +12,9 @@ import java.util.List;
 public interface FieldRepository extends JpaRepository<Field, Long> {
 
 
-    @Query("FROM Field WHERE collections IN (SELECT c FROM Collection c WHERE c.id = :collectionId) AND type IS NOT NULL")
+    @Query("SELECT f FROM Field f WHERE f.collectiontype = (SELECT t FROM CollectionType t JOIN t.collections c WHERE c.id = :collectionId)")
     List<Field> findBasicFieldByCollectionId(@Param("collectionId") long collectionId);
 
-    @Query("FROM Field WHERE collections IN (SELECT c FROM Collection c WHERE c.id = :collectionId) AND type IS NULL")
+    @Query("SELECT f FROM Field f JOIN f.collections c WHERE c.id = :collectionId")
     List<Field> findCustomFieldByCollectionId(@Param("collectionId") long collectionId);
 }

@@ -34,7 +34,7 @@ public class Collection {
             inverseJoinColumns = @JoinColumn(name = "fieldId"))
     private List<Field> fields;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name="cm_collectionItem",
             joinColumns = {@JoinColumn(name="itemId")},
@@ -42,7 +42,7 @@ public class Collection {
     )
     private List<Item> items;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "collectionId")
     private List<UserCollection> userCollections;
 }

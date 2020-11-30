@@ -44,8 +44,8 @@ public class User {
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany
-    private List<Item> items;
+/*    @OneToMany
+    private List<Item> items;*/
 
     @OneToMany
     private List<UserCollection> userCollections;

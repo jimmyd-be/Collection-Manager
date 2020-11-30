@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface CollectionRepository extends JpaRepository<Collection, Long> {
 
-    @Query("SELECT c FROM Collection c JOIN FETCH c.fields f JOIN FETCH c.type t JOIN c.userCollections u WHERE u.user.id = :userId and f.active = true")
+    @Query("SELECT c FROM Collection c JOIN c.userCollections u WHERE u.user.id = :userId")
     List<Collection> getByUser(@Param("userId") long userId);
 }

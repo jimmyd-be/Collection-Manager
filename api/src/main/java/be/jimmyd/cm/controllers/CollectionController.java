@@ -51,7 +51,7 @@ public class CollectionController {
 
     @PatchMapping("/edit")
     public void editCollection(@RequestBody CollectionDto collectionDto) {
-        //TODO add action
+        collectionLogic.editCollection(collectionDto);
 
     }
 

@@ -32,7 +32,7 @@ Collection manager is a tool to manager different collection like movies, games,
 	- Node.js verion 10.x or greater
 	- Angular CLI
 	- Apache HTTPD or equivalents
-	- PHP 7.4 or greater
+	- Java 11
 - For users:
 	- Html 5 browser
 	
@@ -40,8 +40,8 @@ Collection manager is a tool to manager different collection like movies, games,
 
 - [Angular]([https://angular.io/](https://angular.io/))
 - [Nebular]([https://akveo.github.io/nebular/](https://akveo.github.io/nebular/))
-- [ReallySimpleJWT](https://github.com/RobDWaller/ReallySimpleJWT)
-- [Slim Framework](http://www.slimframework.com/)
+- [Spring](https://spring.io)
+
 
 
 ## How to build the code (using Docker)

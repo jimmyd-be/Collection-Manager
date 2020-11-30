@@ -6,6 +6,7 @@ import be.jimmyd.cm.domain.mappers.UserMapper;
 import be.jimmyd.cm.dto.*;
 import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +41,7 @@ public class UserLogic {
     }
 
     public UserDto getUserByMail(String mail) {
-        final User user = userRepository.findByMail(mail);//TODO return list
+        final User user = userRepository.findByMail(mail);
 
         return UserMapper.INSTANCE.userToDto(user);
     }
@@ -55,7 +56,7 @@ public class UserLogic {
     public void editUser(UserEditDto userEditDto, String currentMail) throws PasswordIncorrectException {
         final User user = userRepository.findByMail(currentMail);
 
-        if (user.getUserPassword().equals(passwordEncoder.encode(userEditDto.getNewMail()))) {
+        if (passwordEncoder.matches(userEditDto.getPassword(), user.getUserPassword())) {
             user.setUsername(userEditDto.getNewUser());
             user.setMail(userEditDto.getNewMail());
             user.setTheme(userEditDto.getTheme());
@@ -70,7 +71,7 @@ public class UserLogic {
     public void editPassword(UserEditPasswordDto userEditPasswordDto, String mail) throws PasswordIncorrectException {
         final User user = userRepository.findByMail(mail);
 
-        if (!user.getUserPassword().equals(passwordEncoder.encode(userEditPasswordDto.getCurrentpassword()))) {
+        if (!passwordEncoder.matches(userEditPasswordDto.getCurrentpassword(), user.getUserPassword())) {
             throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password is incorrect");
         } else if (userEditPasswordDto.getPassword().equals(userEditPasswordDto.getPasswordRepeat())) {
             throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password and repeat password are not the same");

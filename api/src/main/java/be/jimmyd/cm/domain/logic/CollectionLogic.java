@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class CollectionLogic {
@@ -82,12 +83,51 @@ public class CollectionLogic {
             final FieldType fieldType = fieldTypeRepository.findByName(dto.getType());
             field.setType(fieldType);
 
-            collection.getFields().add(field);
+            collection.getFields().add(fieldRepository.save(field));
         }
 
         Collection savedCollection = collectionRepository.save(collection);
 
         userCollectionLogic.addUserToCollection(mail, "Owner", savedCollection);
+
+    }
+
+    public void editCollection(CollectionDto collectionDto) {
+
+        //TODO check permissions of user to collection
+        final Optional<Collection> collectionOptional = collectionRepository.findById(collectionDto.getId());
+
+        collectionOptional.ifPresent(collection -> {
+            collection.setName(collectionDto.getName());
+
+            //Add new fields to collection
+            collectionDto.getFields().stream().filter(field -> field.getId() == 0).forEach(fieldDto -> {
+                final Field field = fieldMapper.dtoToField(fieldDto);
+                final FieldType fieldType = fieldTypeRepository.findByName(fieldDto.getType());
+                field.setType(fieldType);
+
+                collection.getFields().add(field);
+            });
+
+            final List<Long> fieldIds = collectionDto.getFields().stream().map(fields -> fields.getId()).collect(Collectors.toList());
+
+            //Edit existent fields
+            collectionDto.getFields()
+                    .stream()
+                    .filter(field -> field.getId() != 0)
+                    .forEach(fieldDto -> {
+            //TODO check what can be changed in a field of a collection
+            });
+
+            //Delete deleted fields
+            collection.getFields()
+                    .stream()
+                    .filter(field -> fieldIds.contains(field.getId()))
+                    .filter(field -> field.getCollectiontype() != null)
+                    .forEach(field -> fieldRepository.delete(field));
+
+        });
+
 
     }
 }

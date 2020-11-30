@@ -22,6 +22,8 @@ export class PagesComponent implements OnInit {
 
   ngOnInit() {
 
+    this.menu = MENU_ITEMS;
+
     const isAdmin = this.userService.getUser().toPromise().then(user => {
       return user.isAdmin;
     });
