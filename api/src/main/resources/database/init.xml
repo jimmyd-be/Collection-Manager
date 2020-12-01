@@ -215,16 +215,16 @@
         <addForeignKeyConstraint baseColumnNames="typeId" baseTableName="cm_collection" constraintName="cm_collection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collectiontype" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-23">
-        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-24">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-25">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-26">
-        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-27">
         <addForeignKeyConstraint baseColumnNames="type" baseTableName="cm_field" constraintName="cm_field_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_fieldtype" validate="true"/>
@@ -236,16 +236,16 @@
         <addForeignKeyConstraint baseColumnNames="author" baseTableName="cm_item" constraintName="cm_item_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-30">
-        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-31">
-        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-32">
-        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-33">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-34">
         <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_role" validate="true"/>

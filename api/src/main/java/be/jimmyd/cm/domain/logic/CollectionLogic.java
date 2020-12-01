@@ -25,10 +25,11 @@ public class CollectionLogic {
     private final CollectionTypeRepository collectionTypeRepository;
     private final FieldMapper fieldMapper;
     private final FieldTypeRepository fieldTypeRepository;
+    private final ItemLogic itemLogic;
 
     public CollectionLogic(CollectionRepository collectionRepository,  UserRepository userRepository, FieldRepository fieldRepository,
                            final UserCollectionLogic userCollectionLogic, final CollectionTypeRepository collectionTypeRepository,
-                           final FieldTypeRepository fieldTypeRepository) {
+                           final FieldTypeRepository fieldTypeRepository,final ItemLogic itemLogic) {
         this.collectionRepository = collectionRepository;
         this.userRepository = userRepository;
         this.collectionMapper = CollectionMapper.INSTANCE;
@@ -37,6 +38,7 @@ public class CollectionLogic {
         this.collectionTypeRepository = collectionTypeRepository;
         this.fieldMapper = FieldMapper.INSTANCE;
         this.fieldTypeRepository = fieldTypeRepository;
+        this.itemLogic = itemLogic;
     }
 
     public List<CollectionDto> getByUser(String mail) {
@@ -60,9 +62,14 @@ public class CollectionLogic {
 
     }
 
+    @Transactional
     public void deleteById(long collectionId) {
         collectionRepository.findById(collectionId).ifPresent(collection -> {
-            collectionRepository.delete(collection);
+            collection.getUserCollections().forEach(userCollection -> userCollectionLogic.deleteUserFromCollection(collectionId, userCollection.getUser().getId()));
+
+            collectionRepository.deleteNative(collection.getId());
+
+            itemLogic.deleteItemsWithoutCollection();
         });
     }
 

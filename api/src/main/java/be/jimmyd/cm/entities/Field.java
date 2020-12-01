@@ -77,7 +77,7 @@ public class Field {
     @JoinColumn(name = "collectionBaseType", referencedColumnName = "id")
     private CollectionType collectiontype;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Itemdata> itemdata;
 
 }

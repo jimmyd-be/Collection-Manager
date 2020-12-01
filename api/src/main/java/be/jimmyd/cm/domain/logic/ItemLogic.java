@@ -112,4 +112,14 @@ public class ItemLogic {
 
         return ItemMapper.INSTANCE.itemToDto(items);
     }
+
+    @Transactional
+    public void deleteItemsWithoutCollection() {
+        List<Item> items = itemRepository.findItemsWithoutCollection();
+
+        items.forEach(item -> {
+            itemDataRepository.deleteByCollectionId(item.getId());
+            itemRepository.delete(item);
+        });
+    }
 }

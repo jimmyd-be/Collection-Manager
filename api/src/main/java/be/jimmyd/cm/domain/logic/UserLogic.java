@@ -6,7 +6,7 @@ import be.jimmyd.cm.domain.mappers.UserMapper;
 import be.jimmyd.cm.dto.*;
 import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -71,7 +71,7 @@ public class UserLogic {
     public void editPassword(UserEditPasswordDto userEditPasswordDto, String mail) throws PasswordIncorrectException {
         final User user = userRepository.findByMail(mail);
 
-        if (!passwordEncoder.matches(userEditPasswordDto.getCurrentpassword(), user.getUserPassword())) {
+        if (!passwordEncoder.matches(userEditPasswordDto.getCurrentPassword(), user.getUserPassword())) {
             throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password is incorrect");
         } else if (userEditPasswordDto.getPassword().equals(userEditPasswordDto.getPasswordRepeat())) {
             throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password and repeat password are not the same");

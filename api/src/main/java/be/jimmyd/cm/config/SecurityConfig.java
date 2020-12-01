@@ -18,12 +18,12 @@ import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
     private long expirationtime;
     private UserDetailsServiceImpl userDetailsService;
     private String secret;
 
-    public SecurityConfig(BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsServiceImpl userDetailsService, @Value("${cm.secretKey}") String secret,
+    public SecurityConfig(PasswordEncoder bCryptPasswordEncoder, UserDetailsServiceImpl userDetailsService, @Value("${cm.secretKey}") String secret,
                           @Value("${cm.secret.expiration}") long expirationTime) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;

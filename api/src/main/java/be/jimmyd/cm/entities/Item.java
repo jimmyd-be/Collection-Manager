@@ -52,7 +52,7 @@ public class Item {
     @JoinColumn(name = "author", referencedColumnName = "id", nullable = false)
     private User author;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "itemId")
     private List<Itemdata> itemdata;
 }

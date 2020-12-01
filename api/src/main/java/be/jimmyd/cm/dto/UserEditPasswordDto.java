@@ -10,7 +10,7 @@ public class UserEditPasswordDto {
 
     @Size(min=8)
     @NotNull
-    private String currentpassword;
+    private String currentPassword;
 
     @Size(min=8)
     @NotNull
