@@ -30,4 +30,11 @@ public class FieldLogic {
 
         return FieldMapper.INSTANCE.mapMultiFieldToDto(customFields);
     }
+
+    public void deleteFieldsWithoutCollection() {
+
+        List<Field> fields = fieldRepository.findFieldsWithoutCollection();
+
+        fieldRepository.deleteAll(fields);
+    }
 }

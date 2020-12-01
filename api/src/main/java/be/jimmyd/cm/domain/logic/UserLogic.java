@@ -9,16 +9,22 @@ import be.jimmyd.cm.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class UserLogic {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserCollectionLogic userCollectionLogic;
+    private final CollectionLogic collectionLogic;
 
-    public UserLogic(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserLogic(UserRepository userRepository, PasswordEncoder passwordEncoder,final UserCollectionLogic userCollectionLogic,
+                     final CollectionLogic collectionLogic) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userCollectionLogic = userCollectionLogic;
+        this.collectionLogic = collectionLogic;
     }
 
     public void registerUser(UserRegisterDto userDto) throws UserAlreadyExists {
@@ -46,11 +52,15 @@ public class UserLogic {
         return UserMapper.INSTANCE.userToDto(user);
     }
 
+    @Transactional
     public void deleteUser(String mail) {
         final User user = userRepository.findByMail(mail);
 
-        //TODO delete all resource from the user
-        userRepository.delete(user);
+        user.getUserCollections().forEach(uc -> userCollectionLogic.deleteUserFromCollection(uc.getCollection().getId(), user.getId()));
+
+        userRepository.deleteNative(user.getId());
+
+        collectionLogic.deleteWithoutLink();
     }
 
     public void editUser(UserEditDto userEditDto, String currentMail) throws PasswordIncorrectException {

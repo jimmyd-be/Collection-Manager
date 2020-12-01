@@ -26,10 +26,11 @@ public class CollectionLogic {
     private final FieldMapper fieldMapper;
     private final FieldTypeRepository fieldTypeRepository;
     private final ItemLogic itemLogic;
+    private final FieldLogic fieldLogic;
 
     public CollectionLogic(CollectionRepository collectionRepository,  UserRepository userRepository, FieldRepository fieldRepository,
                            final UserCollectionLogic userCollectionLogic, final CollectionTypeRepository collectionTypeRepository,
-                           final FieldTypeRepository fieldTypeRepository,final ItemLogic itemLogic) {
+                           final FieldTypeRepository fieldTypeRepository,final ItemLogic itemLogic, final FieldLogic fieldLogic) {
         this.collectionRepository = collectionRepository;
         this.userRepository = userRepository;
         this.collectionMapper = CollectionMapper.INSTANCE;
@@ -39,6 +40,7 @@ public class CollectionLogic {
         this.fieldMapper = FieldMapper.INSTANCE;
         this.fieldTypeRepository = fieldTypeRepository;
         this.itemLogic = itemLogic;
+        this.fieldLogic = fieldLogic;
     }
 
     public List<CollectionDto> getByUser(String mail) {
@@ -70,6 +72,7 @@ public class CollectionLogic {
             collectionRepository.deleteNative(collection.getId());
 
             itemLogic.deleteItemsWithoutCollection();
+            fieldLogic.deleteFieldsWithoutCollection();
         });
     }
 
@@ -136,5 +139,9 @@ public class CollectionLogic {
         });
 
 
+    }
+
+    public void deleteWithoutLink() {
+        collectionRepository.getWithoutLink().forEach(col -> deleteById(col.getId()));
     }
 }

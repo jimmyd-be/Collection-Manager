@@ -55,6 +55,10 @@ public class Field {
     private Boolean active;
 
     @Basic
+    @Column(name = "basic")
+    private Boolean basic;
+
+    @Basic
     @Column(name = "labelPosition")
     private String labelPosition;
 
@@ -77,7 +81,8 @@ public class Field {
     @JoinColumn(name = "collectionBaseType", referencedColumnName = "id")
     private CollectionType collectiontype;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany
+    @JoinColumn(name = "fieldId")
     private List<Itemdata> itemdata;
 
 }

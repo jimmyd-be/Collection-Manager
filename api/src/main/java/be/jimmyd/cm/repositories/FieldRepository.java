@@ -17,4 +17,7 @@ public interface FieldRepository extends JpaRepository<Field, Long> {
 
     @Query("SELECT f FROM Field f JOIN f.collections c WHERE c.id = :collectionId")
     List<Field> findCustomFieldByCollectionId(@Param("collectionId") long collectionId);
+
+    @Query("SELECT f FROM Field f WHERE f.collections IS EMPTY AND f.basic = false")
+    List<Field> findFieldsWithoutCollection();
 }

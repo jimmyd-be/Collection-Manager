@@ -18,4 +18,7 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
     @Modifying
     @Query(value = "DELETE FROM cm_collection WHERE id=:id", nativeQuery = true)
     void deleteNative(@Param("id") long id);
+
+    @Query("SELECT c FROM Collection c WHERE c.userCollections IS EMPTY ")
+    List<Collection> getWithoutLink();
 }

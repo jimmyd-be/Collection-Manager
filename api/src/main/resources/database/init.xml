@@ -70,6 +70,7 @@
             <column defaultValueBoolean="false" name="active" type="BIT"/>
             <column name="labelPosition" type="VARCHAR(45)"/>
             <column name="widget" type="VARCHAR(45)"/>
+            <column defaultValueBoolean="false" name="basic" type="BIT"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="1606306592150-6">
@@ -287,83 +288,83 @@
             /* Movie default fields */
             INSERT INTO cm_field
             (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 1, 0, 'top', 0, 1, 'hidden', 'default'),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 1, 10, 'main', 1, 1, 'left', 'default'),
-            ('runtime', 12, NULL, 0, '', 'Runtime', NULL, 1, 20, 'main', 0, 1, 'left', 'default'),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 1, 30, 'main', 0, 1, 'left', 'default'),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 1, 40, 'main', 0, 1, 'top', 'default'),
-            ('director', 1, NULL, 0, 'Director', 'Director', NULL, 1, 50, 'main', 1, 1, 'top', 'default'),
-            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 1, 60, 'main', 1, 1, 'top', 'default'),
-            ('cast', 1, NULL, 0, 'Cast', 'Cast', NULL, 1, 60, 'main', 1, 1, 'top', 'default'),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 1, 70, 'left', 0, 1, 'hidden', 'image'),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 1, 80, 'left', 0, 1, 'hidden', 'rate');
+            `active`, `labelPosition`, `widget`, `basic`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 1, 0, 'top', 0, 1, 'hidden', 'default', 1),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 1, 10, 'main', 1, 1, 'left', 'default', 1),
+            ('runtime', 12, NULL, 0, '', 'Runtime', NULL, 1, 20, 'main', 0, 1, 'left', 'default', 1),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 1, 30, 'main', 0, 1, 'left', 'default', 1),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 1, 40, 'main', 0, 1, 'top', 'default', 1),
+            ('director', 1, NULL, 0, 'Director', 'Director', NULL, 1, 50, 'main', 1, 1, 'top', 'default', 1),
+            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 1, 60, 'main', 1, 1, 'top', 'default', 1),
+            ('cast', 1, NULL, 0, 'Cast', 'Cast', NULL, 1, 60, 'main', 1, 1, 'top', 'default', 1),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 1, 70, 'left', 0, 1, 'hidden', 'image', 1),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 1, 80, 'left', 0, 1, 'hidden', 'rate', 1);
 
 
             /* Games default fields */
             INSERT INTO cm_field
             (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 2, 0, 'top', 0, 1, 'hidden', 'default'),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 2, 10, 'main', 1, 1, 'left', 'default'),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 2, 30, 'main', 0, 1, 'left', 'default'),
-            ('platform', 1, NULL, 0, 'Platform', 'Platform', NULL, 2, 20, 'main', 1, 1, 'left', 'default'),
-            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 2, 30, 'main', 1, 1, 'left', 'default'),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 2, 40, 'main', 0, 1, 'top', 'default'),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 2, 70, 'left', 0, 1, 'hidden', 'image'),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 2, 80, 'left', 0, 1, 'hidden', 'rate');
+            `active`, `labelPosition`, `widget`, `basic`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 2, 0, 'top', 0, 1, 'hidden', 'default', 1),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 2, 10, 'main', 1, 1, 'left', 'default', 1),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 2, 30, 'main', 0, 1, 'left', 'default', 1),
+            ('platform', 1, NULL, 0, 'Platform', 'Platform', NULL, 2, 20, 'main', 1, 1, 'left', 'default', 1),
+            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 2, 30, 'main', 1, 1, 'left', 'default', 1),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 2, 40, 'main', 0, 1, 'top', 'default', 1),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 2, 70, 'left', 0, 1, 'hidden', 'image', 1),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 2, 80, 'left', 0, 1, 'hidden', 'rate', 1);
 
 
             /* Magazines default fields */
             INSERT INTO cm_field
             (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 3, 0, 'top', 0, 1, 'hidden', 'default'),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 3, 70, 'left', 0, 1, 'hidden', 'image'),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 3, 30, 'main', 0, 1, 'left', 'default'),
-            ('content', 3, NULL, 0, 'Content', 'Content', NULL, 3, 40, 'main', 0, 1, 'top', 'default');
+            `active`, `labelPosition`, `widget`, `basic`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 3, 0, 'top', 0, 1, 'hidden', 'default', 1),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 3, 70, 'left', 0, 1, 'hidden', 'image', 1),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 3, 30, 'main', 0, 1, 'left', 'default', 1),
+            ('content', 3, NULL, 0, 'Content', 'Content', NULL, 3, 40, 'main', 0, 1, 'top', 'default', 1);
 
             /* Books default fields */
             INSERT INTO cm_field
             (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 4, 0, 'top', 0, 1, 'hidden', 'default'),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 4, 70, 'left', 0, 1, 'hidden', 'image'),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 4, 30, 'main', 0, 1, 'left', 'default'),
-            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 4, 0, 'main', 0, 1, 'hidden', 'default'),
-            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 4, 30, 'main', 1, 1, 'left', 'default'),
-            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 4, 30, 'main', 1, 1, 'left', 'default'),
-            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 4, 50, 'main', 0, 1, 'top', 'default'),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 4, 40, 'main', 0, 1, 'top', 'default'),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 4, 10, 'main', 1, 1, 'left', 'default'),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 4, 80, 'left', 0, 1, 'hidden', 'rate');
+            `active`, `labelPosition`, `widget`, `basic`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 4, 0, 'top', 0, 1, 'hidden', 'default', 1),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 4, 70, 'left', 0, 1, 'hidden', 'image', 1),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 4, 30, 'main', 0, 1, 'left', 'default', 1),
+            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 4, 0, 'main', 0, 1, 'hidden', 'default', 1),
+            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 4, 30, 'main', 1, 1, 'left', 'default', 1),
+            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 4, 30, 'main', 1, 1, 'left', 'default', 1),
+            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 4, 50, 'main', 0, 1, 'top', 'default', 1),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 4, 40, 'main', 0, 1, 'top', 'default', 1),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 4, 10, 'main', 1, 1, 'left', 'default', 1),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 4, 80, 'left', 0, 1, 'hidden', 'rate', 1);
 
 
             /* Disks default fields */
             INSERT INTO cm_field
             (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 5, 0, 'top', 0, 1, 'hidden', 'default'),
-            ('artist', 1, NULL, 0, 'Artist', 'Artist', NULL, 5, 30, 'main', 1, 1, 'left', 'default'),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 5, 30, 'main', 0, 1, 'left', 'default'),
-            ('song', 1, NULL, 0, 'Song', 'Song', NULL, 5, 100, 'main', 1, 1, 'left', 'default'),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 5, 70, 'left', 0, 1, 'hidden', 'image');
+            `active`, `labelPosition`, `widget`, `basic`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 5, 0, 'top', 0, 1, 'hidden', 'default', 1),
+            ('artist', 1, NULL, 0, 'Artist', 'Artist', NULL, 5, 30, 'main', 1, 1, 'left', 'default', 1),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 5, 30, 'main', 0, 1, 'left', 'default', 1),
+            ('song', 1, NULL, 0, 'Song', 'Song', NULL, 5, 100, 'main', 1, 1, 'left', 'default', 1),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 5, 70, 'left', 0, 1, 'hidden', 'image', 1);
 
 
             /* Comics default fields */
             INSERT INTO cm_field
             (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 6, 0, 'top', 0, 1, 'hidden', 'default'),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 6, 70, 'left', 0, 1, 'hidden', 'image'),
-            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 6, 0, 'main', 0, 1, 'hidden', 'default'),
-            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 6, 30, 'main', 1, 1, 'left', 'default'),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 6, 30, 'main', 0, 1, 'left', 'default'),
-            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 6, 30, 'main', 1, 1, 'left', 'default'),
-            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 6, 50, 'main', 0, 1, 'top', 'default'),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 6, 40, 'main', 0, 1, 'top', 'default'),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 6, 10, 'main', 1, 1, 'left', 'default'),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 6, 80, 'left', 0, 1, 'hidden', 'rate');
+            `active`, `labelPosition`, `widget`, `basic`) VALUES
+            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 6, 0, 'top', 0, 1, 'hidden', 'default', 1),
+            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 6, 70, 'left', 0, 1, 'hidden', 'image', 1),
+            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 6, 0, 'main', 0, 1, 'hidden', 'default', 1),
+            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 6, 30, 'main', 1, 1, 'left', 'default', 1),
+            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 6, 30, 'main', 0, 1, 'left', 'default', 1),
+            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 6, 30, 'main', 1, 1, 'left', 'default', 1),
+            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 6, 50, 'main', 0, 1, 'top', 'default', 1),
+            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 6, 40, 'main', 0, 1, 'top', 'default', 1),
+            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 6, 10, 'main', 1, 1, 'left', 'default', 1),
+            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 6, 80, 'left', 0, 1, 'hidden', 'rate', 1);
 
         </sql>
     </changeSet>
