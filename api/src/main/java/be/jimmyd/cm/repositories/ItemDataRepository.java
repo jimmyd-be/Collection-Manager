@@ -12,5 +12,6 @@ public interface ItemDataRepository extends JpaRepository<Itemdata, Long> {
 
     @Modifying
     @Query(value = "DELETE FROM cm_itemdata WHERE itemId = :id", nativeQuery = true)
-    void deleteByCollectionId(@Param("id") long id);
+    void deleteByItemId(@Param("id") long id);
+
 }

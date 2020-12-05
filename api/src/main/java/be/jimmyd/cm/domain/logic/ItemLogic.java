@@ -5,7 +5,6 @@ import be.jimmyd.cm.domain.mappers.ItemMapper;
 import be.jimmyd.cm.dto.ItemDto;
 import be.jimmyd.cm.entities.*;
 import be.jimmyd.cm.repositories.*;
-import liquibase.pro.packaged.I;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 public class ItemLogic {
@@ -35,8 +35,9 @@ public class ItemLogic {
     }
 
     @Transactional
-    public void addItemToCollection(long collectionId, Map<String, String> itemData, String userMail) {
+    public long addItemToCollection(long collectionId, Map<String, String> itemData, String userMail) {
 
+        AtomicLong itemId = new AtomicLong();
         final User user = userRepository.findByMail(userMail);
         collectionRepository.findById(collectionId).ifPresent(collection -> {
 
@@ -61,6 +62,7 @@ public class ItemLogic {
 
                 final Item finalNewItem = itemRepository.save(newItem);
 
+                itemId.set(finalNewItem.getId());
                 itemData.forEach((key, value) -> {
 
                     long fieldId = getFieldIDFromKey(key);
@@ -80,13 +82,36 @@ public class ItemLogic {
                 collection.getItems().add(newItem);
                 collectionRepository.save(collection);
         });
+        return itemId.get();
     }
 
     private long getFieldIDFromKey(String key) {
         return Long.parseLong(key.substring(0, key.indexOf("_")));
     }
 
-    public void editItem(long collectionId, long itemId, Map<String, String> itemData, String userMail) {
+    @Transactional
+    public void editItem(long itemId, Map<String, String> itemData, String userMail) {
+        //TODo check user permission
+
+        itemRepository.findById(itemId).ifPresent(item -> {
+
+            final List<Collection> collections = item.getCollections();
+
+            collections.forEach(collection -> itemRepository.deleteItemFromCollection(item.getId(), collection.getId()));
+
+            itemDataRepository.deleteByItemId(item.getId());
+            itemRepository.delete(item);
+
+            long newItemId = addItemToCollection(collections.get(0).getId(), itemData, userMail);
+
+            itemRepository.findById(newItemId).ifPresent(newItem -> {
+                for (int i = 1; i < collections.size(); i++) {
+                    newItem.getCollections().add(collections.get(i));
+                }
+                itemRepository.save(newItem);
+            });
+
+        });
     }
 
     public ItemDto getById(long itemId) throws ItemNotExistException {
@@ -115,7 +140,7 @@ public class ItemLogic {
         List<Item> items = itemRepository.findItemsWithoutCollection();
 
         items.forEach(item -> {
-            itemDataRepository.deleteByCollectionId(item.getId());
+            itemDataRepository.deleteByItemId(item.getId());
             itemRepository.delete(item);
         });
     }

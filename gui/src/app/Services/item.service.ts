@@ -24,7 +24,7 @@ export class ItemService {
   }
 
   editItemToCollection(itemid: number, collectionId: number, value: any) {
-    return this.http.post('/item/edit/' + itemid + '/' + collectionId, value);
+    return this.http.patch('/item/edit/' + itemid + '/' + collectionId, value);
   }
 
   getItemById(itemId: number): Observable<Item> {

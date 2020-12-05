@@ -30,8 +30,7 @@ public class ItemController {
     @PatchMapping("/edit/{id}/{collectionId}")
     public void editItem(@PathVariable("id") long itemId, @PathVariable("collectionId") long collectionId,
                                     @RequestBody Map<String, String> itemData, UsernamePasswordAuthenticationToken user) {
-        //TODO add logic
-        itemLogic.editItem(collectionId, itemId, itemData, user.getPrincipal().toString());
+        itemLogic.editItem(itemId, itemData, user.getPrincipal().toString());
     }
 
     @DeleteMapping("/{itemId}/collection/{collectionId}")
