@@ -46,12 +46,9 @@ public class CollectionControllerTest {
         dto.setId(1);
         dto.setName("Collection 1");
 
-        final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
+        when(collectionLogic.getById(anyLong())).thenReturn(dto);
 
-        when(token.getPrincipal()).thenReturn(userMail);
-        when(collectionLogic.getById(anyLong(), anyString())).thenReturn(dto);
-
-        ResponseEntity<CollectionDto> response = controller.getById(1, token);
+        ResponseEntity<CollectionDto> response = controller.getById(1);
 
         assertEquals(1, response.getBody().getId());
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -62,10 +59,9 @@ public class CollectionControllerTest {
 
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
 
-        when(token.getPrincipal()).thenReturn(userMail);
-        when(collectionLogic.getById(1, userMail)).thenThrow(UserPermissionException.class);
+        when(collectionLogic.getById(1)).thenThrow(UserPermissionException.class);
 
-        ResponseEntity<CollectionDto> response = controller.getById(1,token);
+        ResponseEntity<CollectionDto> response = controller.getById(1);
 
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
     }
@@ -78,10 +74,9 @@ public class CollectionControllerTest {
         dto.setName("Collection 1");
 
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
-        when(token.getPrincipal()).thenReturn(userMail);
-        doNothing().when(collectionLogic).editCollection(dto, userMail);
+        doNothing().when(collectionLogic).editCollection(dto);
 
-        ResponseEntity<CollectionDto> response = controller.editCollection(dto, token);
+        ResponseEntity<CollectionDto> response = controller.editCollection(dto);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
@@ -92,12 +87,9 @@ public class CollectionControllerTest {
         dto.setId(1);
         dto.setName("Collection 1");
 
-        final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
-        when(token.getPrincipal()).thenReturn(userMail);
+        doThrow(UserPermissionException.class).when(collectionLogic).editCollection(dto);
 
-        doThrow(UserPermissionException.class).when(collectionLogic).editCollection(dto, userMail);
-
-        ResponseEntity<CollectionDto> response = controller.editCollection(dto, token);
+        ResponseEntity<CollectionDto> response = controller.editCollection(dto);
 
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
     }

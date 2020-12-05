@@ -43,8 +43,8 @@ public class Item {
     @ManyToMany
     @JoinTable(
             name="cm_collectionitem",
-            joinColumns = {@JoinColumn(name="collectionId")},
-            inverseJoinColumns = {@JoinColumn(name="itemId")}
+            joinColumns = {@JoinColumn(name="itemId")},
+            inverseJoinColumns = {@JoinColumn(name="collectionId")}
     )
     private List<Collection> collections;
 

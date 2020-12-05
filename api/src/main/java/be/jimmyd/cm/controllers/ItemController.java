@@ -36,7 +36,8 @@ public class ItemController {
 
     @DeleteMapping("/{itemId}/collection/{collectionId}")
     public void deleteItem(@PathVariable("itemId") long itemId, @PathVariable("collectionId") long collectionId) {
-        //TODO add logic
+
+        itemLogic.deleteItemFromCollection(itemId, collectionId);
     }
 
 

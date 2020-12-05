@@ -4,7 +4,11 @@ import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.UserRepository;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.security.Principal;
 
 @Component
 public class SecurityUtil {
@@ -15,15 +19,17 @@ public class SecurityUtil {
         this.userRepository = userRepository;
     }
 
-    public boolean hasUserReadAccessToCollection(String mail, long collectionId) throws UserPermissionException {
+    public boolean hasUserReadAccessToCollection(long collectionId) throws UserPermissionException {
 
-        return hasUserAccessToCollection(mail, collectionId, Permission.READ);
+        return hasUserAccessToCollection(collectionId, Permission.READ);
     }
 
-    public boolean hasUserAccessToCollection(String mail, long collectionId, Permission permission) throws UserPermissionException {
+    public boolean hasUserAccessToCollection(long collectionId, Permission permission) throws UserPermissionException {
 
         //TODo add logic
-        final User user = userRepository.findByMail(mail);
+
+        String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
+        final User user = userRepository.findByMail(userMail);
 
         if(false) {
             throw new UserPermissionException("User " + user.getId() + " hasn't acces to collection " + collectionId);

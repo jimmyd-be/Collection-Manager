@@ -40,9 +40,9 @@ public class CollectionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CollectionDto> getById(@PathVariable("id") long collectionId, UsernamePasswordAuthenticationToken user) {
+    public ResponseEntity<CollectionDto> getById(@PathVariable("id") long collectionId) {
         try {
-            return ResponseEntity.ok(collectionLogic.getById(collectionId, user.getPrincipal().toString()));
+            return ResponseEntity.ok(collectionLogic.getById(collectionId));
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -55,10 +55,10 @@ public class CollectionController {
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity editCollection(@RequestBody CollectionDto collectionDto, UsernamePasswordAuthenticationToken user) {
+    public ResponseEntity editCollection(@RequestBody CollectionDto collectionDto) {
 
      try {
-        collectionLogic.editCollection(collectionDto, user.getPrincipal().toString());
+        collectionLogic.editCollection(collectionDto);
         return ResponseEntity.ok().build();
     } catch (UserPermissionException e) {
         e.printStackTrace();
@@ -67,8 +67,8 @@ public class CollectionController {
     }
 
     @PostMapping("/add")
-    public void addCollection(@RequestBody CollectionDto collectionDto, UsernamePasswordAuthenticationToken user) {
-        collectionLogic.createCollection(collectionDto, user.getPrincipal().toString());
+    public void addCollection(@RequestBody CollectionDto collectionDto, UsernamePasswordAuthenticationToken token) {
+        collectionLogic.createCollection(collectionDto, token.getName().toString());
 
     }
 

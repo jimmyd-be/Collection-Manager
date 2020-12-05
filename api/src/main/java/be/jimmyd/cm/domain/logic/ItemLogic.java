@@ -38,51 +38,48 @@ public class ItemLogic {
     public void addItemToCollection(long collectionId, Map<String, String> itemData, String userMail) {
 
         final User user = userRepository.findByMail(userMail);
-        final Optional<Collection> collectionOptional = collectionRepository.findById(collectionId);
+        collectionRepository.findById(collectionId).ifPresent(collection -> {
 
-        //TODo check user permission on collection
-        //TODO split this method
+            //TODo check user permission on collection
+            //TODO split this method
+                final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
+                fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
 
-        if (collectionOptional.isPresent()) {
+                long titleFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Title")).map(n -> n.getId()).findFirst().get();
+                long coverFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Cover")).map(n -> n.getId()).findFirst().get();
 
-            final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
-            fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
+                String title = itemData.remove(titleFieldId + "_0");
+                String cover = itemData.remove(coverFieldId + "_0");
 
-            long titleFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Title")).map(n -> n.getId()).findFirst().get();
-            long coverFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Cover")).map(n -> n.getId()).findFirst().get();
+                Item newItem = new Item();
+                newItem.setActive(true);
+                newItem.setName(title);
+                newItem.setAuthor(user);
+                newItem.setCreationDate(LocalDateTime.now());
+                newItem.setImage(cover);
+                newItem.setLastModified(LocalDateTime.now());
 
-            String title = itemData.remove(titleFieldId + "_0");
-            String cover = itemData.remove(coverFieldId + "_0");
+                final Item finalNewItem = itemRepository.save(newItem);
 
-            Item newItem = new Item();
-            newItem.setActive(true);
-            newItem.setName(title);
-            newItem.setAuthor(user);
-            newItem.setCreationDate(LocalDateTime.now());
-            newItem.setImage(cover);
-            newItem.setLastModified(LocalDateTime.now());
+                itemData.forEach((key, value) -> {
 
-            newItem.setCollections(List.of(collectionOptional.get()));
+                    long fieldId = getFieldIDFromKey(key);
 
-            final Item finalNewItem = itemRepository.save(newItem);
+                    fields.stream().filter(field -> field.getId() == fieldId).findFirst().ifPresent(field -> {
+                                Itemdata itemdata = new Itemdata();
+                                itemdata.setField(field);
+                                itemdata.setFieldValue(value);
+                                itemdata.setItem(finalNewItem);
+                                //TODO add validation on field level (required fields, ...)
 
-            itemData.forEach((key, value) -> {
+                                itemDataRepository.save(itemdata);
+                            }
+                    );
+                });
 
-                long fieldId = getFieldIDFromKey(key);
-
-                fields.stream().filter(field -> field.getId() == fieldId).findFirst().ifPresent(field -> {
-                            Itemdata itemdata = new Itemdata();
-                            itemdata.setField(field);
-                            itemdata.setFieldValue(value);
-                            itemdata.setItem(finalNewItem);
-                            //TODO add validation on field level (required fields, ...)
-
-                            itemDataRepository.save(itemdata);
-                        }
-                );
-            });
-
-        }
+                collection.getItems().add(newItem);
+                collectionRepository.save(collection);
+        });
     }
 
     private long getFieldIDFromKey(String key) {
@@ -121,5 +118,17 @@ public class ItemLogic {
             itemDataRepository.deleteByCollectionId(item.getId());
             itemRepository.delete(item);
         });
+    }
+
+    public void deleteItemFromCollection(long itemId, long collectionId) {
+        //TODO check user permission
+
+        collectionRepository.findById(collectionId).ifPresent(collection -> {
+            collection.getItems().stream().filter(n -> n.getId() == itemId).findFirst().ifPresent(field -> collection.getItems().remove(field));
+
+            collectionRepository.save(collection);
+        });
+
+        deleteItemsWithoutCollection();
     }
 }

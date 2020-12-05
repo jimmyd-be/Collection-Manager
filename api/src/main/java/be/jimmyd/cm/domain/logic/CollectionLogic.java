@@ -56,10 +56,10 @@ public class CollectionLogic {
         return collectionMapper.collectionToDto(collections);
     }
 
-    public CollectionDto getById(long collectionId, String userMail) throws UserPermissionException {
+    public CollectionDto getById(long collectionId) throws UserPermissionException {
 
         //TODO add check for user permission
-        securityUtil.hasUserAccessToCollection(userMail, collectionId, Permission.READ);
+        securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
 
 
         final Optional<Collection> collection = collectionRepository.findById(collectionId);
@@ -116,7 +116,7 @@ public class CollectionLogic {
 
     }
 
-    public void editCollection(CollectionDto collectionDto, String userMail) throws UserPermissionException {
+    public void editCollection(CollectionDto collectionDto) throws UserPermissionException {
 
         //TODO check permissions of user to collection
         final Optional<Collection> collectionOptional = collectionRepository.findById(collectionDto.getId());

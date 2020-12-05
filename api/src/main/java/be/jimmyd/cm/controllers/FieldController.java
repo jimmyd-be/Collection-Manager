@@ -26,10 +26,10 @@ public class FieldController {
     }
 
     @GetMapping("/collection/{id}")
-    public List<FieldDto> getByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) throws UserPermissionException {
+    public List<FieldDto> getByCollection(@PathVariable("id") long id) throws UserPermissionException {
         List<FieldDto> result = new ArrayList<>();
 
-        if(securityUtil.hasUserReadAccessToCollection(user.getPrincipal().toString(), id)) {
+        if(securityUtil.hasUserReadAccessToCollection(id)) {
             result.addAll(fieldLogic.getBasicFieldsByCollection(id));
             result.addAll(fieldLogic.getCustomFieldsByCollection(id));
         }
@@ -37,11 +37,11 @@ public class FieldController {
     }
 
     @GetMapping("/basic/collection/{id}")
-    public List<FieldDto> getBasicByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) throws UserPermissionException {
+    public List<FieldDto> getBasicByCollection(@PathVariable("id") long id) throws UserPermissionException {
 
         List<FieldDto> result = new ArrayList<>();
 
-        if(securityUtil.hasUserReadAccessToCollection(user.getPrincipal().toString(), id)) {
+        if(securityUtil.hasUserReadAccessToCollection(id)) {
             result.addAll(fieldLogic.getBasicFieldsByCollection(id));
         }
 
@@ -49,10 +49,10 @@ public class FieldController {
     }
 
     @GetMapping("/custom/collection/{id}")
-    public List<FieldDto> getCustomByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) throws UserPermissionException {
+    public List<FieldDto> getCustomByCollection(@PathVariable("id") long id) throws UserPermissionException {
         List<FieldDto> result = new ArrayList<>();
 
-        if(securityUtil.hasUserReadAccessToCollection(user.getPrincipal().toString(), id)) {
+        if(securityUtil.hasUserReadAccessToCollection(id)) {
             result.addAll(fieldLogic.getCustomFieldsByCollection(id));
         }
 
