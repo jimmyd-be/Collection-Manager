@@ -1,5 +1,6 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.logic.FieldLogic;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.FieldDto;
@@ -25,7 +26,7 @@ public class FieldController {
     }
 
     @GetMapping("/collection/{id}")
-    public List<FieldDto> getByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) {
+    public List<FieldDto> getByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) throws UserPermissionException {
         List<FieldDto> result = new ArrayList<>();
 
         if(securityUtil.hasUserReadAccessToCollection(user.getPrincipal().toString(), id)) {
@@ -36,7 +37,7 @@ public class FieldController {
     }
 
     @GetMapping("/basic/collection/{id}")
-    public List<FieldDto> getBasicByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) {
+    public List<FieldDto> getBasicByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) throws UserPermissionException {
 
         List<FieldDto> result = new ArrayList<>();
 
@@ -48,7 +49,7 @@ public class FieldController {
     }
 
     @GetMapping("/custom/collection/{id}")
-    public List<FieldDto> getCustomByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) {
+    public List<FieldDto> getCustomByCollection(@PathVariable("id") long id, UsernamePasswordAuthenticationToken user) throws UserPermissionException {
         List<FieldDto> result = new ArrayList<>();
 
         if(securityUtil.hasUserReadAccessToCollection(user.getPrincipal().toString(), id)) {

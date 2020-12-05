@@ -2,6 +2,7 @@ package be.jimmyd.cm.domain.logic;
 
 import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
+import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.UserMapper;
 import be.jimmyd.cm.dto.*;
 import be.jimmyd.cm.entities.User;
@@ -56,7 +57,13 @@ public class UserLogic {
     public void deleteUser(String mail) {
         final User user = userRepository.findByMail(mail);
 
-        user.getUserCollections().forEach(uc -> userCollectionLogic.deleteUserFromCollection(uc.getCollection().getId(), user.getId()));
+        user.getUserCollections().forEach(uc -> {
+            try {
+                userCollectionLogic.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
+            } catch (UserPermissionException e) {
+                e.printStackTrace();
+            }
+        });
 
         userRepository.deleteNative(user.getId());
 

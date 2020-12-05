@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.logic;
 
+import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionUserMapper;
 import be.jimmyd.cm.dto.CollectionShareDto;
 import be.jimmyd.cm.dto.UserCollectionDto;
@@ -41,13 +42,13 @@ public class UserCollectionLogic {
         return collectionUserMapper.userCollectionToDto(users);
     }
 
-    public void deleteUserFromCollection(long collectionId, long userId) {
+    public void deleteUserFromCollection(long collectionId, long userId) throws UserPermissionException {
         final UserCollection userCollection = collectionUserRepository.getByCollectionAndUser(collectionId, userId);
 
         collectionUserRepository.delete(userCollection);
     }
 
-    public void shareCollection(long collectionId, CollectionShareDto collectionShareDto) {
+    public void shareCollection(long collectionId, CollectionShareDto collectionShareDto) throws UserPermissionException {
 
         //TODO add validation
         final User user = userRepository.findByMailOrUserName(collectionShareDto.getUserName());

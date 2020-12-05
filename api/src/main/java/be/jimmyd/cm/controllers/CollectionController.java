@@ -1,17 +1,17 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.logic.CollectionLogic;
 import be.jimmyd.cm.domain.logic.CollectionTypeLogic;
 import be.jimmyd.cm.domain.logic.UserCollectionLogic;
-import be.jimmyd.cm.domain.logic.UserLogic;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
-import be.jimmyd.cm.dto.CollectionTypeDto;
 import be.jimmyd.cm.dto.UserCollectionDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,8 +40,13 @@ public class CollectionController {
     }
 
     @GetMapping("/{id}")
-    public CollectionDto getById(@PathVariable("id") long collectionId) {
-        return collectionLogic.getById(collectionId);
+    public ResponseEntity<CollectionDto> getById(@PathVariable("id") long collectionId, UsernamePasswordAuthenticationToken user) {
+        try {
+            return ResponseEntity.ok(collectionLogic.getById(collectionId, user.getPrincipal().toString()));
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @GetMapping("/{id}/users")
@@ -50,9 +55,15 @@ public class CollectionController {
     }
 
     @PatchMapping("/edit")
-    public void editCollection(@RequestBody CollectionDto collectionDto) {
-        collectionLogic.editCollection(collectionDto);
+    public ResponseEntity editCollection(@RequestBody CollectionDto collectionDto, UsernamePasswordAuthenticationToken user) {
 
+     try {
+        collectionLogic.editCollection(collectionDto, user.getPrincipal().toString());
+        return ResponseEntity.ok().build();
+    } catch (UserPermissionException e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
     }
 
     @PostMapping("/add")
@@ -62,18 +73,37 @@ public class CollectionController {
     }
 
     @PostMapping("/{id}/share")
-    public void share(@PathVariable("id") long collectionId, @RequestBody CollectionShareDto collectionShareDto) {
-        userCollectionLogic.shareCollection(collectionId, collectionShareDto);
+    public ResponseEntity share(@PathVariable("id") long collectionId, @RequestBody CollectionShareDto collectionShareDto) {
+        try {
+            userCollectionLogic.shareCollection(collectionId, collectionShareDto);
+            return ResponseEntity.ok().build();
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") long collectionId) {
+    public ResponseEntity delete(@PathVariable("id") long collectionId) {
+     try {
         collectionLogic.deleteById(collectionId);
+        return ResponseEntity.ok().build();
+    } catch (UserPermissionException e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
     }
 
     @DeleteMapping("/{id}/user/{userId}")
-    public void deleteUserFromCollection(@PathVariable("id") long collectionId, @PathVariable("userId") long userId) {
-        userCollectionLogic.deleteUserFromCollection(collectionId, userId);
+    public ResponseEntity deleteUserFromCollection(@PathVariable("id") long collectionId, @PathVariable("userId") long userId) {
+
+        try {
+            userCollectionLogic.deleteUserFromCollection(collectionId, userId);
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.ok().build();
     }
 
 }
