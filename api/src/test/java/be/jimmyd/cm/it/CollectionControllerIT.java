@@ -206,8 +206,59 @@ public class CollectionControllerIT {
         assertFalse(Arrays.stream(collectionsUser2.getBody()).findFirst().isPresent());
     }
 
-    //editCollection
-    //delete
+    @Test
+    @Order(7)
+    public void editCollectionTest() {
+        CollectionDto collectionDto = new CollectionDto();
+        collectionDto.setId(1);
+        collectionDto.setName("Edited Movie collection");
+        collectionDto.setType("Movies");
+
+        FieldDto field = new FieldDto();
+        field.setId(48);
+        field.setName("Edited custom field");
+        field.setLabel("Field label");
+        field.setPlaceholder("Placeholder");
+        field.setType("text");
+        field.setWidget("default");
+        field.setPlace("main");
+
+        FieldDto field2 = new FieldDto();
+        field2.setName("New custom field");
+        field2.setLabel("new Field label");
+        field2.setPlaceholder("Placeholder");
+        field2.setType("text");
+        field2.setWidget("default");
+        field2.setPlace("main");
+
+        List<FieldDto> fieldDtoList = new ArrayList<>();
+        fieldDtoList.add(field);
+        fieldDtoList.add(field2);
+        collectionDto.setFields(fieldDtoList);
+
+        final ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("collection/edit"), HttpMethod.PATCH, new HttpEntity<>(collectionDto, getHeaders()), Object.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        final ResponseEntity<CollectionDto> checkResponse = restTemplate.exchange(createURLWithPort("collection/1"), HttpMethod.GET, new HttpEntity<>(getHeaders()), CollectionDto.class);
+        assertEquals(HttpStatus.OK, checkResponse.getStatusCode());
+
+        assertEquals(1, checkResponse.getBody().getId());
+        assertEquals("Edited Movie collection", checkResponse.getBody().getName());
+        assertEquals("Movies", checkResponse.getBody().getType());
+        assertEquals(2, checkResponse.getBody().getFields().size());
+    }
+
+    @Test
+    @Order(8)
+    public void deleteCollectionTest() {
+        final ResponseEntity response = restTemplate.exchange(createURLWithPort("collection/1/"), HttpMethod.DELETE, new HttpEntity<>(getHeaders()), Void.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        final ResponseEntity<CollectionDto[]> collectionsUser = restTemplate.exchange(createURLWithPort("collection/user"), HttpMethod.GET, new HttpEntity<>(getHeaders()), CollectionDto[].class);
+        assertEquals(HttpStatus.OK, collectionsUser.getStatusCode());
+
+        assertFalse(Arrays.stream(collectionsUser.getBody()).findFirst().isPresent());
+    }
 
 
 }
