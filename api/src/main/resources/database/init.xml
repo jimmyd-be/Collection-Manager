@@ -1,407 +1,1230 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
-    <changeSet author="jimmy (generated)" id="1606306592150-1">
-        <createTable tableName="cm_collection">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="typeId" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-2">
-        <createTable tableName="cm_collectionfield">
-            <column name="collectionId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="fieldId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-3">
-        <createTable tableName="cm_collectionitem">
-            <column name="collectionId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="itemId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-4">
-        <createTable tableName="cm_collectiontype">
-            <column autoIncrement="true" name="id" type="INT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="type" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-5">
-        <createTable tableName="cm_field">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="name" type="VARCHAR(255)"/>
-            <column name="type" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="choises" type="VARCHAR(255)"/>
-            <column defaultValueBoolean="false" name="required" type="BIT"/>
-            <column name="placeHolder" type="VARCHAR(255)"/>
-            <column name="label" type="VARCHAR(255)"/>
-            <column name="otherOptions" type="VARCHAR(255)"/>
-            <column defaultValueComputed="NULL" name="collectionBaseType" type="INT"/>
-            <column name="fieldOrder" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="place" type="VARCHAR(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueBoolean="false" name="multiValues" type="BIT"/>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-            <column name="labelPosition" type="VARCHAR(45)"/>
-            <column name="widget" type="VARCHAR(45)"/>
-            <column defaultValueBoolean="false" name="basic" type="BIT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-6">
-        <createTable tableName="cm_fieldtype">
-            <column autoIncrement="true" name="id" type="INT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="type" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-7">
-        <createTable tableName="cm_item">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="image" type="VARCHAR(255)"/>
-            <column name="author" type="BIGINT UNSIGNED">
-                <constraints nullable="false"/>
-            </column>
-            <column name="creationDate" type="datetime">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueComputed="NULL" name="lastModified" type="datetime"/>
-            <column defaultValueComputed="NULL" name="modifiedBy" type="BIGINT UNSIGNED"/>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-8">
-        <createTable tableName="cm_itemdata">
-            <column name="itemId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="fieldId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="valueCount" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="fieldValue" type="TEXT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-9">
-        <createTable tableName="cm_role">
-            <column autoIncrement="true" name="id" type="INT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-10">
-        <createTable tableName="cm_user">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="username" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="mail" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="userPassword" type="VARCHAR(255)"/>
-            <column name="creationDate" type="datetime">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueBoolean="false" name="isAdmin" type="BIT"/>
-            <column name="theme" type="VARCHAR(255)"/>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-11">
-        <createTable tableName="cm_usercollection">
-            <column name="userId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="collectionId" type="BIGINT UNSIGNED">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="roleId" type="INT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-12">
-        <createIndex indexName="author" tableName="cm_item">
-            <column name="author"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-13">
-        <createIndex indexName="collectionBaseType" tableName="cm_field">
-            <column defaultValueComputed="NULL" name="collectionBaseType"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-14">
-        <createIndex indexName="collectionId" tableName="cm_usercollection">
-            <column name="collectionId"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-15">
-        <createIndex indexName="fieldId" tableName="cm_collectionfield">
-            <column name="fieldId"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-16">
-        <createIndex indexName="fieldId" tableName="cm_itemdata">
-            <column name="fieldId"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-17">
-        <createIndex indexName="itemId" tableName="cm_collectionitem">
-            <column name="itemId"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-18">
-        <createIndex indexName="roleId" tableName="cm_usercollection">
-            <column name="roleId"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-19">
-        <createIndex indexName="role_UN_role" tableName="cm_role" unique="true">
-            <column name="name"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-20">
-        <createIndex indexName="type" tableName="cm_field">
-            <column name="type"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-21">
-        <createIndex indexName="typeId" tableName="cm_collection">
-            <column name="typeId"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-22">
-        <addForeignKeyConstraint baseColumnNames="typeId" baseTableName="cm_collection" constraintName="cm_collection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collectiontype" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-23">
-        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-24">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-25">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-26">
-        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-27">
-        <addForeignKeyConstraint baseColumnNames="type" baseTableName="cm_field" constraintName="cm_field_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_fieldtype" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-28">
-        <addForeignKeyConstraint baseColumnNames="collectionBaseType" baseTableName="cm_field" constraintName="cm_field_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collectiontype" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-29">
-        <addForeignKeyConstraint baseColumnNames="author" baseTableName="cm_item" constraintName="cm_item_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-30">
-        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-31">
-        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-32">
-        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-33">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
-    </changeSet>
-    <changeSet author="jimmy (generated)" id="1606306592150-34">
-        <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_role" validate="true"/>
-    </changeSet>
-
-    <changeSet id="1606306592150-35" author="jimmy">
-        <sql>
-
-            INSERT INTO cm_collectiontype (`id`, `type`, `active`) VALUES
-            (1, 'Movies', 1),
-            (2, 'Games', 1),
-            (3, 'Magazines', 1),
-            (4, 'Books', 1),
-            (5, 'Disks', 1),
-            (6, 'Comics', 1);
-
-
-            INSERT INTO cm_fieldtype (`id`, `type`, `active`) VALUES
-            (1, 'text',1)
-            ,(2, 'url',1)
-            ,(3, 'textarea',1)
-            ,(4, 'date',1)
-            ,(5, 'dropdown',1)
-            ,(6, 'checkbox',1)
-            ,(7, 'radio',1)
-            ,(8, 'email',1)
-            ,(9, 'rate',1)
-            ,(10, 'image',1)
-            ,(11, 'barcode',1),
-            (12, 'number', 1);
-
-            INSERT INTO cm_role (`id`, `name`, `active`) VALUES
-            (0, 'Owner', 1),
-            (1, 'Admin', 1),
-            (2, 'Editor', 1),
-            (3, 'Viewer', 1) ON DUPLICATE KEY UPDATE id=id;
-
-
-            /* Movie default fields */
-            INSERT INTO cm_field
-            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`, `basic`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 1, 0, 'top', 0, 1, 'hidden', 'default', 1),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 1, 10, 'main', 1, 1, 'left', 'default', 1),
-            ('runtime', 12, NULL, 0, '', 'Runtime', NULL, 1, 20, 'main', 0, 1, 'left', 'default', 1),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 1, 30, 'main', 0, 1, 'left', 'default', 1),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 1, 40, 'main', 0, 1, 'top', 'default', 1),
-            ('director', 1, NULL, 0, 'Director', 'Director', NULL, 1, 50, 'main', 1, 1, 'top', 'default', 1),
-            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 1, 60, 'main', 1, 1, 'top', 'default', 1),
-            ('cast', 1, NULL, 0, 'Cast', 'Cast', NULL, 1, 60, 'main', 1, 1, 'top', 'default', 1),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 1, 70, 'left', 0, 1, 'hidden', 'image', 1),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 1, 80, 'left', 0, 1, 'hidden', 'rate', 1);
-
-
-            /* Games default fields */
-            INSERT INTO cm_field
-            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`, `basic`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 2, 0, 'top', 0, 1, 'hidden', 'default', 1),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 2, 10, 'main', 1, 1, 'left', 'default', 1),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 2, 30, 'main', 0, 1, 'left', 'default', 1),
-            ('platform', 1, NULL, 0, 'Platform', 'Platform', NULL, 2, 20, 'main', 1, 1, 'left', 'default', 1),
-            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 2, 30, 'main', 1, 1, 'left', 'default', 1),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 2, 40, 'main', 0, 1, 'top', 'default', 1),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 2, 70, 'left', 0, 1, 'hidden', 'image', 1),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 2, 80, 'left', 0, 1, 'hidden', 'rate', 1);
-
-
-            /* Magazines default fields */
-            INSERT INTO cm_field
-            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`, `basic`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 3, 0, 'top', 0, 1, 'hidden', 'default', 1),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 3, 70, 'left', 0, 1, 'hidden', 'image', 1),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 3, 30, 'main', 0, 1, 'left', 'default', 1),
-            ('content', 3, NULL, 0, 'Content', 'Content', NULL, 3, 40, 'main', 0, 1, 'top', 'default', 1);
-
-            /* Books default fields */
-            INSERT INTO cm_field
-            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`, `basic`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 4, 0, 'top', 0, 1, 'hidden', 'default', 1),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 4, 70, 'left', 0, 1, 'hidden', 'image', 1),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 4, 30, 'main', 0, 1, 'left', 'default', 1),
-            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 4, 0, 'main', 0, 1, 'hidden', 'default', 1),
-            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 4, 30, 'main', 1, 1, 'left', 'default', 1),
-            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 4, 30, 'main', 1, 1, 'left', 'default', 1),
-            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 4, 50, 'main', 0, 1, 'top', 'default', 1),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 4, 40, 'main', 0, 1, 'top', 'default', 1),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 4, 10, 'main', 1, 1, 'left', 'default', 1),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 4, 80, 'left', 0, 1, 'hidden', 'rate', 1);
-
-
-            /* Disks default fields */
-            INSERT INTO cm_field
-            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`, `basic`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 5, 0, 'top', 0, 1, 'hidden', 'default', 1),
-            ('artist', 1, NULL, 0, 'Artist', 'Artist', NULL, 5, 30, 'main', 1, 1, 'left', 'default', 1),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 5, 30, 'main', 0, 1, 'left', 'default', 1),
-            ('song', 1, NULL, 0, 'Song', 'Song', NULL, 5, 100, 'main', 1, 1, 'left', 'default', 1),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 5, 70, 'left', 0, 1, 'hidden', 'image', 1);
-
-
-            /* Comics default fields */
-            INSERT INTO cm_field
-            (`name`, `type`, `choises`, `required`, `placeHolder`, `label`, `otherOptions`, `collectionBaseType`, `fieldOrder`, `place`, `multiValues`,
-            `active`, `labelPosition`, `widget`, `basic`) VALUES
-            ('title', 1, NULL, 1, 'Title', 'Title', NULL, 6, 0, 'top', 0, 1, 'hidden', 'default', 1),
-            ('cover', 10, NULL, 0, 'Cover', 'Cover', NULL, 6, 70, 'left', 0, 1, 'hidden', 'image', 1),
-            ('isbn', 11, NULL, 1, 'ISBN', 'ISBN', NULL, 6, 0, 'main', 0, 1, 'hidden', 'default', 1),
-            ('writer', 1, NULL, 0, 'Writer', 'Writer', NULL, 6, 30, 'main', 1, 1, 'left', 'default', 1),
-            ('releaseDate', 4, NULL, 0, 'Release Date', 'Release Date', NULL, 6, 30, 'main', 0, 1, 'left', 'default', 1),
-            ('publisher', 1, NULL, 0, 'Publisher', 'Publisher', NULL, 6, 30, 'main', 1, 1, 'left', 'default', 1),
-            ('pages', 12, NULL, 0, 'Pages', 'Pages', NULL, 6, 50, 'main', 0, 1, 'top', 'default', 1),
-            ('storyline', 3, NULL, 0, 'Storyline', 'Storyline', NULL, 6, 40, 'main', 0, 1, 'top', 'default', 1),
-            ('genre', 1, NULL, 0, 'Genre', 'Genre', NULL, 6, 10, 'main', 1, 1, 'left', 'default', 1),
-            ('rating', 9, NULL, 0, 'Rating', 'Rating', NULL, 6, 80, 'left', 0, 1, 'hidden', 'rate', 1);
-
-        </sql>
-    </changeSet>
-
-    <changeSet id="1606306592150-36" author="jimmy">
-        <sql>
-            DROP TABLE cm_usercollection;
-
-            CREATE TABLE cm_usercollection (
-            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-            userId BIGINT UNSIGNED NOT NULL,
-            collectionId BIGINT UNSIGNED NOT NULL,
-            roleId int NOT NULL,
-            PRIMARY KEY (id),
-            FOREIGN KEY (userId)  REFERENCES cm_user(id),
-            FOREIGN KEY (collectionId)  REFERENCES cm_collection(id),
-            FOREIGN KEY (roleId)  REFERENCES cm_role(id),
-            UNIQUE(userId, collectionId)
-            );
-        </sql>
-    </changeSet>
-
-    <changeSet id="1606306592150-37" author="jimmy">
-        <sql>
-            DROP TABLE cm_itemdata;
-
-            CREATE TABLE cm_itemdata (
-            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-            itemId BIGINT UNSIGNED NOT NULL,
-            fieldId BIGINT UNSIGNED NOT NULL,
-            valueCount BIGINT UNSIGNED NOT NULL,
-            fieldValue TEXT,
-            PRIMARY KEY (id),
-            FOREIGN KEY (itemId) REFERENCES cm_item(id),
-            FOREIGN KEY (fieldId) REFERENCES cm_field(id)
-            );
-        </sql>
-    </changeSet>
-
+<changeSet author="jimmy (generated)" id="1">
+    <createTable tableName="cm_collection">
+        <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="name" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="typeId" type="INT">
+            <constraints nullable="false"/>
+        </column>
+        <column defaultValueBoolean="false" name="active" type="BIT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="2">
+    <createTable tableName="cm_collectionfield">
+        <column name="collectionId" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="fieldId" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="3">
+    <createTable tableName="cm_collectionitem">
+        <column name="collectionId" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="itemId" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="4">
+    <createTable tableName="cm_collectiontype">
+        <column autoIncrement="true" name="id" type="INT">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="type" type="VARCHAR(255)">
+            <constraints nullable="false" unique="true"/>
+        </column>
+        <column defaultValueBoolean="false" name="active" type="BIT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="5">
+    <createTable tableName="cm_field">
+        <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="name" type="VARCHAR(255)"/>
+        <column name="type" type="INT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="choises" type="VARCHAR(255)"/>
+        <column defaultValueBoolean="false" name="required" type="BIT"/>
+        <column name="placeHolder" type="VARCHAR(255)"/>
+        <column name="label" type="VARCHAR(255)"/>
+        <column name="otherOptions" type="VARCHAR(255)"/>
+        <column defaultValueComputed="NULL" name="collectionBaseType" type="INT"/>
+        <column name="fieldOrder" type="INT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="place" type="VARCHAR(10)">
+            <constraints nullable="false"/>
+        </column>
+        <column defaultValueBoolean="false" name="multiValues" type="BIT"/>
+        <column defaultValueBoolean="false" name="active" type="BIT"/>
+        <column name="labelPosition" type="VARCHAR(45)"/>
+        <column name="widget" type="VARCHAR(45)"/>
+        <column defaultValueBoolean="false" name="basic" type="BIT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="6">
+    <createTable tableName="cm_fieldtype">
+        <column autoIncrement="true" name="id" type="INT">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="type" type="VARCHAR(255)">
+            <constraints nullable="false" unique="true"/>
+        </column>
+        <column defaultValueBoolean="false" name="active" type="BIT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="7">
+    <createTable tableName="cm_item">
+        <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="name" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="image" type="VARCHAR(255)"/>
+        <column name="author" type="BIGINT UNSIGNED">
+            <constraints nullable="false"/>
+        </column>
+        <column name="creationDate" type="datetime">
+            <constraints nullable="false"/>
+        </column>
+        <column defaultValueComputed="NULL" name="lastModified" type="datetime"/>
+        <column defaultValueComputed="NULL" name="modifiedBy" type="BIGINT UNSIGNED"/>
+        <column defaultValueBoolean="false" name="active" type="BIT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="8">
+    <createTable tableName="cm_itemdata">
+        <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="itemId" type="BIGINT UNSIGNED">
+            <constraints nullable="false"/>
+        </column>
+        <column name="fieldId" type="BIGINT UNSIGNED">
+            <constraints nullable="false"/>
+        </column>
+        <column name="valueCount" type="BIGINT UNSIGNED">
+            <constraints nullable="false"/>
+        </column>
+        <column name="fieldValue" type="TEXT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="9">
+    <createTable tableName="cm_role">
+        <column autoIncrement="true" name="id" type="INT">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="name" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column defaultValueBoolean="false" name="active" type="BIT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="10">
+    <createTable tableName="cm_user">
+        <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="username" type="VARCHAR(255)">
+            <constraints nullable="false" unique="true"/>
+        </column>
+        <column name="mail" type="VARCHAR(255)">
+            <constraints nullable="false" unique="true"/>
+        </column>
+        <column name="userPassword" type="VARCHAR(255)"/>
+        <column name="creationDate" type="datetime">
+            <constraints nullable="false"/>
+        </column>
+        <column defaultValueBoolean="false" name="isAdmin" type="BIT"/>
+        <column name="theme" type="VARCHAR(255)"/>
+        <column defaultValueBoolean="false" name="active" type="BIT"/>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="11">
+    <createTable tableName="cm_usercollection">
+        <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <constraints nullable="false" primaryKey="true"/>
+        </column>
+        <column name="userId" type="BIGINT UNSIGNED">
+            <constraints nullable="false"/>
+        </column>
+        <column name="collectionId" type="BIGINT UNSIGNED">
+            <constraints nullable="false"/>
+        </column>
+        <column name="roleId" type="INT">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+</changeSet>
+<changeSet author="jimmy (generated)" id="12">
+    <insert tableName="cm_collectiontype">
+        <column name="id" valueNumeric="1"/>
+        <column name="type" value="Movies"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_collectiontype">
+        <column name="id" valueNumeric="2"/>
+        <column name="type" value="Games"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_collectiontype">
+        <column name="id" valueNumeric="3"/>
+        <column name="type" value="Magazines"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_collectiontype">
+        <column name="id" valueNumeric="4"/>
+        <column name="type" value="Books"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_collectiontype">
+        <column name="id" valueNumeric="5"/>
+        <column name="type" value="Disks"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_collectiontype">
+        <column name="id" valueNumeric="6"/>
+        <column name="type" value="Comics"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+</changeSet>
+<changeSet author="jimmy (generated)" id="13">
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="1"/>
+        <column name="name" value="title"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="Title"/>
+        <column name="label" value="Title"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="top"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="2"/>
+        <column name="name" value="genre"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Genre"/>
+        <column name="label" value="Genre"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="10"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="3"/>
+        <column name="name" value="runtime"/>
+        <column name="type" valueNumeric="12"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value=""/>
+        <column name="label" value="Runtime"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="20"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="4"/>
+        <column name="name" value="releaseDate"/>
+        <column name="type" valueNumeric="4"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Release Date"/>
+        <column name="label" value="Release Date"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="5"/>
+        <column name="name" value="storyline"/>
+        <column name="type" valueNumeric="3"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Storyline"/>
+        <column name="label" value="Storyline"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="40"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="6"/>
+        <column name="name" value="director"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Director"/>
+        <column name="label" value="Director"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="50"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="7"/>
+        <column name="name" value="writer"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Writer"/>
+        <column name="label" value="Writer"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="60"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="8"/>
+        <column name="name" value="cast"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Cast"/>
+        <column name="label" value="Cast"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="60"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="9"/>
+        <column name="name" value="cover"/>
+        <column name="type" valueNumeric="10"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Cover"/>
+        <column name="label" value="Cover"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="70"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="image"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="10"/>
+        <column name="name" value="rating"/>
+        <column name="type" valueNumeric="9"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Rating"/>
+        <column name="label" value="Rating"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="1"/>
+        <column name="fieldOrder" valueNumeric="80"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="rate"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="11"/>
+        <column name="name" value="title"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="Title"/>
+        <column name="label" value="Title"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="top"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="12"/>
+        <column name="name" value="genre"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Genre"/>
+        <column name="label" value="Genre"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="10"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="13"/>
+        <column name="name" value="releaseDate"/>
+        <column name="type" valueNumeric="4"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Release Date"/>
+        <column name="label" value="Release Date"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="14"/>
+        <column name="name" value="platform"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Platform"/>
+        <column name="label" value="Platform"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="20"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="15"/>
+        <column name="name" value="publisher"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Publisher"/>
+        <column name="label" value="Publisher"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="16"/>
+        <column name="name" value="storyline"/>
+        <column name="type" valueNumeric="3"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Storyline"/>
+        <column name="label" value="Storyline"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="40"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="17"/>
+        <column name="name" value="cover"/>
+        <column name="type" valueNumeric="10"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Cover"/>
+        <column name="label" value="Cover"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="70"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="image"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="18"/>
+        <column name="name" value="rating"/>
+        <column name="type" valueNumeric="9"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Rating"/>
+        <column name="label" value="Rating"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="2"/>
+        <column name="fieldOrder" valueNumeric="80"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="rate"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="19"/>
+        <column name="name" value="title"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="Title"/>
+        <column name="label" value="Title"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="3"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="top"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="20"/>
+        <column name="name" value="cover"/>
+        <column name="type" valueNumeric="10"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Cover"/>
+        <column name="label" value="Cover"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="3"/>
+        <column name="fieldOrder" valueNumeric="70"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="image"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="21"/>
+        <column name="name" value="releaseDate"/>
+        <column name="type" valueNumeric="4"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Release Date"/>
+        <column name="label" value="Release Date"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="3"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="22"/>
+        <column name="name" value="content"/>
+        <column name="type" valueNumeric="3"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Content"/>
+        <column name="label" value="Content"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="3"/>
+        <column name="fieldOrder" valueNumeric="40"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="23"/>
+        <column name="name" value="title"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="Title"/>
+        <column name="label" value="Title"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="top"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="24"/>
+        <column name="name" value="cover"/>
+        <column name="type" valueNumeric="10"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Cover"/>
+        <column name="label" value="Cover"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="70"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="image"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="25"/>
+        <column name="name" value="releaseDate"/>
+        <column name="type" valueNumeric="4"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Release Date"/>
+        <column name="label" value="Release Date"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="26"/>
+        <column name="name" value="isbn"/>
+        <column name="type" valueNumeric="11"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="ISBN"/>
+        <column name="label" value="ISBN"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="27"/>
+        <column name="name" value="writer"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Writer"/>
+        <column name="label" value="Writer"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="28"/>
+        <column name="name" value="publisher"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Publisher"/>
+        <column name="label" value="Publisher"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="29"/>
+        <column name="name" value="pages"/>
+        <column name="type" valueNumeric="12"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Pages"/>
+        <column name="label" value="Pages"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="50"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="30"/>
+        <column name="name" value="storyline"/>
+        <column name="type" valueNumeric="3"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Storyline"/>
+        <column name="label" value="Storyline"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="40"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="31"/>
+        <column name="name" value="genre"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Genre"/>
+        <column name="label" value="Genre"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="10"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="32"/>
+        <column name="name" value="rating"/>
+        <column name="type" valueNumeric="9"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Rating"/>
+        <column name="label" value="Rating"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="4"/>
+        <column name="fieldOrder" valueNumeric="80"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="rate"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="33"/>
+        <column name="name" value="title"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="Title"/>
+        <column name="label" value="Title"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="5"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="top"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="34"/>
+        <column name="name" value="artist"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Artist"/>
+        <column name="label" value="Artist"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="5"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="35"/>
+        <column name="name" value="releaseDate"/>
+        <column name="type" valueNumeric="4"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Release Date"/>
+        <column name="label" value="Release Date"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="5"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="36"/>
+        <column name="name" value="song"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Song"/>
+        <column name="label" value="Song"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="5"/>
+        <column name="fieldOrder" valueNumeric="100"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="37"/>
+        <column name="name" value="cover"/>
+        <column name="type" valueNumeric="10"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Cover"/>
+        <column name="label" value="Cover"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="5"/>
+        <column name="fieldOrder" valueNumeric="70"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="image"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="38"/>
+        <column name="name" value="title"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="Title"/>
+        <column name="label" value="Title"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="top"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="39"/>
+        <column name="name" value="cover"/>
+        <column name="type" valueNumeric="10"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Cover"/>
+        <column name="label" value="Cover"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="70"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="image"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="40"/>
+        <column name="name" value="isbn"/>
+        <column name="type" valueNumeric="11"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="true"/>
+        <column name="placeHolder" value="ISBN"/>
+        <column name="label" value="ISBN"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="0"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="41"/>
+        <column name="name" value="writer"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Writer"/>
+        <column name="label" value="Writer"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="42"/>
+        <column name="name" value="releaseDate"/>
+        <column name="type" valueNumeric="4"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Release Date"/>
+        <column name="label" value="Release Date"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="43"/>
+        <column name="name" value="publisher"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Publisher"/>
+        <column name="label" value="Publisher"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="30"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="44"/>
+        <column name="name" value="pages"/>
+        <column name="type" valueNumeric="12"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Pages"/>
+        <column name="label" value="Pages"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="50"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="45"/>
+        <column name="name" value="storyline"/>
+        <column name="type" valueNumeric="3"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Storyline"/>
+        <column name="label" value="Storyline"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="40"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="top"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="46"/>
+        <column name="name" value="genre"/>
+        <column name="type" valueNumeric="1"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Genre"/>
+        <column name="label" value="Genre"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="10"/>
+        <column name="place" value="main"/>
+        <column name="multiValues" valueBoolean="true"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="left"/>
+        <column name="widget" value="default"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_field">
+        <column name="id" valueNumeric="47"/>
+        <column name="name" value="rating"/>
+        <column name="type" valueNumeric="9"/>
+        <column name="choises"/>
+        <column name="required" valueBoolean="false"/>
+        <column name="placeHolder" value="Rating"/>
+        <column name="label" value="Rating"/>
+        <column name="otherOptions"/>
+        <column name="collectionBaseType" valueNumeric="6"/>
+        <column name="fieldOrder" valueNumeric="80"/>
+        <column name="place" value="left"/>
+        <column name="multiValues" valueBoolean="false"/>
+        <column name="active" valueBoolean="true"/>
+        <column name="labelPosition" value="hidden"/>
+        <column name="widget" value="rate"/>
+        <column name="basic" valueBoolean="true"/>
+    </insert>
+</changeSet>
+<changeSet author="jimmy (generated)" id="14">
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="1"/>
+        <column name="type" value="text"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="2"/>
+        <column name="type" value="url"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="3"/>
+        <column name="type" value="textarea"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="4"/>
+        <column name="type" value="date"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="5"/>
+        <column name="type" value="dropdown"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="6"/>
+        <column name="type" value="checkbox"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="7"/>
+        <column name="type" value="radio"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="8"/>
+        <column name="type" value="email"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="9"/>
+        <column name="type" value="rate"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="10"/>
+        <column name="type" value="image"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="11"/>
+        <column name="type" value="barcode"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_fieldtype">
+        <column name="id" valueNumeric="12"/>
+        <column name="type" value="number"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+</changeSet>
+<changeSet author="jimmy (generated)" id="15">
+    <insert tableName="cm_role">
+        <column name="id" valueNumeric="1"/>
+        <column name="name" value="Owner"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_role">
+        <column name="id" valueNumeric="2"/>
+        <column name="name" value="Editor"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+    <insert tableName="cm_role">
+        <column name="id" valueNumeric="3"/>
+        <column name="name" value="Viewer"/>
+        <column name="active" valueBoolean="true"/>
+    </insert>
+</changeSet>
+<changeSet author="jimmy (generated)" id="16">
+    <createIndex indexName="author" tableName="cm_item">
+        <column name="author"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="17">
+    <createIndex indexName="cm_collectionfield_fieldId" tableName="cm_collectionfield">
+        <column name="fieldId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="18">
+    <createIndex indexName="collectionBaseType" tableName="cm_field">
+        <column defaultValueComputed="NULL" name="collectionBaseType"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="19">
+    <createIndex indexName="collectionId" tableName="cm_usercollection">
+        <column name="collectionId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="20">
+    <createIndex indexName="fieldId" tableName="cm_itemdata">
+        <column name="fieldId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="21">
+    <createIndex indexName="cm_collectionitem_itemId" tableName="cm_collectionitem">
+        <column name="itemId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="22">
+    <createIndex indexName="itemId" tableName="cm_itemdata">
+        <column name="itemId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="23">
+    <createIndex indexName="roleId" tableName="cm_usercollection">
+        <column name="roleId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="24">
+    <createIndex indexName="role_UN_role" tableName="cm_role" unique="true">
+        <column name="name"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="25">
+    <createIndex indexName="type" tableName="cm_field">
+        <column name="type"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="26">
+    <createIndex indexName="typeId" tableName="cm_collection">
+        <column name="typeId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="27">
+    <createIndex indexName="userId" tableName="cm_usercollection" unique="true">
+        <column name="userId"/>
+        <column name="collectionId"/>
+    </createIndex>
+</changeSet>
+<changeSet author="jimmy (generated)" id="28">
+    <addForeignKeyConstraint baseColumnNames="typeId" baseTableName="cm_collection" constraintName="cm_collection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collectiontype" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="29">
+    <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="30">
+    <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionfield" constraintName="cm_collectionfield_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="31">
+    <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="32">
+    <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_collectionitem" constraintName="cm_collectionitem_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="33">
+    <addForeignKeyConstraint baseColumnNames="type" baseTableName="cm_field" constraintName="cm_field_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_fieldtype" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="34">
+    <addForeignKeyConstraint baseColumnNames="collectionBaseType" baseTableName="cm_field" constraintName="cm_field_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collectiontype" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="35">
+    <addForeignKeyConstraint baseColumnNames="author" baseTableName="cm_item" constraintName="cm_item_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="36">
+    <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_item" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="37">
+    <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_itemdata" constraintName="cm_itemdata_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_field" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="38">
+    <addForeignKeyConstraint baseColumnNames="userId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="39">
+    <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_collection" validate="true"/>
+</changeSet>
+<changeSet author="jimmy (generated)" id="40">
+    <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="cm_usercollection" constraintName="cm_usercollection_ibfk_3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="cm_role" validate="true"/>
+</changeSet>
 </databaseChangeLog>

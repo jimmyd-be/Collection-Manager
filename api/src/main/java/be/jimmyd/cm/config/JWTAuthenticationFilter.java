@@ -6,6 +6,7 @@ import be.jimmyd.cm.dto.UserLoginDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -69,7 +70,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512(secret.getBytes()));
 
         TokenDto dto = new TokenDto(token);
+        res.setStatus(HttpStatus.OK.value());
         res.getWriter().write(new ObjectMapper().writeValueAsString(dto));
-        res.getWriter().flush();
+        res.setContentType("application/json");
+        //res.getWriter().flush();
     }
 }

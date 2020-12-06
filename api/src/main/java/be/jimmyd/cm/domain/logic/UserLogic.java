@@ -90,7 +90,7 @@ public class UserLogic {
 
         if (!passwordEncoder.matches(userEditPasswordDto.getCurrentPassword(), user.getUserPassword())) {
             throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password is incorrect");
-        } else if (userEditPasswordDto.getPassword().equals(userEditPasswordDto.getPasswordRepeat())) {
+        } else if (!userEditPasswordDto.getPassword().equals(userEditPasswordDto.getPasswordRepeat())) {
             throw new PasswordIncorrectException("Password of user " + mail + " cannot be update because password and repeat password are not the same");
         } else {
             user.setUserPassword(passwordEncoder.encode(userEditPasswordDto.getPassword()));

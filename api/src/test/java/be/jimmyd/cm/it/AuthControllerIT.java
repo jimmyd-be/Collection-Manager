@@ -1,0 +1,95 @@
+package be.jimmyd.cm.it;
+
+import be.jimmyd.cm.dto.TokenDto;
+import be.jimmyd.cm.dto.UserLoginDto;
+import be.jimmyd.cm.dto.UserRegisterDto;
+import liquibase.pro.packaged.U;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class AuthControllerIT {
+
+    @LocalServerPort
+    private int port;
+
+    private final String mail = "test@test.be";
+    private final String password = "Testpassword12345789";
+
+    TestRestTemplate restTemplate = new TestRestTemplate();
+
+    private String createURLWithPort(String uri) {
+        return "http://localhost:" + port + "/api/" + uri;
+    }
+
+    @Order(1)
+    @Test
+    public void testRegisterUser() {
+
+        UserRegisterDto user = new UserRegisterDto();
+        user.setEmail(mail);
+        user.setFullName("Test user");
+        user.setPassword(password);
+
+        final ResponseEntity<Object> userRegistration = restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
+
+        assertEquals(HttpStatus.OK, userRegistration.getStatusCode());
+    }
+
+    @Test
+    @Order(2)
+    public void testLogin() {
+
+        UserLoginDto login = new UserLoginDto();
+        login.setEmail(mail);
+        login.setPassword(password);
+
+        final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
+
+        assertEquals(HttpStatus.OK, userLogin.getStatusCode());
+        assertTrue(userLogin.getBody().getToken() != null && !userLogin.getBody().getToken().isBlank());
+    }
+
+    @Test
+    @Order(3)
+    public void testWrongCredentialsLogin() {
+
+        UserLoginDto login = new UserLoginDto();
+        login.setEmail(mail);
+        login.setPassword("WrongPassword");
+
+        final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
+
+        assertEquals(HttpStatus.UNAUTHORIZED, userLogin.getStatusCode());
+    }
+
+    @Order(4)
+    @Test
+    public void testRegisterUserAlreadyExists() {
+
+        UserRegisterDto user = new UserRegisterDto();
+        user.setEmail(mail);
+        user.setFullName("Test user");
+        user.setPassword(password);
+
+        final ResponseEntity<Object> userRegistration = restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
+
+        assertEquals(HttpStatus.CONFLICT, userRegistration.getStatusCode());
+    }
+}
