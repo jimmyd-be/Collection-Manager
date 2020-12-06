@@ -1,4 +1,4 @@
-package be.jimmyd.cm.dto;
+package be.jimmyd.cm.config;
 
 import be.jimmyd.cm.entities.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +24,7 @@ public class UserDetailsImpl implements UserDetails {
             authorities.add(new SimpleGrantedAuthority("USER"));
         }
 
-        if(user.getIsAdmin()) {
+        if(user.getIsAdmin() != null && user.getIsAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ADMIN"));
 
         }

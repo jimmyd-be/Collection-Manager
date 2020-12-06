@@ -93,7 +93,7 @@ public class CollectionLogic {
     @Transactional
     public void createCollection(CollectionDto collectionDto, String mail) {
 
-        final CollectionType type = collectionTypeRepository.getByName(collectionDto.type);
+        final CollectionType type = collectionTypeRepository.getByName(collectionDto.getType());
 
         Collection collection = new Collection();
         collection.setName(collectionDto.getName());

@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class ItemDataDto {
 
-    public long fieldId;
-    public String value;
+    private long fieldId;
+    private String value;
 }

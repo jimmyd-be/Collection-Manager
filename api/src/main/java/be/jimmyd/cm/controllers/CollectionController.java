@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -67,7 +68,7 @@ public class CollectionController {
     }
 
     @PostMapping("/add")
-    public void addCollection(@RequestBody CollectionDto collectionDto, UsernamePasswordAuthenticationToken token) {
+    public void addCollection(@Valid @RequestBody CollectionDto collectionDto, UsernamePasswordAuthenticationToken token) {
         collectionLogic.createCollection(collectionDto, token.getName().toString());
 
     }

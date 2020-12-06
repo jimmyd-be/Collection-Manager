@@ -7,10 +7,10 @@ import java.time.LocalDate;
 @Data
 public class ItemSearchDto {
 
-    public String externalId;
-    public String name;
-    public String image;
-    public LocalDate releaseDate;
-    public String source;
-    public String url;
+    private String externalId;
+    private String name;
+    private String image;
+    private LocalDate releaseDate;
+    private String source;
+    private String url;
 }

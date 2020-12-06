@@ -7,8 +7,8 @@ import java.util.List;
 @Data
 public class ItemDto {
 
-    public long id;
-    public String name;
-    public String image;
-    public List<ItemDataDto> data;
+    private long id;
+    private String name;
+    private String image;
+    private List<ItemDataDto> data;
 }

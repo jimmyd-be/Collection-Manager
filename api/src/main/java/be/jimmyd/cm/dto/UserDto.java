@@ -7,10 +7,10 @@ import java.time.LocalDate;
 @Data
 public class UserDto {
 
-    public long id;
-    public String mail;
-    public String username;
-    public boolean isAdmin;
-    public LocalDate creationDate;
-    public String theme;
+    private long id;
+    private String mail;
+    private String username;
+    private boolean isAdmin;
+    private LocalDate creationDate;
+    private String theme;
 }

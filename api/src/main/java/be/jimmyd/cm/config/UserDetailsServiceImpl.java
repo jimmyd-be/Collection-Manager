@@ -1,6 +1,5 @@
 package be.jimmyd.cm.config;
 
-import be.jimmyd.cm.dto.UserDetailsImpl;
 import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

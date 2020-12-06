@@ -43,6 +43,9 @@ public class UserCollectionLogic {
     }
 
     public void deleteUserFromCollection(long collectionId, long userId) throws UserPermissionException {
+
+        //TODO check if owner still exist after deletion
+
         final UserCollection userCollection = collectionUserRepository.getByCollectionAndUser(collectionId, userId);
 
         collectionUserRepository.delete(userCollection);

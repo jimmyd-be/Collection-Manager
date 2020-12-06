@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class UserCollectionDto {
 
-    public long userId;
-    public String userName;
-    public long roleId;
-    public String roleName;
+    private long userId;
+    private String userName;
+    private long roleId;
+    private String roleName;
 }

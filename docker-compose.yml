@@ -17,7 +17,6 @@ services:
         image: mariadb
         volumes:
             - container-volume:/var/lib/mysql
-            - ./api/database/database.sql:/docker-entrypoint-initdb.d/dump.sql
         environment:
             MYSQL_ROOT_PASSWORD: testDatabase
             MYSQL_DATABASE: newcm

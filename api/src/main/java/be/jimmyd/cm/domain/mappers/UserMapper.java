@@ -35,7 +35,7 @@ public interface UserMapper {
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "mail", target = "mail"),
             @Mapping(source = "username", target = "username"),
-            @Mapping(source = "isAdmin", target = "isAdmin"),
+            @Mapping(source = "isAdmin", target = "admin"),
             @Mapping(source = "creationDate", target = "creationDate"),
             @Mapping(source = "theme", target = "theme"),
     })

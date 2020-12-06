@@ -2,20 +2,32 @@ package be.jimmyd.cm.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 public class FieldDto {
 
-    public long id;
-    public String name;
-    public String type;
-    public String options;
-    public boolean required;
-    public String placeholder;
-    public int fieldOrder;
-    public String place;
-    public boolean multivalues;
-    public String labelPosition;
-    public String label;
-    public String value;
-    public String widget;
+    private long id;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String type;
+    private String options;
+    private boolean required;
+    private String placeholder;
+    private int fieldOrder;
+
+    @NotNull
+    private String place;
+    private boolean multivalues;
+
+    @NotNull
+    private String labelPosition;
+
+    @NotNull
+    private String label;
+    private String value;
+    private String widget;
 }

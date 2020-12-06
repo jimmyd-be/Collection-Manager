@@ -1,7 +1,6 @@
 package be.jimmyd.cm.config;
 
 import be.jimmyd.cm.dto.TokenDto;
-import be.jimmyd.cm.dto.UserDetailsImpl;
 import be.jimmyd.cm.dto.UserLoginDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
