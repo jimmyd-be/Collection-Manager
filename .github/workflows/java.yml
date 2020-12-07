@@ -33,6 +33,9 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+    - name: Unit test + integration tests
+      working-directory: ${{env.working-directory}}
+      run: npm verify
     - name: npm install
       working-directory: ${{env.working-directory}}
       run: npm install
