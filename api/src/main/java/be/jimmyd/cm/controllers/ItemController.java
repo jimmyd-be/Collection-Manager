@@ -5,6 +5,7 @@ import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
 import be.jimmyd.cm.domain.logic.ItemLogic;
 import be.jimmyd.cm.dto.ItemDto;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,8 @@ public class ItemController {
     }
 
     @PostMapping("/add/collection/{id}")
-    public void addItemToCollection(@PathVariable("id") long collectionid, @RequestBody Map<String, String> itemData, UsernamePasswordAuthenticationToken user) {
-        itemLogic.addItemToCollection(collectionid, itemData, user.getPrincipal().toString());
+    public void addItemToCollection(@PathVariable("id") long collectionId, @RequestBody Map<String, String> itemData, UsernamePasswordAuthenticationToken user) {
+        itemLogic.addItemToCollection(collectionId, itemData, user.getPrincipal().toString());
     }
 
     @PatchMapping("/edit/{id}/{collectionId}")
@@ -47,8 +48,12 @@ public class ItemController {
     }
 
     @GetMapping("/get/{id}")
-    public ItemDto getItemById(@PathVariable("id") long itemId) throws ItemNotExistException {
-        return itemLogic.getById(itemId);
+    public ResponseEntity<ItemDto> getItemById(@PathVariable("id") long itemId) {
+        try {
+            return ResponseEntity.ok(itemLogic.getById(itemId));
+        } catch (ItemNotExistException ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/external/{type}")
