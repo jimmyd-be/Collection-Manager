@@ -57,7 +57,7 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
-      - uses: DamianReeves/write-file-action@1.0
+      - uses: DamianReeves/write-file-action@v1.0
         with:
           path: ~/.m2/settings.xml
           contents: ${{ secrets.MAVEN_SETTINGS }}
