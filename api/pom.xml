@@ -14,6 +14,13 @@
 	<name>collection-manager</name>
 	<description>Collection manager backend</description>
 
+	<repositories>
+		<repository>
+			<id>imdb-github</id>
+			<url>https://maven.pkg.github.com/jimmyd-be/imdb-api</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<java.version>11</java.version>
 		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
@@ -22,6 +29,7 @@
 		<java.jwt.version>3.11.0</java.jwt.version>
 		<liquibase.plugin.version>4.2.0</liquibase.plugin.version>
 		<mockito.version>3.6.28</mockito.version>
+		<imdb.api.version>1.3.1</imdb.api.version>
 	</properties>
 
 	<dependencies>
@@ -68,6 +76,12 @@
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-maven-plugin</artifactId>
 			<version>${liquibase.plugin.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.stil4m</groupId>
+			<artifactId>imdb-api</artifactId>
+			<version>${imdb.api.version}</version>
 		</dependency>
 
 

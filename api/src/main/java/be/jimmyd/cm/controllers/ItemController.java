@@ -4,6 +4,7 @@ package be.jimmyd.cm.controllers;
 import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
 import be.jimmyd.cm.domain.logic.ItemLogic;
 import be.jimmyd.cm.dto.ItemDto;
+import be.jimmyd.cm.dto.ItemSearchDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,15 +58,14 @@ public class ItemController {
     }
 
     @GetMapping("/external/{type}")
-    public ItemDto searchItemExternally(@PathVariable("type") String type, @RequestParam String search) {
-        //TODO add logic
+    public List<ItemSearchDto> searchItemExternally(@PathVariable("type") String type, @RequestParam String search) {
 
-        return null;
+        return itemLogic.searchItemExternally(type, search);
     }
 
     @PostMapping("/external/add/collection/{collectionId}/{source}/{externalId}")
     public void addItemToCollection(@PathVariable("collectionId") long collectionId, @PathVariable("source") String source,
-                                    @PathVariable("externalId") String externalId) {
-        //TODO add logic
+                                    @PathVariable("externalId") String externalId, UsernamePasswordAuthenticationToken user) {
+        itemLogic.addItemToCollection(collectionId, source, externalId,user.getPrincipal().toString());
     }
 }

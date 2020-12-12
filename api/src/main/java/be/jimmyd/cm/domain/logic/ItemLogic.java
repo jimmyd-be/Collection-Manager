@@ -1,8 +1,10 @@
 package be.jimmyd.cm.domain.logic;
 
 import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
+import be.jimmyd.cm.domain.external.ExternalSystem;
 import be.jimmyd.cm.domain.mappers.ItemMapper;
 import be.jimmyd.cm.dto.ItemDto;
+import be.jimmyd.cm.dto.ItemSearchDto;
 import be.jimmyd.cm.entities.*;
 import be.jimmyd.cm.repositories.*;
 import org.springframework.data.domain.PageRequest;
@@ -24,14 +26,16 @@ public class ItemLogic {
     private final FieldRepository fieldRepository;
     private final CollectionRepository collectionRepository;
     private final ItemDataRepository itemDataRepository;
+    private final ExternalSystem externalSystemService;
 
     public ItemLogic(final UserRepository userRepository, final ItemRepository itemRepository, final FieldRepository fieldRepository,
-                     final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository) {
+                     final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository, final  ExternalSystem externalSystemService) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.fieldRepository = fieldRepository;
         this.collectionRepository = collectionRepository;
         this.itemDataRepository = itemDataRepository;
+        this.externalSystemService = externalSystemService;
     }
 
     @Transactional
@@ -83,6 +87,16 @@ public class ItemLogic {
                 collectionRepository.save(collection);
         });
         return itemId.get();
+    }
+
+    @Transactional
+    public long addItemToCollection(long collectionId, String source, String itemId, String userId) {
+
+        final List<Field> basicFields = fieldRepository.findBasicFieldByCollectionId(collectionId);
+
+        final Map<String, String> itemData = externalSystemService.getItemById(source, itemId, basicFields);
+
+        return addItemToCollection(collectionId, itemData, userId);
     }
 
     private long getFieldIDFromKey(String key) {
@@ -155,5 +169,9 @@ public class ItemLogic {
         });
 
         deleteItemsWithoutCollection();
+    }
+
+    public List<ItemSearchDto> searchItemExternally(final String type, final String search) {
+        return externalSystemService.searchItemsByType(type, search);
     }
 }
