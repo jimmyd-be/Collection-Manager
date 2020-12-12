@@ -36,7 +36,7 @@ jobs:
     - name: npm install
       working-directory: ${{env.working-directory}}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
       run: npm install
     - name: Use Angular NG
       uses: mayur-rawte/github-angular-actions@latest
