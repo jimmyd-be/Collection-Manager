@@ -32,7 +32,7 @@ export class ItemService {
   }
 
   searchItem(search: string, type: string): Observable<ItemSearchDirective[]> {
-    return this.http.get<ItemSearchDirective[]>('/item/external/' + type +'?search=' + search);
+    return this.http.get<ItemSearchDirective[]>('/item/external/' + type + '?search=' + search);
   }
 
   addExternalItemToCollection(collectionId: number, source: string, externalId: string): Observable<any> {

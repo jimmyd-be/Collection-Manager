@@ -35,7 +35,7 @@ export class AddItemExternallyComponent implements OnInit {
 
     if (inputValue.length % 2 === 0) {
 
-      let selectedCollection = this.collectionList.filter(x => x.id == this.collectionId)[0];
+      const selectedCollection = this.collectionList.filter(x => x.id === this.collectionId)[0];
 
       this.itemService.searchItem(inputValue, selectedCollection.type).subscribe(data => {
         this.searchResults = data;
