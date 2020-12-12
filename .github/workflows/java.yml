@@ -56,9 +56,12 @@ jobs:
   api:
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@v1
-      
       - uses: actions/checkout@v2
+      - uses: DamianReeves/write-file-action
+        with:
+          path: ~/.m2/settings.xml
+          contents: ${{ secrets.MAVEN_SETTINGS }}
+          write-mode: overwrite
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
