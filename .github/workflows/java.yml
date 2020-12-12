@@ -35,9 +35,6 @@ jobs:
           ${{ runner.os }}-
     - name: npm install
       working-directory: ${{env.working-directory}}
-      env:
-        MAVEN_PASSWORD: ${{ secrets.PACKAGE_TOKEN }}
-        MAVEN_USERNAME: jimmyd-be
       run: npm install
     - name: Use Angular NG
       uses: mayur-rawte/github-angular-actions@latest
