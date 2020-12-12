@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface FieldTypeRepository extends JpaRepository<FieldType, Long> {
 
     @Query("FROM FieldType WHERE type = :name")
-    FieldType findByName(@Param("name")String name);
+    FieldType findByName(@Param("name") String name);
 }

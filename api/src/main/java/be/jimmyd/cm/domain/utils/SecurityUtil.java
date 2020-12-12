@@ -4,11 +4,8 @@ import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.UserRepository;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
-import java.security.Principal;
 
 @Component
 public class SecurityUtil {
@@ -31,7 +28,7 @@ public class SecurityUtil {
         String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = userRepository.findByMail(userMail);
 
-        if(false) {
+        if (false) {
             throw new UserPermissionException("User " + user.getId() + " hasn't acces to collection " + collectionId);
         }
 

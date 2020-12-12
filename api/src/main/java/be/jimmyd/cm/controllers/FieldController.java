@@ -4,7 +4,6 @@ import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.logic.FieldLogic;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.FieldDto;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,7 @@ public class FieldController {
     public List<FieldDto> getByCollection(@PathVariable("id") long id) throws UserPermissionException {
         List<FieldDto> result = new ArrayList<>();
 
-        if(securityUtil.hasUserReadAccessToCollection(id)) {
+        if (securityUtil.hasUserReadAccessToCollection(id)) {
             result.addAll(fieldLogic.getBasicFieldsByCollection(id));
             result.addAll(fieldLogic.getCustomFieldsByCollection(id));
         }
@@ -41,7 +40,7 @@ public class FieldController {
 
         List<FieldDto> result = new ArrayList<>();
 
-        if(securityUtil.hasUserReadAccessToCollection(id)) {
+        if (securityUtil.hasUserReadAccessToCollection(id)) {
             result.addAll(fieldLogic.getBasicFieldsByCollection(id));
         }
 
@@ -52,7 +51,7 @@ public class FieldController {
     public List<FieldDto> getCustomByCollection(@PathVariable("id") long id) throws UserPermissionException {
         List<FieldDto> result = new ArrayList<>();
 
-        if(securityUtil.hasUserReadAccessToCollection(id)) {
+        if (securityUtil.hasUserReadAccessToCollection(id)) {
             result.addAll(fieldLogic.getCustomFieldsByCollection(id));
         }
 

@@ -16,27 +16,27 @@ import java.util.Properties;
 @SpringBootApplication
 public class CollectionManagerApplication {
 
-	@Bean
-	public PasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
-	@Bean
-	public IMDB getImdbApi() throws IOException {
-		InputStream inputStream = getClass().getResourceAsStream("/nl/stil4m/imdb/parsing.properties");
-		Properties properties = new Properties();
-		properties.load(inputStream);
-		IMDBFactory factory = new IMDBFactory();
-		return factory.createInstance(properties);
-	}
+    @Bean
+    public IMDB getImdbApi() throws IOException {
+        InputStream inputStream = getClass().getResourceAsStream("/nl/stil4m/imdb/parsing.properties");
+        Properties properties = new Properties();
+        properties.load(inputStream);
+        IMDBFactory factory = new IMDBFactory();
+        return factory.createInstance(properties);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(CollectionManagerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CollectionManagerApplication.class, args);
+    }
 
 }

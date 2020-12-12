@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties="spring.datasource.url=jdbc:h2:mem:cm_field;DB_CLOSE_DELAY=-1")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.datasource.url=jdbc:h2:mem:cm_field;DB_CLOSE_DELAY=-1")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FieldControllerIT {
 
@@ -50,7 +50,7 @@ public class FieldControllerIT {
     }
 
     @BeforeAll
-    public void init(){
+    public void init() {
 
         restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 

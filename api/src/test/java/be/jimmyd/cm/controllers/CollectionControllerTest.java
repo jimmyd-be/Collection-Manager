@@ -40,7 +40,7 @@ public class CollectionControllerTest {
     private CollectionController controller;
 
     @Test
-    public void  getByIdHappyFlow() throws UserPermissionException {
+    public void getByIdHappyFlow() throws UserPermissionException {
 
         CollectionDto dto = new CollectionDto();
         dto.setId(1);

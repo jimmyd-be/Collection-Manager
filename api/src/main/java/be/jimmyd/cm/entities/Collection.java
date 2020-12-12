@@ -36,9 +36,9 @@ public class Collection {
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
-            name="cm_collectionitem",
-            joinColumns = {@JoinColumn(name="collectionId")},
-            inverseJoinColumns = {@JoinColumn(name="itemId")}
+            name = "cm_collectionitem",
+            joinColumns = {@JoinColumn(name = "collectionId")},
+            inverseJoinColumns = {@JoinColumn(name = "itemId")}
     )
     private List<Item> items;
 

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class ExternalSystem {
                     }
                     return null;
                 })
-                .filter( n-> n != null)
+                .filter(n -> n != null)
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
     }
@@ -41,7 +40,7 @@ public class ExternalSystem {
         final Optional<ExternalApi> api = externalApis.stream()
                 .filter(n -> n.getUniqueKey().equals(systemUniqueKey)).findFirst();
 
-        if(api.isPresent()) {
+        if (api.isPresent()) {
             try {
                 return api.get().getById(itemId, basicFields);
             } catch (Throwable throwable) {

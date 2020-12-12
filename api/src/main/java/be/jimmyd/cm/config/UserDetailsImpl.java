@@ -20,11 +20,11 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(1);
 
-        if(user != null) {
+        if (user != null) {
             authorities.add(new SimpleGrantedAuthority("USER"));
         }
 
-        if(user.getIsAdmin() != null && user.getIsAdmin()) {
+        if (user.getIsAdmin() != null && user.getIsAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ADMIN"));
 
         }

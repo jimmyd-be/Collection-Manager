@@ -2,7 +2,6 @@ package be.jimmyd.cm.domain.external;
 
 import be.jimmyd.cm.dto.ItemSearchDto;
 import be.jimmyd.cm.entities.Field;
-import be.jimmyd.cm.entities.Item;
 
 import java.util.List;
 import java.util.Map;

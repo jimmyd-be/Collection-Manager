@@ -2,7 +2,6 @@ package be.jimmyd.cm.it;
 
 
 import be.jimmyd.cm.dto.*;
-import liquibase.pro.packaged.F;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties="spring.datasource.url=jdbc:h2:mem:cm_col;DB_CLOSE_DELAY=-1")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.datasource.url=jdbc:h2:mem:cm_col;DB_CLOSE_DELAY=-1")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CollectionControllerIT {
 
@@ -68,7 +67,7 @@ public class CollectionControllerIT {
     }
 
     @BeforeAll
-    public void init(){
+    public void init() {
 
         restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 

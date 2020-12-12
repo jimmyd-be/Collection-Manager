@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +30,7 @@ public class ItemController {
 
     @PatchMapping("/edit/{id}/{collectionId}")
     public void editItem(@PathVariable("id") long itemId, @PathVariable("collectionId") long collectionId,
-                                    @RequestBody Map<String, String> itemData, UsernamePasswordAuthenticationToken user) {
+                         @RequestBody Map<String, String> itemData, UsernamePasswordAuthenticationToken user) {
         itemLogic.editItem(itemId, itemData, user.getPrincipal().toString());
     }
 
@@ -44,7 +43,7 @@ public class ItemController {
 
     @GetMapping("/get/collection/{id}/{page}/{itemsOnPage}")
     public List<ItemDto> getItemFromCollection(@PathVariable("id") long collectionId, @PathVariable("page") int page,
-    @PathVariable("itemsOnPage") int itemsOnPage) {
+                                               @PathVariable("itemsOnPage") int itemsOnPage) {
         return itemLogic.getItemsByCollection(collectionId, PageRequest.of(page, itemsOnPage));
     }
 
@@ -66,6 +65,6 @@ public class ItemController {
     @PostMapping("/external/add/collection/{collectionId}/{source}/{externalId}")
     public void addItemToCollection(@PathVariable("collectionId") long collectionId, @PathVariable("source") String source,
                                     @PathVariable("externalId") String externalId, UsernamePasswordAuthenticationToken user) {
-        itemLogic.addItemToCollection(collectionId, source, externalId,user.getPrincipal().toString());
+        itemLogic.addItemToCollection(collectionId, source, externalId, user.getPrincipal().toString());
     }
 }

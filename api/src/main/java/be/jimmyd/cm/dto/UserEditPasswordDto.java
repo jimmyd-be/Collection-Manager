@@ -8,15 +8,15 @@ import javax.validation.constraints.Size;
 @Data
 public class UserEditPasswordDto {
 
-    @Size(min=8)
+    @Size(min = 8)
     @NotNull
     private String currentPassword;
 
-    @Size(min=8)
+    @Size(min = 8)
     @NotNull
     private String password;
 
-    @Size(min=8)
+    @Size(min = 8)
     @NotNull
     private String passwordRepeat;
 }

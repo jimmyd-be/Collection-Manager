@@ -4,10 +4,12 @@ import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.UserMapper;
-import be.jimmyd.cm.dto.*;
+import be.jimmyd.cm.dto.UserDto;
+import be.jimmyd.cm.dto.UserEditDto;
+import be.jimmyd.cm.dto.UserEditPasswordDto;
+import be.jimmyd.cm.dto.UserRegisterDto;
 import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.UserRepository;
-import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,7 @@ public class UserLogic {
     private final UserCollectionLogic userCollectionLogic;
     private final CollectionLogic collectionLogic;
 
-    public UserLogic(UserRepository userRepository, PasswordEncoder passwordEncoder,final UserCollectionLogic userCollectionLogic,
+    public UserLogic(UserRepository userRepository, PasswordEncoder passwordEncoder, final UserCollectionLogic userCollectionLogic,
                      final CollectionLogic collectionLogic) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;

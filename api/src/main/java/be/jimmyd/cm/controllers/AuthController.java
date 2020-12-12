@@ -2,7 +2,6 @@ package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.logic.UserLogic;
-import be.jimmyd.cm.dto.UserLoginDto;
 import be.jimmyd.cm.dto.UserRegisterDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +28,12 @@ public class AuthController {
         try {
             userLogic.registerUser(user);
             return ResponseEntity.ok().build();
-        }
-        catch (UserAlreadyExists ex) {
+        } catch (UserAlreadyExists ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
     }
+
     @PostMapping("/logout")
     public void logoutUser(Principal user) throws UserAlreadyExists {
 

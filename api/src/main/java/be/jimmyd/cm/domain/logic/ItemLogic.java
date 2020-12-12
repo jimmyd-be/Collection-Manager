@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,7 +28,7 @@ public class ItemLogic {
     private final ExternalSystem externalSystemService;
 
     public ItemLogic(final UserRepository userRepository, final ItemRepository itemRepository, final FieldRepository fieldRepository,
-                     final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository, final  ExternalSystem externalSystemService) {
+                     final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository, final ExternalSystem externalSystemService) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.fieldRepository = fieldRepository;
@@ -47,44 +46,44 @@ public class ItemLogic {
 
             //TODo check user permission on collection
             //TODO split this method
-                final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
-                fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
+            final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
+            fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
 
-                long titleFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Title")).map(n -> n.getId()).findFirst().get();
-                long coverFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Cover")).map(n -> n.getId()).findFirst().get();
+            long titleFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Title")).map(n -> n.getId()).findFirst().get();
+            long coverFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Cover")).map(n -> n.getId()).findFirst().get();
 
-                String title = itemData.remove(titleFieldId + "_0");
-                String cover = itemData.remove(coverFieldId + "_0");
+            String title = itemData.remove(titleFieldId + "_0");
+            String cover = itemData.remove(coverFieldId + "_0");
 
-                Item newItem = new Item();
-                newItem.setActive(true);
-                newItem.setName(title);
-                newItem.setAuthor(user);
-                newItem.setCreationDate(LocalDateTime.now());
-                newItem.setImage(cover);
-                newItem.setLastModified(LocalDateTime.now());
+            Item newItem = new Item();
+            newItem.setActive(true);
+            newItem.setName(title);
+            newItem.setAuthor(user);
+            newItem.setCreationDate(LocalDateTime.now());
+            newItem.setImage(cover);
+            newItem.setLastModified(LocalDateTime.now());
 
-                final Item finalNewItem = itemRepository.save(newItem);
+            final Item finalNewItem = itemRepository.save(newItem);
 
-                itemId.set(finalNewItem.getId());
-                itemData.forEach((key, value) -> {
+            itemId.set(finalNewItem.getId());
+            itemData.forEach((key, value) -> {
 
-                    long fieldId = getFieldIDFromKey(key);
+                long fieldId = getFieldIDFromKey(key);
 
-                    fields.stream().filter(field -> field.getId() == fieldId).findFirst().ifPresent(field -> {
-                                Itemdata itemdata = new Itemdata();
-                                itemdata.setField(field);
-                                itemdata.setFieldValue(value);
-                                itemdata.setItem(finalNewItem);
-                                //TODO add validation on field level (required fields, ...)
+                fields.stream().filter(field -> field.getId() == fieldId).findFirst().ifPresent(field -> {
+                            Itemdata itemdata = new Itemdata();
+                            itemdata.setField(field);
+                            itemdata.setFieldValue(value);
+                            itemdata.setItem(finalNewItem);
+                            //TODO add validation on field level (required fields, ...)
 
-                                itemDataRepository.save(itemdata);
-                            }
-                    );
-                });
+                            itemDataRepository.save(itemdata);
+                        }
+                );
+            });
 
-                collection.getItems().add(newItem);
-                collectionRepository.save(collection);
+            collection.getItems().add(newItem);
+            collectionRepository.save(collection);
         });
         return itemId.get();
     }
@@ -133,10 +132,9 @@ public class ItemLogic {
 
         final Optional<Item> itemOptional = itemRepository.findById(itemId);
 
-        if(itemOptional.isPresent()) {
+        if (itemOptional.isPresent()) {
             return ItemMapper.INSTANCE.itemToDto(itemOptional.get());
-        }
-        else {
+        } else {
             throw new ItemNotExistException("Item with id " + itemId + " does not exist");
         }
     }

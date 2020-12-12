@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByMail(@Param("mail") String mail);
 
     @Query("SELECT u FROM User u WHERE u.mail=:userName OR u.username = :userName")
-    User findByMailOrUserName(@Param("userName")String userName);
+    User findByMailOrUserName(@Param("userName") String userName);
 
     @Modifying
     @Query(value = "DELETE FROM cm_user WHERE id = :id", nativeQuery = true)

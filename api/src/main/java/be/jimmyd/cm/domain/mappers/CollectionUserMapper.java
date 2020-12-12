@@ -16,10 +16,10 @@ public interface CollectionUserMapper {
     CollectionUserMapper INSTANCE = Mappers.getMapper(CollectionUserMapper.class);
 
     @Mappings({
-        @Mapping(source = "user.id", target = "userId"),
-        @Mapping(source = "user.username", target = "userName"),
-        @Mapping(source = "role.id", target = "roleId"),
-        @Mapping(source = "role.name", target = "roleName")
+            @Mapping(source = "user.id", target = "userId"),
+            @Mapping(source = "user.username", target = "userName"),
+            @Mapping(source = "role.id", target = "roleId"),
+            @Mapping(source = "role.name", target = "roleName")
     })
     UserCollectionDto userCollectionToDto(UserCollection userCollection);
 

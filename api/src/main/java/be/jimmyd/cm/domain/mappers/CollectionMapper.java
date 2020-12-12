@@ -20,11 +20,11 @@ public interface CollectionMapper {
     CollectionMapper INSTANCE = Mappers.getMapper(CollectionMapper.class);
 
     @Mappings({
-        @Mapping(source = "id", target = "id"),
-        @Mapping(source = "name", target = "name"),
-        @Mapping(source = "type.type", target = "type"),
-        @Mapping(source = "fields", target = "fields", qualifiedByName = "fieldMapping"),
-        @Mapping(source = "userCollections", target = "members", qualifiedByName = "membersMapping")
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "name", target = "name"),
+            @Mapping(source = "type.type", target = "type"),
+            @Mapping(source = "fields", target = "fields", qualifiedByName = "fieldMapping"),
+            @Mapping(source = "userCollections", target = "members", qualifiedByName = "membersMapping")
     })
     CollectionDto collectionToDto(Collection collection);
 

@@ -16,7 +16,7 @@ public class UserRegisterDto {
     @Email
     private String email;
 
-    @Size(min=8)
+    @Size(min = 8)
     @NotNull
     private String password;
 }

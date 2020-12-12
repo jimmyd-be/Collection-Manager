@@ -58,13 +58,13 @@ public class CollectionController {
     @PatchMapping("/edit")
     public ResponseEntity editCollection(@RequestBody CollectionDto collectionDto) {
 
-     try {
-        collectionLogic.editCollection(collectionDto);
-        return ResponseEntity.ok().build();
-    } catch (UserPermissionException e) {
-        e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-    }
+        try {
+            collectionLogic.editCollection(collectionDto);
+            return ResponseEntity.ok().build();
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @PostMapping("/add")
@@ -86,13 +86,13 @@ public class CollectionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") long collectionId) {
-     try {
-        collectionLogic.deleteById(collectionId);
-        return ResponseEntity.ok().build();
-    } catch (UserPermissionException e) {
-        e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-    }
+        try {
+            collectionLogic.deleteById(collectionId);
+            return ResponseEntity.ok().build();
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @DeleteMapping("/{id}/user/{userId}")

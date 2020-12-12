@@ -15,5 +15,5 @@ public interface CollectionUserRepository extends JpaRepository<UserCollection, 
     List<UserCollection> getByCollectionId(@Param("id") long collectionId);
 
     @Query("SELECT u FROM UserCollection u WHERE u.user.id = :userId AND u.collection.id = :collectionId")
-    UserCollection  getByCollectionAndUser(@Param("collectionId")long collectionId, @Param("userId")long userId);
+    UserCollection getByCollectionAndUser(@Param("collectionId") long collectionId, @Param("userId") long userId);
 }

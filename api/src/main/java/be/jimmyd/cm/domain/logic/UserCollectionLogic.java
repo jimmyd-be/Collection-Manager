@@ -65,7 +65,7 @@ public class UserCollectionLogic {
         } else {
             final Optional<Collection> collectionOptional = collectionRepository.findById(collectionId);
 
-            if(collectionOptional.isPresent()) {
+            if (collectionOptional.isPresent()) {
                 userCollection = new UserCollection();
                 userCollection.setRole(role);
                 userCollection.setUser(user);
