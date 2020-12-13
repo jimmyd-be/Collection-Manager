@@ -3,7 +3,7 @@
 !/logs/README.md
 
 /api/.idea
-/api/target
+/api/target/*
 # compiled output
 /dist
 /tmp
@@ -50,3 +50,5 @@ gui/dist/
 /api/nbproject/private/
 
 *.iml
+
+*.class
