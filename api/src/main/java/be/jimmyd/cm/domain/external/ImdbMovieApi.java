@@ -28,7 +28,7 @@ public class ImdbMovieApi implements ExternalApi {
 
     @Override
     public String getUniqueKey() {
-        return "imdbBook";
+        return "imdbMovie";
     }
 
     @Override
