@@ -66,10 +66,11 @@ jobs:
         with:
           servers: |
             [{
-                "id": "imdb-github",
+                "id": "github",
                 "username": "${{ secrets.MAVEN_USERNAME }}",
                 "password": "${{ secrets.MAVEN_PASSWORD }}"
             }]
+          githubServer: false
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
