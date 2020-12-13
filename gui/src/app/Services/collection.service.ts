@@ -14,12 +14,12 @@ export class CollectionService {
   constructor(private http: HttpClient) {
   }
 
-  deleteUserFromCollection(userId: Number, collectionId: number) {
+  deleteUserFromCollection(userId: number, collectionId: number) {
     return this.http.delete('/collection/' + collectionId + '/user/' + userId);
   }
 
   editCollection(collection: Collection) {
-    return this.http.post<Collection>('/collection/edit', collection);
+    return this.http.patch<Collection>('/collection/edit', collection);
   }
 
   deleteCollection(id: number) {
@@ -30,7 +30,7 @@ export class CollectionService {
     return this.http.post<Collection>('/collection/add', collection);
   }
 
-  getUserCollection(id: Number): Observable<Collection> {
+  getUserCollection(id: number): Observable<Collection> {
     return this.http.get<Collection>('/collection/' + id);
   }
 
@@ -38,15 +38,15 @@ export class CollectionService {
       return this.http.get<Collection[]>('/collection/user');
   }
 
-  getUsers(id: Number): Observable<UserCollection[]> {
+  getUsers(id: number): Observable<UserCollection[]> {
     return this.http.get<UserCollection[]>('/collection/' + id + '/users');
   }
 
-  shareCollection(collectionShare: CollectionShare, collectionId: Number) {
+  shareCollection(collectionShare: CollectionShare, collectionId: number) {
     return this.http.post('/collection/' + collectionId + '/share', collectionShare);
   }
 
-  getCollectionTypes(): string[] {
-    return ['Books', 'Comics', 'Games', 'Magazines', 'Movies'];
+  getCollectionTypes(): Observable<string[]> {
+    return this.http.get<string[]>('/collection/types');
   }
 }

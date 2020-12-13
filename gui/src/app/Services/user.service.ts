@@ -17,15 +17,15 @@ export class UserService {
   }
 
   editUser(user: EditUser): Observable<any> {
-    return this.http.post<EditUser>('/user/edit', user);
+    return this.http.patch<EditUser>('/user/edit', user);
   }
 
   editPassword(password: PasswordUser): Observable<any> {
-    return this.http.post<PasswordUser>('/user/edit/password', password);
+    return this.http.patch<PasswordUser>('/user/edit/password', password);
   }
 
   deleteUser(model: DeleteUser) {
-    return this.http.post<DeleteUser>('/user/delete', model);
+    return this.http.request<DeleteUser>('delete', '/user/delete', {body: model});
   }
 
 

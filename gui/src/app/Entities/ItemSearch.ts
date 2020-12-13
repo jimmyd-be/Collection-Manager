@@ -1,12 +1,13 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 
-export class ItemSearch implements OnInit {
+@Directive()
+export class ItemSearchDirective implements OnInit {
 
     constructor(
         public externalId: string,
         public name: string,
         public image: string,
-        public reaseDate: string,
+        public releaseDate: string,
         public source: string,
         public url: string) {}
 

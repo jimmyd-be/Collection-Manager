@@ -5,9 +5,7 @@
     </a>
     <a class="logo" href="#" (click)="navigateHome()">Collection manager</a>
   </div>
-  <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
-    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-  </nb-select>
+  
 </div>
 
 <div class="header-container">
@@ -22,7 +20,7 @@
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user?.username"
-               [picture]="user?.image">
+               [picture]="">
       </nb-user>
     </nb-action>
   </nb-actions>

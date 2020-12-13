@@ -1,9 +1,10 @@
-name: Full build (develop)
+name: Full build
 
 on:
   push:
     branches: 
       - develop
+      - master
 
 jobs:
   gui:

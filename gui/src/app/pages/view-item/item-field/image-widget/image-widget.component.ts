@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'ngx-image-widget',
+  selector: 'app-image-widget',
   templateUrl: './image-widget.component.html',
   styleUrls: ['./image-widget.component.scss'],
 })

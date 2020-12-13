@@ -32,6 +32,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ShareCollectionDialogComponent } from './share-collection-dialog/share-collection-dialog.component';
 import { AddItemExternallyComponent } from './add-item-externally/add-item-externally.component';
 import { SearchItemResultComponent } from './search-item-result/search-item-result.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 @NgModule({
   imports: [
@@ -81,6 +83,8 @@ import { SearchItemResultComponent } from './search-item-result/search-item-resu
     ShareCollectionDialogComponent,
     AddItemExternallyComponent,
     SearchItemResultComponent,
+    AdminSettingsComponent,
+    AdminUsersComponent,
   ],
   entryComponents: [ItemDialogComponent, ConfirmationDialogComponent, ShareCollectionDialogComponent],
 })

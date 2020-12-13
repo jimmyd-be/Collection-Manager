@@ -2,7 +2,8 @@
 /api/logs/*
 !/logs/README.md
 
-/api/app/var/doctrine/*
+/api/.idea
+/api/target
 # compiled output
 /dist
 /tmp
@@ -46,3 +47,6 @@ testem.log
 Thumbs.db
 gui/node_modules/
 gui/dist/
+/api/nbproject/private/
+
+*.iml

@@ -10,7 +10,7 @@ import { UserCollection } from '../../Entities/UserCollection';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'ngx-share-collection',
+  selector: 'app-share-collection',
   templateUrl: './share-collection.component.html',
   styleUrls: ['./share-collection.component.scss'],
 })
@@ -22,8 +22,10 @@ export class ShareCollectionComponent implements OnInit {
   public currentCollection: Collection;
   userCollections: UserCollection[];
 
-  constructor(private collectionService: CollectionService, private roleService: RoleService,
-    private route: ActivatedRoute, private dialogService: NbDialogService) { }
+  constructor(private collectionService: CollectionService,
+              private roleService: RoleService,
+              private route: ActivatedRoute,
+              private dialogService: NbDialogService) { }
 
   ngOnInit() {
 
@@ -44,7 +46,7 @@ export class ShareCollectionComponent implements OnInit {
       });
   }
 
-  deleteUser(userId: Number) {
+  deleteUser(userId: number) {
     this.collectionService.deleteUserFromCollection(userId, this.collectionId).subscribe(d =>
       this.collectionService.getUsers(this.collectionId).subscribe(data => this.userCollections = data));
   }

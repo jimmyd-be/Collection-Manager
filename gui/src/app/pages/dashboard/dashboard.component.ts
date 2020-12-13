@@ -9,7 +9,7 @@ import { NbAuthService, NbAuthJWTToken } from '@nebular/auth';
 
 
 @Component({
-  selector: 'ngx-dashboard',
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -22,8 +22,10 @@ export class DashboardComponent implements OnInit {
 
   collections: Collection[];
 
-  constructor(private collectionService: CollectionService, private router: Router, private dialogService: NbDialogService,
-    private authService: NbAuthService) { }
+  constructor(private collectionService: CollectionService,
+              private router: Router,
+              private dialogService: NbDialogService,
+              private authService: NbAuthService) { }
 
   ngOnInit() {
     this.loadCollections();
@@ -58,7 +60,7 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  viewCollection(id: Number) {
+  viewCollection(id: number) {
     this.router.navigate(['/pages/collection/view', id]);
   }
 

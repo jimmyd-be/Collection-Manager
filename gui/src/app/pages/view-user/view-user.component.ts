@@ -4,7 +4,7 @@ import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ngx-view-user',
+  selector: 'app-view-user',
   templateUrl: './view-user.component.html',
   styleUrls: ['./view-user.component.scss'],
 })

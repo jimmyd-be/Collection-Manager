@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DeleteUser } from '../../Entities/DeleteUser';
 
 @Component({
-  selector: 'ngx-delete-user',
+  selector: 'app-delete-user',
   templateUrl: './delete-user.component.html',
   styleUrls: ['./delete-user.component.scss'],
 })
@@ -17,7 +17,7 @@ export class DeleteUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit () {
+  onSubmit() {
 
     this.userService.deleteUser(this.model).subscribe(data => {
       this.router.navigate(['/auth/logout']);

@@ -20,8 +20,8 @@
         <nb-accordion-item *ngFor="let fields of customFields.controls; let i = index">
           <nb-accordion-item-header>Custom field {{ i + 1 }}</nb-accordion-item-header>
           <nb-accordion-item-body>
-            <ngx-app-add-custom-field [index]="i" [customFieldForm]="fields" (deleteCustomField)="deletePlayer($event)">
-            </ngx-app-add-custom-field>
+            <app-add-custom-field [index]="i" [customFieldForm]="fields" (deleteCustomField)="deletePlayer($event)">
+            </app-add-custom-field>
           </nb-accordion-item-body>
         </nb-accordion-item>
       </nb-accordion>
@@ -29,8 +29,9 @@
     </nb-card-body>
 
     <nb-card-footer>
-      <button nbButton status="primary" type="submit" [disabled]="!addCollectionGroup.valid">Submit</button>
-      <button nbButton type="button" status="info" (click)="addCustomField()">Add custom field</button>
+      <button nbButton status="primary"
+      class="appearance-filled size-medium status-primary shape-rectangle nb-transition"type="submit" [disabled]="!addCollectionGroup.valid">Submit</button>
+      <button nbButton type="button" class="appearance-filled size-medium status-info shape-rectangle nb-transition" status="info" (click)="addCustomField()">Add custom field</button>
     </nb-card-footer>
 
   </nb-card>

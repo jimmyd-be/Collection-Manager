@@ -1,7 +1,8 @@
 <nb-card>
-  <nb-card-header>Add new Item</nb-card-header>
+  <nb-card-header *ngIf="!item">Add new Item</nb-card-header>
+  <nb-card-header *ngIf="item">Edit Item</nb-card-header>
 
-  <nb-card-body>
+  <nb-card-body *ngIf="!item">
     <nb-select placeholder="Please select collection" status="primary"
       (selectedChange)="collectionSelectionChanged($event)">
       <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
@@ -10,14 +11,16 @@
 
   <nb-card-footer>
 
-    <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="formService.fields">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="formService.fields && collectionId !== 0">
 
       <div *ngFor="let field of formService.fields" class="form-row">
-        <ngx-custom-field-form [field]="field" [form]="form" [parentComponent]="this" class="col-12"></ngx-custom-field-form>
+        <app-custom-field-form [field]="field" [form]="form" [parentComponent]="this" class="col-12"></app-custom-field-form>
       </div>
 
       <div class="form-row">
-        <button nbButton type="submit" status="primary" [disabled]="!form.valid">Save</button>
+        <button nbButton type="submit" status="primary" 
+        class="appearance-filled size-medium status-primary shape-rectangle nb-transition"
+        [disabled]="!form.valid">Save</button>
       </div>
     </form>
   </nb-card-footer>

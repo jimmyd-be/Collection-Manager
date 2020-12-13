@@ -4,7 +4,9 @@
       Are you sure you want to delete this item?
     </nb-card-body>
   <nb-card-footer>
-      <button nbButton (click)="delete()" status="danger">Delete</button>
-      <button nbButton (click)="cancel()" status="primary">Cancel</button>
+      <button nbButton (click)="delete()" status="danger" 
+      class="appearance-filled size-medium status-danger shape-rectangle nb-transition">Delete</button>
+      <button nbButton (click)="cancel()" status="primary"
+      class="appearance-filled size-medium status-primary shape-rectangle nb-transition">Cancel</button>
   </nb-card-footer>
   </nb-card>

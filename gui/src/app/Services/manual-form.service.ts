@@ -14,11 +14,11 @@ export class ManualFormService {
 
   constructor(private customfieldService: CustomFieldService) { }
 
-  addFieldToList(field: CustomField, number: number) {
+  addFieldToList(field: CustomField, numberValue: number) {
 
     let value = field.valueNumber + 1;
-    if (number) {
-      value = number;
+    if (numberValue) {
+      value = numberValue;
     }
 
     const newField = new CustomField(field.id, field.name, field.type, field.options,
@@ -48,7 +48,7 @@ export class ManualFormService {
 
       if (currentField.valueNumber === 0) {
 
-      const value: String[] = this.getValueOfField(currentField, item);
+      const value: string[] = this.getValueOfField(currentField, item);
 
       for (let i = 0; i < value.length; i++) {
 
@@ -70,7 +70,7 @@ export class ManualFormService {
     });
     return new FormGroup(group);
   }
-  getValueOfField(field: CustomField, item: Item): String[] {
+  getValueOfField(field: CustomField, item: Item): string[] {
     let value: Array<string> = new Array();
 
     if (isDefined(item)) {

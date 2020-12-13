@@ -1,15 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ItemSearch } from '../../Entities/ItemSearch';
+import { ItemSearchDirective } from '../../Entities/ItemSearch';
 import { ItemService } from '../../Services/item.service';
 
 @Component({
-  selector: 'ngx-search-item-result',
+  selector: 'app-search-item-result',
   templateUrl: './search-item-result.component.html',
   styleUrls: ['./search-item-result.component.scss'],
 })
 export class SearchItemResultComponent implements OnInit {
 
-  @Input() item: ItemSearch;
+  @Input() item: ItemSearchDirective;
   @Input() collectionId: number;
 
   constructor(private itemService: ItemService) { }

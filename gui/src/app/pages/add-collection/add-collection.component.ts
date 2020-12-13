@@ -9,11 +9,23 @@ import { ParamMap, ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ngx-app-add-collection',
+  selector: 'app-add-collection',
   templateUrl: './add-collection.component.html',
   styleUrls: ['./add-collection.component.scss'],
 })
 export class AddCollectionComponent implements OnInit, OnDestroy {
+
+  private customFieldId = 'id';
+  private customFieldName = 'name';
+  private customFieldType = 'type';
+  private customFieldOptions = 'options';
+  private customFieldRequired = 'required';
+  private customFieldPlaceholder = 'placeholder';
+  private customFieldFieldOrder = 'fieldOrder';
+  private customFieldPlace = 'place';
+  private customFieldMultiValue = 'multiValue';
+  private customFieldLabelPos = 'labelposition';
+  private customFieldLabel = 'label';
 
   addCollectionGroup: FormGroup;
 
@@ -23,10 +35,12 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
 
   collection: Collection;
   fields: CustomField[];
-  editMode: boolean = false;
+  editMode = false;
 
   constructor(private collectionService: CollectionService,
-    private formService: AddCollectionService, private route: ActivatedRoute, private router: Router) { }
+              private formService: AddCollectionService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -54,7 +68,9 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
         });
     });
 
-    this.collectionTypes = this.collectionService.getCollectionTypes();
+    this.collectionService.getCollectionTypes().subscribe(type => {
+      this.collectionTypes = type;
+    });
   }
 
   ngOnDestroy() {
@@ -76,17 +92,17 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
 
     for (const customField of this.addCollectionGroup.value.fields) {
       const newField = new CustomField(
-        customField['id'],
-        customField['name'],
-        customField['type'],
-        customField['options'],
-        customField['required'],
-        customField['placeholder'],
-        customField['fieldOrder'],
-        customField['place'],
-        customField['multiValue'],
-        customField['labelposition'],
-        customField['label'], '', '');
+        customField[this.customFieldId],
+        customField[this.customFieldName],
+        customField[this.customFieldType],
+        customField[this.customFieldOptions],
+        customField[this.customFieldRequired],
+        customField[this.customFieldPlaceholder],
+        customField[this.customFieldFieldOrder],
+        customField[this.customFieldPlace],
+        customField[this.customFieldMultiValue],
+        customField[this.customFieldLabelPos],
+        customField[this.customFieldLabel], '', '');
 
       fields.push(newField);
     }

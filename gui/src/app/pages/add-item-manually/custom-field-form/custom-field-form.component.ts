@@ -5,7 +5,7 @@ import { faPlusCircle, faMinusCircle} from '@fortawesome/free-solid-svg-icons';
 import { AddItemManuallyComponent } from '../add-item-manually.component';
 
 @Component({
-  selector: 'ngx-custom-field-form',
+  selector: 'app-custom-field-form',
   templateUrl: './custom-field-form.component.html',
   styleUrls: ['./custom-field-form.component.scss'],
 })

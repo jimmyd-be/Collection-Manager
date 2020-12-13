@@ -1,19 +1,13 @@
-/**
- * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- */
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CoreModule } from './@core/core.module';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { ServerInterceptor } from './Interceptors/server-interceptor';
 import { RatingModule } from 'ng-starrating';
@@ -21,21 +15,32 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NbDatepickerModule, NbMenuModule, NbSidebarService } from '@nebular/theme';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PagesModule } from './pages/pages.module';
+import { AppRoutingModule } from './app-routing.module';
+import { NbRoleProvider, NbSecurityModule } from '@nebular/security';
+import { of as observableOf } from 'rxjs';
 
+@Injectable()
+export class NbSimpleRoleProvider extends NbRoleProvider {
+  getRole() {
+    // here you could provide any role based on any auth flow
+    return observableOf('guest');
+  }
+}
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule,
+    PagesModule,
     FormsModule,
     ReactiveFormsModule,
     RatingModule,
     NgbModule,
     ThemeModule.forRoot(),
-    CoreModule.forRoot(),
     NbDatepickerModule.forRoot(),
     NbMenuModule.forRoot(),
     NbAuthModule.forRoot({
@@ -90,7 +95,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       multi: true,
     },
     NbSidebarService,
+    {
+      provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
+    },
+    NbSecurityModule.forRoot({
+      accessControl: {
+        guest: {
+          view: '*',
+        },
+        user: {
+          parent: 'guest',
+          create: '*',
+          edit: '*',
+          remove: '*',
+        },
+      },
+    }).providers,
   ],
 })
-export class AppModule {
-}
+export class AppModule { }

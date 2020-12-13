@@ -10,11 +10,11 @@ import { FieldService } from '../../Services/field.service';
 import { ItemData } from '../../Entities/ItemData';
 import { NbDialogService } from '@nebular/theme';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
-import { ItemField } from '../../Entities/ItemField';
+import { ItemFieldDirective } from '../../Entities/ItemField';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
-  selector: 'ngx-view-collection',
+  selector: 'app-view-collection',
   templateUrl: './view-collection.component.html',
   styleUrls: ['./view-collection.component.scss'],
 })
@@ -25,10 +25,11 @@ export class ViewCollectionComponent implements OnInit {
   deleteIcon = faTrash;
   editIcon = faEdit;
 
-  itemsPerPage: number = 50;
-  currentPage: number = 0;
-  currentView: string = 'list';
-  currentLetterFilter: string = 'ALL';
+  id: number;
+  itemsPerPage = 50;
+  currentPage = 0;
+  currentView = 'list';
+  currentLetterFilter = 'ALL';
 
   firstLetterFilter: string[] ;
 
@@ -36,9 +37,12 @@ export class ViewCollectionComponent implements OnInit {
   fields: CustomField[];
   items: Item[] = Array();
 
-  constructor(private route: ActivatedRoute, private collectionService: CollectionService,
-    private itemService: ItemService, private fieldService: FieldService, private dialogService: NbDialogService,
-    private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private collectionService: CollectionService,
+              private itemService: ItemService,
+              private fieldService: FieldService,
+              private dialogService: NbDialogService,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -48,20 +52,33 @@ export class ViewCollectionComponent implements OnInit {
 
     this.firstLetterFilter = '#ABCDEFGHIJKLMNOPQRSTUVWQYZ'.split('');
 
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id == null) {
+      this.loadData();
+    }
 
-    if (id !== null) {
+    this.router.events.subscribe((val) => {
+      this.loadData();
+    });
+  }
 
-      this.fieldService.getFieldsByCollection(id).subscribe(data => {
+  private loadData() {
+    const currentId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (currentId !== null && this.id !== currentId) {
+
+      this.id = currentId;
+
+      this.fieldService.getFieldsByCollection(currentId).subscribe(data => {
         this.fields = data;
       });
 
-      this.collectionService.getUserCollection(id).subscribe(data => {
+      this.collectionService.getUserCollection(currentId).subscribe(data => {
         this.collection = data;
       });
 
-      this.itemService.getItemOfCollection(id, this.currentPage, this.itemsPerPage).subscribe(items => {
+      this.items = [];
 
+      this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage).subscribe(items => {
         for (const item of items) {
           this.items.push(item);
         }
@@ -98,7 +115,7 @@ export class ViewCollectionComponent implements OnInit {
   }
 
   openModal(item: Item) {
-    this.dialogService.open(ItemDialogComponent, {context: new ItemField(item, this.fields, this.collection)})
+    this.dialogService.open(ItemDialogComponent, {context: new ItemFieldDirective(item, this.fields, this.collection)})
     .onClose.subscribe(
       data => {
         if (data === 'delete') {

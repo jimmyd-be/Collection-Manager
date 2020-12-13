@@ -4,7 +4,7 @@ import { PasswordUser } from '../../Entities/PasswordUser';
 import { UserService } from '../../Services/user.service';
 
 @Component({
-  selector: 'ngx-edit-password-user',
+  selector: 'app-edit-password-user',
   templateUrl: './edit-password-user.component.html',
   styleUrls: ['./edit-password-user.component.scss'],
 })
@@ -18,7 +18,7 @@ export class EditPasswordUserComponent implements OnInit {
   }
 
 
-  onSubmit () {
+  onSubmit() {
 
     this.userService.editPassword(this.model).subscribe(data => {
       this.router.navigate(['/pages/profile']);

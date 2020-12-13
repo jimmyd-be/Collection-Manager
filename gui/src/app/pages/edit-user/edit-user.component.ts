@@ -2,25 +2,57 @@ import { Component, OnInit } from '@angular/core';
 import { EditUser } from '../../Entities/EditUser';
 import { UserService } from '../../Services/user.service';
 import { Router } from '@angular/router';
+import {NbThemeService} from '@nebular/theme';
+import { map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'ngx-edit-user',
+  selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss'],
 })
 export class EditUserComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  private destroy$: Subject<void> = new Subject<void>();
 
-  model: EditUser = new EditUser('', '', '');
+  constructor(private userService: UserService, private router: Router, private themeService: NbThemeService) { }
+
+  model: EditUser = new EditUser('', '', '', 'default');
+
+  themes = [
+    {
+      value: 'default',
+      name: 'Default',
+    },
+    {
+      value: 'dark',
+      name: 'Dark',
+    },
+  ];
+
+  currentTheme = 'default';
 
   ngOnInit() {
+    this.currentTheme = this.themeService.currentTheme;
+
     this.userService.getUser().subscribe(data => {
-        this.model = new EditUser('', data.username, data.mail);
+        this.model = new EditUser('', data.username, data.mail, data.theme);
+        this.currentTheme = data.theme == null ? 'default' : data.theme;
     });
+
+    this.themeService.onThemeChange()
+      .pipe(
+        map(({ name }) => name),
+        takeUntil(this.destroy$),
+      )
+      .subscribe(themeName => this.currentTheme = themeName);
   }
 
-  onSubmit () {
+  changeTheme(themeName: string) {
+    this.themeService.changeTheme(themeName);
+  }
+
+  onSubmit() {
 
     this.userService.editUser(this.model).subscribe(data => {
       this.router.navigate(['/pages/profile']);
