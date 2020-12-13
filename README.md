@@ -1,5 +1,5 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![stability](https://github.com/jimmyd-be/Collection-Manager/workflows/master/badge.svg)](http://github.com/badges/stability-badges)
+![Full build](https://github.com/jimmyd-be/Collection-Manager/workflows/Full%20build/badge.svg?branch=master)
 
 # Collection manager
 
