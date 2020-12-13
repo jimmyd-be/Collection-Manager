@@ -38,9 +38,7 @@ export class ShareCollectionDialogComponent implements OnInit {
   share() {
     const shareDto = new CollectionShare(this.form.controls[this.usernameLabel].value, this.form.controls[this.roleLabel].value);
 
-    this.collectionService.shareCollection(shareDto, this.collectionId).subscribe();
-
-    this.close();
+    this.collectionService.shareCollection(shareDto, this.collectionId).subscribe(data => this.close());
   }
 
 }

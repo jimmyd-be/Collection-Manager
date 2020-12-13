@@ -17,12 +17,12 @@ import { UserService } from '../Services/user.service';
 export class PagesComponent implements OnInit {
 
   menu = MENU_ITEMS;
+  originalArray = [];
+
 
   constructor(private collectionService: CollectionService, private userService: UserService) { }
 
   ngOnInit() {
-
-    this.menu = MENU_ITEMS;
 
     const isAdmin = this.userService.getUser().toPromise().then(user => {
       return user.isAdmin;
@@ -36,7 +36,13 @@ export class PagesComponent implements OnInit {
         });
     }
 
+    this.menu.forEach(val => this.originalArray.push(Object.assign({}, val)));
+
+
     this.collectionService.getUserCollections().subscribe(collections => {
+
+      this.menu = [];
+      this.originalArray.forEach(val => this.menu.push(Object.assign({}, val)));
 
       for (const collection of collections ) {
         const newItem = new NbMenuItem();
