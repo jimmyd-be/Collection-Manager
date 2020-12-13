@@ -3,7 +3,6 @@ name: Full build
 on:
   push:
     branches: 
-      - develop
       - master
 
 jobs:
@@ -57,28 +56,34 @@ jobs:
   api:
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@v1
-      
-      - name: Cache PHP dependencies
-        uses: actions/cache@v1
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
         with:
-          path: vendor
-          key: ${{ runner.OS }}-build-${{ hashFiles('api/composer.lock') }}
-          
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v1
+          java-version: 11
+      - name: Cache Maven packages
+        uses: actions/cache@v2
         with:
-          php-version: '7.4'
-          tools: composer
-      - name: Composer install
-        run: composer install --working-dir api
-      - name: Create zip
-        uses: montudor/action-zip@v0.1.0
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Configure Maven
+        uses: s4u/maven-settings-action@v2.2.0
         with:
-          args: zip -qq -r ./api.zip ./api
+          servers: |
+            [{
+                "id": "github-imdb",
+                "username": "${{ secrets.MAVEN_USERNAME }}",
+                "password": "${{ secrets.MAVEN_PASSWORD }}"
+            }]
+          githubServer: false
+      - name: Unit test + integration tests
+        run: mvn verify --file api/pom.xml
+      - name: Build with Maven
+        run: mvn -B package --file api/pom.xml
+      - run: mkdir artifacts && cp api/target/*.jar artifacts
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
           name: Api
-          path: ./api.zip
-
+          path: artifacts
