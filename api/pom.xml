@@ -16,7 +16,7 @@
 
     <repositories>
         <repository>
-            <id>github</id>
+            <id>github-imdb</id>
             <url>https://maven.pkg.github.com/jimmyd-be/imdb-api</url>
         </repository>
     </repositories>
