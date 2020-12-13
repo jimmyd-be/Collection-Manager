@@ -71,12 +71,7 @@ jobs:
                 "password": "${{ secrets.MAVEN_PASSWORD }}"
             }]
           githubServer: false
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+      - run: cat ~/.m2/settings.xml
       - name: Unit test + integration tests
         run: mvn -X verify --file api/pom.xml
       - name: Build with Maven
