@@ -78,7 +78,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Unit test + integration tests
-        run: mvn verify --file api/pom.xml
+        run: mvn -X verify --file api/pom.xml
       - name: Build with Maven
         run: mvn -B package --file api/pom.xml
       - run: mkdir artifacts && cp api/target/*.jar artifacts
