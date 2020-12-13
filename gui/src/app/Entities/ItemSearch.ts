@@ -7,7 +7,7 @@ export class ItemSearchDirective implements OnInit {
         public externalId: string,
         public name: string,
         public image: string,
-        public reaseDate: string,
+        public releaseDate: string,
         public source: string,
         public url: string) {}
 

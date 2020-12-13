@@ -1,5 +1,5 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
+![Full build](https://github.com/jimmyd-be/Collection-Manager/workflows/Full%20build/badge.svg?branch=master)
 
 # Collection manager
 
@@ -32,7 +32,10 @@ Collection manager is a tool to manager different collection like movies, games,
 	- Node.js verion 10.x or greater
 	- Angular CLI
 	- Apache HTTPD or equivalents
-	- PHP 7.4 or greater
+	- Java 11
+	- Maven
+	- docker (optional)
+	- Mariadb or equivalents
 - For users:
 	- Html 5 browser
 	
@@ -40,8 +43,8 @@ Collection manager is a tool to manager different collection like movies, games,
 
 - [Angular]([https://angular.io/](https://angular.io/))
 - [Nebular]([https://akveo.github.io/nebular/](https://akveo.github.io/nebular/))
-- [ReallySimpleJWT](https://github.com/RobDWaller/ReallySimpleJWT)
-- [Slim Framework](http://www.slimframework.com/)
+- [Spring](https://spring.io)
+
 
 
 ## How to build the code (using Docker)
@@ -50,6 +53,9 @@ The application contains a script that will build the Angular code and create th
 
     sudo sh ./run.sh
 
+## How to remove docker stack
+
+    sudo sh ./remove-deploy.sh
 
  ## How to contribute to this project
 You can contribute any kind of new features, bugfixes, ... to the project. The features that need to be implemented can be found at the project page of the repository. If some nice feature is missing please contact me and I will add it to the project. For some help to contribute to this project please read the great guide "[First Contributions](https://github.com/firstcontributions/first-contributions)".

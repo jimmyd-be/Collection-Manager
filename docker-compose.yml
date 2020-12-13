@@ -8,20 +8,26 @@ services:
     api:
         build: ./api
         ports:
-        - "8080:8080"
+            - "8080:8080"
+        depends_on:
+            - db
+        deploy:
+            restart_policy:
+                condition: on-failure
     gui:
         build: ./gui
         ports:
-        - "80:80"
+            - "80:80"
+        depends_on:
+            - api
     db:
         image: mariadb
         volumes:
             - container-volume:/var/lib/mysql
-            - ./api/database/database.sql:/docker-entrypoint-initdb.d/dump.sql
         environment:
             MYSQL_ROOT_PASSWORD: testDatabase
             MYSQL_DATABASE: newcm
         ports:
-        - "3306:3306"
+            - "3306:3306"
 volumes:
   container-volume:

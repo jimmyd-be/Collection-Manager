@@ -34,7 +34,10 @@ export class AddItemExternallyComponent implements OnInit {
     const inputValue = event.target.value;
 
     if (inputValue.length % 2 === 0) {
-      this.itemService.searchItem(inputValue).subscribe(data => {
+
+      const selectedCollection = this.collectionList.filter(x => x.id === this.collectionId)[0];
+
+      this.itemService.searchItem(inputValue, selectedCollection.type).subscribe(data => {
         this.searchResults = data;
         this.chRef.detectChanges();
       });

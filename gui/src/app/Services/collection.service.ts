@@ -19,7 +19,7 @@ export class CollectionService {
   }
 
   editCollection(collection: Collection) {
-    return this.http.post<Collection>('/collection/edit', collection);
+    return this.http.patch<Collection>('/collection/edit', collection);
   }
 
   deleteCollection(id: number) {
