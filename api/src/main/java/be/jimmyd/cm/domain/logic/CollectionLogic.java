@@ -30,11 +30,10 @@ public class CollectionLogic {
     private final FieldTypeRepository fieldTypeRepository;
     private final ItemLogic itemLogic;
     private final FieldLogic fieldLogic;
-    private final SecurityUtil securityUtil;
 
     public CollectionLogic(CollectionRepository collectionRepository, UserRepository userRepository, FieldRepository fieldRepository,
                            final UserCollectionLogic userCollectionLogic, final CollectionTypeRepository collectionTypeRepository,
-                           final FieldTypeRepository fieldTypeRepository, final ItemLogic itemLogic, final FieldLogic fieldLogic, final SecurityUtil securityUtil) {
+                           final FieldTypeRepository fieldTypeRepository, final ItemLogic itemLogic, final FieldLogic fieldLogic) {
         this.collectionRepository = collectionRepository;
         this.userRepository = userRepository;
         this.collectionMapper = CollectionMapper.INSTANCE;
@@ -45,7 +44,6 @@ public class CollectionLogic {
         this.fieldTypeRepository = fieldTypeRepository;
         this.itemLogic = itemLogic;
         this.fieldLogic = fieldLogic;
-        this.securityUtil = securityUtil;
     }
 
     public List<CollectionDto> getByUser(String mail) {
@@ -58,10 +56,6 @@ public class CollectionLogic {
 
     public CollectionDto getById(long collectionId) throws UserPermissionException {
 
-        //TODO add check for user permission
-        securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
-
-
         final Optional<Collection> collection = collectionRepository.findById(collectionId);
 
         if (collection.isPresent()) {
@@ -69,11 +63,11 @@ public class CollectionLogic {
         }
 
         return null;
-
     }
 
     @Transactional
     public void deleteById(long collectionId) throws UserPermissionException {
+
         collectionRepository.findById(collectionId).ifPresent(collection -> {
             collection.getUserCollections().forEach(userCollection -> {
                 try {
@@ -112,13 +106,12 @@ public class CollectionLogic {
 
         Collection savedCollection = collectionRepository.save(collection);
 
-        userCollectionLogic.addUserToCollection(mail, "Owner", savedCollection);
+        userCollectionLogic.addUserToCollection(mail, "Admin", savedCollection);
 
     }
 
     public void editCollection(CollectionDto collectionDto) throws UserPermissionException {
 
-        //TODO check permissions of user to collection
         final Optional<Collection> collectionOptional = collectionRepository.findById(collectionDto.getId());
 
         collectionOptional.ifPresent(collection -> {

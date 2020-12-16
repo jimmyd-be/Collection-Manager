@@ -148,22 +148,24 @@ public class ItemControllerIT {
         assertTrue(Arrays.stream(getResult.getBody()).map(n -> n.getData()).flatMap(List::stream).filter(n -> n.getValue().equals("Fantasy2")).findFirst().isPresent());
     }
 
-    @Order(5)
+    @Order(7)
     @Test
     public void deleteItemTest() {
+        final ResponseEntity<ItemDto[]> getResult1 = restTemplate.exchange(createURLWithPort("item/get/collection/1/0/50"), HttpMethod.GET, new HttpEntity<>(getHeaders()), ItemDto[].class);
+
         final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("item/2/collection/1"), HttpMethod.DELETE, new HttpEntity<>(getHeaders()), Object.class);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         final ResponseEntity<ItemDto[]> getResult = restTemplate.exchange(createURLWithPort("item/get/collection/1/0/50"), HttpMethod.GET, new HttpEntity<>(getHeaders()), ItemDto[].class);
         assertEquals(HttpStatus.OK, getResult.getStatusCode());
 
-        assertEquals(0, getResult.getBody().length);
+        assertEquals(getResult1.getBody().length - 1, getResult.getBody().length);
 
-        final ResponseEntity<ItemDto> getByIdResult = restTemplate.exchange(createURLWithPort("item/get/2"), HttpMethod.GET, new HttpEntity<>(getHeaders()), ItemDto.class);
+        final ResponseEntity<ItemDto> getByIdResult = restTemplate.exchange(createURLWithPort("item/get/1"), HttpMethod.GET, new HttpEntity<>(getHeaders()), ItemDto.class);
         assertEquals(HttpStatus.NOT_FOUND, getByIdResult.getStatusCode());
     }
 
-    @Order(6)
+    @Order(5)
     @Test
     public void searchImdbMovieTest() {
         final ResponseEntity<ItemSearchDto[]> result = restTemplate.exchange(createURLWithPort("item/external/movies?search=tenet"), HttpMethod.GET, new HttpEntity<>(getHeaders()), ItemSearchDto[].class);
@@ -172,7 +174,7 @@ public class ItemControllerIT {
         assertTrue(result.getBody().length > 0);
     }
 
-    @Order(7)
+    @Order(6)
     @Test
     public void addImdbMovieTest() {
         final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("item/external/add/collection/1/imdbMovie/tt0241527"), HttpMethod.POST, new HttpEntity<>(getHeaders()), Object.class);
@@ -181,7 +183,7 @@ public class ItemControllerIT {
         final ResponseEntity<ItemDto[]> itemListResult = restTemplate.exchange(createURLWithPort("item/get/collection/1/0/50"), HttpMethod.GET, new HttpEntity<>(getHeaders()), ItemDto[].class);
         assertEquals(HttpStatus.OK, itemListResult.getStatusCode());
 
-        assertEquals(1, itemListResult.getBody().length);
+        assertEquals(2, itemListResult.getBody().length);
         assertEquals("Harry Potter and the Sorcerer's Stone", itemListResult.getBody()[0].getName());
 
 

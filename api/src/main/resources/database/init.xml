@@ -1115,7 +1115,7 @@
     <changeSet author="jimmy (generated)" id="15">
         <insert tableName="cm_role">
             <column name="id" valueNumeric="1"/>
-            <column name="name" value="Owner"/>
+            <column name="name" value="Admin"/>
             <column name="active" valueBoolean="true"/>
         </insert>
         <insert tableName="cm_role">

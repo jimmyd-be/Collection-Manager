@@ -4,6 +4,7 @@ import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.logic.CollectionLogic;
 import be.jimmyd.cm.domain.logic.CollectionTypeLogic;
 import be.jimmyd.cm.domain.logic.UserCollectionLogic;
+import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ public class CollectionControllerTest {
     private CollectionLogic collectionLogic;
 
     @Mock
-    private CollectionTypeLogic collectionTypeLogic;
+    private SecurityUtil securityUtil;
 
     @Mock
     private UserCollectionLogic userCollectionLogic;
@@ -109,7 +110,7 @@ public class CollectionControllerTest {
     @Test
     public void deleteForbidden() throws UserPermissionException {
 
-        doThrow(UserPermissionException.class).when(collectionLogic).deleteById(1);
+        doThrow(UserPermissionException.class).when(securityUtil).hasUserAccessToCollection(anyLong(), any());
 
         ResponseEntity response = controller.delete(1);
 
@@ -119,7 +120,7 @@ public class CollectionControllerTest {
     @Test
     public void deleteUserFromCollectionForbidden() throws UserPermissionException {
 
-        doThrow(UserPermissionException.class).when(userCollectionLogic).deleteUserFromCollection(1, 2);
+        doThrow(UserPermissionException.class).when(securityUtil).hasUserAccessToCollection(anyLong(), any());
 
         ResponseEntity response = controller.deleteUserFromCollection(1, 2);
 

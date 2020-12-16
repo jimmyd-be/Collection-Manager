@@ -155,7 +155,7 @@ public class CollectionControllerIT {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         assertEquals(username, Arrays.asList(response.getBody()).get(0).getUserName());
-        assertEquals("Owner", Arrays.asList(response.getBody()).get(0).getRoleName());
+        assertEquals("Admin", Arrays.asList(response.getBody()).get(0).getRoleName());
     }
 
     @Test
@@ -178,7 +178,7 @@ public class CollectionControllerIT {
 
         assertEquals(username, user1.getUserName());
         assertEquals(usernameSecondUser, user2.getUserName());
-        assertEquals("Owner", user1.getRoleName());
+        assertEquals("Admin", user1.getRoleName());
         assertEquals("Editor", user2.getRoleName());
 
         //Check that user 2 has collection in his list

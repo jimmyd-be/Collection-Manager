@@ -44,8 +44,7 @@ public class ItemLogic {
         final User user = userRepository.findByMail(userMail);
         collectionRepository.findById(collectionId).ifPresent(collection -> {
 
-            //TODo check user permission on collection
-            //TODO split this method
+
             final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
             fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
 
@@ -104,8 +103,6 @@ public class ItemLogic {
 
     @Transactional
     public void editItem(long itemId, Map<String, String> itemData, String userMail) {
-        //TODo check user permission
-
         itemRepository.findById(itemId).ifPresent(item -> {
 
             final List<Collection> collections = item.getCollections();
@@ -128,8 +125,6 @@ public class ItemLogic {
     }
 
     public ItemDto getById(long itemId) throws ItemNotExistException {
-        //TODo check user permission
-
         final Optional<Item> itemOptional = itemRepository.findById(itemId);
 
         if (itemOptional.isPresent()) {
@@ -140,8 +135,6 @@ public class ItemLogic {
     }
 
     public List<ItemDto> getItemsByCollection(long collectionId, PageRequest page) {
-        //TODo check user permission
-
         final List<Item> items = itemRepository.getByCollectionId(collectionId, page);
 
         return ItemMapper.INSTANCE.itemToDto(items);
@@ -158,8 +151,6 @@ public class ItemLogic {
     }
 
     public void deleteItemFromCollection(long itemId, long collectionId) {
-        //TODO check user permission
-
         collectionRepository.findById(collectionId).ifPresent(collection -> {
             collection.getItems().stream().filter(n -> n.getId() == itemId).findFirst().ifPresent(field -> collection.getItems().remove(field));
 

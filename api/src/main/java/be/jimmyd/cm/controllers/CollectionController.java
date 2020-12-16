@@ -1,9 +1,11 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.logic.CollectionLogic;
 import be.jimmyd.cm.domain.logic.CollectionTypeLogic;
 import be.jimmyd.cm.domain.logic.UserCollectionLogic;
+import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
 import be.jimmyd.cm.dto.UserCollectionDto;
@@ -22,12 +24,14 @@ public class CollectionController {
     private final CollectionLogic collectionLogic;
     private final CollectionTypeLogic collectionTypeLogic;
     private final UserCollectionLogic userCollectionLogic;
+    private final SecurityUtil securityUtil;
 
     public CollectionController(final CollectionLogic collectionLogic, final CollectionTypeLogic collectionTypeLogic,
-                                final UserCollectionLogic userCollectionLogic) {
+                                final UserCollectionLogic userCollectionLogic, final SecurityUtil securityUtil) {
         this.collectionLogic = collectionLogic;
         this.collectionTypeLogic = collectionTypeLogic;
         this.userCollectionLogic = userCollectionLogic;
+        this.securityUtil = securityUtil;
     }
 
     @GetMapping("/user")
@@ -43,6 +47,7 @@ public class CollectionController {
     @GetMapping("/{id}")
     public ResponseEntity<CollectionDto> getById(@PathVariable("id") long collectionId) {
         try {
+            securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
             return ResponseEntity.ok(collectionLogic.getById(collectionId));
         } catch (UserPermissionException e) {
             e.printStackTrace();
@@ -59,6 +64,7 @@ public class CollectionController {
     public ResponseEntity editCollection(@RequestBody CollectionDto collectionDto) {
 
         try {
+            securityUtil.hasUserAccessToCollection(collectionDto.getId(), Permission.READ);
             collectionLogic.editCollection(collectionDto);
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
@@ -76,6 +82,7 @@ public class CollectionController {
     @PostMapping("/{id}/share")
     public ResponseEntity share(@PathVariable("id") long collectionId, @RequestBody CollectionShareDto collectionShareDto) {
         try {
+            securityUtil.hasUserAccessToCollection(collectionId, Permission.ADMIN);
             userCollectionLogic.shareCollection(collectionId, collectionShareDto);
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
@@ -87,6 +94,7 @@ public class CollectionController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") long collectionId) {
         try {
+            securityUtil.hasUserAccessToCollection(collectionId, Permission.ADMIN);
             collectionLogic.deleteById(collectionId);
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
@@ -99,6 +107,7 @@ public class CollectionController {
     public ResponseEntity deleteUserFromCollection(@PathVariable("id") long collectionId, @PathVariable("userId") long userId) {
 
         try {
+            securityUtil.hasUserAccessToCollection(collectionId, Permission.ADMIN);
             userCollectionLogic.deleteUserFromCollection(collectionId, userId);
         } catch (UserPermissionException e) {
             e.printStackTrace();
