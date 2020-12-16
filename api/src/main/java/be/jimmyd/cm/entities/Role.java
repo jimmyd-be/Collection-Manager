@@ -23,6 +23,6 @@ public class Role {
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany
+    @OneToMany(mappedBy="role")
     private List<UserCollection> userCollections;
 }

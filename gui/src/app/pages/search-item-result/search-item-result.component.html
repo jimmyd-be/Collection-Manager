@@ -1,9 +1,7 @@
 <nb-card>
-    <nb-card-header>{{item.name}} 
-      <span *ngIf="item.releaseDate">({{item.releaseDate}})</span>
-    </nb-card-header>
     <nb-card-body>
-      <a href="{{item.url}}" target="_blank"><img src="{{item.image}}"></a>
+      <a href="{{item.url}}" target="_blank"><img src="{{item.image}}"></a> {{item.name}} 
+      <span *ngIf="item.releaseDate">({{item.releaseDate}})</span>
     </nb-card-body>
     <nb-card-footer>
       <button (click)="addItemToCollection(item.source, item.externalId)" status="primary" nbbutton

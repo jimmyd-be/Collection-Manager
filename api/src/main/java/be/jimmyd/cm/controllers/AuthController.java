@@ -34,10 +34,4 @@ public class AuthController {
 
     }
 
-    @PostMapping("/logout")
-    public void logoutUser(Principal user) throws UserAlreadyExists {
-
-        //TODO invalidate current token
-    }
-
 }

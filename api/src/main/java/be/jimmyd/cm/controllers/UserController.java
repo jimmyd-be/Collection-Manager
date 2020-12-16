@@ -1,6 +1,7 @@
 package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
+import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.logic.UserLogic;
 import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserEditDto;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/user")
@@ -38,5 +40,11 @@ public class UserController {
     @PatchMapping("/edit/password")
     public void editPassword(@Valid @RequestBody UserEditPasswordDto userEditPasswordDto, UsernamePasswordAuthenticationToken user) throws PasswordIncorrectException {
         userLogic.editPassword(userEditPasswordDto, user.getPrincipal().toString());
+    }
+
+    @PostMapping("/logout")
+    public void logoutUser(Principal user) throws UserAlreadyExists {
+
+        //TODO invalidate current token
     }
 }

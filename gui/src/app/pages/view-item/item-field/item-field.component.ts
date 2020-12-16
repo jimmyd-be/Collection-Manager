@@ -16,13 +16,18 @@ export class ItemFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+   }
 
   getItemValue(): string[] {
+
+    if (this.field.name === 'cover') {
+      return [this.item.image];
+    } else {
     return this.item.data.filter((data: ItemData) => {
       return this.field.id === data.fieldId;
     }).map((item: ItemData) => {
       return item.value;
     });
+  }
   }
 }

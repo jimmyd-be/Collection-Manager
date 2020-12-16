@@ -88,18 +88,8 @@ export class ViewCollectionComponent implements OnInit {
 
   getImage(item: Item): string {
 
-    const coverField = this.fields.filter((field: CustomField) => {
-      return field.name === 'cover';
-    });
-
-    if (coverField != null && coverField.length > 0) {
-      const dataValue = item.data.filter((data: ItemData) => {
-        return data.fieldId === coverField[0].id;
-      });
-
-      if (dataValue != null && dataValue.length > 0 && dataValue[0].value && dataValue[0].value.length > 0) {
-        return dataValue[0].value;
-      }
+    if (item.image !== null && item.image !== '') {
+      return item.image;
     }
 
     return '../../../assets/images/noImage.jpeg';
