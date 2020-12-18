@@ -3,7 +3,8 @@
 
 # Collection manager
 
-Collection manager is a tool to manager different collection like movies, games, ...
+Collection manager is a tool to manage different collections. The tools default support following types: movies, games, books, magazines, comics.
+If you want to have a custom collection please submit a issue or PR.
   
 
 ### Features
