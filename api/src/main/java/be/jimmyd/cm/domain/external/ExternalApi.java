@@ -12,6 +12,8 @@ public interface ExternalApi {
 
     String getUniqueKey();
 
+    List<String> getProperties();
+
     List<ItemSearchDto> searchItems(String search) throws Throwable;
 
     Map<String, String> getById(String id, List<Field> basicFields) throws Throwable;

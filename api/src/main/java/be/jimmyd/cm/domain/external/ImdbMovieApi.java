@@ -7,6 +7,7 @@ import nl.stil4m.imdb.domain.MovieDetails;
 import nl.stil4m.imdb.exceptions.IMDBException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,11 @@ public class ImdbMovieApi implements ExternalApi {
     @Override
     public String getUniqueKey() {
         return "imdbMovie";
+    }
+
+    @Override
+    public List<String> getProperties() {
+        return new ArrayList<>();
     }
 
     @Override
