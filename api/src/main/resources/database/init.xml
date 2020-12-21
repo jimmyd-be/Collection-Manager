@@ -1269,7 +1269,7 @@
 
     <changeSet author="jimmy" id="41">
         <createTable tableName="cm_setting">
-            <column name="key" type="VARCHAR(255)">
+            <column name="id" type="VARCHAR(255)">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="value" type="VARCHAR(255)">

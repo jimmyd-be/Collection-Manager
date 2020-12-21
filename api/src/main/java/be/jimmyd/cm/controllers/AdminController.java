@@ -4,9 +4,7 @@ import be.jimmyd.cm.domain.logic.SettingLogic;
 import be.jimmyd.cm.domain.logic.UserLogic;
 import be.jimmyd.cm.dto.SettingDto;
 import be.jimmyd.cm.dto.UserDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -32,5 +30,10 @@ public class AdminController {
     @GetMapping("/settings")
     public List<SettingDto> getAllSettings() {
         return settingLogic.getAllSettings();
+    }
+
+    @PatchMapping("/settings")
+    public void saveSettings(@RequestBody List<SettingDto> settings) {
+        settingLogic.saveSettings(settings);
     }
 }

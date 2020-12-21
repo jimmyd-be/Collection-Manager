@@ -2,11 +2,21 @@
     <nb-card-header>CM settings</nb-card-header>
   
     <nb-card-body>
-          </nb-card-body>
-  
-    <nb-card-footer>
+      
+      <form [formGroup]="myForm" (ngSubmit)="onFormSubmit()">
+            
+            <div *ngFor="let setting of settings">
+                  <label>{{setting.key}}</label> 
+                 <input type="text" nbInput formControlName="{{setting.key}}" value="{{setting.value}}">
+            </div>
 
-     
-    </nb-card-footer>
+            <div>
+                  <input type="submit" nbInput value="Save settings" >
+            </div>
+          </form> 
+
+      </nb-card-body>
+  
+    <nb-card-footer></nb-card-footer>
   
   </nb-card>

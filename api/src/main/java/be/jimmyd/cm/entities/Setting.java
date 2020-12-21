@@ -12,8 +12,8 @@ import java.util.List;
 public class Setting {
 
     @Id
-    @Column(name = "key")
-    private String key;
+    @Column(name = "id")
+    private String id;
 
     @Basic
     @Column(name = "value")

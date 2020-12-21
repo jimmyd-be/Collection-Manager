@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +34,7 @@ public class SettingLogic {
                     dto.setKey(property);
 
                     settings.stream()
-                            .filter(n -> n.getKey().equals(property))
+                            .filter(n -> n.getId().equals(property))
                             .map(setting -> setting.getValue())
                             .findFirst()
                             .ifPresent(value -> dto.setValue(value));
@@ -56,4 +58,28 @@ public class SettingLogic {
     }
 
 
+    public void saveSettings(List<SettingDto> settings) {
+
+        final List<Setting> previousSettings = settingRepository.findAll();
+        final List<String> allSettings = getAllApiProperties();
+
+        settings.parallelStream()
+                .map(setting -> {
+                    final Optional<Setting> settingOptional = previousSettings.stream().filter(n -> n.getId().equals(setting.getKey())).findFirst();
+
+                    Setting newSetting = null;
+                    if (settingOptional.isPresent()) {
+                        newSetting = settingOptional.get();
+                        newSetting.setValue(setting.getValue());
+                    } else if (allSettings.contains(setting.getKey())) {
+                        newSetting = new Setting();
+                        newSetting.setId(setting.getKey());
+                        newSetting.setValue(setting.getValue());
+                    }
+
+                    return newSetting;
+                })
+                .filter(Objects::nonNull)
+                .forEach(setting -> settingRepository.save(setting));
+    }
 }
