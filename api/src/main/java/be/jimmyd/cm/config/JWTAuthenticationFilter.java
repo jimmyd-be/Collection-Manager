@@ -38,7 +38,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.expirationTime = expirationTime;
 
         setFilterProcessesUrl(SIGN_UP_URL);
-    }
+    }                // new arraylist means authorities
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,

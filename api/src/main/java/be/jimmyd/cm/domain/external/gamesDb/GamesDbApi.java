@@ -50,6 +50,11 @@ public class GamesDbApi implements ExternalApi {
     }
 
     @Override
+    public boolean isReadyToUse() {
+        return false; //TODO create check for property here
+    }
+
+    @Override
     public List<ItemSearchDto> searchItems(String search) throws Throwable {
 
         final URI url = getFullUrl(searchUrl).queryParam("name", search).build().toUri();

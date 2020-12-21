@@ -68,7 +68,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
                 final UserDetails userDetails = userDetailsService.loadUserByUsername(userMail);
 
-                // new arraylist means authorities
                 return new UsernamePasswordAuthenticationToken(userMail, null, userDetails.getAuthorities());
             }
 

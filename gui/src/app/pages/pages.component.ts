@@ -25,7 +25,7 @@ export class PagesComponent implements OnInit {
   ngOnInit() {
 
     const isAdmin = this.userService.getUser().toPromise().then(user => {
-      return user.isAdmin;
+      return user.admin;
     });
 
     if (!isAdmin) {

@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 public class UserLogic {
 
@@ -99,5 +101,12 @@ public class UserLogic {
 
             userRepository.save(user);
         }
+    }
+
+    public List<UserDto> getAllUsers() {
+
+        final List<User> users = userRepository.findAll();
+
+        return UserMapper.INSTANCE.userToDto(users);
     }
 }

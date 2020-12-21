@@ -38,6 +38,11 @@ public class ImdbMovieApi implements ExternalApi {
     }
 
     @Override
+    public boolean isReadyToUse() {
+        return true; //Nothing to check here
+    }
+
+    @Override
     public List<ItemSearchDto> searchItems(final String search) throws IMDBException {
 
         return imdb.search(search).parallelStream()

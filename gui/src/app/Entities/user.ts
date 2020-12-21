@@ -4,7 +4,7 @@ export class User {
         public id: number,
         public username: string,
         public mail: string,
-        public isAdmin: boolean,
+        public admin: boolean,
         public creationDate: Date,
         public theme: string) {}
 }
