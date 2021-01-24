@@ -29,7 +29,8 @@
         <java.jwt.version>3.11.0</java.jwt.version>
         <liquibase.plugin.version>4.2.0</liquibase.plugin.version>
         <mockito.version>3.6.28</mockito.version>
-        <imdb.api.version>1.3.1</imdb.api.version>
+        <imdb.api.version>2.0.0</imdb.api.version>
+        <gameDb.version>1.1</gameDb.version>
     </properties>
 
     <dependencies>
@@ -81,11 +82,10 @@
         </dependency>
 
         <dependency>
-            <groupId>nl.stil4m</groupId>
+            <groupId>io.github.jimmyd-be</groupId>
             <artifactId>imdb-api</artifactId>
             <version>${imdb.api.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -114,6 +114,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jimmyd-be</groupId>
+            <artifactId>theGamesDbClient</artifactId>
+            <version>${gameDb.version}</version>
         </dependency>
 
         <dependency>

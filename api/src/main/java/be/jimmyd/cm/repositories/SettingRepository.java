@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SettingRepository extends JpaRepository<Setting, String>  {
 
-    @Query("FROM Setting WHERE key = :key")
-    String getById(@Param("key") String apiKey);
+    @Query("FROM Setting WHERE id = :key")
+    Setting getById(@Param("key") String apiKey);
 }

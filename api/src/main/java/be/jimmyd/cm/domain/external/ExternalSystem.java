@@ -20,6 +20,7 @@ public class ExternalSystem {
 
     public List<ItemSearchDto> searchItemsByType(final String type, final String search) {
         return externalApis.parallelStream()
+                .filter(n -> n.isReadyToUse())
                 .filter(n -> n.getType().getType().equalsIgnoreCase(type))
                 .map(n -> {
                     try {

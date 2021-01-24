@@ -1,7 +1,7 @@
 package be.jimmyd.cm;
 
-import nl.stil4m.imdb.IMDB;
-import nl.stil4m.imdb.IMDBFactory;
+import io.github.jimmydbe.imdb.IMDB;
+import io.github.jimmydbe.imdb.IMDBFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ public class CollectionManagerApplication {
 
     @Bean
     public IMDB getImdbApi() throws IOException {
-        InputStream inputStream = getClass().getResourceAsStream("/nl/stil4m/imdb/parsing.properties");
+        InputStream inputStream = getClass().getResourceAsStream("/io/github/jimmydbe/imdb/parsing.properties");
         Properties properties = new Properties();
         properties.load(inputStream);
         IMDBFactory factory = new IMDBFactory();

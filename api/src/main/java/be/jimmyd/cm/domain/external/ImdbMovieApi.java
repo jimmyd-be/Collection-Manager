@@ -2,9 +2,9 @@ package be.jimmyd.cm.domain.external;
 
 import be.jimmyd.cm.dto.ItemSearchDto;
 import be.jimmyd.cm.entities.Field;
-import nl.stil4m.imdb.IMDB;
-import nl.stil4m.imdb.domain.MovieDetails;
-import nl.stil4m.imdb.exceptions.IMDBException;
+import io.github.jimmydbe.imdb.IMDB;
+import io.github.jimmydbe.imdb.domain.MovieDetails;
+import io.github.jimmydbe.imdb.exceptions.IMDBException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class ImdbMovieApi implements ExternalApi {
 
             switch (field.getName()) {
                 case "title":
-                    itemData.put(field.getId() + "_0", movie.getMovieName());
+                    itemData.put(field.getId() + "_0", movie.getMovieOriginalName());
                     break;
                 case "genre":
 
