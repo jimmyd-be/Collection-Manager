@@ -29,6 +29,7 @@ fa-icon {
     display:inline-block;
     width: 200px;
     margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .searchBar {
@@ -37,10 +38,24 @@ fa-icon {
     border-color: nb-theme(border-basic-color-1	);
 }
 
+  .itemCardImage {
+    height: 293px;
+  }
+
+  .itemCardBody {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
+  }
+
+  .card-title {
+    height: 72px;
+  }
 
 .itemCard {
     background-color: nb-theme(background-basic-color-1);
-
-    	
 }
+
 }

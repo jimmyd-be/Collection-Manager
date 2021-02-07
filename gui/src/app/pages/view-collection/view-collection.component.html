@@ -53,9 +53,10 @@
 
   <div *ngIf="currentView === 'cards'">
     <div class="card itemCard" *ngFor="let item of items" (click)="openModal(item)">
-      <img src="{{getImage(item)}}" class="card-img-top" alt="Cover">
-      <div class="card-body">
-        <h5 class="card-title">{{item.name}}</h5>
+
+      <img src="{{getImage(item)}}" class="card-img-top itemCardImage" alt="Cover">
+      <div class="card-body itemCardBody">
+        <h6 class="card-title">{{item.name}}</h6>
       </div>
     </div>
   </div>
