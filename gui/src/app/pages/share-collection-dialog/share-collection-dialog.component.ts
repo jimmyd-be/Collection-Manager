@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
-import { FormGroup, FormControl } from '@angular/forms';
-import { CollectionShare } from '../../Entities/collectionShare';
-import { CollectionService } from '../../Services/collection.service';
-import { Role } from '../../Entities/Role';
-import { RoleService } from '../../Services/role.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {NbDialogRef} from '@nebular/theme';
+import {FormControl, FormGroup} from '@angular/forms';
+import {CollectionShare} from '../../Entities/collectionShare';
+import {CollectionService} from '../../Services/collection.service';
+import {Role} from '../../Entities/Role';
+import {RoleService} from '../../Services/role.service';
 
 @Component({
   selector: 'app-share-collection-dialog',
@@ -14,18 +14,16 @@ import { RoleService } from '../../Services/role.service';
 export class ShareCollectionDialogComponent implements OnInit {
 
   @Input() public collectionId: number;
-
-  private usernameLabel = 'userName';
-  private roleLabel = 'role';
-
   roles: Role[];
-
   public form: FormGroup = new FormGroup({
     userName: new FormControl(''),
     role: new FormControl(''),
   });
+  private usernameLabel = 'userName';
+  private roleLabel = 'role';
 
-  constructor(private dialogRef: NbDialogRef<number>, private collectionService: CollectionService, private roleService: RoleService) { }
+  constructor(private dialogRef: NbDialogRef<number>, private collectionService: CollectionService, private roleService: RoleService) {
+  }
 
   ngOnInit() {
     this.roleService.getActiveRoles().subscribe(data => this.roles = data);

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMenuService, NbSidebarService, NbThemeService, NbMediaBreakpointsService } from '@nebular/theme';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
 
-import { UserService } from '../../../Services/user.service';
-import { User } from '../../../Entities/user';
-import { map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import {UserService} from '../../../Services/user.service';
+import {User} from '../../../Entities/user';
+import {map, takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +13,10 @@ import { Subject } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly = false;
   user: User;
-
-  userMenu = [{ title: 'Profile', link: '/pages/profile' }, { title: 'Log out', link: '/auth/logout' }];
+  userMenu = [{title: 'Profile', link: '/pages/profile'}, {title: 'Log out', link: '/auth/logout'}];
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -31,9 +30,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((user: User) => {
         this.user = user;
         this.themeService.changeTheme(user.theme);
-    });
+      });
 
-    const { xl } = this.breakpointService.getBreakpointsMap();
+    const {xl} = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(
         map(([, currentBreakpoint]) => currentBreakpoint.width < xl),

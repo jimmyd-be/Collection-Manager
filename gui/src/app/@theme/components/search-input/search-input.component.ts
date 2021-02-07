@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-search-input',
@@ -14,7 +14,7 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
   `,
 })
 export class SearchInputComponent {
-  @ViewChild('input', { static: true }) input: ElementRef;
+  @ViewChild('input', {static: true}) input: ElementRef;
 
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
 

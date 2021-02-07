@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ItemSearchDirective } from '../../Entities/ItemSearch';
-import { ItemService } from '../../Services/item.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {ItemSearchDirective} from '../../Entities/ItemSearch';
+import {ItemService} from '../../Services/item.service';
 import {NbToastrService} from '@nebular/theme';
 
 @Component({
@@ -14,7 +14,8 @@ export class SearchItemResultComponent implements OnInit {
   @Input() collectionId: number;
   disableActions = false;
 
-  constructor(private itemService: ItemService, private toastrService: NbToastrService) { }
+  constructor(private itemService: ItemService, private toastrService: NbToastrService) {
+  }
 
   ngOnInit() {
   }
@@ -23,12 +24,12 @@ export class SearchItemResultComponent implements OnInit {
 
     this.disableActions = true;
     this.itemService.addExternalItemToCollection(this.collectionId, source, externalId).subscribe(o => {
-      this.toastrService.success(name + ' has been added to the collection');
-    },
-    error => {
-      this.toastrService.danger('Something went wrong when adding ' + name + ' the collection');
-      this.disableActions = false;
-    });
+        this.toastrService.success(name + ' has been added to the collection');
+      },
+      error => {
+        this.toastrService.danger('Something went wrong when adding ' + name + ' the collection');
+        this.disableActions = false;
+      });
 
   }
 

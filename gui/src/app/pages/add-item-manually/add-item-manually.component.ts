@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { CollectionService } from '../../Services/collection.service';
-import { Collection } from '../../Entities/collection';
-import { CustomFieldService } from '../../Services/custom-field.service';
-import { FormGroup } from '@angular/forms';
-import { ManualFormService } from '../../Services/manual-form.service';
-import { CustomField } from '../../Entities/custom-field';
-import { ItemService } from '../../Services/item.service';
-import { NbToastrService } from '@nebular/theme';
-import { ActivatedRoute } from '@angular/router';
-import { Item } from '../../Entities/item';
+import {Component, OnInit} from '@angular/core';
+import {CollectionService} from '../../Services/collection.service';
+import {Collection} from '../../Entities/collection';
+import {CustomFieldService} from '../../Services/custom-field.service';
+import {FormGroup} from '@angular/forms';
+import {ManualFormService} from '../../Services/manual-form.service';
+import {CustomField} from '../../Entities/custom-field';
+import {ItemService} from '../../Services/item.service';
+import {NbToastrService} from '@nebular/theme';
+import {ActivatedRoute} from '@angular/router';
+import {Item} from '../../Entities/item';
 
 @Component({
   selector: 'app-add-item-manually',
@@ -27,7 +27,8 @@ export class AddItemManuallyComponent implements OnInit {
               public formService: ManualFormService,
               private itemService: ItemService,
               private toastrService: NbToastrService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
 
@@ -83,6 +84,6 @@ export class AddItemManuallyComponent implements OnInit {
 
   addField(field: CustomField) {
 
-  this.formService.addField(field, this.form);
+    this.formService.addField(field, this.form);
   }
 }

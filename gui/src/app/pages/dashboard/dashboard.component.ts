@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Collection } from '../../Entities/collection';
-import { CollectionService } from '../../Services/collection.service';
-import { faTrash, faEdit, faEye, faShareAltSquare } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Collection} from '../../Entities/collection';
+import {CollectionService} from '../../Services/collection.service';
+import {faEdit, faEye, faShareAltSquare, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {Router} from '@angular/router';
 import {NbDialogService, NbToastrService} from '@nebular/theme';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { NbAuthService, NbAuthJWTToken } from '@nebular/auth';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {NbAuthJWTToken, NbAuthService} from '@nebular/auth';
 
 
 @Component({
@@ -26,7 +26,8 @@ export class DashboardComponent implements OnInit {
               private router: Router,
               private dialogService: NbDialogService,
               private authService: NbAuthService,
-              private toastrService: NbToastrService) { }
+              private toastrService: NbToastrService) {
+  }
 
   ngOnInit() {
     this.loadCollections();
@@ -55,14 +56,14 @@ export class DashboardComponent implements OnInit {
           this.collectionService.deleteCollection(id).subscribe(data => {
             location.reload();
 
-            this.toastrService.success("Collection " + name + " has been deleted.")
+            this.toastrService.success('Collection ' + name + ' has been deleted.');
             this.router.navigate(['/pages/dashboard']);
 
             this.loadCollections();
           });
         }
       },
-      error => this.toastrService.danger("Collection " + name + " has nog been delete because of an error!"));
+      error => this.toastrService.danger('Collection ' + name + ' has nog been delete because of an error!'));
   }
 
   viewCollection(id: number) {

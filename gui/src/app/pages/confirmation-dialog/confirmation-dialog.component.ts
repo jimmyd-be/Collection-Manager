@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
+import {Component, OnInit} from '@angular/core';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -10,7 +10,8 @@ export class ConfirmationDialogComponent implements OnInit {
 
   data: string;
 
-  constructor(private dialogRef: NbDialogRef<string>) { }
+  constructor(private dialogRef: NbDialogRef<string>) {
+  }
 
   ngOnInit() {
   }

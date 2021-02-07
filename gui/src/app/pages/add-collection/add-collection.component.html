@@ -1,4 +1,4 @@
-<form [formGroup]="addCollectionGroup" (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" [formGroup]="addCollectionGroup">
   <nb-card>
     <nb-card-header>Add new Collections</nb-card-header>
 
@@ -6,12 +6,12 @@
 
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" nbInput class="form-control" id="name" placeholder="Give unique name of the collection"
-          formControlName="name" required>
+        <input class="form-control" formControlName="name" id="name" nbInput placeholder="Give unique name of the collection"
+               required type="text">
       </div>
       <div class="form-group">
         <label for="type">Collection type</label>
-        <select class="form-control" nbInput id="type" formControlName="type" required>
+        <select class="form-control" formControlName="type" id="type" nbInput required>
           <option *ngFor="let type of collectionTypes" [ngValue]="type">{{ type }}</option>
         </select>
       </div>
@@ -20,7 +20,7 @@
         <nb-accordion-item *ngFor="let fields of customFields.controls; let i = index">
           <nb-accordion-item-header>Custom field {{ i + 1 }}</nb-accordion-item-header>
           <nb-accordion-item-body>
-            <app-add-custom-field [index]="i" [customFieldForm]="fields" (deleteCustomField)="deletePlayer($event)">
+            <app-add-custom-field (deleteCustomField)="deletePlayer($event)" [customFieldForm]="fields" [index]="i">
             </app-add-custom-field>
           </nb-accordion-item-body>
         </nb-accordion-item>
@@ -29,9 +29,13 @@
     </nb-card-body>
 
     <nb-card-footer>
-      <button nbButton status="primary"
-      class="appearance-filled size-medium status-primary shape-rectangle nb-transition"type="submit" [disabled]="!addCollectionGroup.valid">Submit</button>
-      <button nbButton type="button" class="appearance-filled size-medium status-info shape-rectangle nb-transition" status="info" (click)="addCustomField()">Add custom field</button>
+      <button [disabled]="!addCollectionGroup.valid" class="appearance-filled size-medium status-primary shape-rectangle nb-transition"
+              nbButton status="primary"
+              type="submit">Submit
+      </button>
+      <button (click)="addCustomField()" class="appearance-filled size-medium status-info shape-rectangle nb-transition" nbButton
+              status="info" type="button">Add custom field
+      </button>
     </nb-card-footer>
 
   </nb-card>

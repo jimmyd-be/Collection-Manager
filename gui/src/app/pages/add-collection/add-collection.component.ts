@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
-import { CollectionService } from '../../Services/collection.service';
-import { Subscription } from 'rxjs';
-import { AddCollectionService } from '../../Services/add-collection.service';
-import { Collection } from '../../Entities/collection';
-import { CustomField } from '../../Entities/custom-field';
-import { ParamMap, ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormArray, FormGroup} from '@angular/forms';
+import {CollectionService} from '../../Services/collection.service';
+import {Subscription} from 'rxjs';
+import {AddCollectionService} from '../../Services/add-collection.service';
+import {Collection} from '../../Entities/collection';
+import {CustomField} from '../../Entities/custom-field';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-collection',
@@ -15,6 +14,13 @@ import { Router } from '@angular/router';
 })
 export class AddCollectionComponent implements OnInit, OnDestroy {
 
+  addCollectionGroup: FormGroup;
+  customFieldFormSub: Subscription;
+  collectionTypes: string[];
+  customFields: FormArray = new FormArray([]);
+  collection: Collection;
+  fields: CustomField[];
+  editMode = false;
   private customFieldId = 'id';
   private customFieldName = 'name';
   private customFieldType = 'type';
@@ -27,20 +33,11 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
   private customFieldLabelPos = 'labelposition';
   private customFieldLabel = 'label';
 
-  addCollectionGroup: FormGroup;
-
-  customFieldFormSub: Subscription;
-  collectionTypes: string[];
-  customFields: FormArray = new FormArray([]);
-
-  collection: Collection;
-  fields: CustomField[];
-  editMode = false;
-
   constructor(private collectionService: CollectionService,
               private formService: AddCollectionService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
 

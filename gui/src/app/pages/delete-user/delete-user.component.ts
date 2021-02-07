@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../Services/user.service';
-import { Router } from '@angular/router';
-import { DeleteUser } from '../../Entities/DeleteUser';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../Services/user.service';
+import {Router} from '@angular/router';
+import {DeleteUser} from '../../Entities/DeleteUser';
 
 @Component({
   selector: 'app-delete-user',
@@ -12,7 +12,8 @@ export class DeleteUserComponent implements OnInit {
 
   model: DeleteUser = new DeleteUser('', '');
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   ngOnInit() {
   }
@@ -20,11 +21,11 @@ export class DeleteUserComponent implements OnInit {
   onSubmit() {
 
     this.userService.deleteUser(this.model).subscribe(data => {
-      this.router.navigate(['/auth/logout']);
-    },
-    error => {
-      this.model.password = '';
-    });
+        this.router.navigate(['/auth/logout']);
+      },
+      error => {
+        this.model.password = '';
+      });
 
   }
 

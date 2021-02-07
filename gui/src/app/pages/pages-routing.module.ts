@@ -1,21 +1,21 @@
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
 
-import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AddCollectionComponent } from './add-collection/add-collection.component';
-import { AddItemManuallyComponent } from './add-item-manually/add-item-manually.component';
-import { ViewCollectionComponent } from './view-collection/view-collection.component';
-import { AuthGuard } from '../auth.guard';
-import { AdminGuard } from '../admin.guard';
-import { ViewUserComponent } from './view-user/view-user.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
-import { EditPasswordUserComponent } from './edit-password-user/edit-password-user.component';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
-import { ShareCollectionComponent } from './share-collection/share-collection.component';
-import { AddItemExternallyComponent } from './add-item-externally/add-item-externally.component';
-import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
+import {PagesComponent} from './pages.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {AddCollectionComponent} from './add-collection/add-collection.component';
+import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.component';
+import {ViewCollectionComponent} from './view-collection/view-collection.component';
+import {AuthGuard} from '../auth.guard';
+import {AdminGuard} from '../admin.guard';
+import {ViewUserComponent} from './view-user/view-user.component';
+import {EditUserComponent} from './edit-user/edit-user.component';
+import {EditPasswordUserComponent} from './edit-password-user/edit-password-user.component';
+import {DeleteUserComponent} from './delete-user/delete-user.component';
+import {ShareCollectionComponent} from './share-collection/share-collection.component';
+import {AddItemExternallyComponent} from './add-item-externally/add-item-externally.component';
+import {AdminSettingsComponent} from './admin-settings/admin-settings.component';
+import {AdminUsersComponent} from './admin-users/admin-users.component';
 
 const routes: Routes = [{
   path: '',
@@ -115,7 +115,7 @@ const routes: Routes = [{
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
-   },
+    },
   ],
 }];
 

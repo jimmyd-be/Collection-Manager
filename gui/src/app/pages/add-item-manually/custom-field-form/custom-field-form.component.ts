@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CustomField } from '../../../Entities/custom-field';
-import { FormGroup } from '@angular/forms';
-import { faPlusCircle, faMinusCircle} from '@fortawesome/free-solid-svg-icons';
-import { AddItemManuallyComponent } from '../add-item-manually.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {CustomField} from '../../../Entities/custom-field';
+import {FormGroup} from '@angular/forms';
+import {faMinusCircle, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {AddItemManuallyComponent} from '../add-item-manually.component';
 
 @Component({
   selector: 'app-custom-field-form',
@@ -18,9 +18,7 @@ export class CustomFieldFormComponent implements OnInit {
   removeIcon = faMinusCircle;
 
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
   }
 
   get isValid() {
@@ -29,6 +27,9 @@ export class CustomFieldFormComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  ngOnInit() {
   }
 
   addField() {

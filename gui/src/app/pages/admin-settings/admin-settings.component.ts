@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { NbToastrService } from '@nebular/theme';
-import { Setting } from 'src/app/Entities/Setting';
-import { SettingService } from '../../Services/setting.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NbToastrService} from '@nebular/theme';
+import {Setting} from 'src/app/Entities/Setting';
+import {SettingService} from '../../Services/setting.service';
 
 @Component({
   selector: 'app-admin-settings',
@@ -15,7 +15,8 @@ export class AdminSettingsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private settingService: SettingService,
-              private toastrService: NbToastrService) { }
+              private toastrService: NbToastrService) {
+  }
 
   ngOnInit(): void {
     this.settingService.getAllSettings().subscribe(settings => {
@@ -23,14 +24,6 @@ export class AdminSettingsComponent implements OnInit {
 
       this.myForm = this.formBuilder.group(this.formFields());
     });
-  }
-
-  private formFields() {
-    const empArr = {};
-    for (const val of this.settings) {
-        empArr[val.key] = val.value;
-    }
-    return empArr;
   }
 
   public onFormSubmit() {
@@ -49,6 +42,14 @@ export class AdminSettingsComponent implements OnInit {
       err => this.toastrService.danger('Something went wrong when saving settings', 'Settings')
     );
 
+  }
+
+  private formFields() {
+    const empArr = {};
+    for (const val of this.settings) {
+      empArr[val.key] = val.value;
+    }
+    return empArr;
   }
 
 }

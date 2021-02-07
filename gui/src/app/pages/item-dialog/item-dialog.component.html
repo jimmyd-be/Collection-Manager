@@ -1,16 +1,16 @@
 <nb-card>
   <nb-card-header>{{item.name}}
 
-      <a (click)="editItem()">
-          <fa-icon [icon]="editIcon"></fa-icon>
-        </a>
-        <a (click)="deleteItem()">
-            <fa-icon [icon]="deleteIcon"></fa-icon>
-          </a>
+    <a (click)="editItem()">
+      <fa-icon [icon]="editIcon"></fa-icon>
+    </a>
+    <a (click)="deleteItem()">
+      <fa-icon [icon]="deleteIcon"></fa-icon>
+    </a>
 
 
   </nb-card-header>
   <nb-card-body>
-      <app-view-item [item]="item" [fields]="field"></app-view-item>
+    <app-view-item [fields]="field" [item]="item"></app-view-item>
   </nb-card-body>
 </nb-card>

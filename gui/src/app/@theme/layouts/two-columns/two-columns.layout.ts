@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-two-columns-layout',
@@ -27,4 +27,5 @@ import { Component } from '@angular/core';
     </nb-layout>
   `,
 })
-export class TwoColumnsLayoutComponent {}
+export class TwoColumnsLayoutComponent {
+}

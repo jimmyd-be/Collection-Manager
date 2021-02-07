@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Item } from '../../Entities/item';
-import { CustomField } from '../../Entities/custom-field';
+import {Component, Input, OnInit} from '@angular/core';
+import {Item} from '../../Entities/item';
+import {CustomField} from '../../Entities/custom-field';
 
 @Component({
   selector: 'app-view-item',
@@ -12,7 +12,8 @@ export class ViewItemComponent implements OnInit {
   @Input() item: Item;
   @Input() fields: CustomField[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

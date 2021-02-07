@@ -1,4 +1,4 @@
-import { NbMenuItem } from '@nebular/theme';
+import {NbMenuItem} from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -17,15 +17,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'plus-circle-outline',
     children: [
       {
-       title: 'Manual',
-       icon: 'edit-outline',
-       link: '/pages/item/addManual',
-    },
-    {
-      title: 'Search',
-      icon: 'search-outline',
-      link: '/pages/item/addExternally',
-    },
+        title: 'Manual',
+        icon: 'edit-outline',
+        link: '/pages/item/addManual',
+      },
+      {
+        title: 'Search',
+        icon: 'search-outline',
+        link: '/pages/item/addExternally',
+      },
     ],
   },
   {
@@ -33,15 +33,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'alert-circle-outline',
     children: [
       {
-       title: 'Settings',
-       icon: 'settings-outline',
-       link: '/pages/admin/settings',
-    },
-    {
-      title: 'Users',
-      icon: 'people-outline',
-      link: '/pages/admin/users',
-    },
+        title: 'Settings',
+        icon: 'settings-outline',
+        link: '/pages/admin/settings',
+      },
+      {
+        title: 'Users',
+        icon: 'people-outline',
+        link: '/pages/admin/users',
+      },
     ],
   },
   {

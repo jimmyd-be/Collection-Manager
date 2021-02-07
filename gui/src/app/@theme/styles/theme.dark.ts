@@ -1,4 +1,4 @@
-import { NbJSThemeOptions, DARK_THEME as baseTheme } from '@nebular/theme';
+import {DARK_THEME as baseTheme, NbJSThemeOptions} from '@nebular/theme';
 
 const baseThemeVariables = baseTheme.variables;
 

@@ -1,5 +1,5 @@
-
 export class Role {
 
-    constructor(public id: number, public name: string, public active: boolean) {}
+  constructor(public id: number, public name: string, public active: boolean) {
+  }
 }

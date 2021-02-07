@@ -32,7 +32,9 @@
   @include ngx-pace-theme();
 
   @include nb-overrides();
-};
+}
+
+;
 
 button {
   margin-right: 10px;

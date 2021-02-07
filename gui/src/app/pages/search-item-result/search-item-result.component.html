@@ -1,10 +1,12 @@
 <nb-card>
-    <nb-card-body>
-      <a href="{{item.url}}" target="_blank"><img src="{{item.image}}"></a> {{item.name}}
-      <span *ngIf="item.releaseDate">({{item.releaseDate}})</span>
-    </nb-card-body>
-    <nb-card-footer>
-      <button [disabled]="disableActions" (click)="addItemToCollection(item.source, item.externalId, item.name)" status="primary" nbbutton
-      class="appearance-filled size-medium status-primary shape-rectangle nb-transition">Add to collection</button>
-    </nb-card-footer>
-  </nb-card>
+  <nb-card-body>
+    <a href="{{item.url}}" target="_blank"><img src="{{item.image}}"></a> {{item.name}}
+    <span *ngIf="item.releaseDate">({{item.releaseDate}})</span>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="addItemToCollection(item.source, item.externalId, item.name)" [disabled]="disableActions"
+            class="appearance-filled size-medium status-primary shape-rectangle nb-transition" nbbutton
+            status="primary">Add to collection
+    </button>
+  </nb-card-footer>
+</nb-card>
