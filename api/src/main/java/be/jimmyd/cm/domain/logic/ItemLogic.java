@@ -45,7 +45,6 @@ public class ItemLogic {
         final User user = userRepository.findByMail(userMail);
         collectionRepository.findById(collectionId).ifPresent(collection -> {
 
-
             final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
             fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
 
@@ -66,6 +65,9 @@ public class ItemLogic {
             final Item finalNewItem = itemRepository.save(newItem);
 
             itemId.set(finalNewItem.getId());
+
+            List<Itemdata> itemdataList = new ArrayList<>();
+
             itemData.forEach((key, value) -> {
 
                 long fieldId = getFieldIDFromKey(key);
@@ -77,13 +79,18 @@ public class ItemLogic {
                             itemdata.setItem(finalNewItem);
                             //TODO add validation on field level (required fields, ...)
 
-                            itemDataRepository.save(itemdata);
+                            itemdataList.add(itemdata);
                         }
                 );
             });
 
-            collection.getItems().add(newItem);
-            collectionRepository.save(collection);
+            itemDataRepository.saveAll(itemdataList);
+
+
+            finalNewItem.getCollections().add(collection);
+            itemRepository.save(finalNewItem);
+            //collection.getItems().add(newItem);
+            //collectionRepository.save(collection);
         });
         return itemId.get();
     }

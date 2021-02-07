@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,7 +47,7 @@ public class Item {
             joinColumns = {@JoinColumn(name = "itemId")},
             inverseJoinColumns = {@JoinColumn(name = "collectionId")}
     )
-    private List<Collection> collections;
+    private List<Collection> collections = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "author", referencedColumnName = "id", nullable = false)
