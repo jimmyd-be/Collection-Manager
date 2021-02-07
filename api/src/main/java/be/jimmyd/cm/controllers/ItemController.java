@@ -74,7 +74,7 @@ public class ItemController {
     @GetMapping("/get/collection/{id}/{page}/{itemsOnPage}")
     public ResponseEntity<List<ItemDto>> getItemFromCollection(@PathVariable("id") long collectionId, @PathVariable("page") int page,
                                                                @PathVariable("itemsOnPage") int itemsOnPage,
-                                                               @RequestParam("query") String query) {
+                                                               @RequestParam(value = "query", required = false) String query) {
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
             return ResponseEntity.ok(itemLogic.getItemsByCollection(collectionId, PageRequest.of(page, itemsOnPage), query));
