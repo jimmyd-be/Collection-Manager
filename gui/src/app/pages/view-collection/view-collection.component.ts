@@ -8,7 +8,7 @@ import { ItemService } from '../../Services/item.service';
 import { Item } from '../../Entities/item';
 import { FieldService } from '../../Services/field.service';
 import { ItemData } from '../../Entities/ItemData';
-import { NbDialogService } from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { ItemFieldDirective } from '../../Entities/ItemField';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
@@ -43,7 +43,8 @@ export class ViewCollectionComponent implements OnInit {
               private itemService: ItemService,
               private fieldService: FieldService,
               private dialogService: NbDialogService,
-              private router: Router) { }
+              private router: Router,
+              private toastrService: NbToastrService) { }
 
   ngOnInit() {
 
@@ -139,13 +140,17 @@ export class ViewCollectionComponent implements OnInit {
     .onClose.subscribe(response => {
         if (response === 'delete') {
           this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
+            this.toastrService.success(item.name + " has been removed from the collection.")
             const index = this.items.indexOf(item, 0);
             if (index > -1) {
               this.items.splice(index, 1);
             }
             });
         }
-    });
+    },
+      error => {
+        this.toastrService.danger(item.name + " could not be deleted because of an error!")
+      });
   }
 
   onScroll() {
