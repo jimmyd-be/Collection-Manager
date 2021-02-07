@@ -1,20 +1,16 @@
 package be.jimmyd.cm.domain.external;
 
-import be.jimmyd.cm.domain.external.CollectionTypeEnum;
-import be.jimmyd.cm.domain.external.ExternalApi;
 import be.jimmyd.cm.dto.ItemSearchDto;
 import be.jimmyd.cm.entities.Field;
 import be.jimmyd.cm.repositories.SettingRepository;
 import io.github.jimmydbe.TheGamesDbClient;
-import io.github.jimmydbe.entities.Game;
-import org.springframework.http.HttpMethod;
+import io.github.jimmydbe.entities.GameDto;
+import io.github.jimmydbe.entities.Genre;
+import io.github.jimmydbe.entities.Publisher;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,20 +49,20 @@ public class GamesDbApi implements ExternalApi {
     @Override
     public List<ItemSearchDto> searchItems(String search) throws Throwable {
 
-       TheGamesDbClient client = new TheGamesDbClient(settingRepository.getById(getUniqueKey() + "apiKey").getValue());
+        TheGamesDbClient client = new TheGamesDbClient(settingRepository.getById(getUniqueKey() + "apiKey").getValue());
 
         return client.getGameByName(search).parallelStream()
                 .map(game -> {
-                 ItemSearchDto dto = new ItemSearchDto();
+                    ItemSearchDto dto = new ItemSearchDto();
 
-                 dto.setName(game.getGame_title());
-                 dto.setUrl("https://thegamesdb.net/game.php?id=" + game.getId());
-                 //dto.setImage();
-                 dto.setExternalId(String.valueOf(game.getId()));
-                 dto.setSource(getUniqueKey());
-                 dto.setReleaseDate(game.getRelease_date().getYear());
+                    dto.setName(game.getGame_title());
+                    dto.setUrl("https://thegamesdb.net/game.php?id=" + game.getId());
+                    dto.setImage(game.getImageBaseurl().getThumb() + game.getImages().stream().filter(n -> n.getSide().equals("front") && n.getType().equals("boxart")).findFirst().get().getFilename());
+                    dto.setExternalId(String.valueOf(game.getId()));
+                    dto.setSource(getUniqueKey());
+                    dto.setReleaseDate(game.getRelease_date().getYear());
 
-                 return dto;
+                    return dto;
                 })
                 .collect(Collectors.toList());
     }
@@ -74,7 +70,74 @@ public class GamesDbApi implements ExternalApi {
     @Override
     public Map<String, String> getById(String id, List<Field> basicFields) throws Throwable {
 
-        //TODO implement this
-        return null;
+        TheGamesDbClient client = new TheGamesDbClient(settingRepository.getById(getUniqueKey() + "apiKey").getValue());
+
+        final List<GameDto> gameById = client.getGameById(Integer.valueOf(id));
+        final List<Genre> genres = client.getGenres();
+        final List<Publisher> publishers = client.getPublishers();
+
+        Map<String, String> gameMapping = new HashMap<>();
+
+        if (gameById != null && !gameById.isEmpty()) {
+
+            GameDto dto = gameById.get(0);
+
+            basicFields.parallelStream().forEach(field -> {
+
+                switch (field.getName()) {
+                    case "title":
+                        gameMapping.put(field.getId() + "_0", dto.getGame_title());
+                        break;
+
+                    case "genre":
+                        for (int i = 0; i < dto.getGenres().size(); i++) {
+
+                            int genreId = dto.getGenres().get(i);
+
+                            final Optional<Genre> genre = genres.stream()
+                                    .filter(n -> n.getId() == genreId)
+                                    .findFirst();
+
+                            if (genre.isPresent()) {
+                                gameMapping.put(field.getId() + "_" + i, genre.get().getName());
+                            }
+                        }
+                        break;
+                    case "releaseDate":
+                        gameMapping.put(field.getId() + "_0", dto.getRelease_date().toString());
+                        break;
+                    case "platform":
+                        gameMapping.put(field.getId() + "_0", dto.getPlatformObject().getName());
+                        break;
+                    case "publisher":
+
+                        for (int i = 0; i < dto.getPublishers().size(); i++) {
+
+                            int publisherId = dto.getPublishers().get(i);
+
+                            final Optional<Publisher> publisher = publishers.stream()
+                                    .filter(n -> n.getId() == publisherId)
+                                    .findFirst();
+
+                            if (publisher.isPresent()) {
+                                gameMapping.put(field.getId() + "_" + i, publisher.get().getName());
+                            }
+                        }
+
+                        break;
+                    case "storyline":
+                        gameMapping.put(field.getId() + "_0", dto.getOverview());
+                        break;
+                    case "cover":
+                        gameMapping.put(field.getId() + "_0", dto.getImageBaseurl().getOriginal() + dto.getImages().stream().filter(n -> n.getSide().equals("front") && n.getType().equals("boxart")).findFirst().get().getFilename());
+                        break;
+                    case "rating":
+                        gameMapping.put(field.getId() + "_0", dto.getRating());
+                        break;
+                }
+            });
+        }
+
+        return gameMapping;
     }
 }

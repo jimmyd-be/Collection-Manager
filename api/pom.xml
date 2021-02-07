@@ -30,7 +30,7 @@
         <liquibase.plugin.version>4.2.0</liquibase.plugin.version>
         <mockito.version>3.6.28</mockito.version>
         <imdb.api.version>2.0.0</imdb.api.version>
-        <gameDb.version>1.1</gameDb.version>
+        <gameDb.version>1.2</gameDb.version>
     </properties>
 
     <dependencies>
