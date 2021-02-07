@@ -111,14 +111,14 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
       const collection = new Collection(-1, this.addCollectionGroup.value.name, this.addCollectionGroup.value.type, [], fields);
 
       this.collectionService.createCollection(collection).subscribe(data => {
-        this.router.navigate(['/pages/dashboard']);
+        location.reload();
       });
     } else {
       this.collection.name = this.addCollectionGroup.value.name;
       this.collection.fields = fields;
 
       this.collectionService.editCollection(this.collection).subscribe(data => {
-        this.router.navigate(['/pages/dashboard']);
+        location.reload();
       });
     }
   }

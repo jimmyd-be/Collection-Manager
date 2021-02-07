@@ -43,13 +43,13 @@ public class GamesDbApi implements ExternalApi {
 
     @Override
     public boolean isReadyToUse() {
-        return settingRepository.getById(getUniqueKey() + "." + "apiKey") != null;
+        return settingRepository.getById(getUniqueKey() + ".apiKey") != null;
     }
 
     @Override
     public List<ItemSearchDto> searchItems(String search) throws Throwable {
 
-        TheGamesDbClient client = new TheGamesDbClient(settingRepository.getById(getUniqueKey() + "apiKey").getValue());
+        TheGamesDbClient client = new TheGamesDbClient(settingRepository.getById(getUniqueKey() + ".apiKey").getValue());
 
         return client.getGameByName(search).parallelStream()
                 .map(game -> {

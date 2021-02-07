@@ -33,7 +33,7 @@ export class AddItemExternallyComponent implements OnInit {
   onKey(event) {
     const inputValue = event.target.value;
 
-    if (inputValue.length % 2 === 0) {
+    if (inputValue.length > 2) {
 
       const selectedCollection = this.collectionList.filter(x => x.id === this.collectionId)[0];
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -134,8 +135,14 @@ public class ItemLogic {
         }
     }
 
-    public List<ItemDto> getItemsByCollection(long collectionId, PageRequest page) {
-        final List<Item> items = itemRepository.getByCollectionId(collectionId, page);
+    public List<ItemDto> getItemsByCollection(long collectionId, PageRequest page, String query) {
+        final List<Item> items = new ArrayList<>();
+
+        if(query == null || query.isBlank()) {
+            items.addAll(itemRepository.getByCollectionId(collectionId, page));
+        } else {
+         items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query, page));
+        }
 
         return ItemMapper.INSTANCE.itemToDto(items);
     }

@@ -36,6 +36,7 @@ export class ViewCollectionComponent implements OnInit {
   collection: Collection;
   fields: CustomField[];
   items: Item[] = Array();
+  searchValue = '';
 
   constructor(private route: ActivatedRoute,
               private collectionService: CollectionService,
@@ -78,12 +79,24 @@ export class ViewCollectionComponent implements OnInit {
 
       this.items = [];
 
-      this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage).subscribe(items => {
+      this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
         for (const item of items) {
           this.items.push(item);
         }
       });
     }
+  }
+
+  search(event: any) {
+
+    this.searchValue = event.target.value;
+    this.items = [];
+
+    this.itemService.getItemOfCollection(this.id, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
+        for (const item of items) {
+          this.items.push(item);
+        }
+      });
   }
 
   getImage(item: Item): string {
@@ -138,7 +151,7 @@ export class ViewCollectionComponent implements OnInit {
   onScroll() {
     this.currentPage += 1;
 
-    this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage).subscribe(items => {
+    this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
       for (const item of items) {
           this.items.push(item);
         }

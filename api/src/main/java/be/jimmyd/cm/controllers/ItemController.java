@@ -73,10 +73,11 @@ public class ItemController {
 
     @GetMapping("/get/collection/{id}/{page}/{itemsOnPage}")
     public ResponseEntity<List<ItemDto>> getItemFromCollection(@PathVariable("id") long collectionId, @PathVariable("page") int page,
-                                                               @PathVariable("itemsOnPage") int itemsOnPage) {
+                                                               @PathVariable("itemsOnPage") int itemsOnPage,
+                                                               @RequestParam("query") String query) {
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
-            return ResponseEntity.ok(itemLogic.getItemsByCollection(collectionId, PageRequest.of(page, itemsOnPage)));
+            return ResponseEntity.ok(itemLogic.getItemsByCollection(collectionId, PageRequest.of(page, itemsOnPage), query));
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

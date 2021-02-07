@@ -13,23 +13,23 @@
     {{collection.name}}
   </div>
   <div class="col">
-    <input type="text" placeholder="Search" class="rightAlign searchBar" />
+    <input type="text" placeholder="Search" class="rightAlign searchBar" (keyup)="search($event)" />
   </div>
 </div>
 
-<div class="row">
-  <div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
-    <a (click)="changeLetterFilter(filter)">
-      {{filter}}
-    </a>
-  </div>
+<!-- <div class="row">
+<div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
+   <a (click)="changeLetterFilter(filter)">
+     {{filter}}
+   </a>
+ </div>
 
-  <div class="col" [ngClass]="{'activeItem': currentLetterFilter=='ALL'}">
-    <a (click)="changeLetterFilter('ALL')">
-      ALL
-    </a>
-  </div>
-</div>
+ <div class="col" [ngClass]="{'activeItem': currentLetterFilter=='ALL'}">
+   <a (click)="changeLetterFilter('ALL')">
+     ALL
+   </a>
+ </div>
+</div>-->
 
 <div class="row" class="search-results itemList" infiniteScroll [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
