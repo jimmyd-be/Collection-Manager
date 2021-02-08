@@ -28,9 +28,6 @@ export class ViewCollectionComponent implements OnInit {
   itemsPerPage = 50;
   currentPage = 0;
   currentView = 'list';
-  currentLetterFilter = 'ALL';
-
-  firstLetterFilter: string[];
 
   collection: Collection;
   fields: CustomField[];
@@ -51,9 +48,6 @@ export class ViewCollectionComponent implements OnInit {
     if (localStorage.getItem('collectionView') !== null) {
       this.currentView = localStorage.getItem('collectionView');
     }
-
-    this.firstLetterFilter = '#ABCDEFGHIJKLMNOPQRSTUVWQYZ'.split('');
-
     if (this.id == null) {
       this.loadData();
     }
@@ -87,10 +81,6 @@ export class ViewCollectionComponent implements OnInit {
   changeView(view: string): void {
     this.currentView = view;
     localStorage.setItem('collectionView', view);
-  }
-
-  changeLetterFilter(filter: string): void {
-    this.currentLetterFilter = filter;
   }
 
   openModal(item: Item) {

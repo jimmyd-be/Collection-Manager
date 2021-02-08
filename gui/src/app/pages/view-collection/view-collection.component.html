@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col layoutSwitchers">
     <a (click)="changeView('list')">
@@ -16,20 +17,6 @@
     <input (keyup)="search($event)" class="rightAlign searchBar" placeholder="Search" type="text"/>
   </div>
 </div>
-
-<!-- <div class="row">
-<div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
-   <a (click)="changeLetterFilter(filter)">
-     {{filter}}
-   </a>
- </div>
-
- <div class="col" [ngClass]="{'activeItem': currentLetterFilter=='ALL'}">
-   <a (click)="changeLetterFilter('ALL')">
-     ALL
-   </a>
- </div>
-</div>-->
 
 <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="search-results itemList"
      class="row" infiniteScroll>
