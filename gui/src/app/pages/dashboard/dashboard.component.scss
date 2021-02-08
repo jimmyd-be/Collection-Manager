@@ -4,6 +4,9 @@ fa-icon {
   margin: 5px;
 }
 
+nb-card {
+  max-width: 18rem;
+}
 
 @include nb-install-component() {
   .headerTable {
