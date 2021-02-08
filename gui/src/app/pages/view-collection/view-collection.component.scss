@@ -12,17 +12,15 @@
     margin-bottom: 20px;
   }
 
-  .rightAlign {
-    float: right;
-    clear: both;
-  }
-
   .activeItem {
     color: nb-theme(text-alternate-color);
   }
 
   .itemList {
     color: nb-theme(text-basic-color);
+  }
+
+  .row {
     margin-top: 20px;
   }
 
@@ -34,6 +32,8 @@
   }
 
   .searchBar {
+    float: right;
+    width: 100%;
     background-color: nb-theme(background-basic-color-1);
     color: nb-theme(text-basic-color);
     border-color: nb-theme(border-basic-color-1);
@@ -62,6 +62,9 @@
   @media only screen and (max-width: 600px) {
     .layoutSwitchers{
       display: none;
+    }
+    .searchBar {
+      float: none;
     }
 
   }

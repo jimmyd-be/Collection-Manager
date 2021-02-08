@@ -1,51 +1,53 @@
+<div class="container-fluid p-0">
 
-<div class="row">
-  <div class="col layoutSwitchers">
-    <a (click)="changeView('list')">
-      <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView=='list'}" class="fa-2x"></fa-icon>
-    </a>
+  <div class="row">
+    <div class="col-md-2 layoutSwitchers">
+      <a (click)="changeView('list')">
+        <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView=='list'}" class="fa-2x"></fa-icon>
+      </a>
 
-    <a (click)="changeView('cards')">
-      <fa-icon [icon]="cardIcon" [ngClass]="{'activeItem': currentView=='cards'}" class="fa-2x"></fa-icon>
-    </a>
+      <a (click)="changeView('cards')">
+        <fa-icon [icon]="cardIcon" [ngClass]="{'activeItem': currentView=='cards'}" class="fa-2x"></fa-icon>
+      </a>
 
-  </div>
-  <div *ngIf="collection" class="col collectionText">
-    {{collection.name}}
-  </div>
-  <div class="col">
-    <input (keyup)="search($event)" class="rightAlign searchBar" placeholder="Search" type="text"/>
-  </div>
-</div>
-
-<div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="search-results itemList"
-     class="row" infiniteScroll>
-
-  <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
-    <nb-accordion>
-      <nb-accordion-item *ngFor="let item of items">
-        <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <a (click)="editItem(item)">
-            <fa-icon [icon]="editIcon"></fa-icon>
-          </a>
-          <a (click)="deleteItem(item)">
-            <fa-icon [icon]="deleteIcon"></fa-icon>
-          </a>
-          <app-view-item [fields]="fields" [item]="item"></app-view-item>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-    </nb-accordion>
-  </div>
-
-  <div *ngIf="currentView === 'cards'">
-    <div (click)="openModal(item)" *ngFor="let item of items" class="card itemCard">
-
-      <img alt="Cover" class="card-img-top itemCardImage" src="{{getImage(item)}}">
-      <div class="card-body itemCardBody">
-        <h6 class="card-title">{{item.name}}</h6>
-      </div>
+    </div>
+    <div *ngIf="collection" class="col-md-8 col-sm-12 collectionText">
+      {{collection.name}}
+    </div>
+    <div class="col-md-2 col-sm-12">
+      <input (keyup)="search($event)" class="searchBar" placeholder="Search" type="text"/>
     </div>
   </div>
 
+
+  <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="itemList row"
+       infiniteScroll>
+
+    <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
+      <nb-accordion>
+        <nb-accordion-item *ngFor="let item of items">
+          <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <a (click)="editItem(item)">
+              <fa-icon [icon]="editIcon"></fa-icon>
+            </a>
+            <a (click)="deleteItem(item)">
+              <fa-icon [icon]="deleteIcon"></fa-icon>
+            </a>
+            <app-view-item [fields]="fields" [item]="item"></app-view-item>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+
+    <div *ngIf="currentView === 'cards'">
+      <div (click)="openModal(item)" *ngFor="let item of items" class="card itemCard">
+
+        <img alt="Cover" class="card-img-top itemCardImage" src="{{getImage(item)}}">
+        <div class="card-body itemCardBody">
+          <h6 class="card-title">{{item.name}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
