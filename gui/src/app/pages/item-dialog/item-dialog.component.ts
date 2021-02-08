@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Item} from '../../Entities/item';
 import {CustomField} from '../../Entities/custom-field';
-import {faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Collection} from '../../Entities/collection';
 import {NbDialogRef} from '@nebular/theme';
 
@@ -11,9 +10,6 @@ import {NbDialogRef} from '@nebular/theme';
   styleUrls: ['./item-dialog.component.scss'],
 })
 export class ItemDialogComponent implements OnInit {
-
-  deleteIcon = faTrash;
-  editIcon = faEdit;
 
   item: Item;
   field: CustomField[];

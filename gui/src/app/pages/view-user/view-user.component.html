@@ -12,15 +12,9 @@
           <p>Created on: {{user.creationDate}}</p>
         </nb-card-body>
         <nb-card-footer>
-          <button (click)="openpage('edit')" class="appearance-filled size-small status-primary shape-rectangle nb-transition" nbButton size="small"
-                  status="primary">Edit account
-          </button>
-          <button (click)="openpage('changePassword')" class="appearance-filled size-small status-primary shape-rectangle nb-transition" nbButton size="small"
-                  status="primary">Change password
-          </button>
-          <button (click)="openpage('delete')" class="appearance-filled size-small status-danger shape-rectangle nb-transition" nbButton size="small"
-                  status="danger">Delete account
-          </button>
+          <button (click)="openpage('edit')" nbButton size="small" status="primary">Edit account</button>
+          <button (click)="openpage('changePassword')"  nbButton size="small" status="primary">Change password</button>
+          <button (click)="openpage('delete')" nbButton size="small" status="danger">Delete account</button>
         </nb-card-footer>
       </nb-card>
     </div>

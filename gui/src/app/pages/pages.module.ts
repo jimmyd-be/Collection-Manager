@@ -11,16 +11,16 @@ import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.co
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {
-  NbAccordionModule,
-  NbCardModule,
-  NbCheckboxModule,
-  NbDatepickerModule,
-  NbDialogModule,
-  NbInputModule,
-  NbMenuModule,
-  NbRadioModule,
-  NbSelectModule,
-  NbToastrModule
+    NbAccordionModule, NbButtonModule,
+    NbCardModule,
+    NbCheckboxModule,
+    NbDatepickerModule,
+    NbDialogModule,
+    NbInputModule,
+    NbMenuModule,
+    NbRadioModule,
+    NbSelectModule,
+    NbToastrModule
 } from '@nebular/theme';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ViewCollectionComponent} from './view-collection/view-collection.component';
@@ -46,30 +46,31 @@ import {AdminSettingsComponent} from './admin-settings/admin-settings.component'
 import {AdminUsersComponent} from './admin-users/admin-users.component';
 
 @NgModule({
-  imports: [
-    PagesRoutingModule,
-    ThemeModule,
-    MiscellaneousModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    NbInputModule,
-    NbCheckboxModule,
-    NbDatepickerModule,
-    NbAccordionModule,
-    NbCardModule,
-    NbEvaIconsModule,
-    NbRadioModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NbSelectModule,
-    InfiniteScrollModule,
-    NbDialogModule.forRoot(),
-    RatingModule,
-    NbMenuModule,
-    NbToastrModule.forRoot({
-      duration: 5000,
-    }),
-  ],
+    imports: [
+        PagesRoutingModule,
+        ThemeModule,
+        MiscellaneousModule,
+        FontAwesomeModule,
+        ReactiveFormsModule,
+        NbInputModule,
+        NbCheckboxModule,
+        NbDatepickerModule,
+        NbAccordionModule,
+        NbCardModule,
+        NbEvaIconsModule,
+        NbRadioModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NbSelectModule,
+        InfiniteScrollModule,
+        NbDialogModule.forRoot(),
+        RatingModule,
+        NbMenuModule,
+        NbToastrModule.forRoot({
+            duration: 5000,
+        }),
+        NbButtonModule,
+    ],
   declarations: [
     PagesComponent,
     AddCollectionComponent,

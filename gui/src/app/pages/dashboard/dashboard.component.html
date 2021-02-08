@@ -18,21 +18,21 @@
         <td>{{col.type}}</td>
         <td>{{col.members}}</td>
         <td>
-          <a (click)="viewCollection(col.id)">
-            <fa-icon [icon]="viewIcon"></fa-icon>
-          </a>
+          <button nbButton status="primary" size="tiny" (click)="viewCollection(col.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="viewIcon"></fa-icon>
+          </button>
 
-          <a (click)="shareCollection(col.id)">
-            <fa-icon [icon]="shareIcon"></fa-icon>
-          </a>
+          <button nbButton status="primary" size="tiny" (click)="shareCollection(col.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="shareIcon"></fa-icon>
+          </button>
 
-          <a (click)="editCollection(col.id)">
-            <fa-icon [icon]="editIcon"></fa-icon>
-          </a>
+          <button nbButton status="warning" size="tiny" (click)="editCollection(col.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
+          </button>
 
-          <a (click)="deleteCollection(col.id, col.name)">
-            <fa-icon [icon]="removeIcon"></fa-icon>
-          </a>
+          <button nbButton status="danger" size="tiny" (click)="deleteCollection(col.id, col.name)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
+          </button>
         </td>
       </tr>
 

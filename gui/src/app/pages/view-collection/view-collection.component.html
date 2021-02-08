@@ -28,13 +28,12 @@
         <nb-accordion-item *ngFor="let item of items">
           <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
           <nb-accordion-item-body>
-            <a (click)="editItem(item)">
-              <fa-icon [icon]="editIcon"></fa-icon>
-            </a>
-            <a (click)="deleteItem(item)">
-              <fa-icon [icon]="deleteIcon"></fa-icon>
-            </a>
             <app-view-item [fields]="fields" [item]="item"></app-view-item>
+
+            <button nbButton status="warning" size="small" (click)="editItem(item)">Edit item</button>
+
+            <button nbButton status="danger" size="small" (click)="deleteItem(item)">Remove from collection</button>
+
           </nb-accordion-item-body>
         </nb-accordion-item>
       </nb-accordion>

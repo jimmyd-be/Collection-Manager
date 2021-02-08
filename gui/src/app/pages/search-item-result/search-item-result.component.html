@@ -5,7 +5,8 @@
   </nb-card-body>
   <nb-card-footer>
     <button (click)="addItemToCollection(item.source, item.externalId, item.name)" [disabled]="disableActions"
-            class="appearance-filled size-medium status-primary shape-rectangle nb-transition" nbbutton
+            nbButton
+            size="medium"
             status="primary">Add to collection
     </button>
   </nb-card-footer>

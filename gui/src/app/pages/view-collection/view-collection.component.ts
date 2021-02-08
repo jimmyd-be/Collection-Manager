@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CollectionService} from '../../Services/collection.service';
 import {CustomField} from '../../Entities/custom-field';
 import {Collection} from '../../Entities/collection';
-import {faEdit, faList, faTh, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faList, faTh} from '@fortawesome/free-solid-svg-icons';
 import {ItemService} from '../../Services/item.service';
 import {Item} from '../../Entities/item';
 import {FieldService} from '../../Services/field.service';
@@ -21,8 +21,6 @@ export class ViewCollectionComponent implements OnInit {
 
   listIcon = faList;
   cardIcon = faTh;
-  deleteIcon = faTrash;
-  editIcon = faEdit;
 
   id: number;
   itemsPerPage = 50;
