@@ -44,6 +44,7 @@ import {AddItemExternallyComponent} from './add-item-externally/add-item-externa
 import {SearchItemResultComponent} from './search-item-result/search-item-result.component';
 import {AdminSettingsComponent} from './admin-settings/admin-settings.component';
 import {AdminUsersComponent} from './admin-users/admin-users.component';
+import { EmailWidgetComponent } from './view-item/item-field/email-widget/email-widget.component';
 
 @NgModule({
     imports: [
@@ -96,6 +97,7 @@ import {AdminUsersComponent} from './admin-users/admin-users.component';
     SearchItemResultComponent,
     AdminSettingsComponent,
     AdminUsersComponent,
+    EmailWidgetComponent,
   ],
   entryComponents: [ItemDialogComponent, ConfirmationDialogComponent, ShareCollectionDialogComponent],
 })
