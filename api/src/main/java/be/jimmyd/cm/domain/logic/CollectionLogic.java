@@ -100,6 +100,25 @@ public class CollectionLogic {
             final Field field = fieldMapper.dtoToField(dto);
             final FieldType fieldType = fieldTypeRepository.findByName(dto.getType());
             field.setType(fieldType);
+            field.setActive(true);
+
+            switch (field.getType().getType()) {
+                case "url":
+                    field.setWidget("url");
+                    break;
+                case "image":
+                    field.setWidget("image");
+                    break;
+                case "rate":
+                    field.setWidget("rate");
+                    break;
+                case "email":
+                    field.setWidget("email");
+                    break;
+                default:
+                    field.setWidget("default");
+            }
+
 
             collection.getFields().add(fieldRepository.save(field));
         }

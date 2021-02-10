@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class ItemLogic {
@@ -68,18 +69,33 @@ public class ItemLogic {
 
             List<Itemdata> itemdataList = new ArrayList<>();
 
+            AtomicReference<String> tempLabel = new AtomicReference<>("");
+
             itemData.forEach((key, value) -> {
 
                 long fieldId = getFieldIDFromKey(key);
 
                 fields.stream().filter(field -> field.getId() == fieldId).findFirst().ifPresent(field -> {
-                            Itemdata itemdata = new Itemdata();
-                            itemdata.setField(field);
-                            itemdata.setFieldValue(value);
-                            itemdata.setItem(finalNewItem);
-                            //TODO add validation on field level (required fields, ...)
 
-                            itemdataList.add(itemdata);
+                            String newValue = value;
+
+                            if (key.endsWith("_label")) {
+                                tempLabel.set(value);
+                            } else if (field.getType().getType().equals("url")) {
+
+                                String label = tempLabel.getAndSet("");
+                                newValue = value + (label.equals("") ? "" : "||" + label);
+                            }
+
+                            if (!key.endsWith("_label")) {
+                                Itemdata itemdata = new Itemdata();
+                                itemdata.setField(field);
+                                itemdata.setFieldValue(newValue);
+                                itemdata.setItem(finalNewItem);
+                                //TODO add validation on field level (required fields, ...)
+
+                                itemdataList.add(itemdata);
+                            }
                         }
                 );
             });
@@ -145,10 +161,10 @@ public class ItemLogic {
     public List<ItemDto> getItemsByCollection(long collectionId, PageRequest page, String query) {
         final List<Item> items = new ArrayList<>();
 
-        if(query == null || query.isBlank()) {
+        if (query == null || query.isBlank()) {
             items.addAll(itemRepository.getByCollectionId(collectionId, page));
         } else {
-         items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query, page));
+            items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query, page));
         }
 
         return ItemMapper.INSTANCE.itemToDto(items);

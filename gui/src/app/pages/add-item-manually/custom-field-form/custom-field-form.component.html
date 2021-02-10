@@ -52,7 +52,7 @@
                  placeholder="Place full URL" type="url">
         </div>
         <div class="col-sm-6">
-          <input [type]="field.type" formControlName="{{field.name}}_label" fullWidth id="{{field.name}}_description"
+          <input [type]="field.type" [formControlName]="field.formId+'_label'" fullWidth [id]="field.formId+'_label'"
                  nbInput placeholder="Give a name for the URL">
         </div>
       </div>
