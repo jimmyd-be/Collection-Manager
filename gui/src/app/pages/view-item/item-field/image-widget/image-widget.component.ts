@@ -15,4 +15,13 @@ export class ImageWidgetComponent implements OnInit {
   ngOnInit() {
   }
 
+  getImage(): string {
+
+    if (this.value !== null && this.value[0] !== null && this.value[0] !== '') {
+      return this.value[0];
+    }
+
+    return '../../../../../assets/images/noImage.jpeg';
+  }
+
 }
