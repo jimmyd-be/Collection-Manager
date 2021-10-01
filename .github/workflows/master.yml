@@ -43,7 +43,7 @@ jobs:
       run: ng lint
     - name: Angular prod build
       working-directory: ${{env.working-directory}}
-      run: ng build --prod
+      run: ng build --configuration production
     - name: Create zip
       uses: montudor/action-zip@v0.1.0
       with:
