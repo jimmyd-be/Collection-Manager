@@ -63,8 +63,7 @@ export class AdminUsersComponent implements OnInit {
         if (response === 'delete') {
 
           this.userService.deleteUserOnId(userId).subscribe(
-            resp => null,
-            error => {
+            resp => {
               const index: number = this.users.indexOf(user);
               if (index !== -1) {
                 this.users.splice(index, 1);
