@@ -61,15 +61,5 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Configure Maven
-        uses: s4u/maven-settings-action@v2.2.0
-        with:
-          servers: |
-            [{
-                "id": "github-imdb",
-                "username": "${{ secrets.MAVEN_USERNAME }}",
-                "password": "${{ secrets.MAVEN_PASSWORD }}"
-            }]
-          githubServer: false
       - name: Unit test + integration tests
         run: mvn verify --file api/pom.xml
