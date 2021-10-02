@@ -15,6 +15,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -40,7 +42,7 @@ public class AdminController {
         } catch (UserNotExistsException e) {
             return ResponseEntity.notFound().build();
         } catch (OneActiveAdminNeededException e) {
-            return ResponseEntity.status(422).build();
+            return ResponseEntity.status(FORBIDDEN).build();
         }
     }
 
@@ -52,7 +54,7 @@ public class AdminController {
         } catch (UserNotExistsException e) {
             return ResponseEntity.notFound().build();
         } catch (OneActiveAdminNeededException e) {
-            return ResponseEntity.status(422).build();
+            return ResponseEntity.status(FORBIDDEN).build();
         }
     }
 
