@@ -7,4 +7,5 @@ public class UserLoginDto {
 
     private String email;
     private String password;
+    private boolean rememberMe;
 }
