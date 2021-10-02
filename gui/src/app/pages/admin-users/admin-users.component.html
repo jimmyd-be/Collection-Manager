@@ -17,7 +17,9 @@
           <td>{{user.username}}</td>
           <td>{{user.mail}}</td>
           <td>{{user.creationDate}}</td>
-          <td>{{user.admin}}</td>
+          <td>{{user.admin}}<a (click)="setAdmin(user.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon" ></fa-icon>
+          </a></td>
           <td>{{user.active}}
             <a (click)="disableUser(user.id)">
               <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon" ></fa-icon>

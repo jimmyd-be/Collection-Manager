@@ -36,4 +36,8 @@ export class UserService {
   disableUser(userId: number) {
     return this.http.patch<object>('/admin/user/disable/' + userId, null);
   }
+
+  setAdmin(userId: number) {
+    return this.http.patch<object>('/admin/user/set/admin/' + userId, null);
+  }
 }

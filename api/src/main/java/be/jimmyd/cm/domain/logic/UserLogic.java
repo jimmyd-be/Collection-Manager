@@ -127,4 +127,19 @@ public class UserLogic {
             throw new OneActiveAdminNeededException();
         }
     }
+
+    public void changeAdmin(long userId) throws UserNotExistsException, OneActiveAdminNeededException {
+
+        checkIfAdminStillActive(userId);
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
+
+        if(user.getIsAdmin() == null) {
+            user.setIsAdmin(true);
+        } else {
+            user.setIsAdmin(!user.getIsAdmin());
+        }
+        userRepository.save(user);
+
+    }
 }

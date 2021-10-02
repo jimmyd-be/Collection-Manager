@@ -58,6 +58,18 @@ public class AdminController {
         }
     }
 
+    @PatchMapping("/user/set/admin/{userId}")
+    public ResponseEntity changeAdmin(@PathVariable("userId") long userId) {
+        try {
+            userLogic.changeAdmin(userId);
+            return ResponseEntity.ok().build();
+        } catch (UserNotExistsException e) {
+            return ResponseEntity.notFound().build();
+        } catch (OneActiveAdminNeededException e) {
+            return ResponseEntity.status(FORBIDDEN).build();
+        }
+    }
+
     @GetMapping("/settings")
     public List<SettingDto> getAllSettings() {
         return settingLogic.getAllSettings();
