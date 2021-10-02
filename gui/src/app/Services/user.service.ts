@@ -40,4 +40,8 @@ export class UserService {
   setAdmin(userId: number) {
     return this.http.patch<object>('/admin/user/set/admin/' + userId, null);
   }
+
+  deleteUserOnId(userId: number) {
+    return this.http.delete<object>('/admin/user/' + userId, null);
+  }
 }

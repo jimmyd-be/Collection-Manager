@@ -70,6 +70,18 @@ public class AdminController {
         }
     }
 
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity deleteUser(@PathVariable("userId") long userId) {
+        try {
+            userLogic.deleteUser(userId);
+            return ResponseEntity.ok().build();
+        } catch (OneActiveAdminNeededException e) {
+            return ResponseEntity.status(FORBIDDEN).build();
+        } catch (UserNotExistsException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/settings")
     public List<SettingDto> getAllSettings() {
         return settingLogic.getAllSettings();

@@ -56,9 +56,7 @@ public class UserLogic {
     }
 
     @Transactional
-    public void deleteUser(String mail) {
-        final User user = userRepository.findByMail(mail);
-
+    public void deleteUser(User user) {
         user.getUserCollections().forEach(uc -> {
             try {
                 userCollectionLogic.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
@@ -70,6 +68,13 @@ public class UserLogic {
         userRepository.deleteNative(user.getId());
 
         collectionLogic.deleteWithoutLink();
+    }
+
+    @Transactional
+    public void deleteUser(String mail) throws OneActiveAdminNeededException {
+        final User user = userRepository.findByMail(mail);
+        checkIfAdminStillActive(user.getId());
+        deleteUser(user);
     }
 
     public void editUser(UserEditDto userEditDto, String currentMail) throws PasswordIncorrectException {
@@ -141,5 +146,13 @@ public class UserLogic {
         }
         userRepository.save(user);
 
+    }
+
+    @Transactional
+    public void deleteUser(long userId) throws OneActiveAdminNeededException, UserNotExistsException {
+        checkIfAdminStillActive(userId);
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
+        deleteUser(user);
     }
 }

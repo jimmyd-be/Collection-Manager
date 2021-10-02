@@ -3,31 +3,37 @@
   <nb-card-header>Users</nb-card-header>
 
   <nb-card-body>
-      <table class="table">
-        <thead>
-          <th scope="col">Name</th>
-          <th scope="col">Mail</th>
-          <th scope="col">creation date</th>
-          <th scope="col">Is admin</th>
-          <th scrope="col">Is active</th>
-        <th></th>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{user.username}}</td>
-          <td>{{user.mail}}</td>
-          <td>{{user.creationDate}}</td>
-          <td>{{user.admin}}<a (click)="setAdmin(user.id)">
-            <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon" ></fa-icon>
-          </a></td>
-          <td>{{user.active}}
-            <a (click)="disableUser(user.id)">
-              <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon" ></fa-icon>
-            </a>
-          </td>
-        </tr>
+    <table class="table">
+      <thead>
+      <th scope="col">Name</th>
+      <th scope="col">Mail</th>
+      <th scope="col">creation date</th>
+      <th scope="col">Is admin</th>
+      <th scrope="col">Is active</th>
+      <th scrope="col"></th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.username}}</td>
+        <td>{{user.mail}}</td>
+        <td>{{user.creationDate}}</td>
+        <td>{{user.admin}}<a (click)="setAdmin(user.id)">
+          <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
+        </a></td>
+        <td>{{user.active}}
+          <a (click)="disableUser(user.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
+          </a>
+        </td>
+        <td>
+          <button nbButton status="danger" size="tiny" (click)="deleteUser(user.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
+          </button>
+        </td>
+      </tr>
 
-        </tbody>
-      </table>
+      </tbody>
+    </table>
   </nb-card-body>
 </nb-card>

@@ -172,4 +172,26 @@ public class AdminControllerIT {
 
         assertEquals(1L, Arrays.stream(users.getBody()).filter(n -> n.isAdmin()).count());
     }
+
+    @Test
+    @Order(11)
+    public void deleteLastAdminUser() {
+        final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/user/1"), HttpMethod.DELETE, new HttpEntity<>(getHeaders(admin)), Object.class);
+        assertEquals(HttpStatus.FORBIDDEN, result.getStatusCode());
+
+        final ResponseEntity<UserDto[]> users = restTemplate.exchange(createURLWithPort("admin/users"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
+
+        assertEquals(2L, Arrays.stream(users.getBody()).count());
+    }
+
+    @Test
+    @Order(12)
+    public void deleteUser() {
+        final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/user/2"), HttpMethod.DELETE, new HttpEntity<>(getHeaders(admin)), Object.class);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+
+        final ResponseEntity<UserDto[]> users = restTemplate.exchange(createURLWithPort("admin/users"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
+
+        assertEquals(1L, Arrays.stream(users.getBody()).filter(n -> n.isAdmin()).count());
+    }
 }
