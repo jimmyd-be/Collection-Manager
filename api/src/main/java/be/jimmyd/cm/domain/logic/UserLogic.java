@@ -1,8 +1,6 @@
 package be.jimmyd.cm.domain.logic;
 
-import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
-import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
-import be.jimmyd.cm.domain.exceptions.UserPermissionException;
+import be.jimmyd.cm.domain.exceptions.*;
 import be.jimmyd.cm.domain.mappers.UserMapper;
 import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserEditDto;
@@ -108,5 +106,25 @@ public class UserLogic {
         final List<User> users = userRepository.findAll();
 
         return UserMapper.INSTANCE.userToDto(users);
+    }
+
+    public void editUser(long userId, boolean active) throws UserNotExistsException, OneActiveAdminNeededException {
+
+        if (!active) {
+            checkIfAdminStillActive(userId);
+        }
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
+        user.setActive(active);
+        userRepository.save(user);
+    }
+
+    private void checkIfAdminStillActive(long userId) throws OneActiveAdminNeededException {
+        List<User> allAdmins = userRepository.findAllAdmins();
+
+        allAdmins.removeIf(u -> u.getId() == userId);
+
+        if (allAdmins.isEmpty()) {
+            throw new OneActiveAdminNeededException();
+        }
     }
 }

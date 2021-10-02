@@ -40,6 +40,7 @@ public interface UserMapper {
             @Mapping(source = "isAdmin", target = "admin"),
             @Mapping(source = "creationDate", target = "creationDate"),
             @Mapping(source = "theme", target = "theme"),
+            @Mapping(source = "active", target = "active")
     })
     UserDto userToDto(User user);
 

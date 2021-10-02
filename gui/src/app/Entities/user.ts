@@ -6,6 +6,7 @@ export class User {
     public mail: string,
     public admin: boolean,
     public creationDate: Date,
-    public theme: string) {
+    public theme: string,
+    public active, boolean) {
   }
 }

@@ -29,4 +29,11 @@ export class UserService {
   }
 
 
+  enableUser(userId: number): Observable<any> {
+    return this.http.patch<Object>('/admin/user/enable/' + userId, null);
+  }
+
+  disableUser(userId: number) {
+    return this.http.patch<Object>('/admin/user/disable/' + userId, null);
+  }
 }

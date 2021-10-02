@@ -13,4 +13,5 @@ public class UserDto {
     private boolean isAdmin;
     private LocalDate creationDate;
     private String theme;
+    private boolean active;
 }
