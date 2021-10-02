@@ -1,10 +1,19 @@
-version: '3'
+version: "3"
 
 volumes:
     logs:
         driver: local
 
 services:
+    db:
+        image: mariadb
+        volumes:
+            - container-volume:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: testDatabase
+            MYSQL_DATABASE: newcm
+        ports:
+            - "3306:3306"
     api:
         build: ./api
         ports:
@@ -20,14 +29,5 @@ services:
             - "80:80"
         depends_on:
             - api
-    db:
-        image: mariadb
-        volumes:
-            - container-volume:/var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: testDatabase
-            MYSQL_DATABASE: newcm
-        ports:
-            - "3306:3306"
 volumes:
   container-volume:

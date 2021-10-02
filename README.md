@@ -50,13 +50,13 @@ If you want to have a custom collection please submit a issue or PR.
 
 ## How to build the code (using Docker)
 
-The application contains a script that will build the Angular code and create the needed docker files.
+The application contains a script that will build the code and create the needed docker images.
 
-    sudo sh ./run.sh
+    docker-compose -d up
 
 ## How to remove docker stack
 
-    sudo sh ./remove-deploy.sh
+    docker-compose down --rmi 'all'
 
  ## How to contribute to this project
 You can contribute any kind of new features, bugfixes, ... to the project. The features that need to be implemented can be found at the project page of the repository. If some nice feature is missing please contact me and I will add it to the project. For some help to contribute to this project please read the great guide "[First Contributions](https://github.com/firstcontributions/first-contributions)".
