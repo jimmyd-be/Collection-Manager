@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ItemSearchDirective} from '../../Entities/ItemSearch';
 import {ItemService} from '../../Services/item.service';
 import {NbToastrService} from '@nebular/theme';
@@ -8,16 +8,13 @@ import {NbToastrService} from '@nebular/theme';
   templateUrl: './search-item-result.component.html',
   styleUrls: ['./search-item-result.component.scss'],
 })
-export class SearchItemResultComponent implements OnInit {
+export class SearchItemResultComponent {
 
   @Input() item: ItemSearchDirective;
   @Input() collectionId: number;
   disableActions = false;
 
   constructor(private itemService: ItemService, private toastrService: NbToastrService) {
-  }
-
-  ngOnInit() {
   }
 
   addItemToCollection(source: string, externalId: string, name: string) {

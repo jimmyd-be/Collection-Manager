@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {PasswordUser} from '../../Entities/PasswordUser';
 import {UserService} from '../../Services/user.service';
@@ -8,16 +8,12 @@ import {UserService} from '../../Services/user.service';
   templateUrl: './edit-password-user.component.html',
   styleUrls: ['./edit-password-user.component.scss'],
 })
-export class EditPasswordUserComponent implements OnInit {
+export class EditPasswordUserComponent {
 
   model: PasswordUser = new PasswordUser('', '', '');
 
   constructor(private userService: UserService, private router: Router) {
   }
-
-  ngOnInit() {
-  }
-
 
   onSubmit() {
 

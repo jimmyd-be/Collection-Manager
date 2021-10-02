@@ -3,11 +3,11 @@
   <div class="row">
     <div class="col-md-2 layoutSwitchers">
       <a (click)="changeView('list')">
-        <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView=='list'}" class="fa-2x"></fa-icon>
+        <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView==='list'}" class="fa-2x"></fa-icon>
       </a>
 
       <a (click)="changeView('cards')">
-        <fa-icon [icon]="cardIcon" [ngClass]="{'activeItem': currentView=='cards'}" class="fa-2x"></fa-icon>
+        <fa-icon [icon]="cardIcon" [ngClass]="{'activeItem': currentView==='cards'}" class="fa-2x"></fa-icon>
       </a>
 
     </div>

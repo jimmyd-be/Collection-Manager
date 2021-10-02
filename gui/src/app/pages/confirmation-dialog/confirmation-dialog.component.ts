@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
 
 @Component({
@@ -6,14 +6,11 @@ import {NbDialogRef} from '@nebular/theme';
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.scss'],
 })
-export class ConfirmationDialogComponent implements OnInit {
+export class ConfirmationDialogComponent {
 
   data: string;
 
   constructor(private dialogRef: NbDialogRef<string>) {
-  }
-
-  ngOnInit() {
   }
 
   delete() {
