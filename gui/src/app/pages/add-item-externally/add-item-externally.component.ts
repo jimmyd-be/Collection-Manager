@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Collection } from '../../Entities/collection';
-import { CollectionService } from '../../Services/collection.service';
-import { ItemService } from '../../Services/item.service';
-import { ItemSearchDirective } from '../../Entities/ItemSearch';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Collection} from '../../Entities/collection';
+import {CollectionService} from '../../Services/collection.service';
+import {ItemService} from '../../Services/item.service';
+import {ItemSearchDirective} from '../../Entities/ItemSearch';
 
 @Component({
   selector: 'app-add-item-externally',
@@ -14,10 +14,12 @@ export class AddItemExternallyComponent implements OnInit {
   collectionList: Collection[];
   collectionId: number;
   searchResults: ItemSearchDirective[];
+  private search: string;
 
   constructor(private collectionService: CollectionService,
               private itemService: ItemService,
-              private chRef: ChangeDetectorRef) { }
+              private chRef: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.collectionService.getUserCollections().subscribe(data => {
@@ -30,10 +32,10 @@ export class AddItemExternallyComponent implements OnInit {
     this.collectionId = collectionId;
   }
 
-  onKey(event) {
-    const inputValue = event.target.value;
+  searchItems() {
+    const inputValue = this.search;
 
-    if (inputValue.length % 2 === 0) {
+    if (inputValue.length > 2) {
 
       const selectedCollection = this.collectionList.filter(x => x.id === this.collectionId)[0];
 
@@ -41,6 +43,14 @@ export class AddItemExternallyComponent implements OnInit {
         this.searchResults = data;
         this.chRef.detectChanges();
       });
+    }
+  }
+
+  onKey(event) {
+    this.search = event.target.value;
+
+    if (event.key === 'Enter') {
+      this.searchItems();
     }
   }
 

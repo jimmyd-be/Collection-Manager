@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CustomField } from '../Entities/custom-field';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Item } from '../Entities/item';
-import { isDefined } from '@angular/compiler/src/util';
 import { CustomFieldService } from './custom-field.service';
 
 @Injectable({
@@ -73,7 +72,7 @@ export class ManualFormService {
   getValueOfField(field: CustomField, item: Item): string[] {
     let value: Array<string> = new Array();
 
-    if (isDefined(item)) {
+    if (item) {
       if (field.name === 'title') {
         value.push(item.name);
       } else if (field.name === 'cover') {

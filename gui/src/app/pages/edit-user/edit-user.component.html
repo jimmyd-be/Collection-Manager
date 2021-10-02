@@ -1,52 +1,54 @@
-
 <div class="container">
 
   <div class="row justify-content-center">
 
     <div class="col-md-12 col-lg-6">
-    <nb-card>
-      <nb-card-header>Edit user</nb-card-header>
-      <nb-card-body>
+      <nb-card>
+        <nb-card-header>Edit user</nb-card-header>
+        <nb-card-body>
 
-          <form (ngSubmit)="onSubmit()" #editForm="ngForm">
-              <div class="form-group">
-                <label for="password">Current password</label>
-                <input type="password" nbInput class="form-control" id="password"
-                       required
-                       [(ngModel)]="model.password" name="password"
-                       #name="ngModel">
-              </div>
-         
-              <div class="form-group">
-                  <label for="username">New username</label>
-                  <input type="text" nbInput class="form-control" id="username" required
-                         [(ngModel)]="model.newUser" name="username">
-                </div>
+          <form #editForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="password">Current password</label>
+              <input #name="ngModel" [(ngModel)]="model.password" class="form-control" id="password"
+                     name="password"
+                     nbInput required
+                     type="password">
+            </div>
 
-                <div class="form-group">
-                    <label for="newmail">New mail</label>
-                    <input type="email" nbInput class="form-control" id="newmail" required
-                           [(ngModel)]="model.newMail" name="newmail">
-                  </div>
+            <div class="form-group">
+              <label for="username">New username</label>
+              <input [(ngModel)]="model.newUser" class="form-control" id="username" name="username" nbInput
+                     required type="text">
+            </div>
 
-                  <div class="form-group">
-                    <label for="theme">Theme</label> <br />
-                  <nb-select id="theme" name="theme" [(ngModel)]="model.theme"
-                  [selected]="currentTheme" (selectedChange)="changeTheme($event)" >
-                    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-                  </nb-select>
-                  
-                  </div>
-              <button type="submit" nbbutton
-              class="appearance-filled size-medium status-success shape-rectangle nb-transition"
-               [disabled]="!editForm.form.valid">Edit user</button>
-            </form>
+            <div class="form-group">
+              <label for="newmail">New mail</label>
+              <input [(ngModel)]="model.newMail" class="form-control" id="newmail" name="newmail" nbInput
+                     required type="email">
+            </div>
 
-      </nb-card-body>
-      <nb-card-footer>
-          
-      </nb-card-footer>
-    </nb-card>
-  </div>
+            <div class="form-group">
+              <label for="theme">Theme</label> <br/>
+              <nb-select (selectedChange)="changeTheme($event)" [(ngModel)]="model.theme" [selected]="currentTheme"
+                         id="theme" name="theme">
+                <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+              </nb-select>
+
+            </div>
+            <button [disabled]="!editForm.form.valid"
+                    nbButton
+                    size="medium"
+                    status="success"
+                    type="submit">Edit user
+            </button>
+          </form>
+
+        </nb-card-body>
+        <nb-card-footer>
+
+        </nb-card-footer>
+      </nb-card>
+    </div>
   </div>
 </div>

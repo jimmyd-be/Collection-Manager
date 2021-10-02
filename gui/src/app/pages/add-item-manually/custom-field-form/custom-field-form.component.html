@@ -8,59 +8,61 @@
     </div>
 
     <div class="col-sm-10">
-      <input nbInput fullWidth *ngSwitchCase="'text'" [formControlName]="field.formId" [id]="field.formId"
-        [type]="field.type" [placeholder]="field.placeholder"> 
+      <input *ngSwitchCase="'text'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder" [type]="field.type"
+             fullWidth nbInput>
 
-      <input nbInput fullWidth *ngSwitchCase="'email'" [formControlName]="field.formId" [id]="field.formId"
-        [type]="field.type" [placeholder]="field.placeholder">
+      <input *ngSwitchCase="'email'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder" [type]="field.type"
+             fullWidth nbInput>
 
-        <input nbInput *ngSwitchCase="'rate'" [formControlName]="field.formId" [id]="field.formId" type="number"
-        [placeholder]="field.placeholder" min="0" max="10" step="0.1">
+      <input *ngSwitchCase="'rate'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder" max="10"
+             min="0" nbInput step="0.1" type="number">
 
-        <input nbInput *ngSwitchCase="'number'" [formControlName]="field.formId" [id]="field.formId" type="number"
-        [placeholder]="field.placeholder">
+      <input *ngSwitchCase="'number'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder" nbInput
+             type="number">
 
-      <nb-select [id]="field.formId" *ngSwitchCase="'dropdown'" [formControlName]="field.formId" status="primary"
-        class="col-sm-9" [placeholder]="field.placeholder">
+      <nb-select *ngSwitchCase="'dropdown'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder"
+                 class="col-sm-9" status="primary">
         <nb-option *ngFor="let opt of field.options" [value]="opt">{{opt}}</nb-option>
       </nb-select>
 
       <nb-checkbox *ngSwitchCase="'checkBox'" status="field.name">{{field.name}}</nb-checkbox>
 
-      <nb-radio-group *ngSwitchCase="'radio'" [id]="field.formId" [formControlName]="field.formId">
+      <nb-radio-group *ngSwitchCase="'radio'" [formControlName]="field.formId" [id]="field.formId">
         <nb-radio *ngFor="let option of field.options" [value]="option">
           {{ option }}
         </nb-radio>
       </nb-radio-group>
 
-      <textarea nbInput fullWidth *ngSwitchCase="'textarea'" maxlength="1024" [formControlName]="field.formId" [id]="field.formId"
-        [placeholder]="field.placeholder"></textarea>
+      <textarea *ngSwitchCase="'textarea'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder" fullWidth
+                maxlength="1024"
+                nbInput></textarea>
 
-      <input nbInput fullWidth *ngSwitchCase="'image'" type="url" [id]="field.formId" [formControlName]="field.formId"
-        placeholder="Place full URL" pattern="https?://.+">
+      <input *ngSwitchCase="'image'" [formControlName]="field.formId" [id]="field.formId" fullWidth nbInput pattern="https?://.+"
+             placeholder="Place full URL" type="url">
 
       <div *ngSwitchCase="'date'">
-        <input nbInput [placeholder]="field.placeholder" [nbDatepicker]="formpicker" [id]="field.formId" [formControlName]="field.formId">
+        <input [formControlName]="field.formId" [id]="field.formId" [nbDatepicker]="formpicker" [placeholder]="field.placeholder"
+               nbInput>
         <nb-datepicker #formpicker format="dd-MM-yyyy"></nb-datepicker>
       </div>
 
-      <div class="row" *ngSwitchCase="'url'">
+      <div *ngSwitchCase="'url'" class="row">
         <div class="col-sm-6">
-          <input nbInput fullWidth type="url" [id]="field.formId" [formControlName]="field.formId"
-            placeholder="Place full URL" pattern="https?://.+">
+          <input [formControlName]="field.formId" [id]="field.formId" fullWidth nbInput pattern="https?://.+"
+                 placeholder="Place full URL" type="url">
         </div>
         <div class="col-sm-6">
-          <input nbInput fullWidth formControlName="{{field.name}}_label" id="{{field.name}}_description"
-            [type]="field.type" placeholder="Give a name for the URL">
+          <input [type]="field.type" [formControlName]="field.formId+'_label'" fullWidth [id]="field.formId+'_label'"
+                 nbInput placeholder="Give a name for the URL">
         </div>
       </div>
     </div>
 
-    <div class="col-sm-1" *ngIf="field.multivalues">
+    <div *ngIf="field.multivalues" class="col-sm-1">
 
-        <a (click)="addField()">
-            <fa-icon [icon]="addIcon"></fa-icon>
-          </a>
+      <a (click)="addField()">
+        <fa-icon [icon]="addIcon"></fa-icon>
+      </a>
 
       <a (click)="deleteField()" *ngIf="field.valueNumber !== 0">
         <fa-icon [icon]="removeIcon"></fa-icon>

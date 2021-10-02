@@ -2,11 +2,12 @@ package be.jimmyd.cm.domain.external;
 
 import be.jimmyd.cm.dto.ItemSearchDto;
 import be.jimmyd.cm.entities.Field;
-import nl.stil4m.imdb.IMDB;
-import nl.stil4m.imdb.domain.MovieDetails;
-import nl.stil4m.imdb.exceptions.IMDBException;
+import io.github.jimmydbe.imdb.IMDB;
+import io.github.jimmydbe.imdb.domain.MovieDetails;
+import io.github.jimmydbe.imdb.exceptions.IMDBException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,17 @@ public class ImdbMovieApi implements ExternalApi {
 
     @Override
     public String getUniqueKey() {
-        return "imdbBook";
+        return "imdbMovie";
+    }
+
+    @Override
+    public List<String> getProperties() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean isReadyToUse() {
+        return true; //Nothing to check here
     }
 
     @Override
@@ -60,7 +71,12 @@ public class ImdbMovieApi implements ExternalApi {
 
             switch (field.getName()) {
                 case "title":
-                    itemData.put(field.getId() + "_0", movie.getMovieName());
+
+                    if(movie.getMovieOriginalName()!= null && !movie.getMovieOriginalName().isBlank()) {
+                        itemData.put(field.getId() + "_0", movie.getMovieOriginalName());
+                    } else {
+                        itemData.put(field.getId() + "_0", movie.getMovieName());
+                    }
                     break;
                 case "genre":
 

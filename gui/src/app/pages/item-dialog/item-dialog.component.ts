@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Item } from '../../Entities/item';
-import { CustomField } from '../../Entities/custom-field';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { Collection } from '../../Entities/collection';
-import { NbDialogRef } from '@nebular/theme';
+import {Component, OnInit} from '@angular/core';
+import {Item} from '../../Entities/item';
+import {CustomField} from '../../Entities/custom-field';
+import {Collection} from '../../Entities/collection';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   selector: 'app-item-dialog',
@@ -12,16 +11,15 @@ import { NbDialogRef } from '@nebular/theme';
 })
 export class ItemDialogComponent implements OnInit {
 
-  deleteIcon = faTrash;
-  editIcon = faEdit;
-
   item: Item;
   field: CustomField[];
   collection: Collection;
 
-  constructor(private dialogRef: NbDialogRef<ItemDialogComponent>) { }
+  constructor(private dialogRef: NbDialogRef<ItemDialogComponent>) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   deleteItem() {
     this.dialogRef.close('delete');

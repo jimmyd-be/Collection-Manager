@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { ThemeModule } from '../../@theme/theme.module';
-import { MiscellaneousRoutingModule, routedComponents } from './miscellaneous-routing.module';
-import { NbCardModule } from '@nebular/theme';
+import {NgModule} from '@angular/core';
+import {ThemeModule} from '../../@theme/theme.module';
+import {MiscellaneousRoutingModule, routedComponents} from './miscellaneous-routing.module';
+import {NbCardModule} from '@nebular/theme';
 
 @NgModule({
   imports: [
@@ -13,4 +13,5 @@ import { NbCardModule } from '@nebular/theme';
     ...routedComponents,
   ],
 })
-export class MiscellaneousModule { }
+export class MiscellaneousModule {
+}

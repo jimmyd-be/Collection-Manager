@@ -1,1 +1,22 @@
-<p>admin-settings works!</p>
+<nb-card>
+  <nb-card-header>CM settings</nb-card-header>
+
+  <nb-card-body>
+
+    <form (ngSubmit)="onFormSubmit()" [formGroup]="myForm">
+
+      <div *ngFor="let setting of settings">
+        <label>{{setting.key}}</label>
+        <input formControlName="{{setting.key}}" nbInput type="text" value="{{setting.value}}">
+      </div>
+
+      <div>
+        <input nbInput type="submit" value="Save settings">
+      </div>
+    </form>
+
+  </nb-card-body>
+
+  <nb-card-footer></nb-card-footer>
+
+</nb-card>

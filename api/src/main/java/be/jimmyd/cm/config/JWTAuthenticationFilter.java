@@ -38,19 +38,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.expirationTime = expirationTime;
 
         setFilterProcessesUrl(SIGN_UP_URL);
-    }
+    }                // new arraylist means authorities
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            UserLoginDto creds = new ObjectMapper()
+            UserLoginDto credentials = new ObjectMapper()
                     .readValue(req.getInputStream(), UserLoginDto.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            creds.getEmail(),
-                            creds.getPassword(),
+                            credentials.getEmail(),
+                            credentials.getPassword(),
                             new ArrayList<>())
             );
         } catch (IOException e) {

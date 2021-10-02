@@ -1,8 +1,13 @@
 <p>
-  <span *ngIf="field.labelPosition === 'top'" class="label">{{field.label}}<br /></span> 
-  <span *ngIf="field.labelPosition === 'left'" class="label">{{field.label}}: </span> 
-  
-  <app-image-widget *ngIf="field.widget === 'image'" [value]="getItemValue()" ></app-image-widget>
-  <app-default-widget *ngIf="field.widget === 'default'" [value]="getItemValue()"></app-default-widget>
-  <app-rate-widget *ngIf="field.widget === 'rate'" [value]="getItemValue()" ></app-rate-widget>
+  <span *ngIf="field.labelPosition === 'top'" class="label">{{field.label}}<br/></span>
+  <span *ngIf="field.labelPosition === 'left'" class="label">{{field.label}}: </span>
+
+  <span [ngSwitch]="field.widget">
+    <app-image-widget *ngSwitchCase="'image'" [value]="getItemValue()"></app-image-widget>
+    <app-default-widget *ngSwitchCase="'default'" [value]="getItemValue()"></app-default-widget>
+    <app-rate-widget *ngSwitchCase="'rate'" [value]="getItemValue()"></app-rate-widget>
+    <app-email-widget *ngSwitchCase="'email'" [value]="getItemValue()"></app-email-widget>
+    <app-url-widget *ngSwitchCase="'url'" [value]="getItemValue()"></app-url-widget>
+    <app-default-widget *ngSwitchDefault [value]="getItemValue()"></app-default-widget>
+  </span>
 </p>

@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), secret, expirationtime))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), secret))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), userDetailsService, secret))
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/admin/**").hasRole("ADMIN")

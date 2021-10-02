@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-rate-widget',
@@ -11,7 +11,8 @@ export class RateWidgetComponent implements OnInit {
 
   rating: number;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.rating = Number(this.value) / 2;

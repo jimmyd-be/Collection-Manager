@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-image-widget',
@@ -7,10 +7,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ImageWidgetComponent implements OnInit {
 
-  @Input() value: string;
+  @Input() value: string[];
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  getImage(): string {
+
+    if (this.value !== null && this.value[0] !== null && this.value[0] !== '') {
+      return this.value[0];
+    }
+
+    return '../../../../../assets/images/noImage.jpeg';
+  }
 
 }

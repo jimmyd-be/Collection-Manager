@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Item } from '../../../Entities/item';
-import { CustomField } from '../../../Entities/custom-field';
-import { ItemData } from '../../../Entities/ItemData';
+import {Component, Input, OnInit} from '@angular/core';
+import {Item} from '../../../Entities/item';
+import {CustomField} from '../../../Entities/custom-field';
+import {ItemData} from '../../../Entities/ItemData';
 
 @Component({
   selector: 'app-item-field',
@@ -10,19 +10,25 @@ import { ItemData } from '../../../Entities/ItemData';
 })
 export class ItemFieldComponent implements OnInit {
 
-@Input() item: Item;
-@Input() field: CustomField;
+  @Input() item: Item;
+  @Input() field: CustomField;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
   getItemValue(): string[] {
-    return this.item.data.filter((data: ItemData) => {
-      return this.field.id === data.fieldId;
-    }).map((item: ItemData) => {
-      return item.value;
-    });
+
+    if (this.field.name === 'cover') {
+      return [this.item.image];
+    } else {
+      return this.item.data.filter((data: ItemData) => {
+        return this.field.id === data.fieldId;
+      }).map((item: ItemData) => {
+        return item.value;
+      });
+    }
   }
 }

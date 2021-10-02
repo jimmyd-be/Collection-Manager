@@ -4,32 +4,34 @@
   <nb-card-body>
 
     <table class="table">
-        <thead class="headerTable">
-          <tr>
-            <th scope="col">User</th>
-            <th scope="col">Role</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let col of userCollections">
-            <td>{{col.userName}}</td>
-            <td>{{col.roleName}}</td>
-            <td>
-                <a (click)="deleteUser(col.userId)">
-                  <fa-icon [icon]="removeIcon"></fa-icon>
-              </a> 
-          </td>
-          </tr>
-         
-        </tbody>
-      </table>
+      <thead class="headerTable">
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">Role</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let col of userCollections">
+        <td>{{col.userName}}</td>
+        <td>{{col.roleName}}</td>
+        <td>
+          <a (click)="deleteUser(col.userId)">
+            <fa-icon [icon]="removeIcon"></fa-icon>
+          </a>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
 
   </nb-card-body>
 
   <nb-card-footer>
-      <button (click)="openDialog()" nbButton status="primary"
-      class="appearance-filled size-medium status-primary shape-rectangle nb-transition">Add user</button>
+    <button (click)="openDialog()" nbButton
+            size="medium"
+            status="primary">Add user
+    </button>
 
 
   </nb-card-footer>

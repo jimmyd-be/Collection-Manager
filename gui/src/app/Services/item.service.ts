@@ -15,8 +15,8 @@ export class ItemService {
     return this.http.post('/item/add/collection/' + collectionId, arg1);
   }
 
-  getItemOfCollection(collectionId: number, page: number, itemsPerPage: number): Observable<Item[]> {
-    return this.http.get<Item[]>('/item/get/collection/' + collectionId + '/' + page + '/' + itemsPerPage);
+    getItemOfCollection(collectionId: number, page: number, itemsPerPage: number, searchValue: string): Observable<Item[]> {
+    return this.http.get<Item[]>('/item/get/collection/' + collectionId + '/' + page + '/' + itemsPerPage + '?query=' + searchValue);
   }
 
   deleteItemFromCollection(id: number, collectionId: number) {

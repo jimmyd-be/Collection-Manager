@@ -1,45 +1,32 @@
-<nb-card>
-  <nb-card-header>Dashboard</nb-card-header>
+<div class="container">
+  <div class="row">
 
-  <nb-card-body>
+    <div class="col-md-3 col-sm-12" *ngFor="let col of collections">
+      <nb-card [size]="'tiny'">
+        <nb-card-header>{{col.name}}</nb-card-header>
+        <nb-card-body>
+          Type: {{col.type}} <br/>
+          Members: {{col.members}}
+        </nb-card-body>
 
-    <table class="table">
-      <thead class="headerTable">
-        <tr>
-          <th scope="col">Collection</th>
-          <th scope="col">Type</th>
-          <th scope="col">Members</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let col of collections">
-          <td>{{col.name}}</td>
-          <td>{{col.type}}</td>
-          <td>{{col.members}}</td>
-          <td>
-              <a (click)="viewCollection(col.id)">
-                  <fa-icon [icon]="viewIcon"></fa-icon>
-                </a>
+        <nb-card-footer>
+          <button nbButton status="primary" size="tiny" (click)="viewCollection(col.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="viewIcon"></fa-icon>
+          </button>
 
-                <a (click)="shareCollection(col.id)">
-                  <fa-icon [icon]="shareIcon"></fa-icon>
-                </a>
+          <button nbButton status="primary" size="tiny" (click)="shareCollection(col.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="shareIcon"></fa-icon>
+          </button>
 
-              <a (click)="editCollection(col.id)">
-                  <fa-icon [icon]="editIcon"></fa-icon>
-                </a>
-            
-              <a (click)="deleteCollection(col.id)">
-                <fa-icon [icon]="removeIcon"></fa-icon>
-            </a>
-        </td>
-        </tr>
-       
-      </tbody>
-    </table>
+          <button nbButton status="warning" size="tiny" (click)="editCollection(col.id)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
+          </button>
 
-
-  </nb-card-body>
-
-  </nb-card>
+          <button nbButton status="danger" size="tiny" (click)="deleteCollection(col.id, col.name)">
+            <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</div>

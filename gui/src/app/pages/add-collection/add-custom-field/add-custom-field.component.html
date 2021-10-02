@@ -3,33 +3,34 @@
   <div class="form-row">
     <div class="form-group col">
       <label for="name">Name</label>
-      <input type="text" nbInput class="form-control" id="name" placeholder="Give unique name of the field"
-        formControlName="name" required>
+      <input class="form-control" formControlName="name" id="name" nbInput placeholder="Give unique name of the field"
+             required type="text">
     </div>
 
     <div class="form-group col">
-        <label for="name">Type</label>
-        <select class="form-control" nbInput id="name" formControlName="type" (change)="typeChanged($event.target.value)" required>
-          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-        </select>
-      </div>
-
-    <div class="form-group col" *ngIf="showValueField">
-      <label for="choises">Values</label>
-      <input type="text" nbInput class="form-control" id="choises" placeholder="Give the possible values of the field"
-        formControlName="choises" required>
+      <label for="name">Type</label>
+      <select (change)="typeChanged($event.target.value)" class="form-control" formControlName="type" id="name" nbInput
+              required>
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
     </div>
 
-    <div class="form-group col" *ngIf="showPlaceholderField">
+    <div *ngIf="showValueField" class="form-group col">
+      <label for="choises">Values</label>
+      <input class="form-control" formControlName="choises" id="choises" nbInput placeholder="Give the possible values of the field"
+             required type="text">
+    </div>
+
+    <div *ngIf="showPlaceholderField" class="form-group col">
       <label for="PlaceHolder">PlaceHolder</label>
-      <input type="text" nbInput class="form-control" id="PlaceHolder" placeholder="Give the placeholder of the field"
-        formControlName="placeholder">
+      <input class="form-control" formControlName="placeholder" id="PlaceHolder" nbInput placeholder="Give the placeholder of the field"
+             type="text">
     </div>
 
     <div class="form-group col">
       <label for="label">Label</label>
-      <input type="text" nbInput class="form-control" id="label" placeholder="Give the Label of the field"
-        formControlName="label" required>
+      <input class="form-control" formControlName="label" id="label" nbInput placeholder="Give the Label of the field"
+             required type="text">
     </div>
 
     <a (click)="delete()">
@@ -40,15 +41,15 @@
 
   <div class="form-row">
     <div class="form-group col">
-      <div class="form-check" *ngIf="showRequiredField">
-        <input class="form-check-input" type="checkbox" id="required" formControlName="required">
+      <div *ngIf="showRequiredField" class="form-check">
+        <input class="form-check-input" formControlName="required" id="required" type="checkbox">
         <label class="form-check-label" for="required">
           Required
         </label>
       </div>
 
-      <div class="form-check" *ngIf="showAllowMultiField">
-        <input class="form-check-input" type="checkbox" id="multiValue" formControlName="multiValue">
+      <div *ngIf="showAllowMultiField" class="form-check">
+        <input class="form-check-input" formControlName="multiValue" id="multiValue" type="checkbox">
         <label class="form-check-label" for="multiValue">
           Allow multi values
         </label>
@@ -57,7 +58,7 @@
 
     <div class="form-group col">
       <label for="labelPosition">Label Position</label>
-      <select nbInput class="form-control" id="labelPosition" formControlName="labelposition" required>
+      <select class="form-control" formControlName="labelposition" id="labelPosition" nbInput required>
         <option *ngFor="let position of labelPositions" [ngValue]="position"> {{position}}</option>
       </select>
 
@@ -65,14 +66,14 @@
 
     <div class="form-group col">
       <label for="place">Position</label>
-      <select nbInput class="form-control" id="place" formControlName="place" required>
+      <select class="form-control" formControlName="place" id="place" nbInput required>
         <option *ngFor="let position of fieldPositions" [ngValue]="position"> {{position}}</option>
       </select>
     </div>
 
     <div class="form-group col">
       <label for="fieldOrder">Order</label>
-      <input nbInput type="number" class="form-control" id="fieldOrder" formControlName="fieldOrder" required>
+      <input class="form-control" formControlName="fieldOrder" id="fieldOrder" nbInput required type="number">
     </div>
 
   </div>

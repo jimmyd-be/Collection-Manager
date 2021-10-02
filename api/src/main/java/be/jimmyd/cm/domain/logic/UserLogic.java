@@ -1,8 +1,6 @@
 package be.jimmyd.cm.domain.logic;
 
-import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
-import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
-import be.jimmyd.cm.domain.exceptions.UserPermissionException;
+import be.jimmyd.cm.domain.exceptions.*;
 import be.jimmyd.cm.domain.mappers.UserMapper;
 import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserEditDto;
@@ -13,6 +11,8 @@ import be.jimmyd.cm.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component
 public class UserLogic {
@@ -56,9 +56,7 @@ public class UserLogic {
     }
 
     @Transactional
-    public void deleteUser(String mail) {
-        final User user = userRepository.findByMail(mail);
-
+    public void deleteUser(User user) {
         user.getUserCollections().forEach(uc -> {
             try {
                 userCollectionLogic.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
@@ -70,6 +68,13 @@ public class UserLogic {
         userRepository.deleteNative(user.getId());
 
         collectionLogic.deleteWithoutLink();
+    }
+
+    @Transactional
+    public void deleteUser(String mail) throws OneActiveAdminNeededException {
+        final User user = userRepository.findByMail(mail);
+        checkIfAdminStillActive(user.getId());
+        deleteUser(user);
     }
 
     public void editUser(UserEditDto userEditDto, String currentMail) throws PasswordIncorrectException {
@@ -99,5 +104,55 @@ public class UserLogic {
 
             userRepository.save(user);
         }
+    }
+
+    public List<UserDto> getAllUsers() {
+
+        final List<User> users = userRepository.findAll();
+
+        return UserMapper.INSTANCE.userToDto(users);
+    }
+
+    public void editUser(long userId, boolean active) throws UserNotExistsException, OneActiveAdminNeededException {
+
+        if (!active) {
+            checkIfAdminStillActive(userId);
+        }
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
+        user.setActive(active);
+        userRepository.save(user);
+    }
+
+    private void checkIfAdminStillActive(long userId) throws OneActiveAdminNeededException {
+        List<User> allAdmins = userRepository.findAllAdmins();
+
+        allAdmins.removeIf(u -> u.getId() == userId);
+
+        if (allAdmins.isEmpty()) {
+            throw new OneActiveAdminNeededException();
+        }
+    }
+
+    public void changeAdmin(long userId) throws UserNotExistsException, OneActiveAdminNeededException {
+
+        checkIfAdminStillActive(userId);
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
+
+        if(user.getIsAdmin() == null) {
+            user.setIsAdmin(true);
+        } else {
+            user.setIsAdmin(!user.getIsAdmin());
+        }
+        userRepository.save(user);
+
+    }
+
+    @Transactional
+    public void deleteUser(long userId) throws OneActiveAdminNeededException, UserNotExistsException {
+        checkIfAdminStillActive(userId);
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
+        deleteUser(user);
     }
 }

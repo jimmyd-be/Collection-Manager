@@ -10,6 +10,8 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface UserMapper {
@@ -38,6 +40,13 @@ public interface UserMapper {
             @Mapping(source = "isAdmin", target = "admin"),
             @Mapping(source = "creationDate", target = "creationDate"),
             @Mapping(source = "theme", target = "theme"),
+            @Mapping(source = "active", target = "active")
     })
     UserDto userToDto(User user);
+
+    default List<UserDto> userToDto(List<User> users) {
+        return users.parallelStream()
+                .map(user -> userToDto(user))
+                .collect(Collectors.toList());
+    }
 }

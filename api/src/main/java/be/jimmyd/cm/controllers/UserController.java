@@ -1,14 +1,20 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
+import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.logic.UserLogic;
 import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserEditDto;
 import be.jimmyd.cm.dto.UserEditPasswordDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
+
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @RestController
 @RequestMapping("/api/user")
@@ -26,8 +32,13 @@ public class UserController {
     }
 
     @DeleteMapping("")
-    public void deleteUser(UsernamePasswordAuthenticationToken user) {
-        userLogic.deleteUser(user.getPrincipal().toString());
+    public ResponseEntity deleteUser(UsernamePasswordAuthenticationToken user) {
+        try {
+            userLogic.deleteUser(user.getPrincipal().toString());
+            return ResponseEntity.ok().build();
+        } catch (OneActiveAdminNeededException e) {
+            return ResponseEntity.status(FORBIDDEN).build();
+        }
     }
 
     @PatchMapping("/edit")
@@ -38,5 +49,11 @@ public class UserController {
     @PatchMapping("/edit/password")
     public void editPassword(@Valid @RequestBody UserEditPasswordDto userEditPasswordDto, UsernamePasswordAuthenticationToken user) throws PasswordIncorrectException {
         userLogic.editPassword(userEditPasswordDto, user.getPrincipal().toString());
+    }
+
+    @PostMapping("/logout")
+    public void logoutUser(Principal user) throws UserAlreadyExists {
+
+        //TODO invalidate current token
     }
 }

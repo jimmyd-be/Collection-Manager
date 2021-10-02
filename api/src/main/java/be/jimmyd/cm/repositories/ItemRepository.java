@@ -1,6 +1,7 @@
 package be.jimmyd.cm.repositories;
 
 import be.jimmyd.cm.entities.Item;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -22,4 +24,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Modifying
     @Query(value = "DELETE FROM cm_collectionitem WHERE collectionId = :collectionId AND itemId = :itemId", nativeQuery = true)
     void deleteItemFromCollection(@Param("itemId") long itemId, @Param("collectionId") long collectionId);
+
+    @Query("SELECT i FROM Item i JOIN FETCH i.itemdata d JOIN i.collections c WHERE c.id = :id AND i.name LIKE %:queryName% ORDER BY i.name")
+    List<Item> getByCollectionIdAndQuery(@Param("id") long collectionId, @Param("queryName") String query, Pageable page);
 }

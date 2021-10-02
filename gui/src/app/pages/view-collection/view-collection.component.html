@@ -1,63 +1,52 @@
-<div class="row">
-  <div class="col">
-    <a (click)="changeView('list')">
-      <fa-icon [icon]="listIcon" class="fa-2x" [ngClass]="{'activeItem': currentView=='list'}"></fa-icon>
-    </a>
+<div class="container-fluid p-0">
 
-    <a (click)="changeView('cards')">
-      <fa-icon [icon]="cardIcon" class="fa-2x" [ngClass]="{'activeItem': currentView=='cards'}"></fa-icon>
-    </a>
+  <div class="row">
+    <div class="col-md-2 layoutSwitchers">
+      <a (click)="changeView('list')">
+        <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView=='list'}" class="fa-2x"></fa-icon>
+      </a>
 
-  </div>
-  <div class="col collectionText" *ngIf="collection">
-    {{collection.name}}
-  </div>
-  <div class="col">
-    <input type="text" placeholder="Search" class="rightAlign searchBar" />
-  </div>
-</div>
+      <a (click)="changeView('cards')">
+        <fa-icon [icon]="cardIcon" [ngClass]="{'activeItem': currentView=='cards'}" class="fa-2x"></fa-icon>
+      </a>
 
-<div class="row">
-  <div class="col" *ngFor="let filter of firstLetterFilter" [ngClass]="{'activeItem': currentLetterFilter ==filter}">
-    <a (click)="changeLetterFilter(filter)">
-      {{filter}}
-    </a>
-  </div>
-
-  <div class="col" [ngClass]="{'activeItem': currentLetterFilter=='ALL'}">
-    <a (click)="changeLetterFilter('ALL')">
-      ALL
-    </a>
-  </div>
-</div>
-
-<div class="row" class="search-results itemList" infiniteScroll [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-
-  <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
-    <nb-accordion>
-      <nb-accordion-item *ngFor="let item of items">
-        <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
-        <nb-accordion-item-body>
-            <a (click)="editItem(item)">
-                <fa-icon [icon]="editIcon"></fa-icon>
-              </a>
-              <a (click)="deleteItem(item)">
-                  <fa-icon [icon]="deleteIcon"></fa-icon>
-                </a>
-          <app-view-item [item]="item" [fields]="fields"></app-view-item>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-    </nb-accordion>
-  </div>
-
-  <div *ngIf="currentView === 'cards'">
-    <div class="card itemCard" *ngFor="let item of items" (click)="openModal(item)">
-      <img src="{{getImage(item)}}" class="card-img-top" alt="Cover">
-      <div class="card-body">
-        <h5 class="card-title">{{item.name}}</h5>
-      </div>
+    </div>
+    <div *ngIf="collection" class="col-md-8 col-sm-12 collectionText">
+      {{collection.name}}
+    </div>
+    <div class="col-md-2 col-sm-12">
+      <input (keyup)="search($event)" class="searchBar" placeholder="Search" type="text"/>
     </div>
   </div>
 
+
+  <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="itemList row"
+       infiniteScroll>
+
+    <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
+      <nb-accordion>
+        <nb-accordion-item *ngFor="let item of items">
+          <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <app-view-item [fields]="fields" [item]="item"></app-view-item>
+
+            <button nbButton status="warning" size="small" (click)="editItem(item)">Edit item</button>
+
+            <button nbButton status="danger" size="small" (click)="deleteItem(item)">Remove from collection</button>
+
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+
+    <div *ngIf="currentView === 'cards'">
+      <div (click)="openModal(item)" *ngFor="let item of items" class="card itemCard">
+
+        <img alt="Cover" class="card-img-top itemCardImage" src="{{getImage(item)}}">
+        <div class="card-body itemCardBody">
+          <h6 class="card-title">{{item.name}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

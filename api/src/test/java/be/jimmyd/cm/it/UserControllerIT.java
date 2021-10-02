@@ -58,7 +58,13 @@ public class UserControllerIT {
         user.setFullName(username);
         user.setPassword(password);
 
+        UserRegisterDto user2 = new UserRegisterDto();
+        user2.setEmail("test2@tests.com");
+        user2.setFullName("user2");
+        user2.setPassword("test21345678");
+
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
+        restTemplate.postForEntity(createURLWithPort("auth/register"), user2, Object.class);
 
         restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 
@@ -117,12 +123,12 @@ public class UserControllerIT {
     @Order(4)
     @Test
     public void testDeleteUser() {
-        ResponseEntity<Object> deleteResponse = restTemplate.exchange(createURLWithPort("user"), HttpMethod.DELETE, new HttpEntity<>(getHeaders(newMail, newPassword)), Object.class);
+        ResponseEntity<Object> deleteResponse = restTemplate.exchange(createURLWithPort("user"), HttpMethod.DELETE, new HttpEntity<>(getHeaders("test2@tests.com", "test21345678")), Object.class);
         assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
 
         UserLoginDto login = new UserLoginDto();
-        login.setEmail(newMail);
-        login.setPassword(newPassword);
+        login.setEmail("test2@tests.com");
+        login.setPassword("test21345678");
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 

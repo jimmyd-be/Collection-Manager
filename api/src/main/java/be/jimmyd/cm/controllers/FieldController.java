@@ -1,9 +1,12 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.logic.FieldLogic;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.FieldDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,36 +28,54 @@ public class FieldController {
     }
 
     @GetMapping("/collection/{id}")
-    public List<FieldDto> getByCollection(@PathVariable("id") long id) throws UserPermissionException {
-        List<FieldDto> result = new ArrayList<>();
+    public ResponseEntity<List<FieldDto>> getByCollection(@PathVariable("id") long id) {
 
-        if (securityUtil.hasUserReadAccessToCollection(id)) {
+        try {
+            securityUtil.hasUserAccessToCollection(id, Permission.READ);
+
+            List<FieldDto> result = new ArrayList<>();
+
             result.addAll(fieldLogic.getBasicFieldsByCollection(id));
             result.addAll(fieldLogic.getCustomFieldsByCollection(id));
+
+            return ResponseEntity.ok(result);
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        return result;
+
     }
 
     @GetMapping("/basic/collection/{id}")
-    public List<FieldDto> getBasicByCollection(@PathVariable("id") long id) throws UserPermissionException {
+    public ResponseEntity<List<FieldDto>> getBasicByCollection(@PathVariable("id") long id) {
 
-        List<FieldDto> result = new ArrayList<>();
+        try {
+            securityUtil.hasUserAccessToCollection(id, Permission.READ);
 
-        if (securityUtil.hasUserReadAccessToCollection(id)) {
+            List<FieldDto> result = new ArrayList<>();
+
             result.addAll(fieldLogic.getBasicFieldsByCollection(id));
-        }
 
-        return result;
+            return ResponseEntity.ok(result);
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @GetMapping("/custom/collection/{id}")
-    public List<FieldDto> getCustomByCollection(@PathVariable("id") long id) throws UserPermissionException {
-        List<FieldDto> result = new ArrayList<>();
+    public ResponseEntity<List<FieldDto>> getCustomByCollection(@PathVariable("id") long id) {
 
-        if (securityUtil.hasUserReadAccessToCollection(id)) {
+        try {
+            securityUtil.hasUserAccessToCollection(id, Permission.READ);
+            List<FieldDto> result = new ArrayList<>();
+
             result.addAll(fieldLogic.getCustomFieldsByCollection(id));
-        }
 
-        return result;
+            return ResponseEntity.ok(result);
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 }

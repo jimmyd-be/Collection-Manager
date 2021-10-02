@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class ItemLogic {
@@ -44,8 +46,6 @@ public class ItemLogic {
         final User user = userRepository.findByMail(userMail);
         collectionRepository.findById(collectionId).ifPresent(collection -> {
 
-            //TODo check user permission on collection
-            //TODO split this method
             final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
             fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
 
@@ -66,24 +66,47 @@ public class ItemLogic {
             final Item finalNewItem = itemRepository.save(newItem);
 
             itemId.set(finalNewItem.getId());
+
+            List<Itemdata> itemdataList = new ArrayList<>();
+
+            AtomicReference<String> tempLabel = new AtomicReference<>("");
+
             itemData.forEach((key, value) -> {
 
                 long fieldId = getFieldIDFromKey(key);
 
                 fields.stream().filter(field -> field.getId() == fieldId).findFirst().ifPresent(field -> {
-                            Itemdata itemdata = new Itemdata();
-                            itemdata.setField(field);
-                            itemdata.setFieldValue(value);
-                            itemdata.setItem(finalNewItem);
-                            //TODO add validation on field level (required fields, ...)
 
-                            itemDataRepository.save(itemdata);
+                            String newValue = value;
+
+                            if (key.endsWith("_label")) {
+                                tempLabel.set(value);
+                            } else if (field.getType().getType().equals("url")) {
+
+                                String label = tempLabel.getAndSet("");
+                                newValue = value + (label.equals("") ? "" : "||" + label);
+                            }
+
+                            if (!key.endsWith("_label")) {
+                                Itemdata itemdata = new Itemdata();
+                                itemdata.setField(field);
+                                itemdata.setFieldValue(newValue);
+                                itemdata.setItem(finalNewItem);
+                                //TODO add validation on field level (required fields, ...)
+
+                                itemdataList.add(itemdata);
+                            }
                         }
                 );
             });
 
-            collection.getItems().add(newItem);
-            collectionRepository.save(collection);
+            itemDataRepository.saveAll(itemdataList);
+
+
+            finalNewItem.getCollections().add(collection);
+            itemRepository.save(finalNewItem);
+            //collection.getItems().add(newItem);
+            //collectionRepository.save(collection);
         });
         return itemId.get();
     }
@@ -104,8 +127,6 @@ public class ItemLogic {
 
     @Transactional
     public void editItem(long itemId, Map<String, String> itemData, String userMail) {
-        //TODo check user permission
-
         itemRepository.findById(itemId).ifPresent(item -> {
 
             final List<Collection> collections = item.getCollections();
@@ -128,8 +149,6 @@ public class ItemLogic {
     }
 
     public ItemDto getById(long itemId) throws ItemNotExistException {
-        //TODo check user permission
-
         final Optional<Item> itemOptional = itemRepository.findById(itemId);
 
         if (itemOptional.isPresent()) {
@@ -139,10 +158,14 @@ public class ItemLogic {
         }
     }
 
-    public List<ItemDto> getItemsByCollection(long collectionId, PageRequest page) {
-        //TODo check user permission
+    public List<ItemDto> getItemsByCollection(long collectionId, PageRequest page, String query) {
+        final List<Item> items = new ArrayList<>();
 
-        final List<Item> items = itemRepository.getByCollectionId(collectionId, page);
+        if (query == null || query.isBlank()) {
+            items.addAll(itemRepository.getByCollectionId(collectionId, page));
+        } else {
+            items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query, page));
+        }
 
         return ItemMapper.INSTANCE.itemToDto(items);
     }
@@ -158,8 +181,6 @@ public class ItemLogic {
     }
 
     public void deleteItemFromCollection(long itemId, long collectionId) {
-        //TODO check user permission
-
         collectionRepository.findById(collectionId).ifPresent(collection -> {
             collection.getItems().stream().filter(n -> n.getId() == itemId).findFirst().ifPresent(field -> collection.getItems().remove(field));
 

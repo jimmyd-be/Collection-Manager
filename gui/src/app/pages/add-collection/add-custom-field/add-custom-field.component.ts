@@ -1,7 +1,7 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { CustomFieldService } from '../../../Services/custom-field.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {CustomFieldService} from '../../../Services/custom-field.service';
 
 
 @Component({
@@ -26,7 +26,8 @@ export class AddCustomFieldComponent implements OnInit {
   showRequiredField = false;
   showAllowMultiField = false;
 
-  constructor(private fieldService: CustomFieldService) { }
+  constructor(private fieldService: CustomFieldService) {
+  }
 
   ngOnInit() {
 

@@ -1115,7 +1115,7 @@
     <changeSet author="jimmy (generated)" id="15">
         <insert tableName="cm_role">
             <column name="id" valueNumeric="1"/>
-            <column name="name" value="Owner"/>
+            <column name="name" value="Admin"/>
             <column name="active" valueBoolean="true"/>
         </insert>
         <insert tableName="cm_role">
@@ -1265,5 +1265,16 @@
                                  constraintName="cm_usercollection_ibfk_3" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_role" validate="true"/>
+    </changeSet>
+
+    <changeSet author="jimmy" id="41">
+        <createTable tableName="cm_setting">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
     </changeSet>
 </databaseChangeLog>

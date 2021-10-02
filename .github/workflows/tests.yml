@@ -46,30 +46,15 @@ jobs:
       run: ng lint
     - name: Angular prod build
       working-directory: ${{env.working-directory}}
-      run: ng build --prod
+      run: ng build --configuration production
   api:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: 'adopt'
           java-version: 11
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      - name: Configure Maven
-        uses: s4u/maven-settings-action@v2.2.0
-        with:
-          servers: |
-            [{
-                "id": "github-imdb",
-                "username": "${{ secrets.MAVEN_USERNAME }}",
-                "password": "${{ secrets.MAVEN_PASSWORD }}"
-            }]
-          githubServer: false
       - name: Unit test + integration tests
-        run: mvn verify --file api/pom.xml
+        run: mvn --batch-mode --update-snapshots verify --file api/pom.xml

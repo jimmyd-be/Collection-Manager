@@ -1,16 +1,12 @@
 <nb-card>
   <nb-card-header>{{item.name}}
 
-      <a (click)="editItem()">
-          <fa-icon [icon]="editIcon"></fa-icon>
-        </a>
-        <a (click)="deleteItem()">
-            <fa-icon [icon]="deleteIcon"></fa-icon>
-          </a>
-
-
   </nb-card-header>
   <nb-card-body>
-      <app-view-item [item]="item" [fields]="field"></app-view-item>
+    <app-view-item [fields]="field" [item]="item"></app-view-item>
+
+  <button nbButton status="warning" size="small"  (click)="editItem()">Edit item</button>
+
+  <button nbButton status="danger" size="small" (click)="deleteItem()">Remove from collection</button>
   </nb-card-body>
 </nb-card>

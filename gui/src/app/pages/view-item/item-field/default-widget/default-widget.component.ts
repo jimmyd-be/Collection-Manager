@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-default-widget',
@@ -9,7 +9,8 @@ export class DefaultWidgetComponent implements OnInit {
 
   @Input() value: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

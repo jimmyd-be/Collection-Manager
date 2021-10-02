@@ -5,7 +5,7 @@
 
 // framework component themes (styles tied to theme variables)
 @import '~@nebular/theme/styles/globals';
-@import '~@nebular/auth/styles/all';
+@import '~@nebular/auth/styles/globals';
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -32,7 +32,9 @@
   @include ngx-pace-theme();
 
   @include nb-overrides();
-};
+}
+
+;
 
 button {
   margin-right: 10px;

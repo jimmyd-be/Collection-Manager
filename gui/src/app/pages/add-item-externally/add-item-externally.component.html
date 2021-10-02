@@ -1,23 +1,28 @@
 <nb-card>
-    <nb-card-header>Search for items on external databases</nb-card-header>
-  
-    <nb-card-body>
-      <nb-select placeholder="Please select collection" status="primary"
-        (selectedChange)="collectionSelectionChanged($event)">
-        <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
-      </nb-select>
-      <input type="text" nbInput fieldSize="medium" placeholder="Input" (change)="onKey($event)">
+  <nb-card-header>Search for items on external databases</nb-card-header>
 
-    </nb-card-body>
-  
-    <nb-card-footer>
+  <nb-card-body>
+    <nb-select (selectedChange)="collectionSelectionChanged($event)" placeholder="Please select collection"
+               status="primary">
+      <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
+    </nb-select>
+    <input (keyup)="onKey($event)" fieldSize="medium" nbInput placeholder="Input" type="text">
 
-      <div *ngFor="let item of searchResults">
-      
-        <app-search-item-result [item]="item" [collectionId]="collectionId"></app-search-item-result>
-      </div>
+    <button (click)="searchItems()" size="medium" nbButton
+            status="primary">Search
+    </button>
 
 
-    </nb-card-footer>
-  
-  </nb-card>
+  </nb-card-body>
+
+  <nb-card-footer>
+
+    <div *ngFor="let item of searchResults">
+
+      <app-search-item-result [collectionId]="collectionId" [item]="item"></app-search-item-result>
+    </div>
+
+
+  </nb-card-footer>
+
+</nb-card>

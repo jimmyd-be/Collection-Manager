@@ -61,7 +61,7 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
             method: 'post',
           },
           logout: {
-            endpoint: '/auth/logout',
+            endpoint: '/user/logout',
             method: 'post',
             redirect: {
               success: '/',

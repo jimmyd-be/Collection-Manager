@@ -29,4 +29,19 @@ export class UserService {
   }
 
 
+  enableUser(userId: number): Observable<any> {
+    return this.http.patch<object>('/admin/user/enable/' + userId, null);
+  }
+
+  disableUser(userId: number): Observable<any> {
+    return this.http.patch<object>('/admin/user/disable/' + userId, null);
+  }
+
+  setAdmin(userId: number): Observable<any> {
+    return this.http.patch<object>('/admin/user/set/admin/' + userId, null);
+  }
+
+  deleteUserOnId(userId: number): Observable<any> {
+    return this.http.delete<object>('/admin/user/' + userId);
+  }
 }
