@@ -91,7 +91,7 @@ public class AdminControllerIT {
         final ResponseEntity<UserDto[]> result = restTemplate.exchange(createURLWithPort("admin/settings"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
-        assertTrue(result.getBody().length > 0);
+        assertTrue(result.getBody() == null || result.getBody().length > 0);
     }
 
     @Test
@@ -99,6 +99,42 @@ public class AdminControllerIT {
 
         final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/settings"), HttpMethod.GET, new HttpEntity<>(getHeaders(user)), Object.class);
         assertEquals(HttpStatus.FORBIDDEN, result.getStatusCode());
+    }
+
+    @Test
+    public void disableOnlyAdminUser() {
+
+        final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/user/disable/1"), HttpMethod.PATCH, new HttpEntity<>(getHeaders(admin)), Object.class);
+        assertEquals(HttpStatus.FORBIDDEN, result.getStatusCode());
+    }
+
+    @Test
+    public void disableUser() {
+
+        final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/user/disable/2"), HttpMethod.PATCH, new HttpEntity<>(getHeaders(admin)), Object.class);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+
+        final ResponseEntity<UserDto[]> userResult = restTemplate.exchange(createURLWithPort("admin/users"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
+
+        assertTrue(
+                Arrays.stream(userResult.getBody())
+                        .filter(n -> !n.isActive())
+                        .filter(n -> n.getId() == 2)
+                        .findFirst().isPresent());
+    }
+
+    @Test
+    public void enableUser() {
+
+        final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/user/enable/2"), HttpMethod.PATCH, new HttpEntity<>(getHeaders(admin)), Object.class);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+
+        final ResponseEntity<UserDto[]> userResult = restTemplate.exchange(createURLWithPort("admin/users"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
+
+        assertTrue(
+                Arrays.stream(userResult.getBody())
+                        .filter(n -> n.isActive())
+                        .anyMatch(n -> n.getId() == 2));
     }
 
 }
