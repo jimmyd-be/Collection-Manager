@@ -6,15 +6,19 @@ volumes:
 
 services:
     db:
-        image: mariadb
-        volumes:
-            - container-volume:/var/lib/mysql
+        image: postgres:alpine
+        restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: testDatabase
-            MYSQL_DATABASE: newcm
-        network_mode: "service:api"
+            POSTGRES_PASSWORD: testDatabase
+            POSTGRES_DB: newcm
+        ports:
+            - "5432:5432"
+        expose:
+            - 5432
     api:
         build: ./api
+        depends_on:
+            - db
         ports:
             - "8080:8080"
         expose:

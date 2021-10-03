@@ -4,34 +4,34 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
     <changeSet author="jimmy (generated)" id="1">
         <createTable tableName="cm_collection">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="typeId" type="INT">
+            <column name="typeid" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
+            <column defaultValueBoolean="false" name="active" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="2">
         <createTable tableName="cm_collectionfield">
-            <column name="collectionId" type="BIGINT UNSIGNED">
+            <column name="collectionid" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="fieldId" type="BIGINT UNSIGNED">
+            <column name="fieldid" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="3">
         <createTable tableName="cm_collectionitem">
-            <column name="collectionId" type="BIGINT UNSIGNED">
+            <column name="collectionid" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="itemId" type="BIGINT UNSIGNED">
+            <column name="itemid" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
         </createTable>
@@ -44,12 +44,12 @@
             <column name="type" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
+            <column defaultValueBoolean="false" name="active" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="5">
         <createTable tableName="cm_field">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
@@ -57,22 +57,22 @@
                 <constraints nullable="false"/>
             </column>
             <column name="choises" type="VARCHAR(255)"/>
-            <column defaultValueBoolean="false" name="required" type="BIT"/>
-            <column name="placeHolder" type="VARCHAR(255)"/>
+            <column defaultValueBoolean="false" name="required" type="boolean"/>
+            <column name="placeholder" type="VARCHAR(255)"/>
             <column name="label" type="VARCHAR(255)"/>
-            <column name="otherOptions" type="VARCHAR(255)"/>
-            <column defaultValueComputed="NULL" name="collectionBaseType" type="INT"/>
-            <column name="fieldOrder" type="INT">
+            <column name="otheroptions" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="collectionbasetype" type="INT"/>
+            <column name="fieldorder" type="INT">
                 <constraints nullable="false"/>
             </column>
             <column name="place" type="VARCHAR(10)">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueBoolean="false" name="multiValues" type="BIT"/>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
-            <column name="labelPosition" type="VARCHAR(45)"/>
+            <column defaultValueBoolean="false" name="multivalues" type="boolean"/>
+            <column defaultValueBoolean="false" name="active" type="boolean"/>
+            <column name="labelposition" type="VARCHAR(45)"/>
             <column name="widget" type="VARCHAR(45)"/>
-            <column defaultValueBoolean="false" name="basic" type="BIT"/>
+            <column defaultValueBoolean="false" name="basic" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="6">
@@ -83,44 +83,44 @@
             <column name="type" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
+            <column defaultValueBoolean="false" name="active" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="7">
         <createTable tableName="cm_item">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="image" type="VARCHAR(255)"/>
-            <column name="author" type="BIGINT UNSIGNED">
+            <column name="author" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="creationDate" type="datetime">
+            <column name="creationdate" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueComputed="NULL" name="lastModified" type="datetime"/>
-            <column defaultValueComputed="NULL" name="modifiedBy" type="BIGINT UNSIGNED"/>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
+            <column defaultValueComputed="NULL" name="lastmodified" type="datetime"/>
+            <column defaultValueComputed="NULL" name="modifiedby" type="BIGINT"/>
+            <column defaultValueBoolean="false" name="active" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="8">
         <createTable tableName="cm_itemdata">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="itemId" type="BIGINT UNSIGNED">
+            <column name="itemid" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="fieldId" type="BIGINT UNSIGNED">
+            <column name="fieldid" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="valueCount" type="BIGINT UNSIGNED">
+            <column name="valuecount" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="fieldValue" type="TEXT"/>
+            <column name="fieldvalue" type="TEXT"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="9">
@@ -131,12 +131,12 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
+            <column defaultValueBoolean="false" name="active" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="10">
         <createTable tableName="cm_user">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="username" type="VARCHAR(255)">
@@ -145,27 +145,27 @@
             <column name="mail" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="userPassword" type="VARCHAR(255)"/>
-            <column name="creationDate" type="datetime">
+            <column name="userpassword" type="VARCHAR(255)"/>
+            <column name="creationdate" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueBoolean="false" name="isAdmin" type="BIT"/>
+            <column defaultValueBoolean="false" name="admin" type="boolean"/>
             <column name="theme" type="VARCHAR(255)"/>
-            <column defaultValueBoolean="false" name="active" type="BIT"/>
+            <column defaultValueBoolean="false" name="active" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="jimmy (generated)" id="11">
         <createTable tableName="cm_usercollection">
-            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="userId" type="BIGINT UNSIGNED">
+            <column name="userid" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="collectionId" type="BIGINT UNSIGNED">
+            <column name="collectionid" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="roleId" type="INT">
+            <column name="roleid" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -209,15 +209,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="Title"/>
+            <column name="placeholder" value="Title"/>
             <column name="label" value="Title"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="top"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -227,15 +227,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Genre"/>
+            <column name="placeholder" value="Genre"/>
             <column name="label" value="Genre"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="10"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="10"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -245,15 +245,15 @@
             <column name="type" valueNumeric="12"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value=""/>
+            <column name="placeholder" value=""/>
             <column name="label" value="Runtime"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="20"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="20"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -263,15 +263,15 @@
             <column name="type" valueNumeric="4"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Release Date"/>
+            <column name="placeholder" value="Release Date"/>
             <column name="label" value="Release Date"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -281,15 +281,15 @@
             <column name="type" valueNumeric="3"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Storyline"/>
+            <column name="placeholder" value="Storyline"/>
             <column name="label" value="Storyline"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="40"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="40"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -299,15 +299,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Director"/>
+            <column name="placeholder" value="Director"/>
             <column name="label" value="Director"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="50"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="50"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -317,15 +317,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Writer"/>
+            <column name="placeholder" value="Writer"/>
             <column name="label" value="Writer"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="60"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="60"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -335,15 +335,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Cast"/>
+            <column name="placeholder" value="Cast"/>
             <column name="label" value="Cast"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="60"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="60"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -353,15 +353,15 @@
             <column name="type" valueNumeric="10"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Cover"/>
+            <column name="placeholder" value="Cover"/>
             <column name="label" value="Cover"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="70"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="70"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="image"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -371,15 +371,15 @@
             <column name="type" valueNumeric="9"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Rating"/>
+            <column name="placeholder" value="Rating"/>
             <column name="label" value="Rating"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="1"/>
-            <column name="fieldOrder" valueNumeric="80"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="1"/>
+            <column name="fieldorder" valueNumeric="80"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="rate"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -389,15 +389,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="Title"/>
+            <column name="placeholder" value="Title"/>
             <column name="label" value="Title"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="top"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -407,15 +407,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Genre"/>
+            <column name="placeholder" value="Genre"/>
             <column name="label" value="Genre"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="10"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="10"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -425,15 +425,15 @@
             <column name="type" valueNumeric="4"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Release Date"/>
+            <column name="placeholder" value="Release Date"/>
             <column name="label" value="Release Date"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -443,15 +443,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Platform"/>
+            <column name="placeholder" value="Platform"/>
             <column name="label" value="Platform"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="20"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="20"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -461,15 +461,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Publisher"/>
+            <column name="placeholder" value="Publisher"/>
             <column name="label" value="Publisher"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -479,15 +479,15 @@
             <column name="type" valueNumeric="3"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Storyline"/>
+            <column name="placeholder" value="Storyline"/>
             <column name="label" value="Storyline"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="40"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="40"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -497,15 +497,15 @@
             <column name="type" valueNumeric="10"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Cover"/>
+            <column name="placeholder" value="Cover"/>
             <column name="label" value="Cover"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="70"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="70"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="image"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -515,15 +515,15 @@
             <column name="type" valueNumeric="9"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Rating"/>
+            <column name="placeholder" value="Rating"/>
             <column name="label" value="Rating"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="2"/>
-            <column name="fieldOrder" valueNumeric="80"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="2"/>
+            <column name="fieldorder" valueNumeric="80"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="rate"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -533,15 +533,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="Title"/>
+            <column name="placeholder" value="Title"/>
             <column name="label" value="Title"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="3"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="3"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="top"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -551,15 +551,15 @@
             <column name="type" valueNumeric="10"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Cover"/>
+            <column name="placeholder" value="Cover"/>
             <column name="label" value="Cover"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="3"/>
-            <column name="fieldOrder" valueNumeric="70"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="3"/>
+            <column name="fieldorder" valueNumeric="70"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="image"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -569,15 +569,15 @@
             <column name="type" valueNumeric="4"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Release Date"/>
+            <column name="placeholder" value="Release Date"/>
             <column name="label" value="Release Date"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="3"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="3"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -587,15 +587,15 @@
             <column name="type" valueNumeric="3"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Content"/>
+            <column name="placeholder" value="Content"/>
             <column name="label" value="Content"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="3"/>
-            <column name="fieldOrder" valueNumeric="40"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="3"/>
+            <column name="fieldorder" valueNumeric="40"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -605,15 +605,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="Title"/>
+            <column name="placeholder" value="Title"/>
             <column name="label" value="Title"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="top"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -623,15 +623,15 @@
             <column name="type" valueNumeric="10"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Cover"/>
+            <column name="placeholder" value="Cover"/>
             <column name="label" value="Cover"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="70"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="70"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="image"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -641,15 +641,15 @@
             <column name="type" valueNumeric="4"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Release Date"/>
+            <column name="placeholder" value="Release Date"/>
             <column name="label" value="Release Date"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -659,15 +659,15 @@
             <column name="type" valueNumeric="11"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="ISBN"/>
+            <column name="placeholder" value="ISBN"/>
             <column name="label" value="ISBN"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -677,15 +677,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Writer"/>
+            <column name="placeholder" value="Writer"/>
             <column name="label" value="Writer"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -695,15 +695,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Publisher"/>
+            <column name="placeholder" value="Publisher"/>
             <column name="label" value="Publisher"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -713,15 +713,15 @@
             <column name="type" valueNumeric="12"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Pages"/>
+            <column name="placeholder" value="Pages"/>
             <column name="label" value="Pages"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="50"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="50"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -731,15 +731,15 @@
             <column name="type" valueNumeric="3"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Storyline"/>
+            <column name="placeholder" value="Storyline"/>
             <column name="label" value="Storyline"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="40"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="40"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -749,15 +749,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Genre"/>
+            <column name="placeholder" value="Genre"/>
             <column name="label" value="Genre"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="10"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="10"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -767,15 +767,15 @@
             <column name="type" valueNumeric="9"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Rating"/>
+            <column name="placeholder" value="Rating"/>
             <column name="label" value="Rating"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="4"/>
-            <column name="fieldOrder" valueNumeric="80"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="4"/>
+            <column name="fieldorder" valueNumeric="80"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="rate"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -785,15 +785,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="Title"/>
+            <column name="placeholder" value="Title"/>
             <column name="label" value="Title"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="5"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="5"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="top"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -803,15 +803,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Artist"/>
+            <column name="placeholder" value="Artist"/>
             <column name="label" value="Artist"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="5"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="5"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -821,15 +821,15 @@
             <column name="type" valueNumeric="4"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Release Date"/>
+            <column name="placeholder" value="Release Date"/>
             <column name="label" value="Release Date"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="5"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="5"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -839,15 +839,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Song"/>
+            <column name="placeholder" value="Song"/>
             <column name="label" value="Song"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="5"/>
-            <column name="fieldOrder" valueNumeric="100"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="5"/>
+            <column name="fieldorder" valueNumeric="100"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -857,15 +857,15 @@
             <column name="type" valueNumeric="10"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Cover"/>
+            <column name="placeholder" value="Cover"/>
             <column name="label" value="Cover"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="5"/>
-            <column name="fieldOrder" valueNumeric="70"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="5"/>
+            <column name="fieldorder" valueNumeric="70"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="image"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -875,15 +875,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="Title"/>
+            <column name="placeholder" value="Title"/>
             <column name="label" value="Title"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="top"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -893,15 +893,15 @@
             <column name="type" valueNumeric="10"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Cover"/>
+            <column name="placeholder" value="Cover"/>
             <column name="label" value="Cover"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="70"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="70"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="image"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -911,15 +911,15 @@
             <column name="type" valueNumeric="11"/>
             <column name="choises"/>
             <column name="required" valueBoolean="true"/>
-            <column name="placeHolder" value="ISBN"/>
+            <column name="placeholder" value="ISBN"/>
             <column name="label" value="ISBN"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="0"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="0"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -929,15 +929,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Writer"/>
+            <column name="placeholder" value="Writer"/>
             <column name="label" value="Writer"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -947,15 +947,15 @@
             <column name="type" valueNumeric="4"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Release Date"/>
+            <column name="placeholder" value="Release Date"/>
             <column name="label" value="Release Date"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -965,15 +965,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Publisher"/>
+            <column name="placeholder" value="Publisher"/>
             <column name="label" value="Publisher"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="30"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="30"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -983,15 +983,15 @@
             <column name="type" valueNumeric="12"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Pages"/>
+            <column name="placeholder" value="Pages"/>
             <column name="label" value="Pages"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="50"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="50"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -1001,15 +1001,15 @@
             <column name="type" valueNumeric="3"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Storyline"/>
+            <column name="placeholder" value="Storyline"/>
             <column name="label" value="Storyline"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="40"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="40"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="top"/>
+            <column name="labelposition" value="top"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -1019,15 +1019,15 @@
             <column name="type" valueNumeric="1"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Genre"/>
+            <column name="placeholder" value="Genre"/>
             <column name="label" value="Genre"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="10"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="10"/>
             <column name="place" value="main"/>
-            <column name="multiValues" valueBoolean="true"/>
+            <column name="multivalues" valueBoolean="true"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="left"/>
+            <column name="labelposition" value="left"/>
             <column name="widget" value="default"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -1037,15 +1037,15 @@
             <column name="type" valueNumeric="9"/>
             <column name="choises"/>
             <column name="required" valueBoolean="false"/>
-            <column name="placeHolder" value="Rating"/>
+            <column name="placeholder" value="Rating"/>
             <column name="label" value="Rating"/>
-            <column name="otherOptions"/>
-            <column name="collectionBaseType" valueNumeric="6"/>
-            <column name="fieldOrder" valueNumeric="80"/>
+            <column name="otheroptions"/>
+            <column name="collectionbasetype" valueNumeric="6"/>
+            <column name="fieldorder" valueNumeric="80"/>
             <column name="place" value="left"/>
-            <column name="multiValues" valueBoolean="false"/>
+            <column name="multivalues" valueBoolean="false"/>
             <column name="active" valueBoolean="true"/>
-            <column name="labelPosition" value="hidden"/>
+            <column name="labelposition" value="hidden"/>
             <column name="widget" value="rate"/>
             <column name="basic" valueBoolean="true"/>
         </insert>
@@ -1135,38 +1135,38 @@
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="17">
-        <createIndex indexName="cm_collectionfield_fieldId" tableName="cm_collectionfield">
-            <column name="fieldId"/>
+        <createIndex indexName="cm_collectionfield_fieldid" tableName="cm_collectionfield">
+            <column name="fieldid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="18">
-        <createIndex indexName="collectionBaseType" tableName="cm_field">
-            <column defaultValueComputed="NULL" name="collectionBaseType"/>
+        <createIndex indexName="collectionbasetype" tableName="cm_field">
+            <column defaultValueComputed="NULL" name="collectionbasetype"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="19">
-        <createIndex indexName="collectionId" tableName="cm_usercollection">
-            <column name="collectionId"/>
+        <createIndex indexName="collectionid" tableName="cm_usercollection">
+            <column name="collectionid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="20">
-        <createIndex indexName="fieldId" tableName="cm_itemdata">
-            <column name="fieldId"/>
+        <createIndex indexName="fieldid" tableName="cm_itemdata">
+            <column name="fieldid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="21">
-        <createIndex indexName="cm_collectionitem_itemId" tableName="cm_collectionitem">
-            <column name="itemId"/>
+        <createIndex indexName="cm_collectionitem_itemid" tableName="cm_collectionitem">
+            <column name="itemid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="22">
-        <createIndex indexName="itemId" tableName="cm_itemdata">
-            <column name="itemId"/>
+        <createIndex indexName="itemid" tableName="cm_itemdata">
+            <column name="itemid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="23">
-        <createIndex indexName="roleId" tableName="cm_usercollection">
-            <column name="roleId"/>
+        <createIndex indexName="roleid" tableName="cm_usercollection">
+            <column name="roleid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="24">
@@ -1180,42 +1180,42 @@
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="26">
-        <createIndex indexName="typeId" tableName="cm_collection">
-            <column name="typeId"/>
+        <createIndex indexName="typeid" tableName="cm_collection">
+            <column name="typeid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="27">
-        <createIndex indexName="userId" tableName="cm_usercollection" unique="true">
-            <column name="userId"/>
-            <column name="collectionId"/>
+        <createIndex indexName="userid" tableName="cm_usercollection" unique="true">
+            <column name="userid"/>
+            <column name="collectionid"/>
         </createIndex>
     </changeSet>
     <changeSet author="jimmy (generated)" id="28">
-        <addForeignKeyConstraint baseColumnNames="typeId" baseTableName="cm_collection"
+        <addForeignKeyConstraint baseColumnNames="typeid" baseTableName="cm_collection"
                                  constraintName="cm_collection_ibfk_1" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_collectiontype" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="29">
-        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_collectionfield"
+        <addForeignKeyConstraint baseColumnNames="fieldid" baseTableName="cm_collectionfield"
                                  constraintName="cm_collectionfield_ibfk_1" deferrable="false" initiallyDeferred="false"
                                  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_field" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="30">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionfield"
+        <addForeignKeyConstraint baseColumnNames="collectionid" baseTableName="cm_collectionfield"
                                  constraintName="cm_collectionfield_ibfk_2" deferrable="false" initiallyDeferred="false"
                                  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_collection" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="31">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_collectionitem"
+        <addForeignKeyConstraint baseColumnNames="collectionid" baseTableName="cm_collectionitem"
                                  constraintName="cm_collectionitem_ibfk_1" deferrable="false" initiallyDeferred="false"
                                  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_collection" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="32">
-        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_collectionitem"
+        <addForeignKeyConstraint baseColumnNames="itemid" baseTableName="cm_collectionitem"
                                  constraintName="cm_collectionitem_ibfk_2" deferrable="false" initiallyDeferred="false"
                                  onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_item" validate="true"/>
@@ -1226,7 +1226,7 @@
                                  referencedColumnNames="id" referencedTableName="cm_fieldtype" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="34">
-        <addForeignKeyConstraint baseColumnNames="collectionBaseType" baseTableName="cm_field"
+        <addForeignKeyConstraint baseColumnNames="collectionbasetype" baseTableName="cm_field"
                                  constraintName="cm_field_ibfk_2" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_collectiontype" validate="true"/>
@@ -1237,31 +1237,31 @@
                                  referencedColumnNames="id" referencedTableName="cm_user" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="36">
-        <addForeignKeyConstraint baseColumnNames="itemId" baseTableName="cm_itemdata"
+        <addForeignKeyConstraint baseColumnNames="itemid" baseTableName="cm_itemdata"
                                  constraintName="cm_itemdata_ibfk_1" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_item" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="37">
-        <addForeignKeyConstraint baseColumnNames="fieldId" baseTableName="cm_itemdata"
+        <addForeignKeyConstraint baseColumnNames="fieldid" baseTableName="cm_itemdata"
                                  constraintName="cm_itemdata_ibfk_2" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_field" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="38">
-        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="cm_usercollection"
+        <addForeignKeyConstraint baseColumnNames="userid" baseTableName="cm_usercollection"
                                  constraintName="cm_usercollection_ibfk_1" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_user" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="39">
-        <addForeignKeyConstraint baseColumnNames="collectionId" baseTableName="cm_usercollection"
+        <addForeignKeyConstraint baseColumnNames="collectionid" baseTableName="cm_usercollection"
                                  constraintName="cm_usercollection_ibfk_2" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_collection" validate="true"/>
     </changeSet>
     <changeSet author="jimmy (generated)" id="40">
-        <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="cm_usercollection"
+        <addForeignKeyConstraint baseColumnNames="roleid" baseTableName="cm_usercollection"
                                  constraintName="cm_usercollection_ibfk_3" deferrable="false" initiallyDeferred="false"
                                  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
                                  referencedTableName="cm_role" validate="true"/>
