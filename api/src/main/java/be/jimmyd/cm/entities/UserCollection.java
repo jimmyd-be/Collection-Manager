@@ -15,14 +15,14 @@ public class UserCollection {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "collectionId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "collectionid", referencedColumnName = "id", nullable = false)
     private Collection collection;
 
     @ManyToOne
-    @JoinColumn(name = "roleId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "roleid", referencedColumnName = "id", nullable = false)
     private Role role;
 }

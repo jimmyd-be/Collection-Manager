@@ -24,11 +24,11 @@ public class CollectionType {
     private Boolean active;
 
     @OneToMany
-    @JoinColumn(name = "typeId")
+    @JoinColumn(name = "typeid")
     private List<Collection> collections;
 
     @OneToMany
-    @JoinColumn(name = "collectionBaseType")
+    @JoinColumn(name = "collectionbasetype")
     private List<Field> fields;
 
 }

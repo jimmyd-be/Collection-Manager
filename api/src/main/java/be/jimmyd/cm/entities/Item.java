@@ -26,15 +26,15 @@ public class Item {
     private String image;
 
     @Basic
-    @Column(name = "creationDate")
+    @Column(name = "creationdate")
     private LocalDateTime creationDate;
 
     @Basic
-    @Column(name = "lastModified")
+    @Column(name = "lastmodified")
     private LocalDateTime lastModified;
 
     @Basic
-    @Column(name = "modifiedBy")
+    @Column(name = "modifiedby")
     private Long modifiedBy;
 
     @Basic
@@ -44,8 +44,8 @@ public class Item {
     @ManyToMany
     @JoinTable(
             name = "cm_collectionitem",
-            joinColumns = {@JoinColumn(name = "itemId")},
-            inverseJoinColumns = {@JoinColumn(name = "collectionId")}
+            joinColumns = {@JoinColumn(name = "itemid")},
+            inverseJoinColumns = {@JoinColumn(name = "collectionid")}
     )
     private List<Collection> collections = new ArrayList<>();
 
@@ -54,6 +54,6 @@ public class Item {
     private User author;
 
     @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "itemId")
+    @JoinColumn(name = "itemid")
     private List<Itemdata> itemdata;
 }

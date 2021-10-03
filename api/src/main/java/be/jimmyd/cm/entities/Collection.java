@@ -24,25 +24,25 @@ public class Collection {
     private Boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "typeId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "typeid", referencedColumnName = "id", nullable = false)
     private CollectionType type;
 
     @ManyToMany
     @JoinTable(
             name = "cm_collectionfield",
-            joinColumns = @JoinColumn(name = "collectionId"),
-            inverseJoinColumns = @JoinColumn(name = "fieldId"))
+            joinColumns = @JoinColumn(name = "collectionid"),
+            inverseJoinColumns = @JoinColumn(name = "fieldid"))
     private List<Field> fields;
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "cm_collectionitem",
-            joinColumns = {@JoinColumn(name = "collectionId")},
-            inverseJoinColumns = {@JoinColumn(name = "itemId")}
+            joinColumns = {@JoinColumn(name = "collectionid")},
+            inverseJoinColumns = {@JoinColumn(name = "itemid")}
     )
     private List<Item> items;
 
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "collectionId")
+    @JoinColumn(name = "collectionid")
     private List<UserCollection> userCollections;
 }
