@@ -12,22 +12,19 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: testDatabase
             MYSQL_DATABASE: newcm
-        ports:
-            - "3306:3306"
+        network_mode: "service:api"
     api:
         build: ./api
         ports:
             - "8080:8080"
-        depends_on:
-            - db
-        deploy:
-            restart_policy:
-                condition: on-failure
+        expose:
+            - 8080
     gui:
         build: ./gui
         ports:
-            - "80:80"
+            - "8090:80"
         depends_on:
             - api
+
 volumes:
   container-volume:
