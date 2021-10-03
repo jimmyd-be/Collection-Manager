@@ -12,7 +12,7 @@ RUN java -Djarmode=layertools -jar /home/app/target/*.jar extract --destination 
 #
 # Package stage
 #
-FROM openjdk:11.0.9.1-jre
+FROM eclipse-temurin:11.0.12_7-jre-focal
 VOLUME /tmp
 ARG EXTRACTED=/home/app/target/extracted
 COPY --from=build ${EXTRACTED}/dependencies/ ./
