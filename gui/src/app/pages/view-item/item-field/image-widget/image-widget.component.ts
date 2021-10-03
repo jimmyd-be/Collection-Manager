@@ -1,18 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-image-widget',
   templateUrl: './image-widget.component.html',
   styleUrls: ['./image-widget.component.scss'],
 })
-export class ImageWidgetComponent implements OnInit {
+export class ImageWidgetComponent {
 
   @Input() value: string[];
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
   getImage(): string {
