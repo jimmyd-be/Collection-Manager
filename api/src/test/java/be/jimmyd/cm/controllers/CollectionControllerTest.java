@@ -1,14 +1,13 @@
 package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
-import be.jimmyd.cm.domain.logic.CollectionLogic;
-import be.jimmyd.cm.domain.logic.CollectionTypeLogic;
-import be.jimmyd.cm.domain.logic.UserCollectionLogic;
+import be.jimmyd.cm.domain.service.CollectionService;
+import be.jimmyd.cm.domain.service.CollectionTypeService;
+import be.jimmyd.cm.domain.service.UserCollectionService;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
 import be.jimmyd.cm.dto.UserCollectionDto;
-import be.jimmyd.cm.entities.UserCollection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,19 +30,19 @@ public class CollectionControllerTest {
     public final String userMail = "test@test.be";
 
     @Mock
-    private CollectionLogic collectionLogic;
+    private CollectionService collectionService;
 
     @Mock
     private SecurityUtil securityUtil;
 
     @Mock
-    private UserCollectionLogic userCollectionLogic;
+    private UserCollectionService userCollectionService;
 
     @InjectMocks
     private CollectionController controller;
 
     @Mock
-    private CollectionTypeLogic collectionTypeLogic;
+    private CollectionTypeService collectionTypeService;
 
     @Test
     public void getByIdHappyFlow() throws UserPermissionException {
@@ -52,7 +51,7 @@ public class CollectionControllerTest {
         dto.setId(1);
         dto.setName("Collection 1");
 
-        when(collectionLogic.getById(anyLong())).thenReturn(dto);
+        when(collectionService.getById(anyLong())).thenReturn(dto);
 
         ResponseEntity<CollectionDto> response = controller.getById(1);
 
@@ -65,7 +64,7 @@ public class CollectionControllerTest {
 
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
 
-        when(collectionLogic.getById(1)).thenThrow(UserPermissionException.class);
+        when(collectionService.getById(1)).thenThrow(UserPermissionException.class);
 
         ResponseEntity<CollectionDto> response = controller.getById(1);
 
@@ -80,7 +79,7 @@ public class CollectionControllerTest {
         dto.setName("Collection 1");
 
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
-        doNothing().when(collectionLogic).editCollection(dto);
+        doNothing().when(collectionService).editCollection(dto);
 
         ResponseEntity<CollectionDto> response = controller.editCollection(dto);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -93,7 +92,7 @@ public class CollectionControllerTest {
         dto.setId(1);
         dto.setName("Collection 1");
 
-        doThrow(UserPermissionException.class).when(collectionLogic).editCollection(dto);
+        doThrow(UserPermissionException.class).when(collectionService).editCollection(dto);
 
         ResponseEntity<CollectionDto> response = controller.editCollection(dto);
 
@@ -105,7 +104,7 @@ public class CollectionControllerTest {
 
         final CollectionShareDto mock = mock(CollectionShareDto.class);
 
-        doThrow(UserPermissionException.class).when(userCollectionLogic).shareCollection(1, mock);
+        doThrow(UserPermissionException.class).when(userCollectionService).shareCollection(1, mock);
 
         ResponseEntity response = controller.share(1, mock);
 
@@ -135,7 +134,7 @@ public class CollectionControllerTest {
     @Test
     public void deleteHappyFlow() throws UserPermissionException {
 
-        doNothing().when(collectionLogic).deleteById(1);
+        doNothing().when(collectionService).deleteById(1);
 
         ResponseEntity response = controller.delete(1);
 
@@ -145,7 +144,7 @@ public class CollectionControllerTest {
     @Test
     public void deleteUserFromCollectionHappyFlow() throws UserPermissionException {
 
-        doNothing().when(userCollectionLogic).deleteUserFromCollection(1, 2);
+        doNothing().when(userCollectionService).deleteUserFromCollection(1, 2);
 
         ResponseEntity response = controller.deleteUserFromCollection(1, 2);
 
@@ -157,7 +156,7 @@ public class CollectionControllerTest {
 
         final CollectionShareDto mock = mock(CollectionShareDto.class);
 
-        doNothing().when(userCollectionLogic).shareCollection(1, mock);
+        doNothing().when(userCollectionService).shareCollection(1, mock);
 
         ResponseEntity response = controller.share(1, mock);
 
@@ -175,7 +174,7 @@ public class CollectionControllerTest {
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
 
         when(token.getPrincipal()).thenReturn(userMail);
-        doReturn(userCollections).when(collectionLogic).getByUser(userMail);
+        doReturn(userCollections).when(collectionService).getByUser(userMail);
 
         List<CollectionDto> response = controller.getByUser(token);
         assertEquals(userCollections, response);
@@ -186,7 +185,7 @@ public class CollectionControllerTest {
 
         List<String> types = List.of("Movies", "Games");
 
-        when(collectionTypeLogic.getAllTypes()).thenReturn(types);
+        when(collectionTypeService.getAllTypes()).thenReturn(types);
 
         List<String> response = controller.getCollectionTypes();
         assertEquals(types, response);
@@ -200,7 +199,7 @@ public class CollectionControllerTest {
 
         controller.addCollection(dto1, token);
 
-        verify(collectionLogic, times(1)).createCollection(dto1, userMail);
+        verify(collectionService, times(1)).createCollection(dto1, userMail);
     }
 
 
@@ -214,7 +213,7 @@ public class CollectionControllerTest {
 
         List<UserCollectionDto> userCollections = List.of(user1, user2);
 
-        when(userCollectionLogic.getUsersByCollection(id)).thenReturn(userCollections);
+        when(userCollectionService.getUsersByCollection(id)).thenReturn(userCollections);
 
         List<UserCollectionDto> response = controller.getAllCollectionUsers(id);
         assertEquals(userCollections, response);

@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.mappers.FieldMapper;
 import be.jimmyd.cm.dto.FieldDto;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class FieldLogic {
+public class FieldService {
 
     private final FieldRepository fieldRepository;
 
-    public FieldLogic(FieldRepository fieldRepository) {
+    public FieldService(FieldRepository fieldRepository) {
         this.fieldRepository = fieldRepository;
     }
 

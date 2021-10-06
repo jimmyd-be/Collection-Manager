@@ -2,17 +2,13 @@ package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserNotExistsException;
-import be.jimmyd.cm.domain.logic.SettingLogic;
-import be.jimmyd.cm.domain.logic.UserLogic;
+import be.jimmyd.cm.domain.service.SettingService;
+import be.jimmyd.cm.domain.service.UserService;
 import be.jimmyd.cm.dto.SettingDto;
 import be.jimmyd.cm.dto.UserDto;
-import be.jimmyd.cm.dto.UserEditDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -21,23 +17,23 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private final UserLogic userLogic;
-    private final SettingLogic settingLogic;
+    private final UserService userService;
+    private final SettingService settingService;
 
-    public AdminController(final UserLogic userLogic, final SettingLogic settingLogic) {
-        this.userLogic = userLogic;
-        this.settingLogic = settingLogic;
+    public AdminController(final UserService userService, final SettingService settingService) {
+        this.userService = userService;
+        this.settingService = settingService;
     }
 
     @GetMapping("/users")
     public List<UserDto> getAllUsers() {
-        return userLogic.getAllUsers();
+        return userService.getAllUsers();
     }
 
     @PatchMapping("/user/disable/{userId}")
     public ResponseEntity disableUser(@PathVariable("userId") long userId) {
         try {
-            userLogic.editUser(userId, false);
+            userService.editUser(userId, false);
             return ResponseEntity.ok().build();
         } catch (UserNotExistsException e) {
             return ResponseEntity.notFound().build();
@@ -49,7 +45,7 @@ public class AdminController {
     @PatchMapping("/user/enable/{userId}")
     public ResponseEntity enableUser(@PathVariable("userId") long userId) {
         try {
-            userLogic.editUser(userId, true);
+            userService.editUser(userId, true);
             return ResponseEntity.ok().build();
         } catch (UserNotExistsException e) {
             return ResponseEntity.notFound().build();
@@ -61,7 +57,7 @@ public class AdminController {
     @PatchMapping("/user/set/admin/{userId}")
     public ResponseEntity changeAdmin(@PathVariable("userId") long userId) {
         try {
-            userLogic.changeAdmin(userId);
+            userService.changeAdmin(userId);
             return ResponseEntity.ok().build();
         } catch (UserNotExistsException e) {
             return ResponseEntity.notFound().build();
@@ -73,7 +69,7 @@ public class AdminController {
     @DeleteMapping("/user/{userId}")
     public ResponseEntity deleteUser(@PathVariable("userId") long userId) {
         try {
-            userLogic.deleteUser(userId);
+            userService.deleteUser(userId);
             return ResponseEntity.ok().build();
         } catch (OneActiveAdminNeededException e) {
             return ResponseEntity.status(FORBIDDEN).build();
@@ -84,11 +80,11 @@ public class AdminController {
 
     @GetMapping("/settings")
     public List<SettingDto> getAllSettings() {
-        return settingLogic.getAllSettings();
+        return settingService.getAllSettings();
     }
 
     @PatchMapping("/settings")
     public void saveSettings(@RequestBody List<SettingDto> settings) {
-        settingLogic.saveSettings(settings);
+        settingService.saveSettings(settings);
     }
 }

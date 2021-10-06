@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionUserMapper;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class UserCollectionLogic {
+public class UserCollectionService {
 
     private final CollectionUserMapper collectionUserMapper;
     private final UserRepository userRepository;
@@ -26,8 +26,8 @@ public class UserCollectionLogic {
     private final CollectionUserRepository collectionUserRepository;
     private final CollectionRepository collectionRepository;
 
-    public UserCollectionLogic(final CollectionUserRepository collectionUserRepository, final UserRepository userRepository,
-                               final RoleRepository roleRepository, final CollectionRepository collectionRepository) {
+    public UserCollectionService(final CollectionUserRepository collectionUserRepository, final UserRepository userRepository,
+                                 final RoleRepository roleRepository, final CollectionRepository collectionRepository) {
         this.collectionUserRepository = collectionUserRepository;
         this.collectionUserMapper = CollectionUserMapper.INSTANCE;
         this.userRepository = userRepository;

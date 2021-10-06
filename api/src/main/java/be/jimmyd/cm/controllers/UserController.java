@@ -3,7 +3,7 @@ package be.jimmyd.cm.controllers;
 import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
-import be.jimmyd.cm.domain.logic.UserLogic;
+import be.jimmyd.cm.domain.service.UserService;
 import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserEditDto;
 import be.jimmyd.cm.dto.UserEditPasswordDto;
@@ -20,21 +20,21 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final UserLogic userLogic;
+    private final UserService userService;
 
-    public UserController(UserLogic userLogic) {
-        this.userLogic = userLogic;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("")
     public UserDto getCurrentUser(UsernamePasswordAuthenticationToken user) {
-        return userLogic.getUserByMail(user.getPrincipal().toString());
+        return userService.getUserByMail(user.getPrincipal().toString());
     }
 
     @DeleteMapping("")
     public ResponseEntity deleteUser(UsernamePasswordAuthenticationToken user) {
         try {
-            userLogic.deleteUser(user.getPrincipal().toString());
+            userService.deleteUser(user.getPrincipal().toString());
             return ResponseEntity.ok().build();
         } catch (OneActiveAdminNeededException e) {
             return ResponseEntity.status(FORBIDDEN).build();
@@ -43,12 +43,12 @@ public class UserController {
 
     @PatchMapping("/edit")
     public void editUser(@Valid @RequestBody UserEditDto userEditDto, UsernamePasswordAuthenticationToken user) throws Exception {
-        userLogic.editUser(userEditDto, user.getPrincipal().toString());
+        userService.editUser(userEditDto, user.getPrincipal().toString());
     }
 
     @PatchMapping("/edit/password")
     public void editPassword(@Valid @RequestBody UserEditPasswordDto userEditPasswordDto, UsernamePasswordAuthenticationToken user) throws PasswordIncorrectException {
-        userLogic.editPassword(userEditPasswordDto, user.getPrincipal().toString());
+        userService.editPassword(userEditPasswordDto, user.getPrincipal().toString());
     }
 
     @PostMapping("/logout")

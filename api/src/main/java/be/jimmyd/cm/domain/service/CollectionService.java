@@ -1,10 +1,8 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
-import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionMapper;
 import be.jimmyd.cm.domain.mappers.FieldMapper;
-import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.FieldDto;
 import be.jimmyd.cm.entities.*;
@@ -18,32 +16,32 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class CollectionLogic {
+public class CollectionService {
 
     private final CollectionRepository collectionRepository;
     private final UserRepository userRepository;
     private final CollectionMapper collectionMapper;
     private final FieldRepository fieldRepository;
-    private final UserCollectionLogic userCollectionLogic;
+    private final UserCollectionService userCollectionService;
     private final CollectionTypeRepository collectionTypeRepository;
     private final FieldMapper fieldMapper;
     private final FieldTypeRepository fieldTypeRepository;
-    private final ItemLogic itemLogic;
-    private final FieldLogic fieldLogic;
+    private final ItemService itemService;
+    private final FieldService fieldService;
 
-    public CollectionLogic(CollectionRepository collectionRepository, UserRepository userRepository, FieldRepository fieldRepository,
-                           final UserCollectionLogic userCollectionLogic, final CollectionTypeRepository collectionTypeRepository,
-                           final FieldTypeRepository fieldTypeRepository, final ItemLogic itemLogic, final FieldLogic fieldLogic) {
+    public CollectionService(CollectionRepository collectionRepository, UserRepository userRepository, FieldRepository fieldRepository,
+                             final UserCollectionService userCollectionService, final CollectionTypeRepository collectionTypeRepository,
+                             final FieldTypeRepository fieldTypeRepository, final ItemService itemService, final FieldService fieldService) {
         this.collectionRepository = collectionRepository;
         this.userRepository = userRepository;
         this.collectionMapper = CollectionMapper.INSTANCE;
         this.fieldRepository = fieldRepository;
-        this.userCollectionLogic = userCollectionLogic;
+        this.userCollectionService = userCollectionService;
         this.collectionTypeRepository = collectionTypeRepository;
         this.fieldMapper = FieldMapper.INSTANCE;
         this.fieldTypeRepository = fieldTypeRepository;
-        this.itemLogic = itemLogic;
-        this.fieldLogic = fieldLogic;
+        this.itemService = itemService;
+        this.fieldService = fieldService;
     }
 
     public List<CollectionDto> getByUser(String mail) {
@@ -71,7 +69,7 @@ public class CollectionLogic {
         collectionRepository.findById(collectionId).ifPresent(collection -> {
             collection.getUserCollections().forEach(userCollection -> {
                 try {
-                    userCollectionLogic.deleteUserFromCollection(collectionId, userCollection.getUser().getId());
+                    userCollectionService.deleteUserFromCollection(collectionId, userCollection.getUser().getId());
                 } catch (UserPermissionException e) {
                     e.printStackTrace();
                 }
@@ -79,8 +77,8 @@ public class CollectionLogic {
 
             collectionRepository.deleteNative(collection.getId());
 
-            itemLogic.deleteItemsWithoutCollection();
-            fieldLogic.deleteFieldsWithoutCollection();
+            itemService.deleteItemsWithoutCollection();
+            fieldService.deleteFieldsWithoutCollection();
         });
     }
 
@@ -125,7 +123,7 @@ public class CollectionLogic {
 
         Collection savedCollection = collectionRepository.save(collection);
 
-        userCollectionLogic.addUserToCollection(mail, "Admin", savedCollection);
+        userCollectionService.addUserToCollection(mail, "Admin", savedCollection);
 
     }
 

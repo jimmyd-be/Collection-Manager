@@ -2,9 +2,9 @@ package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
-import be.jimmyd.cm.domain.logic.CollectionLogic;
-import be.jimmyd.cm.domain.logic.CollectionTypeLogic;
-import be.jimmyd.cm.domain.logic.UserCollectionLogic;
+import be.jimmyd.cm.domain.service.CollectionService;
+import be.jimmyd.cm.domain.service.CollectionTypeService;
+import be.jimmyd.cm.domain.service.UserCollectionService;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
@@ -21,16 +21,16 @@ import java.util.List;
 @RequestMapping("/api/collection")
 public class CollectionController {
 
-    private final CollectionLogic collectionLogic;
-    private final CollectionTypeLogic collectionTypeLogic;
-    private final UserCollectionLogic userCollectionLogic;
+    private final CollectionService collectionLogic;
+    private final CollectionTypeService collectionTypeService;
+    private final UserCollectionService userCollectionService;
     private final SecurityUtil securityUtil;
 
-    public CollectionController(final CollectionLogic collectionLogic, final CollectionTypeLogic collectionTypeLogic,
-                                final UserCollectionLogic userCollectionLogic, final SecurityUtil securityUtil) {
+    public CollectionController(final CollectionService collectionLogic, final CollectionTypeService collectionTypeService,
+                                final UserCollectionService userCollectionService, final SecurityUtil securityUtil) {
         this.collectionLogic = collectionLogic;
-        this.collectionTypeLogic = collectionTypeLogic;
-        this.userCollectionLogic = userCollectionLogic;
+        this.collectionTypeService = collectionTypeService;
+        this.userCollectionService = userCollectionService;
         this.securityUtil = securityUtil;
     }
 
@@ -41,7 +41,7 @@ public class CollectionController {
 
     @GetMapping("/types")
     public List<String> getCollectionTypes() {
-        return collectionTypeLogic.getAllTypes();
+        return collectionTypeService.getAllTypes();
     }
 
     @GetMapping("/{id}")
@@ -57,7 +57,7 @@ public class CollectionController {
 
     @GetMapping("/{id}/users")
     public List<UserCollectionDto> getAllCollectionUsers(@PathVariable("id") long collectionId) {
-        return userCollectionLogic.getUsersByCollection(collectionId);
+        return userCollectionService.getUsersByCollection(collectionId);
     }
 
     @PatchMapping("/edit")
@@ -83,7 +83,7 @@ public class CollectionController {
     public ResponseEntity share(@PathVariable("id") long collectionId, @RequestBody CollectionShareDto collectionShareDto) {
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.ADMIN);
-            userCollectionLogic.shareCollection(collectionId, collectionShareDto);
+            userCollectionService.shareCollection(collectionId, collectionShareDto);
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class CollectionController {
 
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.ADMIN);
-            userCollectionLogic.deleteUserFromCollection(collectionId, userId);
+            userCollectionService.deleteUserFromCollection(collectionId, userId);
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

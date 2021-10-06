@@ -46,6 +46,7 @@ import {AdminSettingsComponent} from './admin-settings/admin-settings.component'
 import {AdminUsersComponent} from './admin-users/admin-users.component';
 import { EmailWidgetComponent } from './view-item/item-field/email-widget/email-widget.component';
 import { UrlWidgetComponent } from './view-item/item-field/url-widget/url-widget.component';
+import { GlobalSearchComponent } from './global-search/global-search.component';
 
 @NgModule({
     imports: [
@@ -100,6 +101,7 @@ import { UrlWidgetComponent } from './view-item/item-field/url-widget/url-widget
     AdminUsersComponent,
     EmailWidgetComponent,
     UrlWidgetComponent,
+    GlobalSearchComponent,
   ],
   entryComponents: [ItemDialogComponent, ConfirmationDialogComponent, ShareCollectionDialogComponent],
 })

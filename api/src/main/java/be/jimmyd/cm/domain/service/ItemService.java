@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
 import be.jimmyd.cm.domain.external.ExternalSystem;
@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
-public class ItemLogic {
+public class ItemService {
 
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
@@ -29,8 +29,8 @@ public class ItemLogic {
     private final ItemDataRepository itemDataRepository;
     private final ExternalSystem externalSystemService;
 
-    public ItemLogic(final UserRepository userRepository, final ItemRepository itemRepository, final FieldRepository fieldRepository,
-                     final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository, final ExternalSystem externalSystemService) {
+    public ItemService(final UserRepository userRepository, final ItemRepository itemRepository, final FieldRepository fieldRepository,
+                       final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository, final ExternalSystem externalSystemService) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.fieldRepository = fieldRepository;

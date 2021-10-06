@@ -27,4 +27,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT i FROM Item i JOIN FETCH i.itemdata d JOIN i.collections c WHERE c.id = :id AND i.name LIKE %:queryName% ORDER BY i.name")
     List<Item> getByCollectionIdAndQuery(@Param("id") long collectionId, @Param("queryName") String query, Pageable page);
+
+    @Query("SELECT i FROM Item i JOIN FETCH i.itemdata d JOIN i.collections c WHERE d.fieldValue LIKE %:term% OR i.name LIKE %:term%")
+    List<Item> findBySearch(@Param("term") String searchTerm);
 }

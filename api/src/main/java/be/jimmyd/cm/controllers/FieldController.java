@@ -2,7 +2,7 @@ package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
-import be.jimmyd.cm.domain.logic.FieldLogic;
+import be.jimmyd.cm.domain.service.FieldService;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.FieldDto;
 import org.springframework.http.HttpStatus;
@@ -20,11 +20,11 @@ import java.util.List;
 public class FieldController {
 
     private final SecurityUtil securityUtil;
-    private final FieldLogic fieldLogic;
+    private final FieldService fieldService;
 
-    public FieldController(SecurityUtil securityUtil, FieldLogic fieldLogic) {
+    public FieldController(SecurityUtil securityUtil, FieldService fieldService) {
         this.securityUtil = securityUtil;
-        this.fieldLogic = fieldLogic;
+        this.fieldService = fieldService;
     }
 
     @GetMapping("/collection/{id}")
@@ -35,8 +35,8 @@ public class FieldController {
 
             List<FieldDto> result = new ArrayList<>();
 
-            result.addAll(fieldLogic.getBasicFieldsByCollection(id));
-            result.addAll(fieldLogic.getCustomFieldsByCollection(id));
+            result.addAll(fieldService.getBasicFieldsByCollection(id));
+            result.addAll(fieldService.getCustomFieldsByCollection(id));
 
             return ResponseEntity.ok(result);
         } catch (UserPermissionException e) {
@@ -54,7 +54,7 @@ public class FieldController {
 
             List<FieldDto> result = new ArrayList<>();
 
-            result.addAll(fieldLogic.getBasicFieldsByCollection(id));
+            result.addAll(fieldService.getBasicFieldsByCollection(id));
 
             return ResponseEntity.ok(result);
         } catch (UserPermissionException e) {
@@ -70,7 +70,7 @@ public class FieldController {
             securityUtil.hasUserAccessToCollection(id, Permission.READ);
             List<FieldDto> result = new ArrayList<>();
 
-            result.addAll(fieldLogic.getCustomFieldsByCollection(id));
+            result.addAll(fieldService.getCustomFieldsByCollection(id));
 
             return ResponseEntity.ok(result);
         } catch (UserPermissionException e) {

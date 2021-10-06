@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.external.ExternalApi;
 import be.jimmyd.cm.dto.SettingDto;
@@ -13,12 +13,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class SettingLogic {
+public class SettingService {
 
     private final SettingRepository settingRepository;
     private final List<ExternalApi> externalApiList;
 
-    public SettingLogic(final SettingRepository settingRepository, final List<ExternalApi> externalApiList) {
+    public SettingService(final SettingRepository settingRepository, final List<ExternalApi> externalApiList) {
         this.settingRepository = settingRepository;
         this.externalApiList = externalApiList;
     }

@@ -4,7 +4,7 @@ package be.jimmyd.cm.controllers;
 import be.jimmyd.cm.domain.enums.Permission;
 import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
-import be.jimmyd.cm.domain.logic.ItemLogic;
+import be.jimmyd.cm.domain.service.ItemService;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.ItemDto;
 import be.jimmyd.cm.dto.ItemSearchDto;
@@ -21,12 +21,12 @@ import java.util.Map;
 @RequestMapping("/api/item")
 public class ItemController {
 
-    private final ItemLogic itemLogic;
+    private final ItemService itemService;
     private final SecurityUtil securityUtil;
 
-    public ItemController(final ItemLogic itemLogic,
+    public ItemController(final ItemService itemService,
                           final SecurityUtil securityUtil) {
-        this.itemLogic = itemLogic;
+        this.itemService = itemService;
         this.securityUtil = securityUtil;
     }
 
@@ -35,7 +35,7 @@ public class ItemController {
 
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.EDIT);
-            itemLogic.addItemToCollection(collectionId, itemData, user.getPrincipal().toString());
+            itemService.addItemToCollection(collectionId, itemData, user.getPrincipal().toString());
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class ItemController {
 
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.EDIT);
-            itemLogic.editItem(itemId, itemData, user.getPrincipal().toString());
+            itemService.editItem(itemId, itemData, user.getPrincipal().toString());
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class ItemController {
     public ResponseEntity deleteItem(@PathVariable("itemId") long itemId, @PathVariable("collectionId") long collectionId) {
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.EDIT);
-            itemLogic.deleteItemFromCollection(itemId, collectionId);
+            itemService.deleteItemFromCollection(itemId, collectionId);
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class ItemController {
                                                                @RequestParam(value = "query", required = false) String query) {
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
-            return ResponseEntity.ok(itemLogic.getItemsByCollection(collectionId, PageRequest.of(page, itemsOnPage), query));
+            return ResponseEntity.ok(itemService.getItemsByCollection(collectionId, PageRequest.of(page, itemsOnPage), query));
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -90,7 +90,7 @@ public class ItemController {
         try {
             securityUtil.hasUserAccessToItem(itemId, Permission.READ);
 
-            return ResponseEntity.ok(itemLogic.getById(itemId));
+            return ResponseEntity.ok(itemService.getById(itemId));
         } catch (ItemNotExistException ex) {
             return ResponseEntity.notFound().build();
         } catch (UserPermissionException ex) {
@@ -102,7 +102,7 @@ public class ItemController {
     @GetMapping("/external/{type}")
     public List<ItemSearchDto> searchItemExternally(@PathVariable("type") String type, @RequestParam String search) {
 
-        return itemLogic.searchItemExternally(type, search);
+        return itemService.searchItemExternally(type, search);
     }
 
     @PostMapping("/external/add/collection/{collectionId}/{source}/{externalId}")
@@ -110,7 +110,7 @@ public class ItemController {
                                               @PathVariable("externalId") String externalId, UsernamePasswordAuthenticationToken user) {
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.EDIT);
-            itemLogic.addItemToCollection(collectionId, source, externalId, user.getPrincipal().toString());
+            itemService.addItemToCollection(collectionId, source, externalId, user.getPrincipal().toString());
             return ResponseEntity.ok().build();
         } catch (UserPermissionException e) {
             e.printStackTrace();

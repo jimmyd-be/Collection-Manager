@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.exceptions.*;
 import be.jimmyd.cm.domain.mappers.UserMapper;
@@ -15,18 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-public class UserLogic {
+public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserCollectionLogic userCollectionLogic;
-    private final CollectionLogic collectionLogic;
+    private final UserCollectionService userCollectionService;
+    private final CollectionService collectionLogic;
 
-    public UserLogic(UserRepository userRepository, PasswordEncoder passwordEncoder, final UserCollectionLogic userCollectionLogic,
-                     final CollectionLogic collectionLogic) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, final UserCollectionService userCollectionService,
+                       final CollectionService collectionLogic) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userCollectionLogic = userCollectionLogic;
+        this.userCollectionService = userCollectionService;
         this.collectionLogic = collectionLogic;
     }
 
@@ -59,7 +59,7 @@ public class UserLogic {
     public void deleteUser(User user) {
         user.getUserCollections().forEach(uc -> {
             try {
-                userCollectionLogic.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
+                userCollectionService.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
             } catch (UserPermissionException e) {
                 e.printStackTrace();
             }
