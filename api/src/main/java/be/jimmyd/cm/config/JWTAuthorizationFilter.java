@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -40,16 +41,22 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader(headerString);
 
-        if (header == null || !header.startsWith(tokenPrefix)) {
-            chain.doFilter(req, res);
-            return;
+        List<String> uriWithoutAuthentication = List.of("/api/auth/request-pass", "/api/auth/register");
+
+        if(!uriWithoutAuthentication.contains(req.getRequestURI())) {
+
+            String header = req.getHeader(headerString);
+
+            if (header == null || !header.startsWith(tokenPrefix)) {
+                chain.doFilter(req, res);
+                return;
+            }
+
+            UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
     }
 

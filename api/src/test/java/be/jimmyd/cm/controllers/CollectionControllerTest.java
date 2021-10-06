@@ -7,6 +7,8 @@ import be.jimmyd.cm.domain.logic.UserCollectionLogic;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
+import be.jimmyd.cm.dto.UserCollectionDto;
+import be.jimmyd.cm.entities.UserCollection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,6 +41,9 @@ public class CollectionControllerTest {
 
     @InjectMocks
     private CollectionController controller;
+
+    @Mock
+    private CollectionTypeLogic collectionTypeLogic;
 
     @Test
     public void getByIdHappyFlow() throws UserPermissionException {
@@ -178,22 +183,40 @@ public class CollectionControllerTest {
 
     @Test
     public void getCollectionTypesHappyFlow() {
-        CollectionDto dto1 = Mockito.mock(CollectionDto.class);
-        CollectionDto dto2 = Mockito.mock(CollectionDto.class);
 
-        List<CollectionDto> userCollections = new ArrayList<>();
-        userCollections.add(dto1);
-        userCollections.add(dto2);
-        final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
+        List<String> types = List.of("Movies", "Games");
 
-        when(token.getPrincipal()).thenReturn(userMail);
-        doReturn(userCollections).when(collectionLogic).getByUser(userMail);
+        when(collectionTypeLogic.getAllTypes()).thenReturn(types);
 
-        List<CollectionDto> response = controller.getByUser(token);
-        assertEquals(userCollections, response);
+        List<String> response = controller.getCollectionTypes();
+        assertEquals(types, response);
     }
 
-    //getAllCollectionUsers
-    //addCollection
+    @Test
+    public void addCollectionHappyFlow() {
+        final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
+        CollectionDto dto1 = Mockito.mock(CollectionDto.class);
+        when(token.getName()).thenReturn(userMail);
 
+        controller.addCollection(dto1, token);
+
+        verify(collectionLogic, times(1)).createCollection(dto1, userMail);
+    }
+
+
+    @Test
+    public void getAllCollectionUsersHappyFlow() {
+
+        long id = 1;
+
+        UserCollectionDto user1 = mock(UserCollectionDto.class);
+        UserCollectionDto user2 = mock(UserCollectionDto.class);
+
+        List<UserCollectionDto> userCollections = List.of(user1, user2);
+
+        when(userCollectionLogic.getUsersByCollection(id)).thenReturn(userCollections);
+
+        List<UserCollectionDto> response = controller.getAllCollectionUsers(id);
+        assertEquals(userCollections, response);
+    }
 }

@@ -59,6 +59,10 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
           register: {
             endpoint: '/auth/register',
             method: 'post',
+            requireValidToken: false,
+            redirect: {
+              success: '/',
+            }
           },
           logout: {
             endpoint: '/user/logout',
