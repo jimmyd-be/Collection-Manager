@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CustomField} from '../../../Entities/custom-field';
 import {FormGroup} from '@angular/forms';
 import {faMinusCircle, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,7 @@ import {AddItemManuallyComponent} from '../add-item-manually.component';
   templateUrl: './custom-field-form.component.html',
   styleUrls: ['./custom-field-form.component.scss'],
 })
-export class CustomFieldFormComponent implements OnInit {
+export class CustomFieldFormComponent {
   @Input() field: CustomField;
   @Input() form: FormGroup;
   @Input() parentComponent: AddItemManuallyComponent;
@@ -27,9 +27,6 @@ export class CustomFieldFormComponent implements OnInit {
     } else {
       return true;
     }
-  }
-
-  ngOnInit() {
   }
 
   addField() {

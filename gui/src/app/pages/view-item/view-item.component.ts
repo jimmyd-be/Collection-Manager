@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Item} from '../../Entities/item';
 import {CustomField} from '../../Entities/custom-field';
 
@@ -7,15 +7,12 @@ import {CustomField} from '../../Entities/custom-field';
   templateUrl: './view-item.component.html',
   styleUrls: ['./view-item.component.scss'],
 })
-export class ViewItemComponent implements OnInit {
+export class ViewItemComponent {
 
   @Input() item: Item;
   @Input() fields: CustomField[];
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
   getFieldsByLocation(location: string): CustomField[] {

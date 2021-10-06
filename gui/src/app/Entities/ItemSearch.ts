@@ -1,7 +1,7 @@
-import {Directive, OnInit} from '@angular/core';
+import {Directive} from '@angular/core';
 
 @Directive()
-export class ItemSearchDirective implements OnInit {
+export class ItemSearchDirective {
 
   constructor(
     public externalId: string,
@@ -12,6 +12,4 @@ export class ItemSearchDirective implements OnInit {
     public url: string) {
   }
 
-  ngOnInit(): void {
-  }
 }

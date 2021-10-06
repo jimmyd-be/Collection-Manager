@@ -15,18 +15,18 @@ public class Itemdata {
     private long id;
 
     @Basic
-    @Column(name = "valueCount")
+    @Column(name = "valuecount")
     private long valueCount;
 
     @Basic
-    @Column(name = "fieldValue")
+    @Column(name = "fieldvalue")
     private String fieldValue;
 
     @ManyToOne
-    @JoinColumn(name = "itemId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "itemid", referencedColumnName = "id", nullable = false)
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "fieldId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "fieldid", referencedColumnName = "id", nullable = false)
     private Field field;
 }

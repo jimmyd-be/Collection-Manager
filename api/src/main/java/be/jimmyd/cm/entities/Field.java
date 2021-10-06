@@ -27,7 +27,7 @@ public class Field {
     private Boolean required;
 
     @Basic
-    @Column(name = "placeHolder")
+    @Column(name = "placeholder")
     private String placeHolder;
 
     @Basic
@@ -35,11 +35,11 @@ public class Field {
     private String label;
 
     @Basic
-    @Column(name = "otherOptions")
+    @Column(name = "otheroptions")
     private String otherOptions;
 
     @Basic
-    @Column(name = "fieldOrder")
+    @Column(name = "fieldorder")
     private int fieldOrder;
 
     @Basic
@@ -47,7 +47,7 @@ public class Field {
     private String place;
 
     @Basic
-    @Column(name = "multiValues")
+    @Column(name = "multivalues")
     private Boolean multiValues;
 
     @Basic
@@ -59,7 +59,7 @@ public class Field {
     private Boolean basic;
 
     @Basic
-    @Column(name = "labelPosition")
+    @Column(name = "labelposition")
     private String labelPosition;
 
     @Basic
@@ -69,8 +69,8 @@ public class Field {
     @ManyToMany
     @JoinTable(
             name = "cm_collectionfield",
-            joinColumns = @JoinColumn(name = "fieldId"),
-            inverseJoinColumns = @JoinColumn(name = "collectionId"))
+            joinColumns = @JoinColumn(name = "fieldid"),
+            inverseJoinColumns = @JoinColumn(name = "collectionid"))
     private List<Collection> collections;
 
     @ManyToOne
@@ -78,11 +78,11 @@ public class Field {
     private FieldType type;
 
     @ManyToOne
-    @JoinColumn(name = "collectionBaseType", referencedColumnName = "id")
+    @JoinColumn(name = "collectionbasetype", referencedColumnName = "id")
     private CollectionType collectiontype;
 
     @OneToMany
-    @JoinColumn(name = "fieldId")
+    @JoinColumn(name = "fieldid")
     private List<Itemdata> itemdata;
 
 }

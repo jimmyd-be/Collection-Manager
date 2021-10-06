@@ -25,15 +25,15 @@ public class User {
     private String mail;
 
     @Basic
-    @Column(name = "userPassword")
+    @Column(name = "userpassword")
     private String userPassword;
 
     @Basic
-    @Column(name = "creationDate")
+    @Column(name = "creationdate")
     private LocalDateTime creationDate;
 
     @Basic
-    @Column(name = "isAdmin")
+    @Column(name = "admin")
     private Boolean isAdmin;
 
     @Basic
@@ -49,7 +49,7 @@ public class User {
     private List<Item> items;*/
 
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userid")
     private List<UserCollection> userCollections;
 
 }
