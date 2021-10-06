@@ -11,10 +11,16 @@ import {SearchResult} from "../../Entities/SearchResult";
 export class GlobalSearchComponent implements OnInit {
 
   searchTerm: string;
-  private result: SearchResult[];
+  result: SearchResult[];
 
   constructor(private route: ActivatedRoute,
-              private searchService: SearchService) { }
+              private searchService: SearchService) {
+    this.searchTerm = this.route.snapshot.queryParamMap.get("searchTerm");
+
+    this.searchService.globalSearch(this.searchTerm)
+      .subscribe(data => this.result = data)
+      .unsubscribe();
+  }
 
   ngOnInit(): void {
     this.searchTerm = this.route.snapshot.queryParamMap.get("searchTerm");

@@ -2,6 +2,8 @@ import {Item} from "./item";
 
 export class SearchResult {
 
-  constructor(collectionId: number, collectionName: string, items: Item[]) {
+  constructor(public collectionId: number,
+              public collectionName: string,
+              public items: Item[]) {
   }
 }

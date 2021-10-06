@@ -1,5 +1,14 @@
 <nb-card>
   <nb-card-header>Searched on: {{searchTerm}}</nb-card-header>
   <nb-card-body>
+
+    <nb-accordion multi>
+      <nb-accordion-item *ngFor="let search of result">
+        <nb-accordion-item-header>{{search.collectionName}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          Item Content
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
   </nb-card-body>
 </nb-card>

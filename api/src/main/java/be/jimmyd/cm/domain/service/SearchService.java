@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +30,7 @@ public class SearchService {
     public List<SearchResultDto> globalSearch(String searchTerm, String userMail) {
 
         List<SearchResultDto> searchResult = new ArrayList<>();
-        List<Item> items = itemRepository.findBySearch(searchTerm);
+        List<Item> items = itemRepository.findBySearch(searchTerm, userMail);
         List<Collection> collections = collectionRepository.getByUser(userMail);
 
         collections.forEach(collection -> {
