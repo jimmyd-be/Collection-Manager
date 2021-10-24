@@ -20,19 +20,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserControllerIT {
 
-    @LocalServerPort
-    private int port;
-
     private final String mail = "test@test.be";
     private final String password = "Testpassword12345789";
     private final String username = "Test user";
-
-    private String newUser = "New user";
     private final String newMail = "newMail@test.be";
     private final String newPassword = "NewPassword123456789";
-
     TestRestTemplate restTemplate = new TestRestTemplate();
-
+    @LocalServerPort
+    private int port;
+    private String newUser = "New user";
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + "/api/" + uri;

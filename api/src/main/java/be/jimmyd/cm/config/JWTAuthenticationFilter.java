@@ -24,11 +24,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
     private final String secret;
-
-    private long expirationTime;
-
     private final String SIGN_UP_URL = "/api/auth/login";
-
+    private long expirationTime;
     private AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, @Value("${cm.secretKey}") String secret,

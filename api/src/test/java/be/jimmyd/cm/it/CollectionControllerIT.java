@@ -23,18 +23,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CollectionControllerIT {
 
-    @LocalServerPort
-    private int port;
-
     private final String mail = "test@test.be";
     private final String password = "Testpassword12345789";
     private final String username = "Test user";
-
     private final String mailSecondUser = "test2@test.be";
     private final String passwordSecondUser = "Testpassword12345789";
     private final String usernameSecondUser = "Test user 2";
-
     TestRestTemplate restTemplate = new TestRestTemplate();
+    @LocalServerPort
+    private int port;
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + "/api/" + uri;

@@ -1,7 +1,10 @@
 package be.jimmyd.cm.it;
 
 
-import be.jimmyd.cm.dto.*;
+import be.jimmyd.cm.dto.TokenDto;
+import be.jimmyd.cm.dto.UserDto;
+import be.jimmyd.cm.dto.UserLoginDto;
+import be.jimmyd.cm.dto.UserRegisterDto;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,11 +14,10 @@ import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
@@ -23,11 +25,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AdminControllerIT {
 
+    TestRestTemplate restTemplate = new TestRestTemplate();
     @LocalServerPort
     private int port;
-
-    TestRestTemplate restTemplate = new TestRestTemplate();
-
     private UserRegisterDto admin;
     private UserRegisterDto user;
 

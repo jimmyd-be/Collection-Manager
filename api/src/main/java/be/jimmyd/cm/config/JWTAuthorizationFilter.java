@@ -1,14 +1,10 @@
 package be.jimmyd.cm.config;
 
-import be.jimmyd.cm.entities.User;
-import be.jimmyd.cm.repositories.UserRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -18,9 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
@@ -44,7 +37,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         List<String> uriWithoutAuthentication = List.of("/api/auth/request-pass", "/api/auth/register");
 
-        if(!uriWithoutAuthentication.contains(req.getRequestURI())) {
+        if (!uriWithoutAuthentication.contains(req.getRequestURI())) {
 
             String header = req.getHeader(headerString);
 

@@ -18,6 +18,11 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
+    @Named("currentDateTime")
+    static LocalDateTime currentDateTime(String fullName) {
+        return LocalDateTime.now();
+    }
+
     @Mappings({
             @Mapping(source = "fullName", target = "username"),
             @Mapping(target = "mail", source = "email"),
@@ -27,11 +32,6 @@ public interface UserMapper {
             @Mapping(target = "creationDate", source = "fullName", qualifiedByName = "currentDateTime")
     })
     User registrationToUser(UserRegisterDto user);
-
-    @Named("currentDateTime")
-    static LocalDateTime currentDateTime(String fullName) {
-        return LocalDateTime.now();
-    }
 
     @Mappings({
             @Mapping(source = "id", target = "id"),

@@ -139,7 +139,7 @@ public class UserService {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
 
-        if(user.getIsAdmin() == null) {
+        if (user.getIsAdmin() == null) {
             user.setIsAdmin(true);
         } else {
             user.setIsAdmin(!user.getIsAdmin());

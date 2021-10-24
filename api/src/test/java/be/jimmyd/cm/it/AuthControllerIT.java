@@ -23,13 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.datasource.url=jdbc:h2:mem:cm_auth;DB_CLOSE_DELAY=-1")
 public class AuthControllerIT {
 
-    @LocalServerPort
-    private int port;
-
     private final String mail = "test@test.be";
     private final String password = "Testpassword12345789";
-
     TestRestTemplate restTemplate = new TestRestTemplate();
+    @LocalServerPort
+    private int port;
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + "/api/" + uri;

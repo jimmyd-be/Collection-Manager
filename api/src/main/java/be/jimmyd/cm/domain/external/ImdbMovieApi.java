@@ -72,7 +72,7 @@ public class ImdbMovieApi implements ExternalApi {
             switch (field.getName()) {
                 case "title":
 
-                    if(movie.getMovieOriginalName()!= null && !movie.getMovieOriginalName().isBlank()) {
+                    if (movie.getMovieOriginalName() != null && !movie.getMovieOriginalName().isBlank()) {
                         itemData.put(field.getId() + "_0", movie.getMovieOriginalName());
                     } else {
                         itemData.put(field.getId() + "_0", movie.getMovieName());
