@@ -23,7 +23,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(value = "DELETE FROM cm_collectionitem WHERE collectionId = :collectionId AND itemId = :itemId", nativeQuery = true)
     void deleteItemFromCollection(@Param("itemId") long itemId, @Param("collectionId") long collectionId);
 
-    @Query("SELECT i FROM Item i JOIN FETCH i.itemdata d JOIN i.collections c WHERE c.id = :id AND i.name LIKE %:queryName% ORDER BY i.name")
+    @Query("SELECT i FROM Item i JOIN FETCH i.itemdata d JOIN i.collections c WHERE c.id = :id AND upper(i.name) LIKE %:queryName% ORDER BY i.name")
     List<Item> getByCollectionIdAndQuery(@Param("id") long collectionId, @Param("queryName") String query, Pageable page);
 
     @Query("SELECT DISTINCT i FROM Item i JOIN FETCH i.itemdata d JOIN i.collections c JOIN c.userCollections uc " +

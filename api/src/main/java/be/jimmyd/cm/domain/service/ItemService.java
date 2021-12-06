@@ -164,7 +164,7 @@ public class ItemService {
         if (query == null || query.isBlank()) {
             items.addAll(itemRepository.getByCollectionId(collectionId, page));
         } else {
-            items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query, page));
+            items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query.toUpperCase(), page));
         }
 
         return ItemMapper.INSTANCE.itemToDto(items);
