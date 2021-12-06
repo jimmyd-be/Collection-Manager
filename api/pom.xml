@@ -14,13 +14,6 @@
     <name>collection-manager</name>
     <description>Collection manager backend</description>
 
-    <repositories>
-        <repository>
-            <id>github-imdb</id>
-            <url>https://maven.pkg.github.com/jimmyd-be/imdb-api</url>
-        </repository>
-    </repositories>
-
     <properties>
         <java.version>17</java.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
@@ -29,7 +22,7 @@
         <java.jwt.version>3.18.2</java.jwt.version>
         <liquibase.plugin.version>4.5.0</liquibase.plugin.version>
         <mockito.version>3.12.4</mockito.version>
-        <imdb.api.version>2.0.1</imdb.api.version>
+        <imdb.api.version>2.0.2</imdb.api.version>
         <gameDb.version>1.2</gameDb.version>
         <postgresql.version>42.2.24</postgresql.version>
     </properties>
