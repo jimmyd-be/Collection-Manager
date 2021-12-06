@@ -54,3 +54,4 @@ gui/dist/
 *.class
 
 gui/.idea/
+gui/.angular/cache/*
