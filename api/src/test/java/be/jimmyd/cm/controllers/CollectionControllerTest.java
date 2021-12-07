@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -51,7 +52,7 @@ public class CollectionControllerTest {
         dto.setId(1);
         dto.setName("Collection 1");
 
-        when(collectionService.getById(anyLong())).thenReturn(dto);
+        when(collectionService.getById(anyLong())).thenReturn(Optional.of(dto));
 
         ResponseEntity<CollectionDto> response = controller.getById(1);
 

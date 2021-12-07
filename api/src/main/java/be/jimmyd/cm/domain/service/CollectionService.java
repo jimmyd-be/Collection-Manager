@@ -52,15 +52,11 @@ public class CollectionService {
         return collectionMapper.collectionToDto(collections);
     }
 
-    public CollectionDto getById(long collectionId) throws UserPermissionException {
+    public Optional<CollectionDto> getById(long collectionId) throws UserPermissionException {
 
-        final Optional<Collection> collection = collectionRepository.findById(collectionId);
+        return collectionRepository.findById(collectionId)
+                .map(collectionMapper::collectionToDto);
 
-        if (collection.isPresent()) {
-            return collectionMapper.collectionToDto(collection.get());
-        }
-
-        return null;
     }
 
     @Transactional
@@ -95,36 +91,40 @@ public class CollectionService {
         collection.setFields(new ArrayList<>());
 
         for (FieldDto dto : collectionDto.getFields()) {
-            final Field field = fieldMapper.dtoToField(dto);
-            final FieldType fieldType = fieldTypeRepository.findByName(dto.getType());
-            field.setType(fieldType);
-            field.setActive(true);
-
-            switch (field.getType().getType()) {
-                case "url":
-                    field.setWidget("url");
-                    break;
-                case "image":
-                    field.setWidget("image");
-                    break;
-                case "rate":
-                    field.setWidget("rate");
-                    break;
-                case "email":
-                    field.setWidget("email");
-                    break;
-                default:
-                    field.setWidget("default");
-            }
-
-
-            collection.getFields().add(fieldRepository.save(field));
+            addFieldToCollection(dto, collection);
         }
 
         Collection savedCollection = collectionRepository.save(collection);
 
         userCollectionService.addUserToCollection(mail, "Admin", savedCollection);
 
+    }
+
+    private void addFieldToCollection(FieldDto dto, Collection collection) {
+        final Field field = fieldMapper.dtoToField(dto);
+        final FieldType fieldType = fieldTypeRepository.findByName(dto.getType());
+        field.setType(fieldType);
+        field.setActive(true);
+
+        switch (field.getType().getType()) {
+            case "url":
+                field.setWidget("url");
+                break;
+            case "image":
+                field.setWidget("image");
+                break;
+            case "rate":
+                field.setWidget("rate");
+                break;
+            case "email":
+                field.setWidget("email");
+                break;
+            default:
+                field.setWidget("default");
+        }
+
+
+        collection.getFields().add(fieldRepository.save(field));
     }
 
     public void editCollection(CollectionDto collectionDto) throws UserPermissionException {
@@ -136,12 +136,7 @@ public class CollectionService {
 
             //Add new fields to collection
             collectionDto.getFields().stream().filter(field -> field.getId() == 0).forEach(fieldDto -> {
-                Field field = fieldMapper.dtoToField(fieldDto);
-                final FieldType fieldType = fieldTypeRepository.findByName(fieldDto.getType());
-                field.setType(fieldType);
-
-                field = fieldRepository.save(field);
-                collection.getFields().add(field);
+                addFieldToCollection(fieldDto, collection);
             });
 
             final List<Long> fieldIds = collectionDto.getFields().stream().map(fields -> fields.getId()).collect(Collectors.toList());

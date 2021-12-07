@@ -48,7 +48,7 @@ public class CollectionController {
     public ResponseEntity<CollectionDto> getById(@PathVariable("id") long collectionId) {
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
-            return ResponseEntity.ok(collectionLogic.getById(collectionId));
+            return ResponseEntity.ok(collectionLogic.getById(collectionId).orElseThrow());
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
