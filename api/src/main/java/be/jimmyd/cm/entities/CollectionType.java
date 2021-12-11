@@ -2,6 +2,7 @@ package be.jimmyd.cm.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cm_collectiontype")
@@ -60,6 +61,18 @@ public class CollectionType {
         return fields;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CollectionType that = (CollectionType) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public static final class Builder {
         private int id;

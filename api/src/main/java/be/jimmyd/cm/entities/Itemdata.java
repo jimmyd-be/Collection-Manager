@@ -1,6 +1,7 @@
 package be.jimmyd.cm.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cm_itemdata")
@@ -59,6 +60,18 @@ public class Itemdata {
         return field;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Itemdata itemdata = (Itemdata) o;
+        return id == itemdata.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public static final class Builder {
         private long id;

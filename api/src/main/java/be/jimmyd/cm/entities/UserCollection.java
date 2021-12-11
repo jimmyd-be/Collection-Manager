@@ -1,6 +1,7 @@
 package be.jimmyd.cm.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cm_usercollection")
@@ -23,7 +24,7 @@ public class UserCollection {
     @JoinColumn(name = "roleid", referencedColumnName = "id", nullable = false)
     private Role role;
 
-    private UserCollection(){
+    private UserCollection() {
 
     }
 
@@ -52,6 +53,19 @@ public class UserCollection {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserCollection that = (UserCollection) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public static final class Builder {

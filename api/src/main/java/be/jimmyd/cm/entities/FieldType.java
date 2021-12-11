@@ -2,6 +2,7 @@ package be.jimmyd.cm.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cm_fieldtype")
@@ -47,6 +48,19 @@ public class FieldType {
 
     public List<Field> getFields() {
         return fields;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FieldType fieldType = (FieldType) o;
+        return id == fieldType.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public static final class Builder {
