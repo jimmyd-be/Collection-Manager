@@ -3,6 +3,7 @@ package be.jimmyd.cm.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 public class UserRegisterDto {
 
@@ -37,6 +38,19 @@ public class UserRegisterDto {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRegisterDto that = (UserRegisterDto) o;
+        return Objects.equals(fullName, that.fullName) && Objects.equals(email, that.email) && Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, email, password);
     }
 
     public static final class Builder {
