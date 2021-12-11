@@ -42,6 +42,7 @@ public class ItemService {
         this.itemMapper = itemMapper;
     }
 
+    //TODO refactor this and refactor gui part of this
     @Transactional
     public long addItemToCollection(long collectionId, Map<String, String> itemData, String userMail) {
 
@@ -52,27 +53,17 @@ public class ItemService {
             final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
             fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
 
-            long titleFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Title")).map(n -> n.getId()).findFirst().get();
-            long coverFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Cover")).map(n -> n.getId()).findFirst().get();
+            long titleFieldId = parseField(fields, "Title");
+            long coverFieldId = parseField(fields, "Cover");
 
             String title = itemData.remove(titleFieldId + "_0");
             String cover = itemData.remove(coverFieldId + "_0");
 
-            Item newItem = new Item.Builder()
-                    .withActive(true)
-                    .withName(title)
-                    .withAuthor(user)
-                    .withCreationDate(LocalDateTime.now())
-                    .withImage(cover)
-                    .withLastModified(LocalDateTime.now())
-                    .build();
-
-
-            final Item finalNewItem = itemRepository.save(newItem);
+            final Item finalNewItem = saveItem(user, title, cover);
 
             itemId.set(finalNewItem.getId());
 
-            List<Itemdata> itemdataList = new ArrayList<>();
+            List<Itemdata> itemDataList = new ArrayList<>();
 
             AtomicReference<String> tempLabel = new AtomicReference<>("");
 
@@ -100,13 +91,13 @@ public class ItemService {
                                         .build();
                                 //TODO add validation on field level (required fields, ...)
 
-                                itemdataList.add(itemdata);
+                                itemDataList.add(itemdata);
                             }
                         }
                 );
             });
 
-            itemDataRepository.saveAll(itemdataList);
+            itemDataRepository.saveAll(itemDataList);
 
 
             finalNewItem.getCollections().add(collection);
@@ -117,14 +108,32 @@ public class ItemService {
         return itemId.get();
     }
 
+    private Long parseField(List<Field> fields, String fieldName) {
+        return fields.stream().filter(n -> n.getName().equalsIgnoreCase(fieldName)).map(Field::getId).findFirst().orElseThrow();
+    }
+
+    public Item saveItem(User author, String title, String cover) {
+        Item newItem = new Item.Builder()
+                .withActive(true)
+                .withName(title)
+                .withAuthor(author)
+                .withCreationDate(LocalDateTime.now())
+                .withImage(cover)
+                .withLastModified(LocalDateTime.now())
+                .build();
+
+        final Item finalNewItem = itemRepository.save(newItem);
+        return finalNewItem;
+    }
+
     @Transactional
-    public long addItemToCollection(long collectionId, String source, String itemId, String userId) {
+    public void addItemToCollection(long collectionId, String source, String itemId, String userId) {
 
         final List<Field> basicFields = fieldRepository.findBasicFieldByCollectionId(collectionId);
 
         final Map<String, String> itemData = externalSystemService.getItemById(source, itemId, basicFields);
 
-        return addItemToCollection(collectionId, itemData, userId);
+        addItemToCollection(collectionId, itemData, userId);
     }
 
     private long getFieldIDFromKey(String key) {
@@ -138,9 +147,6 @@ public class ItemService {
             final List<Collection> collections = item.getCollections();
 
             collections.forEach(collection -> itemRepository.deleteItemFromCollection(item.getId(), collection.getId()));
-
-            itemDataRepository.deleteByItemId(item.getId());
-            itemRepository.delete(item);
 
             long newItemId = addItemToCollection(collections.get(0).getId(), itemData, userMail);
 

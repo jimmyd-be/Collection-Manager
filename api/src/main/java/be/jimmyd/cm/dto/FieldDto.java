@@ -1,6 +1,7 @@
 package be.jimmyd.cm.dto;
 
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 public class FieldDto {
 
@@ -28,7 +29,7 @@ public class FieldDto {
     private String value;
     private String widget;
 
-    private FieldDto(){
+    private FieldDto() {
 
     }
 
@@ -100,6 +101,18 @@ public class FieldDto {
         return widget;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FieldDto fieldDto = (FieldDto) o;
+        return id == fieldDto.id && required == fieldDto.required && fieldOrder == fieldDto.fieldOrder && multivalues == fieldDto.multivalues && Objects.equals(name, fieldDto.name) && Objects.equals(type, fieldDto.type) && Objects.equals(options, fieldDto.options) && Objects.equals(placeholder, fieldDto.placeholder) && Objects.equals(place, fieldDto.place) && Objects.equals(labelPosition, fieldDto.labelPosition) && Objects.equals(label, fieldDto.label) && Objects.equals(value, fieldDto.value) && Objects.equals(widget, fieldDto.widget);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type, options, required, placeholder, fieldOrder, place, multivalues, labelPosition, label, value, widget);
+    }
 
     public static final class Builder {
         private long id;

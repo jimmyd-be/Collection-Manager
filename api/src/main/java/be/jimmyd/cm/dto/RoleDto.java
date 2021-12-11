@@ -1,5 +1,7 @@
 package be.jimmyd.cm.dto;
 
+import java.util.Objects;
+
 public class RoleDto {
 
     private long id;
@@ -28,6 +30,18 @@ public class RoleDto {
         return active;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoleDto roleDto = (RoleDto) o;
+        return id == roleDto.id && active == roleDto.active && Objects.equals(name, roleDto.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, active);
+    }
 
     public static final class Builder {
         private long id;
