@@ -37,10 +37,11 @@ public class AuthControllerIT {
     @Test
     public void testRegisterUser() {
 
-        UserRegisterDto user = new UserRegisterDto();
-        user.setEmail(mail);
-        user.setFullName("Test user");
-        user.setPassword(password);
+        UserRegisterDto user = new UserRegisterDto.Builder()
+                .withEmail(mail)
+                .withPassword(password)
+                .withFullName("Test user")
+                .build();
 
         final ResponseEntity<Object> userRegistration = restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
 
@@ -51,9 +52,10 @@ public class AuthControllerIT {
     @Order(2)
     public void testLogin() {
 
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mail);
-        login.setPassword(password);
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withEmail(mail)
+                .withPassword(password)
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -65,9 +67,10 @@ public class AuthControllerIT {
     @Order(3)
     public void testWrongCredentialsLogin() {
 
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mail);
-        login.setPassword("WrongPassword");
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withEmail(mail)
+                .withPassword("WrongPassword")
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -78,10 +81,11 @@ public class AuthControllerIT {
     @Test
     public void testRegisterUserAlreadyExists() {
 
-        UserRegisterDto user = new UserRegisterDto();
-        user.setEmail(mail);
-        user.setFullName("Test user");
-        user.setPassword(password);
+        UserRegisterDto user = new UserRegisterDto.Builder()
+                .withEmail(mail)
+                .withPassword(password)
+                .withFullName("Test user")
+                .build();
 
         final ResponseEntity<Object> userRegistration = restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
 

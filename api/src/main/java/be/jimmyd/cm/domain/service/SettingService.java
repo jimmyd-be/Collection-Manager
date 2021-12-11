@@ -30,16 +30,16 @@ public class SettingService {
 
         return properties.stream()
                 .map(property -> {
-                    SettingDto dto = new SettingDto();
-                    dto.setKey(property);
+                    SettingDto.Builder dto = new SettingDto.Builder();
+                    dto.withKey(property);
 
                     settings.stream()
                             .filter(n -> n.getId().equals(property))
-                            .map(setting -> setting.getValue())
+                            .map(Setting::getValue)
                             .findFirst()
-                            .ifPresent(value -> dto.setValue(value));
+                            .ifPresent(dto::withValue);
 
-                    return dto;
+                    return dto.build();
                 })
                 .collect(Collectors.toList());
     }
@@ -72,9 +72,10 @@ public class SettingService {
                         newSetting = settingOptional.get();
                         newSetting.setValue(setting.getValue());
                     } else if (allSettings.contains(setting.getKey())) {
-                        newSetting = new Setting();
-                        newSetting.setId(setting.getKey());
-                        newSetting.setValue(setting.getValue());
+                        newSetting = new Setting.Builder()
+                                .withId(setting.getKey())
+                                .withValue(setting.getValue())
+                                .build();
                     }
 
                     return newSetting;

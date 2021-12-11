@@ -1,13 +1,10 @@
 package be.jimmyd.cm.entities;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "cm_fieldtype")
-@Data
 public class FieldType {
     @Id
     @Column(name = "id")
@@ -25,4 +22,64 @@ public class FieldType {
     @OneToMany
     private List<Field> fields;
 
+    private FieldType(){
+
+    }
+
+    private FieldType(Builder builder) {
+        id = builder.id;
+        type = builder.type;
+        active = builder.active;
+        fields = builder.fields;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public List<Field> getFields() {
+        return fields;
+    }
+
+    public static final class Builder {
+        private int id;
+        private String type;
+        private Boolean active;
+        private List<Field> fields;
+
+        public Builder() {
+        }
+
+        public Builder withId(int val) {
+            id = val;
+            return this;
+        }
+
+        public Builder withType(String val) {
+            type = val;
+            return this;
+        }
+
+        public Builder withActive(Boolean val) {
+            active = val;
+            return this;
+        }
+
+        public Builder withFields(List<Field> val) {
+            fields = val;
+            return this;
+        }
+
+        public FieldType build() {
+            return new FieldType(this);
+        }
+    }
 }

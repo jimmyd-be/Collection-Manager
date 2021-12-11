@@ -52,18 +52,16 @@ public class GamesDbApi implements ExternalApi {
         TheGamesDbClient client = new TheGamesDbClient(settingRepository.getById(getUniqueKey() + ".apiKey").getValue());
 
         return client.getGameByName(search).parallelStream()
-                .map(game -> {
-                    ItemSearchDto dto = new ItemSearchDto();
-
-                    dto.setName(game.getGame_title());
-                    dto.setUrl("https://thegamesdb.net/game.php?id=" + game.getId());
-                    dto.setImage(game.getImageBaseurl().getThumb() + game.getImages().stream().filter(n -> n.getSide().equals("front") && n.getType().equals("boxart")).findFirst().get().getFilename());
-                    dto.setExternalId(String.valueOf(game.getId()));
-                    dto.setSource(getUniqueKey());
-                    dto.setReleaseDate(game.getRelease_date().getYear());
-
-                    return dto;
-                })
+                .map(game ->
+                        new ItemSearchDto.Builder()
+                                .withName(game.getGame_title())
+                                .withUrl("https://thegamesdb.net/game.php?id=" + game.getId())
+                                .withImage(game.getImageBaseurl().getThumb() + game.getImages().stream().filter(n -> n.getSide().equals("front") && n.getType().equals("boxart")).findFirst().get().getFilename())
+                                .withExternalId(String.valueOf(game.getId()))
+                                .withReleaseDate(game.getRelease_date().getYear())
+                                .withSource(getUniqueKey())
+                                .build()
+                )
                 .collect(Collectors.toList());
     }
 

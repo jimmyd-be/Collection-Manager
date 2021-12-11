@@ -48,9 +48,10 @@ public class CollectionControllerTest {
     @Test
     public void getByIdHappyFlow() throws UserPermissionException {
 
-        CollectionDto dto = new CollectionDto();
-        dto.setId(1);
-        dto.setName("Collection 1");
+        CollectionDto dto = new CollectionDto.Builder()
+                .withId(1)
+                .withName("Collection 1")
+                .build();
 
         when(collectionService.getById(anyLong())).thenReturn(Optional.of(dto));
 
@@ -75,9 +76,10 @@ public class CollectionControllerTest {
     @Test
     public void editCollectionHappyFlow() throws UserPermissionException {
 
-        CollectionDto dto = new CollectionDto();
-        dto.setId(1);
-        dto.setName("Collection 1");
+        CollectionDto dto = new CollectionDto.Builder()
+                .withId(1)
+                .withName("Collection 1")
+                .build();
 
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
         doNothing().when(collectionService).editCollection(dto);
@@ -89,9 +91,10 @@ public class CollectionControllerTest {
     @Test
     public void editCollectionForbidden() throws UserPermissionException {
 
-        CollectionDto dto = new CollectionDto();
-        dto.setId(1);
-        dto.setName("Collection 1");
+        CollectionDto dto = new CollectionDto.Builder()
+                .withId(1)
+                .withName("Collection 1")
+                .build();
 
         doThrow(UserPermissionException.class).when(collectionService).editCollection(dto);
 

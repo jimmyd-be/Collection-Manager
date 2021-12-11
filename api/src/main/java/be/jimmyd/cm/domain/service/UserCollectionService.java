@@ -27,9 +27,10 @@ public class UserCollectionService {
     private final CollectionRepository collectionRepository;
 
     public UserCollectionService(final CollectionUserRepository collectionUserRepository, final UserRepository userRepository,
-                                 final RoleRepository roleRepository, final CollectionRepository collectionRepository) {
+                                 final RoleRepository roleRepository, final CollectionRepository collectionRepository,
+                                 CollectionUserMapper collectionUserMapper) {
         this.collectionUserRepository = collectionUserRepository;
-        this.collectionUserMapper = CollectionUserMapper.INSTANCE;
+        this.collectionUserMapper = collectionUserMapper;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.collectionRepository = collectionRepository;
@@ -39,7 +40,7 @@ public class UserCollectionService {
 
         final List<UserCollection> users = collectionUserRepository.getByCollectionId(collectionId);
 
-        return collectionUserMapper.userCollectionToDto(users);
+        return collectionUserMapper.map(users);
     }
 
     public void deleteUserFromCollection(long collectionId, long userId) throws UserPermissionException {
@@ -66,10 +67,11 @@ public class UserCollectionService {
             final Optional<Collection> collectionOptional = collectionRepository.findById(collectionId);
 
             if (collectionOptional.isPresent()) {
-                userCollection = new UserCollection();
-                userCollection.setRole(role);
-                userCollection.setUser(user);
-                userCollection.setCollection(collectionOptional.get());
+                userCollection = new UserCollection.Builder()
+                        .withUser(user)
+                        .withCollection(collectionOptional.get())
+                        .withRole(role)
+                        .build();
                 collectionUserRepository.save(userCollection);
             }
         }
@@ -81,10 +83,11 @@ public class UserCollectionService {
         final User user = userRepository.findByMail(mail);
         final Role role = roleRepository.getByName(roleName);
 
-        UserCollection userCollection = new UserCollection();
-        userCollection.setCollection(collection);
-        userCollection.setRole(role);
-        userCollection.setUser(user);
+        UserCollection userCollection = new UserCollection.Builder()
+                .withUser(user)
+                .withCollection(collection)
+                .withRole(role)
+                .build();
 
         collectionUserRepository.save(userCollection);
     }

@@ -37,7 +37,10 @@ export class UserService {
     return this.http.patch<object>('/admin/user/disable/' + userId, null);
   }
 
-  setAdmin(userId: number): Observable<any> {
+  setAdmin(userId: number, admin: boolean): Observable<any> {
+    if (!admin) {
+      return this.http.patch('/admin/user/remove/admin/' + userId, null);
+    }
     return this.http.patch<object>('/admin/user/set/admin/' + userId, null);
   }
 

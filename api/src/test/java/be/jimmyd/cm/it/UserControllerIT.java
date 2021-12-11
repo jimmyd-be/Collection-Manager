@@ -35,9 +35,10 @@ public class UserControllerIT {
     }
 
     private HttpHeaders getHeaders(String mail, String password) {
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mail);
-        login.setPassword(password);
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withPassword(password)
+                .withEmail(mail)
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -49,15 +50,17 @@ public class UserControllerIT {
 
     @BeforeAll
     public void init() {
-        UserRegisterDto user = new UserRegisterDto();
-        user.setEmail(mail);
-        user.setFullName(username);
-        user.setPassword(password);
+        UserRegisterDto user = new UserRegisterDto.Builder()
+                .withPassword(password)
+                .withFullName(username)
+                .withEmail(mail)
+                .build();
 
-        UserRegisterDto user2 = new UserRegisterDto();
-        user2.setEmail("test2@tests.com");
-        user2.setFullName("user2");
-        user2.setPassword("test21345678");
+        UserRegisterDto user2 = new UserRegisterDto.Builder()
+                .withEmail("test2@tests.com")
+                .withPassword("test21345678")
+                .withFullName("user2")
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
         restTemplate.postForEntity(createURLWithPort("auth/register"), user2, Object.class);
@@ -81,11 +84,12 @@ public class UserControllerIT {
     @Test
     public void testEditUser() {
 
-        UserEditDto dto = new UserEditDto();
-        dto.setPassword(password);
-        dto.setNewUser(newUser);
-        dto.setTheme("dark");
-        dto.setNewMail(newMail);
+        UserEditDto dto = new UserEditDto.Builder()
+                .withPassword(password)
+                .withNewUser(newUser)
+                .withNewMail(newMail)
+                .withTheme("dark")
+                .build();
 
         ResponseEntity<Object> editResponse = restTemplate.exchange(createURLWithPort("user/edit"), HttpMethod.PATCH, new HttpEntity<>(dto, getHeaders(mail, password)), Object.class);
         assertEquals(HttpStatus.OK, editResponse.getStatusCode());
@@ -101,10 +105,11 @@ public class UserControllerIT {
     @Order(3)
     @Test
     public void testEditUserPassword() {
-        UserEditPasswordDto dto = new UserEditPasswordDto();
-        dto.setPassword(newPassword);
-        dto.setCurrentPassword(password);
-        dto.setPasswordRepeat(newPassword);
+        UserEditPasswordDto dto = new UserEditPasswordDto.Builder()
+                .withPassword(newPassword)
+                .withCurrentPassword(password)
+                .withPasswordRepeat(newPassword)
+                .build();
 
         ResponseEntity<Object> editResponse = restTemplate.exchange(createURLWithPort("user/edit/password"), HttpMethod.PATCH, new HttpEntity<>(dto, getHeaders(newMail, password)), Object.class);
         assertEquals(HttpStatus.OK, editResponse.getStatusCode());
@@ -122,9 +127,10 @@ public class UserControllerIT {
         ResponseEntity<Object> deleteResponse = restTemplate.exchange(createURLWithPort("user"), HttpMethod.DELETE, new HttpEntity<>(getHeaders("test2@tests.com", "test21345678")), Object.class);
         assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
 
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail("test2@tests.com");
-        login.setPassword("test21345678");
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withEmail("test2@tests.com")
+                .withPassword("test21345678")
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 

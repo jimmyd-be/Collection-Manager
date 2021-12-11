@@ -33,9 +33,10 @@ public class ItemControllerIT {
     }
 
     private HttpHeaders getHeaders() {
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mail);
-        login.setPassword(password);
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withPassword(password)
+                .withEmail(mail)
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -50,28 +51,31 @@ public class ItemControllerIT {
 
         restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 
-        UserRegisterDto user = new UserRegisterDto();
-        user.setEmail(mail);
-        user.setFullName(username);
-        user.setPassword(password);
+        UserRegisterDto user = new UserRegisterDto.Builder()
+                .withFullName(username)
+                .withPassword(password)
+                .withEmail(mail)
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
 
-        CollectionDto collectionDto = new CollectionDto();
-        collectionDto.setName("Movie collection");
-        collectionDto.setType("Movies");
-
-        FieldDto field = new FieldDto();
-        field.setName("custom field");
-        field.setLabel("Field label");
-        field.setPlaceholder("Placeholder");
-        field.setType("text");
-        field.setWidget("default");
-        field.setPlace("main");
+        FieldDto field = new FieldDto.Builder()
+                .withName("custom field")
+                .withLabel("Field label")
+                .withPlaceholder("Placeholder")
+                .withType("text")
+                .withWidget("default")
+                .withPlace("main")
+                .build();
 
         List<FieldDto> fieldDtoList = new ArrayList<>();
         fieldDtoList.add(field);
-        collectionDto.setFields(fieldDtoList);
+
+        CollectionDto collectionDto = new CollectionDto.Builder()
+                .withName("Movie collection")
+                .withType("Movies")
+                .withFields(fieldDtoList)
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("collection/add"), new HttpEntity<>(collectionDto, getHeaders()), Object.class);
     }

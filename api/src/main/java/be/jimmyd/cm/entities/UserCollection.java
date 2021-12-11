@@ -1,12 +1,9 @@
 package be.jimmyd.cm.entities;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cm_usercollection")
-@Data
 public class UserCollection {
 
     @Id
@@ -25,4 +22,69 @@ public class UserCollection {
     @ManyToOne
     @JoinColumn(name = "roleid", referencedColumnName = "id", nullable = false)
     private Role role;
+
+    private UserCollection(){
+
+    }
+
+    private UserCollection(Builder builder) {
+        id = builder.id;
+        user = builder.user;
+        collection = builder.collection;
+        role = builder.role;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public static final class Builder {
+        private long id;
+        private User user;
+        private Collection collection;
+        private Role role;
+
+        public Builder() {
+        }
+
+        public Builder withId(long val) {
+            id = val;
+            return this;
+        }
+
+        public Builder withUser(User val) {
+            user = val;
+            return this;
+        }
+
+        public Builder withCollection(Collection val) {
+            collection = val;
+            return this;
+        }
+
+        public Builder withRole(Role val) {
+            role = val;
+            return this;
+        }
+
+        public UserCollection build() {
+            return new UserCollection(this);
+        }
+    }
 }

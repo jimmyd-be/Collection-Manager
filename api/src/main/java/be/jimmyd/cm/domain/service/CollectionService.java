@@ -5,7 +5,10 @@ import be.jimmyd.cm.domain.mappers.CollectionMapper;
 import be.jimmyd.cm.domain.mappers.FieldMapper;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.FieldDto;
-import be.jimmyd.cm.entities.*;
+import be.jimmyd.cm.entities.Collection;
+import be.jimmyd.cm.entities.CollectionType;
+import be.jimmyd.cm.entities.Field;
+import be.jimmyd.cm.entities.User;
 import be.jimmyd.cm.repositories.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,14 +34,15 @@ public class CollectionService {
 
     public CollectionService(CollectionRepository collectionRepository, UserRepository userRepository, FieldRepository fieldRepository,
                              final UserCollectionService userCollectionService, final CollectionTypeRepository collectionTypeRepository,
-                             final FieldTypeRepository fieldTypeRepository, final ItemService itemService, final FieldService fieldService) {
+                             final FieldTypeRepository fieldTypeRepository, final ItemService itemService, final FieldService fieldService,
+                             CollectionMapper collectionMapper, FieldMapper fieldMapper) {
         this.collectionRepository = collectionRepository;
         this.userRepository = userRepository;
-        this.collectionMapper = CollectionMapper.INSTANCE;
+        this.collectionMapper = collectionMapper;
         this.fieldRepository = fieldRepository;
         this.userCollectionService = userCollectionService;
         this.collectionTypeRepository = collectionTypeRepository;
-        this.fieldMapper = FieldMapper.INSTANCE;
+        this.fieldMapper = fieldMapper;
         this.fieldTypeRepository = fieldTypeRepository;
         this.itemService = itemService;
         this.fieldService = fieldService;
@@ -49,13 +53,13 @@ public class CollectionService {
 
         final List<Collection> collections = collectionRepository.getByUser(user.getId());
 
-        return collectionMapper.collectionToDto(collections);
+        return collectionMapper.map(collections);
     }
 
     public Optional<CollectionDto> getById(long collectionId) throws UserPermissionException {
 
         return collectionRepository.findById(collectionId)
-                .map(collectionMapper::collectionToDto);
+                .map(collectionMapper::map);
 
     }
 
@@ -83,12 +87,12 @@ public class CollectionService {
 
         final CollectionType type = collectionTypeRepository.getByName(collectionDto.getType());
 
-        Collection collection = new Collection();
-        collection.setName(collectionDto.getName());
-        collection.setActive(true);
-        collection.setType(type);
-
-        collection.setFields(new ArrayList<>());
+        Collection collection = new Collection.Builder()
+                .withName(collectionDto.getName())
+                .withActive(true)
+                .withType(type)
+                .withFields(new ArrayList<>())
+                .build();
 
         for (FieldDto dto : collectionDto.getFields()) {
             addFieldToCollection(dto, collection);
@@ -101,10 +105,7 @@ public class CollectionService {
     }
 
     private void addFieldToCollection(FieldDto dto, Collection collection) {
-        final Field field = fieldMapper.dtoToField(dto);
-        final FieldType fieldType = fieldTypeRepository.findByName(dto.getType());
-        field.setType(fieldType);
-        field.setActive(true);
+        final Field field = fieldMapper.map(dto);
 
         switch (field.getType().getType()) {
             case "url":

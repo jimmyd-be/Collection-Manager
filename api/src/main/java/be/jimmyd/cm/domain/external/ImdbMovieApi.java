@@ -47,16 +47,16 @@ public class ImdbMovieApi implements ExternalApi {
 
         return imdb.search(search).parallelStream()
                 .filter(n -> n.getType().equalsIgnoreCase("Movie"))
-                .map(n -> {
-                    ItemSearchDto dto = new ItemSearchDto();
-                    dto.setImage(n.getThumbnail());
-                    dto.setExternalId(n.getId());
-                    dto.setSource(getUniqueKey());
-                    dto.setReleaseDate(n.getYear());
-                    dto.setUrl("https://www.imdb.com/title/" + n.getId());
-                    dto.setName(n.getName());
-                    return dto;
-                })
+                .map(n ->
+                        new ItemSearchDto.Builder()
+                                .withSource(getUniqueKey())
+                                .withImage(n.getThumbnail())
+                                .withName(n.getName())
+                                .withExternalId(n.getId())
+                                .withReleaseDate(n.getYear())
+                                .withUrl("https://www.imdb.com/title/" + n.getId())
+                                .build()
+                )
                 .collect(Collectors.toList());
     }
 

@@ -38,9 +38,10 @@ public class CollectionControllerIT {
     }
 
     private HttpHeaders getHeaders() {
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mail);
-        login.setPassword(password);
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withEmail(mail)
+                .withPassword(password)
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -51,9 +52,10 @@ public class CollectionControllerIT {
     }
 
     private HttpHeaders getHeadersUser2() {
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mailSecondUser);
-        login.setPassword(passwordSecondUser);
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withEmail(mailSecondUser)
+                .withPassword(passwordSecondUser)
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -68,15 +70,17 @@ public class CollectionControllerIT {
 
         restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 
-        UserRegisterDto user = new UserRegisterDto();
-        user.setEmail(mail);
-        user.setFullName(username);
-        user.setPassword(password);
+        UserRegisterDto user = new UserRegisterDto.Builder()
+                .withEmail(mail)
+                .withPassword(password)
+                .withFullName(username)
+                .build();
 
-        UserRegisterDto user2 = new UserRegisterDto();
-        user2.setEmail(mailSecondUser);
-        user2.setFullName(usernameSecondUser);
-        user2.setPassword(passwordSecondUser);
+        UserRegisterDto user2 = new UserRegisterDto.Builder()
+                .withEmail(mailSecondUser)
+                .withPassword(passwordSecondUser)
+                .withFullName(usernameSecondUser)
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
         restTemplate.postForEntity(createURLWithPort("auth/register"), user2, Object.class);
@@ -85,21 +89,25 @@ public class CollectionControllerIT {
     @Test
     @Order(1)
     public void addCollectionTest() {
-        CollectionDto collectionDto = new CollectionDto();
-        collectionDto.setName("Movie collection");
-        collectionDto.setType("Movies");
 
-        FieldDto field = new FieldDto();
-        field.setName("custom field");
-        field.setLabel("Field label");
-        field.setPlaceholder("Placeholder");
-        field.setType("text");
-        field.setWidget("default");
-        field.setPlace("main");
+        FieldDto field = new FieldDto.Builder()
+                .withName("custom field")
+                .withLabel("Field label")
+                .withPlaceholder("Placeholder")
+                .withType("text")
+                .withWidget("default")
+                .withPlace("main")
+                .build();
 
         List<FieldDto> fieldDtoList = new ArrayList<>();
         fieldDtoList.add(field);
-        collectionDto.setFields(fieldDtoList);
+
+
+        CollectionDto collectionDto = new CollectionDto.Builder()
+                .withType("Movies")
+                .withName("Movie collection")
+                .withFields(fieldDtoList)
+                .build();
 
         final ResponseEntity<Object> response = restTemplate.postForEntity(createURLWithPort("collection/add"), new HttpEntity<>(collectionDto, getHeaders()), Object.class);
 
@@ -158,9 +166,10 @@ public class CollectionControllerIT {
     @Test
     @Order(5)
     public void shareTest() {
-        CollectionShareDto shareDto = new CollectionShareDto();
-        shareDto.setRole("Editor");
-        shareDto.setUserName(usernameSecondUser);
+        CollectionShareDto shareDto = new CollectionShareDto.Builder()
+                .withRole("Editor")
+                .withUserName(usernameSecondUser)
+                .build();
 
         final ResponseEntity response = restTemplate.exchange(createURLWithPort("collection/1/share"), HttpMethod.POST, new HttpEntity<>(shareDto, getHeaders()), Void.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -205,32 +214,36 @@ public class CollectionControllerIT {
     @Test
     @Order(7)
     public void editCollectionTest() {
-        CollectionDto collectionDto = new CollectionDto();
-        collectionDto.setId(1);
-        collectionDto.setName("Edited Movie collection");
-        collectionDto.setType("Movies");
 
-        FieldDto field = new FieldDto();
-        field.setId(48);
-        field.setName("Edited custom field");
-        field.setLabel("Field label");
-        field.setPlaceholder("Placeholder");
-        field.setType("text");
-        field.setWidget("default");
-        field.setPlace("main");
+        FieldDto field = new FieldDto.Builder()
+                .withId(48)
+                .withName("Edited custom field")
+                .withLabel("Field label")
+                .withPlaceholder("Placeholder")
+                .withType("text")
+                .withWidget("default")
+                .withPlace("main")
+                .build();
 
-        FieldDto field2 = new FieldDto();
-        field2.setName("New custom field");
-        field2.setLabel("new Field label");
-        field2.setPlaceholder("Placeholder");
-        field2.setType("text");
-        field2.setWidget("default");
-        field2.setPlace("main");
+        FieldDto field2 = new FieldDto.Builder()
+                .withName("New custom field")
+                .withLabel("new Field label")
+                .withPlaceholder("Placeholder")
+                .withType("text")
+                .withWidget("default")
+                .withPlace("main")
+                .build();
 
         List<FieldDto> fieldDtoList = new ArrayList<>();
         fieldDtoList.add(field);
         fieldDtoList.add(field2);
-        collectionDto.setFields(fieldDtoList);
+
+        CollectionDto collectionDto = new CollectionDto.Builder()
+                .withId(1)
+                .withName("Edited Movie collection")
+                .withType("Movies")
+                .withFields(fieldDtoList)
+                .build();
 
         final ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort("collection/edit"), HttpMethod.PATCH, new HttpEntity<>(collectionDto, getHeaders()), Object.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());

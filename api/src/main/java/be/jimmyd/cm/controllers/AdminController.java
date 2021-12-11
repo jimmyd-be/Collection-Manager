@@ -57,7 +57,19 @@ public class AdminController {
     @PatchMapping("/user/set/admin/{userId}")
     public ResponseEntity changeAdmin(@PathVariable("userId") long userId) {
         try {
-            userService.changeAdmin(userId);
+            userService.changeAdmin(userId, true);
+            return ResponseEntity.ok().build();
+        } catch (UserNotExistsException e) {
+            return ResponseEntity.notFound().build();
+        } catch (OneActiveAdminNeededException e) {
+            return ResponseEntity.status(FORBIDDEN).build();
+        }
+    }
+
+    @PatchMapping("/user/remove/admin/{userId}")
+    public ResponseEntity removeAdmin(@PathVariable("userId") long userId) {
+        try {
+            userService.changeAdmin(userId, false);
             return ResponseEntity.ok().build();
         } catch (UserNotExistsException e) {
             return ResponseEntity.notFound().build();
