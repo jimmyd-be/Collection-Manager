@@ -1,10 +1,8 @@
-## Welcome to GitHub Pages
+## Collection Manager
 
-You can use the [editor on GitHub](https://github.com/jimmyd-be/Collection-Manager/edit/Github_pages/docs/index.md) to maintain and preview the content for your website in Markdown files.
+Are you tierd to lookup all your collection items manually and loos the items you rent to a friend. That's oldschool and Collction Manager can help you manager all your collections. This from Movies, Games, Books, Comics and easy to add more.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
+### Features
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
