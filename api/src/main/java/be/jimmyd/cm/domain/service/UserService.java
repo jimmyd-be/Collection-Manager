@@ -6,13 +6,21 @@ import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserEditDto;
 import be.jimmyd.cm.dto.UserEditPasswordDto;
 import be.jimmyd.cm.dto.UserRegisterDto;
+import be.jimmyd.cm.entities.InvalidToken;
 import be.jimmyd.cm.entities.User;
+import be.jimmyd.cm.repositories.InvalidTokenRepository;
 import be.jimmyd.cm.repositories.UserRepository;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserService {
@@ -22,14 +30,20 @@ public class UserService {
     private final UserCollectionService userCollectionService;
     private final CollectionService collectionLogic;
     private final UserMapper userMapper;
+    private final InvalidTokenRepository invalidTokenRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, final UserCollectionService userCollectionService,
-                       final CollectionService collectionLogic, UserMapper userMapper) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       UserCollectionService userCollectionService,
+                       CollectionService collectionLogic,
+                       UserMapper userMapper,
+                       InvalidTokenRepository invalidTokenRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userCollectionService = userCollectionService;
         this.collectionLogic = collectionLogic;
         this.userMapper = userMapper;
+        this.invalidTokenRepository = invalidTokenRepository;
     }
 
     public void registerUser(UserRegisterDto userDto) throws UserAlreadyExists {
@@ -152,5 +166,29 @@ public class UserService {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
         deleteUser(user);
+    }
+
+    public void logout(UsernamePasswordAuthenticationToken user, String token) {
+        String bearerToken = token.replace("Bearer ", "");
+
+        DecodedJWT decode = JWT.decode(bearerToken);
+
+        if (decode.getSubject().equals(user.getName())) {
+            invalidTokenRepository.save(new InvalidToken.Builder()
+                    .withInvalidFrom(LocalDateTime.now())
+                    .withToken(bearerToken)
+                    .build());
+        }
+
+        deleteOldTokens();
+    }
+
+    private void deleteOldTokens() {
+        List<String> tokens = invalidTokenRepository.findOldTokens(LocalDateTime.now().minus(7, ChronoUnit.DAYS))
+                .stream()
+                .map(InvalidToken::getToken)
+                .collect(Collectors.toList());
+
+        invalidTokenRepository.deleteAllById(tokens);
     }
 }

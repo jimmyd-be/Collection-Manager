@@ -31,6 +31,8 @@ public class CollectionTestConstants {
     public static final int ROLE_ID = 25;
     public static final String ROLE_NAME = "Editor";
     public static final int FIELD_TYPE_ID = 111;
+    public static final String COLLECTION_NAME = "New collection";
+    public static final long COLLECTION_ID = 5L;
 
     private CollectionTestConstants() {
     }
@@ -46,8 +48,8 @@ public class CollectionTestConstants {
     public static Collection collection() {
         return new Collection.Builder()
                 .withActive(false)
-                .withName("New collection")
-                .withId(5)
+                .withName(COLLECTION_NAME)
+                .withId(COLLECTION_ID)
                 .withType(collectionType())
                 .withFields(fields())
                 .withUserCollections(List.of(userCollection()))

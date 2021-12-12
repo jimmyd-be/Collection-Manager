@@ -122,4 +122,10 @@ class UserServiceTest {
     @Test
     void testDeleteUser1() {
     }
+
+    @Disabled
+    @Test
+    public void logout() {
+
+    }
 }

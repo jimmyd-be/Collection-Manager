@@ -1,6 +1,7 @@
 package be.jimmyd.cm.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SearchResultDto {
 
@@ -28,6 +29,19 @@ public class SearchResultDto {
 
     public List<ItemDto> getItems() {
         return items;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchResultDto that = (SearchResultDto) o;
+        return collectionId == that.collectionId && Objects.equals(collectionName, that.collectionName) && Objects.equals(items, that.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(collectionId, collectionName, items);
     }
 
     public static final class Builder {

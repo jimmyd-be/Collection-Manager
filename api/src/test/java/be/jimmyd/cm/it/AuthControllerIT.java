@@ -11,8 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,6 +30,20 @@ public class AuthControllerIT {
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + "/api/" + uri;
+    }
+
+    private HttpHeaders getHeaders() {
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withEmail(mail)
+                .withPassword(password)
+                .build();
+
+        final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(userLogin.getBody().getToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
     }
 
     @Order(1)
@@ -90,5 +103,19 @@ public class AuthControllerIT {
         final ResponseEntity<Object> userRegistration = restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
 
         assertEquals(HttpStatus.CONFLICT, userRegistration.getStatusCode());
+    }
+
+    @Order(5)
+    @Test
+    public void testLogout() {
+
+        HttpHeaders headers = getHeaders();
+
+        final ResponseEntity<Object> logoutResponse = restTemplate.postForEntity(createURLWithPort("user/logout"), new HttpEntity<>(headers), Object.class);
+        assertEquals(HttpStatus.OK, logoutResponse.getStatusCode());
+
+        final ResponseEntity<Object> secondLogoutResponse = restTemplate.postForEntity(createURLWithPort("user/logout"), new HttpEntity<>(headers), Object.class);
+
+        assertEquals(HttpStatus.UNAUTHORIZED, secondLogoutResponse.getStatusCode());
     }
 }

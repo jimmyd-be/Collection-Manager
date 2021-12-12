@@ -2,10 +2,11 @@ package be.jimmyd.cm.constants;
 
 import be.jimmyd.cm.dto.ItemDataDto;
 import be.jimmyd.cm.dto.ItemDto;
+import be.jimmyd.cm.dto.SearchResultDto;
 
 import java.util.List;
 
-import static be.jimmyd.cm.constants.CollectionTestConstants.FIELD_ID;
+import static be.jimmyd.cm.constants.CollectionTestConstants.*;
 import static be.jimmyd.cm.constants.ItemTestConstant.*;
 
 public class ItemDtoTestConstant {
@@ -25,6 +26,14 @@ public class ItemDtoTestConstant {
         return new ItemDataDto.Builder()
                 .withFieldId(FIELD_ID)
                 .withValue(FIELD_VALUE)
+                .build();
+    }
+
+    public static SearchResultDto searchResultDto() {
+        return new SearchResultDto.Builder()
+                .withCollectionId(COLLECTION_ID)
+                .withCollectionName(COLLECTION_NAME)
+                .withItems(List.of(itemDto()))
                 .build();
     }
 }

@@ -6,8 +6,7 @@ import be.jimmyd.cm.entities.Itemdata;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static be.jimmyd.cm.constants.CollectionTestConstants.field;
-import static be.jimmyd.cm.constants.CollectionTestConstants.user;
+import static be.jimmyd.cm.constants.CollectionTestConstants.*;
 
 public class ItemTestConstant {
 
@@ -40,6 +39,20 @@ public class ItemTestConstant {
                 .withField(field())
                 .withFieldValue(FIELD_VALUE)
                 .withValueCount(FIELD_VALUE_COUNT)
+                .build();
+    }
+
+    public static Item itemWithCollection() {
+        return new Item.Builder()
+                .withId(ITEM_ID)
+                .withName(ITEM_NAME)
+                .withImage(ITEM_IMAGE)
+                .withActive(true)
+                .withAuthor(user())
+                .withCreationDate(ITEM_CREATION_DATE)
+                .withLastModified(ITEM_CREATION_DATE)
+                .withItemdata(List.of(itemDate()))
+                .withCollections(List.of(collection()))
                 .build();
     }
 }

@@ -30,8 +30,12 @@ public class ItemService {
     private final ExternalSystem externalSystemService;
     private final ItemMapper itemMapper;
 
-    public ItemService(final UserRepository userRepository, final ItemRepository itemRepository, final FieldRepository fieldRepository,
-                       final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository, final ExternalSystem externalSystemService,
+    public ItemService(UserRepository userRepository,
+                       ItemRepository itemRepository,
+                       FieldRepository fieldRepository,
+                       CollectionRepository collectionRepository,
+                       ItemDataRepository itemDataRepository,
+                       ExternalSystem externalSystemService,
                        ItemMapper itemMapper) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;

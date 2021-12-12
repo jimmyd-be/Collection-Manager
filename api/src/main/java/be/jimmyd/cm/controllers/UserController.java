@@ -12,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
@@ -52,8 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public void logoutUser(Principal user) throws UserAlreadyExists {
-
-        //TODO invalidate current token
+    public void logoutUser(UsernamePasswordAuthenticationToken user, @RequestHeader(name = "Authorization") String token) {
+        userService.logout(user, token);
     }
 }

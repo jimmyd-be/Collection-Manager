@@ -16,12 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class SearchService {
 
-    private ItemRepository itemRepository;
-    private ItemMapper itemMapper;
-    private CollectionRepository collectionRepository;
+    private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
+    private final CollectionRepository collectionRepository;
 
     public SearchService(ItemRepository itemRepository,
-                         ItemMapper itemMapper, CollectionRepository collectionRepository) {
+                         ItemMapper itemMapper,
+                         CollectionRepository collectionRepository) {
         this.itemRepository = itemRepository;
         this.itemMapper = itemMapper;
         this.collectionRepository = collectionRepository;

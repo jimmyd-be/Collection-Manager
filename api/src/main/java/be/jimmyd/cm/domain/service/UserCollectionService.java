@@ -26,8 +26,10 @@ public class UserCollectionService {
     private final CollectionUserRepository collectionUserRepository;
     private final CollectionRepository collectionRepository;
 
-    public UserCollectionService(final CollectionUserRepository collectionUserRepository, final UserRepository userRepository,
-                                 final RoleRepository roleRepository, final CollectionRepository collectionRepository,
+    public UserCollectionService(CollectionUserRepository collectionUserRepository,
+                                 UserRepository userRepository,
+                                 RoleRepository roleRepository,
+                                 CollectionRepository collectionRepository,
                                  CollectionUserMapper collectionUserMapper) {
         this.collectionUserRepository = collectionUserRepository;
         this.collectionUserMapper = collectionUserMapper;

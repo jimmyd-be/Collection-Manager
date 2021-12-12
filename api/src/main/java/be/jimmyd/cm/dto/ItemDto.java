@@ -1,6 +1,7 @@
 package be.jimmyd.cm.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ItemDto {
 
@@ -36,6 +37,18 @@ public class ItemDto {
         return data;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemDto itemDto = (ItemDto) o;
+        return id == itemDto.id && Objects.equals(name, itemDto.name) && Objects.equals(image, itemDto.image) && Objects.equals(data, itemDto.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, image, data);
+    }
 
     public static final class Builder {
         private long id;

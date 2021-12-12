@@ -1,5 +1,8 @@
 package be.jimmyd.cm.config;
 
+import be.jimmyd.cm.domain.exceptions.UserPermissionException;
+import be.jimmyd.cm.entities.InvalidToken;
+import be.jimmyd.cm.repositories.InvalidTokenRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -23,11 +27,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private final String tokenPrefix = "Bearer ";
     private final String headerString = "Authorization";
     private final UserDetailsServiceImpl userDetailsService;
+    private final InvalidTokenRepository invalidTokenRepository;
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager, UserDetailsServiceImpl userDetailsService, @Value("${cm.secretKey}") String secret) {
+    public JWTAuthorizationFilter(AuthenticationManager authManager,
+                                  UserDetailsServiceImpl userDetailsService,
+                                  @Value("${cm.secretKey}") String secret,
+                                  InvalidTokenRepository invalidTokenRepository) {
         super(authManager);
         this.secret = secret;
         this.userDetailsService = userDetailsService;
+        this.invalidTokenRepository = invalidTokenRepository;
     }
 
     @Override
@@ -56,6 +65,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     // Reads the JWT from the Authorization header, and then uses JWT to validate the token
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(headerString);
+
+        if (invalidTokenRepository.findById(token.replace(tokenPrefix, "")).isPresent()) {
+            return null;
+        }
 
         if (token != null) {
             // parse the token.

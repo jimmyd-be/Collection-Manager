@@ -34,10 +34,15 @@ public class CollectionService {
     private final ItemService itemService;
     private final FieldService fieldService;
 
-    public CollectionService(CollectionRepository collectionRepository, UserRepository userRepository, FieldRepository fieldRepository,
-                             final UserCollectionService userCollectionService, final CollectionTypeRepository collectionTypeRepository,
-                             final ItemService itemService, final FieldService fieldService,
-                             CollectionMapper collectionMapper, FieldMapper fieldMapper) {
+    public CollectionService(CollectionRepository collectionRepository,
+                             UserRepository userRepository,
+                             FieldRepository fieldRepository,
+                             UserCollectionService userCollectionService,
+                             CollectionTypeRepository collectionTypeRepository,
+                             ItemService itemService,
+                             FieldService fieldService,
+                             CollectionMapper collectionMapper,
+                             FieldMapper fieldMapper) {
         this.collectionRepository = collectionRepository;
         this.userRepository = userRepository;
         this.collectionMapper = collectionMapper;
