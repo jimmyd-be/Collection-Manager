@@ -68,6 +68,14 @@ public class CollectionTestConstants {
                 .build();
     }
 
+    public static UserCollection userCollectionWithCollection() {
+        return new UserCollection.Builder()
+                .withUser(user())
+                .withRole(role())
+                .withCollection(collection())
+                .build();
+    }
+
     public static Role role() {
         return new Role.Builder()
                 .withActive(true)

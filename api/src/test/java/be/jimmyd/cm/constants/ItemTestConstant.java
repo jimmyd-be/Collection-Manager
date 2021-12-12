@@ -2,6 +2,7 @@ package be.jimmyd.cm.constants;
 
 import be.jimmyd.cm.entities.Item;
 import be.jimmyd.cm.entities.Itemdata;
+import be.jimmyd.cm.entities.Setting;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -53,6 +54,13 @@ public class ItemTestConstant {
                 .withLastModified(ITEM_CREATION_DATE)
                 .withItemdata(List.of(itemDate()))
                 .withCollections(List.of(collection()))
+                .build();
+    }
+
+    public static Setting setting() {
+        return new Setting.Builder()
+                .withId("theGamesDB.apiKey")
+                .withValue("keyToken")
                 .build();
     }
 }

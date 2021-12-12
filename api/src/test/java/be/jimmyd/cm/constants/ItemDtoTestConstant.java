@@ -3,6 +3,8 @@ package be.jimmyd.cm.constants;
 import be.jimmyd.cm.dto.ItemDataDto;
 import be.jimmyd.cm.dto.ItemDto;
 import be.jimmyd.cm.dto.SearchResultDto;
+import be.jimmyd.cm.dto.SettingDto;
+import be.jimmyd.cm.entities.Setting;
 
 import java.util.List;
 
@@ -34,6 +36,13 @@ public class ItemDtoTestConstant {
                 .withCollectionId(COLLECTION_ID)
                 .withCollectionName(COLLECTION_NAME)
                 .withItems(List.of(itemDto()))
+                .build();
+    }
+
+    public static SettingDto settingDto() {
+        return new SettingDto.Builder()
+                .withKey("theGamesDB.apiKey")
+                .withValue("keyToken")
                 .build();
     }
 }

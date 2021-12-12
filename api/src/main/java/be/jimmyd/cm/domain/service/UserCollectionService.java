@@ -15,7 +15,6 @@ import be.jimmyd.cm.repositories.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class UserCollectionService {
@@ -66,18 +65,14 @@ public class UserCollectionService {
             userCollection.setRole(role);
             collectionUserRepository.save(userCollection);
         } else {
-            final Optional<Collection> collectionOptional = collectionRepository.findById(collectionId);
-
-            if (collectionOptional.isPresent()) {
-                userCollection = new UserCollection.Builder()
+            collectionRepository.findById(collectionId).ifPresent(collection ->
+                collectionUserRepository.save(new UserCollection.Builder()
                         .withUser(user)
-                        .withCollection(collectionOptional.get())
+                        .withCollection(collection)
                         .withRole(role)
-                        .build();
-                collectionUserRepository.save(userCollection);
-            }
+                        .build())
+            );
         }
-
     }
 
     public void addUserToCollection(String mail, String roleName, Collection collection) {

@@ -1,5 +1,7 @@
 package be.jimmyd.cm.dto;
 
+import java.util.Objects;
+
 public class UserCollectionDto {
 
     private long userId;
@@ -7,7 +9,7 @@ public class UserCollectionDto {
     private long roleId;
     private String roleName;
 
-    private UserCollectionDto(){
+    private UserCollectionDto() {
 
     }
 
@@ -32,6 +34,19 @@ public class UserCollectionDto {
 
     public String getRoleName() {
         return roleName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserCollectionDto that = (UserCollectionDto) o;
+        return userId == that.userId && roleId == that.roleId && Objects.equals(userName, that.userName) && Objects.equals(roleName, that.roleName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, userName, roleId, roleName);
     }
 
     public static final class Builder {

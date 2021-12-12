@@ -126,8 +126,7 @@ public class ItemService {
                 .withLastModified(LocalDateTime.now())
                 .build();
 
-        final Item finalNewItem = itemRepository.save(newItem);
-        return finalNewItem;
+        return itemRepository.save(newItem);
     }
 
     @Transactional

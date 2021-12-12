@@ -1,5 +1,7 @@
 package be.jimmyd.cm.dto;
 
+import java.util.Objects;
+
 public class SettingDto {
 
     private String key;
@@ -20,6 +22,19 @@ public class SettingDto {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SettingDto that = (SettingDto) o;
+        return key.equals(that.key) && Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key, value);
     }
 
     public static final class Builder {
