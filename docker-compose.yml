@@ -16,7 +16,7 @@ services:
         expose:
             - 5432
     api:
-        build: ./api
+        image: lonelobo0070/collection_manager_backend:latest
         depends_on:
             - db
         ports:
@@ -24,7 +24,7 @@ services:
         expose:
             - 8080
     gui:
-        build: ./gui
+        image: lonelobo0070/collection_manager_frontend:latest
         ports:
             - "8090:80"
         depends_on:
