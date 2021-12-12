@@ -4,32 +4,47 @@ Are you tierd to lookup all your collection items manually and loos the items yo
 
 ### Features
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- Customizable themes
+- Customizable fields
+- Different collection types:
+  - Books
+  - Comics
+  - Games
+  - Magazines
+  - Movies
+  - ....
+- Import collection items
+  - by external system search (IMDB, GamesDb, ...)
+  - Input manually
+  - Import from file (in future release)
+- User Management (role based)
+  - Admin (can perform all actions on a collection)
+  - Editor (can insert, edit and delete items from a collection)
+  - Viewer (can only view the collection and his items)
 
-```markdown
-Syntax highlighted code block
+### Some screenshots of the application
+![Collection view](https://github.com/jimmyd-be/Collection-Manager/blob/master/docs/images/Collection_view_page.png)
+![Collection view Dark](https://github.com/jimmyd-be/Collection-Manager/blob/master/docs/images/collection_view_dark_page.png)
+![Login page](https://github.com/jimmyd-be/Collection-Manager/blob/master/docs/images/login_page.png)
+![Register page](https://github.com/jimmyd-be/Collection-Manager/blob/master/docs/images/registration_page.png)
+![Global Search](https://github.com/jimmyd-be/Collection-Manager/blob/master/docs/images/Global_search_page.png)
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+### How to install
 
-1. Numbered
-2. List
+#### Requirements
+You can install Collection Manager on every operating system where Docker is supported:
+- Linux (including Raspberry Pi)
+- Mac Os X
+- Windows
 
-**Bold** and _Italic_ and `Code` text
+You need to install Docker before you can proceed with the installation of Collection Manager. More info on how to install Docker on your system can be found on the [Docker website](https://docs.docker.com/get-docker/).
 
-[Link](url) and ![Image](src)
-```
+Also you need to install docker-compose if you are not alreayd have it installed. How to install it on your operating system can be found on the [Docker compose website](https://docs.docker.com/compose/install/).
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jimmyd-be/Collection-Manager/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+#### Install Collection Manager
+- Clone the git repo or [download docker-compose.yml](https://github.com/jimmyd-be/Collection-Manager/blob/master/docker-compose.yml).
+- Open a terminal window (currently the only way to install Collection Manager)
+- Go to the docker-compose.yml file on your system
+- run 'docker-compose up -d' (on *nix systems it is sometime required to run this in sudo)
+- Now it should download all the required files and if everything is ok you can browse to http://<ip-adress>:8090
