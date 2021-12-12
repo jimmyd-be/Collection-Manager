@@ -2,6 +2,7 @@ package be.jimmyd.cm.dto;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 public class CollectionDto {
 
@@ -47,6 +48,18 @@ public class CollectionDto {
         return fields;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CollectionDto that = (CollectionDto) o;
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(members, that.members) && Objects.equals(fields, that.fields);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type, members, fields);
+    }
 
     public static final class Builder {
         private long id;
