@@ -56,6 +56,18 @@ public class CollectionTestConstants {
                 .build();
     }
 
+    public static Collection collectionWithFields(long collectionId) {
+        return new Collection.Builder()
+                .withActive(false)
+                .withName(COLLECTION_NAME)
+                .withId(collectionId)
+                .withType(collectionType())
+                .withFields(fields())
+                .withUserCollections(List.of(userCollection()))
+                .withFields(List.of(field()))
+                .build();
+    }
+
     public static List<Field> fields() {
         return List.of(field());
     }

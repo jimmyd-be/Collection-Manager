@@ -25,7 +25,7 @@ public class Collection {
     @JoinColumn(name = "typeid", referencedColumnName = "id", nullable = false)
     private CollectionType type;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "cm_collectionfield",
             joinColumns = @JoinColumn(name = "collectionid"),

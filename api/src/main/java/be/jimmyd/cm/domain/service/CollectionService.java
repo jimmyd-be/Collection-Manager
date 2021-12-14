@@ -130,7 +130,6 @@ public class CollectionService {
                 field.setWidget("default");
         }
 
-
         collection.getFields().add(fieldRepository.save(field));
     }
 
@@ -161,8 +160,7 @@ public class CollectionService {
             //Delete deleted fields
             collection.getFields()
                     .stream()
-                    .filter(field -> fieldIds.contains(field.getId()))
-                    .filter(field -> field.getCollectiontype() != null)
+                    .filter(field -> !fieldIds.contains(field.getId()))
                     .forEach(fieldRepository::delete);
 
             collectionRepository.save(collection);

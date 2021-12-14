@@ -44,6 +44,23 @@ public class CollectionDtoTestConstants {
                 .build();
     }
 
+    public static FieldDto fieldDto(long id, String name) {
+        return new FieldDto.Builder()
+                .withId(id)
+                .withName(name)
+                .withType(FIELD_TYPE)
+                .withOptions(FIELD_OPTIONS)
+                .withRequired(FIELD_REQUIRED)
+                .withPlaceholder(FIELD_PLACE_HOLDER)
+                .withFieldOrder(FIELD_ORDER)
+                .withPlace(FIELD_PLACE)
+                .withMultivalues(FIELD_MULTI_VALUE)
+                .withLabelPosition(FIELD_LABEL_POSITION)
+                .withLabel(FIELD_LABEL)
+                .withWidget(FIELD_WIDGET)
+                .build();
+    }
+
     public static UserCollectionDto userCollectionDto() {
         return new UserCollectionDto.Builder()
                 .withRoleId(ROLE_ID)
