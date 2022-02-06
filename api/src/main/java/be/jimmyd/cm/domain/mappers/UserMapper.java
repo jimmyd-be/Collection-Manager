@@ -3,50 +3,43 @@ package be.jimmyd.cm.domain.mappers;
 import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserRegisterDto;
 import be.jimmyd.cm.entities.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
 
+import javax.inject.Named;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
-public interface UserMapper {
+@Named
+public class UserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
-    @Mappings({
-            @Mapping(source = "fullName", target = "username"),
-            @Mapping(target = "mail", source = "email"),
-            @Mapping(target = "userPassword", source = "password"),
-            @Mapping(target = "active", constant = "true"),
-            @Mapping(target = "theme", constant = "default"),
-            @Mapping(target = "creationDate", source = "fullName", qualifiedByName = "currentDateTime")
-    })
-    User registrationToUser(UserRegisterDto user);
-
-    @Named("currentDateTime")
-    static LocalDateTime currentDateTime(String fullName) {
-        return LocalDateTime.now();
+    public User map(UserRegisterDto user) {
+        return new User.Builder()
+                .withCreationDate(LocalDateTime.now())
+                .withUsername(user.getFullName())
+                .withMail(user.getEmail())
+                .withUserPassword(user.getPassword())
+                .withActive(true)
+                .withTheme("default")
+                .withIsAdmin(false)
+                .build();
     }
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "mail", target = "mail"),
-            @Mapping(source = "username", target = "username"),
-            @Mapping(source = "isAdmin", target = "admin"),
-            @Mapping(source = "creationDate", target = "creationDate"),
-            @Mapping(source = "theme", target = "theme"),
-            @Mapping(source = "active", target = "active")
-    })
-    UserDto userToDto(User user);
+    public UserDto map(User user) {
+        return new UserDto.Builder()
+                .withId(user.getId())
+                .withCreationDate(LocalDate.now())
+                .withUsername(user.getUsername())
+                .withMail(user.getMail())
+                .withActive(user.getActive())
+                .withTheme(user.getTheme())
+                .withIsAdmin(user.getAdmin())
+                .build();
+    }
 
-    default List<UserDto> userToDto(List<User> users) {
+    public List<UserDto> map(List<User> users) {
         return users.parallelStream()
-                .map(user -> userToDto(user))
+                .map(this::map)
                 .collect(Collectors.toList());
     }
 }

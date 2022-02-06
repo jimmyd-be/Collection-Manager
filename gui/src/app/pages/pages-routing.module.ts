@@ -16,6 +16,7 @@ import {ShareCollectionComponent} from './share-collection/share-collection.comp
 import {AddItemExternallyComponent} from './add-item-externally/add-item-externally.component';
 import {AdminSettingsComponent} from './admin-settings/admin-settings.component';
 import {AdminUsersComponent} from './admin-users/admin-users.component';
+import {GlobalSearchComponent} from "./global-search/global-search.component";
 
 const routes: Routes = [{
   path: '',
@@ -115,6 +116,11 @@ const routes: Routes = [{
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
+    },
+    {
+      path: 'search',
+      canActivate: [AuthGuard],
+      component: GlobalSearchComponent,
     },
   ],
 }];

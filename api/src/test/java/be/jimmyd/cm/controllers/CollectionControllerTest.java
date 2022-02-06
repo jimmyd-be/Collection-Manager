@@ -1,12 +1,13 @@
 package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
-import be.jimmyd.cm.domain.logic.CollectionLogic;
-import be.jimmyd.cm.domain.logic.CollectionTypeLogic;
-import be.jimmyd.cm.domain.logic.UserCollectionLogic;
+import be.jimmyd.cm.domain.service.CollectionService;
+import be.jimmyd.cm.domain.service.CollectionTypeService;
+import be.jimmyd.cm.domain.service.UserCollectionService;
 import be.jimmyd.cm.domain.utils.SecurityUtil;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.CollectionShareDto;
+import be.jimmyd.cm.dto.UserCollectionDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -29,25 +31,29 @@ public class CollectionControllerTest {
     public final String userMail = "test@test.be";
 
     @Mock
-    private CollectionLogic collectionLogic;
+    private CollectionService collectionService;
 
     @Mock
     private SecurityUtil securityUtil;
 
     @Mock
-    private UserCollectionLogic userCollectionLogic;
+    private UserCollectionService userCollectionService;
 
     @InjectMocks
     private CollectionController controller;
 
+    @Mock
+    private CollectionTypeService collectionTypeService;
+
     @Test
     public void getByIdHappyFlow() throws UserPermissionException {
 
-        CollectionDto dto = new CollectionDto();
-        dto.setId(1);
-        dto.setName("Collection 1");
+        CollectionDto dto = new CollectionDto.Builder()
+                .withId(1)
+                .withName("Collection 1")
+                .build();
 
-        when(collectionLogic.getById(anyLong())).thenReturn(dto);
+        when(collectionService.getById(anyLong())).thenReturn(Optional.of(dto));
 
         ResponseEntity<CollectionDto> response = controller.getById(1);
 
@@ -60,7 +66,7 @@ public class CollectionControllerTest {
 
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
 
-        when(collectionLogic.getById(1)).thenThrow(UserPermissionException.class);
+        when(collectionService.getById(1)).thenThrow(UserPermissionException.class);
 
         ResponseEntity<CollectionDto> response = controller.getById(1);
 
@@ -70,12 +76,13 @@ public class CollectionControllerTest {
     @Test
     public void editCollectionHappyFlow() throws UserPermissionException {
 
-        CollectionDto dto = new CollectionDto();
-        dto.setId(1);
-        dto.setName("Collection 1");
+        CollectionDto dto = new CollectionDto.Builder()
+                .withId(1)
+                .withName("Collection 1")
+                .build();
 
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
-        doNothing().when(collectionLogic).editCollection(dto);
+        doNothing().when(collectionService).editCollection(dto);
 
         ResponseEntity<CollectionDto> response = controller.editCollection(dto);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -84,11 +91,12 @@ public class CollectionControllerTest {
     @Test
     public void editCollectionForbidden() throws UserPermissionException {
 
-        CollectionDto dto = new CollectionDto();
-        dto.setId(1);
-        dto.setName("Collection 1");
+        CollectionDto dto = new CollectionDto.Builder()
+                .withId(1)
+                .withName("Collection 1")
+                .build();
 
-        doThrow(UserPermissionException.class).when(collectionLogic).editCollection(dto);
+        doThrow(UserPermissionException.class).when(collectionService).editCollection(dto);
 
         ResponseEntity<CollectionDto> response = controller.editCollection(dto);
 
@@ -100,7 +108,7 @@ public class CollectionControllerTest {
 
         final CollectionShareDto mock = mock(CollectionShareDto.class);
 
-        doThrow(UserPermissionException.class).when(userCollectionLogic).shareCollection(1, mock);
+        doThrow(UserPermissionException.class).when(userCollectionService).shareCollection(1, mock);
 
         ResponseEntity response = controller.share(1, mock);
 
@@ -130,7 +138,7 @@ public class CollectionControllerTest {
     @Test
     public void deleteHappyFlow() throws UserPermissionException {
 
-        doNothing().when(collectionLogic).deleteById(1);
+        doNothing().when(collectionService).deleteById(1);
 
         ResponseEntity response = controller.delete(1);
 
@@ -140,7 +148,7 @@ public class CollectionControllerTest {
     @Test
     public void deleteUserFromCollectionHappyFlow() throws UserPermissionException {
 
-        doNothing().when(userCollectionLogic).deleteUserFromCollection(1, 2);
+        doNothing().when(userCollectionService).deleteUserFromCollection(1, 2);
 
         ResponseEntity response = controller.deleteUserFromCollection(1, 2);
 
@@ -152,7 +160,7 @@ public class CollectionControllerTest {
 
         final CollectionShareDto mock = mock(CollectionShareDto.class);
 
-        doNothing().when(userCollectionLogic).shareCollection(1, mock);
+        doNothing().when(userCollectionService).shareCollection(1, mock);
 
         ResponseEntity response = controller.share(1, mock);
 
@@ -170,7 +178,7 @@ public class CollectionControllerTest {
         final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
 
         when(token.getPrincipal()).thenReturn(userMail);
-        doReturn(userCollections).when(collectionLogic).getByUser(userMail);
+        doReturn(userCollections).when(collectionService).getByUser(userMail);
 
         List<CollectionDto> response = controller.getByUser(token);
         assertEquals(userCollections, response);
@@ -178,22 +186,40 @@ public class CollectionControllerTest {
 
     @Test
     public void getCollectionTypesHappyFlow() {
-        CollectionDto dto1 = Mockito.mock(CollectionDto.class);
-        CollectionDto dto2 = Mockito.mock(CollectionDto.class);
 
-        List<CollectionDto> userCollections = new ArrayList<>();
-        userCollections.add(dto1);
-        userCollections.add(dto2);
-        final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
+        List<String> types = List.of("Movies", "Games");
 
-        when(token.getPrincipal()).thenReturn(userMail);
-        doReturn(userCollections).when(collectionLogic).getByUser(userMail);
+        when(collectionTypeService.getAllTypes()).thenReturn(types);
 
-        List<CollectionDto> response = controller.getByUser(token);
-        assertEquals(userCollections, response);
+        List<String> response = controller.getCollectionTypes();
+        assertEquals(types, response);
     }
 
-    //getAllCollectionUsers
-    //addCollection
+    @Test
+    public void addCollectionHappyFlow() {
+        final UsernamePasswordAuthenticationToken token = mock(UsernamePasswordAuthenticationToken.class);
+        CollectionDto dto1 = Mockito.mock(CollectionDto.class);
+        when(token.getName()).thenReturn(userMail);
 
+        controller.addCollection(dto1, token);
+
+        verify(collectionService, times(1)).createCollection(dto1, userMail);
+    }
+
+
+    @Test
+    public void getAllCollectionUsersHappyFlow() {
+
+        long id = 1;
+
+        UserCollectionDto user1 = mock(UserCollectionDto.class);
+        UserCollectionDto user2 = mock(UserCollectionDto.class);
+
+        List<UserCollectionDto> userCollections = List.of(user1, user2);
+
+        when(userCollectionService.getUsersByCollection(id)).thenReturn(userCollections);
+
+        List<UserCollectionDto> response = controller.getAllCollectionUsers(id);
+        assertEquals(userCollections, response);
+    }
 }

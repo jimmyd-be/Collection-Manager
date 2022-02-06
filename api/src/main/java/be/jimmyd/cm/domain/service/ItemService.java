@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.exceptions.ItemNotExistException;
 import be.jimmyd.cm.domain.external.ExternalSystem;
@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
-public class ItemLogic {
+public class ItemService {
 
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
@@ -28,17 +28,25 @@ public class ItemLogic {
     private final CollectionRepository collectionRepository;
     private final ItemDataRepository itemDataRepository;
     private final ExternalSystem externalSystemService;
+    private final ItemMapper itemMapper;
 
-    public ItemLogic(final UserRepository userRepository, final ItemRepository itemRepository, final FieldRepository fieldRepository,
-                     final CollectionRepository collectionRepository, final ItemDataRepository itemDataRepository, final ExternalSystem externalSystemService) {
+    public ItemService(UserRepository userRepository,
+                       ItemRepository itemRepository,
+                       FieldRepository fieldRepository,
+                       CollectionRepository collectionRepository,
+                       ItemDataRepository itemDataRepository,
+                       ExternalSystem externalSystemService,
+                       ItemMapper itemMapper) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.fieldRepository = fieldRepository;
         this.collectionRepository = collectionRepository;
         this.itemDataRepository = itemDataRepository;
         this.externalSystemService = externalSystemService;
+        this.itemMapper = itemMapper;
     }
 
+    //TODO refactor this and refactor gui part of this
     @Transactional
     public long addItemToCollection(long collectionId, Map<String, String> itemData, String userMail) {
 
@@ -49,25 +57,17 @@ public class ItemLogic {
             final List<Field> fields = fieldRepository.findBasicFieldByCollectionId(collectionId);
             fields.addAll(fieldRepository.findCustomFieldByCollectionId(collectionId));
 
-            long titleFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Title")).map(n -> n.getId()).findFirst().get();
-            long coverFieldId = fields.stream().filter(n -> n.getName().equalsIgnoreCase("Cover")).map(n -> n.getId()).findFirst().get();
+            long titleFieldId = parseField(fields, "Title");
+            long coverFieldId = parseField(fields, "Cover");
 
             String title = itemData.remove(titleFieldId + "_0");
             String cover = itemData.remove(coverFieldId + "_0");
 
-            Item newItem = new Item();
-            newItem.setActive(true);
-            newItem.setName(title);
-            newItem.setAuthor(user);
-            newItem.setCreationDate(LocalDateTime.now());
-            newItem.setImage(cover);
-            newItem.setLastModified(LocalDateTime.now());
-
-            final Item finalNewItem = itemRepository.save(newItem);
+            final Item finalNewItem = saveItem(user, title, cover);
 
             itemId.set(finalNewItem.getId());
 
-            List<Itemdata> itemdataList = new ArrayList<>();
+            List<Itemdata> itemDataList = new ArrayList<>();
 
             AtomicReference<String> tempLabel = new AtomicReference<>("");
 
@@ -88,19 +88,20 @@ public class ItemLogic {
                             }
 
                             if (!key.endsWith("_label")) {
-                                Itemdata itemdata = new Itemdata();
-                                itemdata.setField(field);
-                                itemdata.setFieldValue(newValue);
-                                itemdata.setItem(finalNewItem);
+                                Itemdata itemdata = new Itemdata.Builder()
+                                        .withField(field)
+                                        .withFieldValue(newValue)
+                                        .withItem(finalNewItem)
+                                        .build();
                                 //TODO add validation on field level (required fields, ...)
 
-                                itemdataList.add(itemdata);
+                                itemDataList.add(itemdata);
                             }
                         }
                 );
             });
 
-            itemDataRepository.saveAll(itemdataList);
+            itemDataRepository.saveAll(itemDataList);
 
 
             finalNewItem.getCollections().add(collection);
@@ -111,14 +112,31 @@ public class ItemLogic {
         return itemId.get();
     }
 
+    private Long parseField(List<Field> fields, String fieldName) {
+        return fields.stream().filter(n -> n.getName().equalsIgnoreCase(fieldName)).map(Field::getId).findFirst().orElseThrow();
+    }
+
+    public Item saveItem(User author, String title, String cover) {
+        Item newItem = new Item.Builder()
+                .withActive(true)
+                .withName(title)
+                .withAuthor(author)
+                .withCreationDate(LocalDateTime.now())
+                .withImage(cover)
+                .withLastModified(LocalDateTime.now())
+                .build();
+
+        return itemRepository.save(newItem);
+    }
+
     @Transactional
-    public long addItemToCollection(long collectionId, String source, String itemId, String userId) {
+    public void addItemToCollection(long collectionId, String source, String itemId, String userId) {
 
         final List<Field> basicFields = fieldRepository.findBasicFieldByCollectionId(collectionId);
 
         final Map<String, String> itemData = externalSystemService.getItemById(source, itemId, basicFields);
 
-        return addItemToCollection(collectionId, itemData, userId);
+        addItemToCollection(collectionId, itemData, userId);
     }
 
     private long getFieldIDFromKey(String key) {
@@ -132,9 +150,6 @@ public class ItemLogic {
             final List<Collection> collections = item.getCollections();
 
             collections.forEach(collection -> itemRepository.deleteItemFromCollection(item.getId(), collection.getId()));
-
-            itemDataRepository.deleteByItemId(item.getId());
-            itemRepository.delete(item);
 
             long newItemId = addItemToCollection(collections.get(0).getId(), itemData, userMail);
 
@@ -152,7 +167,7 @@ public class ItemLogic {
         final Optional<Item> itemOptional = itemRepository.findById(itemId);
 
         if (itemOptional.isPresent()) {
-            return ItemMapper.INSTANCE.itemToDto(itemOptional.get());
+            return itemMapper.map(itemOptional.get());
         } else {
             throw new ItemNotExistException("Item with id " + itemId + " does not exist");
         }
@@ -164,10 +179,10 @@ public class ItemLogic {
         if (query == null || query.isBlank()) {
             items.addAll(itemRepository.getByCollectionId(collectionId, page));
         } else {
-            items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query, page));
+            items.addAll(itemRepository.getByCollectionIdAndQuery(collectionId, query.toUpperCase(), page));
         }
 
-        return ItemMapper.INSTANCE.itemToDto(items);
+        return itemMapper.map(items);
     }
 
     @Transactional

@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.mappers.RoleMapper;
 import be.jimmyd.cm.dto.RoleDto;
@@ -9,18 +9,20 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class RoleLogic {
+public class RoleService {
 
     private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
-    public RoleLogic(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, RoleMapper roleMapper) {
         this.roleRepository = roleRepository;
+        this.roleMapper = roleMapper;
     }
 
     public List<RoleDto> getActiveRoles() {
 
         List<Role> activeRoles = roleRepository.getActiveRoles();
 
-        return RoleMapper.roleToDto(activeRoles);
+        return roleMapper.map(activeRoles);
     }
 }

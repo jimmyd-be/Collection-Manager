@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.domain.exceptions.*;
 import be.jimmyd.cm.domain.mappers.UserMapper;
@@ -6,28 +6,44 @@ import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserEditDto;
 import be.jimmyd.cm.dto.UserEditPasswordDto;
 import be.jimmyd.cm.dto.UserRegisterDto;
+import be.jimmyd.cm.entities.InvalidToken;
 import be.jimmyd.cm.entities.User;
+import be.jimmyd.cm.repositories.InvalidTokenRepository;
 import be.jimmyd.cm.repositories.UserRepository;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
-public class UserLogic {
+public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserCollectionLogic userCollectionLogic;
-    private final CollectionLogic collectionLogic;
+    private final UserCollectionService userCollectionService;
+    private final CollectionService collectionLogic;
+    private final UserMapper userMapper;
+    private final InvalidTokenRepository invalidTokenRepository;
 
-    public UserLogic(UserRepository userRepository, PasswordEncoder passwordEncoder, final UserCollectionLogic userCollectionLogic,
-                     final CollectionLogic collectionLogic) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       UserCollectionService userCollectionService,
+                       CollectionService collectionLogic,
+                       UserMapper userMapper,
+                       InvalidTokenRepository invalidTokenRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userCollectionLogic = userCollectionLogic;
+        this.userCollectionService = userCollectionService;
         this.collectionLogic = collectionLogic;
+        this.userMapper = userMapper;
+        this.invalidTokenRepository = invalidTokenRepository;
     }
 
     public void registerUser(UserRegisterDto userDto) throws UserAlreadyExists {
@@ -38,12 +54,12 @@ public class UserLogic {
             throw new UserAlreadyExists("User with mail " + userDto.getEmail() + " already exists");
         }
 
-        final User user = UserMapper.INSTANCE.registrationToUser(userDto);
+        final User user = userMapper.map(userDto);
 
         user.setUserPassword(passwordEncoder.encode(userDto.getPassword()));
 
         if (userRepository.count() == 0) {
-            user.setIsAdmin(true);
+            user.setAdmin(true);
         }
 
         userRepository.save(user);
@@ -52,14 +68,14 @@ public class UserLogic {
     public UserDto getUserByMail(String mail) {
         final User user = userRepository.findByMail(mail);
 
-        return UserMapper.INSTANCE.userToDto(user);
+        return userMapper.map(user);
     }
 
     @Transactional
     public void deleteUser(User user) {
         user.getUserCollections().forEach(uc -> {
             try {
-                userCollectionLogic.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
+                userCollectionService.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
             } catch (UserPermissionException e) {
                 e.printStackTrace();
             }
@@ -110,7 +126,7 @@ public class UserLogic {
 
         final List<User> users = userRepository.findAll();
 
-        return UserMapper.INSTANCE.userToDto(users);
+        return userMapper.map(users);
     }
 
     public void editUser(long userId, boolean active) throws UserNotExistsException, OneActiveAdminNeededException {
@@ -133,17 +149,13 @@ public class UserLogic {
         }
     }
 
-    public void changeAdmin(long userId) throws UserNotExistsException, OneActiveAdminNeededException {
+    public void changeAdmin(long userId, boolean isAdmin) throws UserNotExistsException, OneActiveAdminNeededException {
 
         checkIfAdminStillActive(userId);
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
 
-        if(user.getIsAdmin() == null) {
-            user.setIsAdmin(true);
-        } else {
-            user.setIsAdmin(!user.getIsAdmin());
-        }
+        user.setAdmin(isAdmin);
         userRepository.save(user);
 
     }
@@ -154,5 +166,29 @@ public class UserLogic {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExistsException());
         deleteUser(user);
+    }
+
+    public void logout(UsernamePasswordAuthenticationToken user, String token) {
+        String bearerToken = token.replace("Bearer ", "");
+
+        DecodedJWT decode = JWT.decode(bearerToken);
+
+        if (decode.getSubject().equals(user.getName())) {
+            invalidTokenRepository.save(new InvalidToken.Builder()
+                    .withInvalidFrom(LocalDateTime.now())
+                    .withToken(bearerToken)
+                    .build());
+        }
+
+        deleteOldTokens();
+    }
+
+    private void deleteOldTokens() {
+        List<String> tokens = invalidTokenRepository.findOldTokens(LocalDateTime.now().minus(7, ChronoUnit.DAYS))
+                .stream()
+                .map(InvalidToken::getToken)
+                .collect(Collectors.toList());
+
+        invalidTokenRepository.deleteAllById(tokens);
     }
 }

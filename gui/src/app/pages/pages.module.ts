@@ -46,6 +46,7 @@ import {AdminSettingsComponent} from './admin-settings/admin-settings.component'
 import {AdminUsersComponent} from './admin-users/admin-users.component';
 import { EmailWidgetComponent } from './view-item/item-field/email-widget/email-widget.component';
 import { UrlWidgetComponent } from './view-item/item-field/url-widget/url-widget.component';
+import { GlobalSearchComponent } from './global-search/global-search.component';
 
 @NgModule({
     imports: [
@@ -73,35 +74,35 @@ import { UrlWidgetComponent } from './view-item/item-field/url-widget/url-widget
         }),
         NbButtonModule,
     ],
-  declarations: [
-    PagesComponent,
-    AddCollectionComponent,
-    AddCustomFieldComponent,
-    AddItemManuallyComponent,
-    CustomFieldFormComponent,
-    DashboardComponent,
-    ViewCollectionComponent,
-    ViewItemComponent,
-    ItemFieldComponent,
-    ImageWidgetComponent,
-    RateWidgetComponent,
-    DefaultWidgetComponent,
-    ItemDialogComponent,
-    ConfirmationDialogComponent,
-    ViewUserComponent,
-    EditUserComponent,
-    EditPasswordUserComponent,
-    DeleteUserComponent,
-    ShareCollectionComponent,
-    ShareCollectionDialogComponent,
-    AddItemExternallyComponent,
-    SearchItemResultComponent,
-    AdminSettingsComponent,
-    AdminUsersComponent,
-    EmailWidgetComponent,
-    UrlWidgetComponent,
-  ],
-  entryComponents: [ItemDialogComponent, ConfirmationDialogComponent, ShareCollectionDialogComponent],
+    declarations: [
+        PagesComponent,
+        AddCollectionComponent,
+        AddCustomFieldComponent,
+        AddItemManuallyComponent,
+        CustomFieldFormComponent,
+        DashboardComponent,
+        ViewCollectionComponent,
+        ViewItemComponent,
+        ItemFieldComponent,
+        ImageWidgetComponent,
+        RateWidgetComponent,
+        DefaultWidgetComponent,
+        ItemDialogComponent,
+        ConfirmationDialogComponent,
+        ViewUserComponent,
+        EditUserComponent,
+        EditPasswordUserComponent,
+        DeleteUserComponent,
+        ShareCollectionComponent,
+        ShareCollectionDialogComponent,
+        AddItemExternallyComponent,
+        SearchItemResultComponent,
+        AdminSettingsComponent,
+        AdminUsersComponent,
+        EmailWidgetComponent,
+        UrlWidgetComponent,
+        GlobalSearchComponent,
+    ]
 })
 export class PagesModule {
 }

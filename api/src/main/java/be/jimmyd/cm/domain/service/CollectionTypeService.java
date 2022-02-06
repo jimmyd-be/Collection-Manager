@@ -1,4 +1,4 @@
-package be.jimmyd.cm.domain.logic;
+package be.jimmyd.cm.domain.service;
 
 import be.jimmyd.cm.repositories.CollectionTypeRepository;
 import org.springframework.stereotype.Component;
@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CollectionTypeLogic {
+public class CollectionTypeService {
 
-    private CollectionTypeRepository collectionTypeRepository;
+    private final CollectionTypeRepository collectionTypeRepository;
 
-    public CollectionTypeLogic(final CollectionTypeRepository collectionTypeRepository) {
+    public CollectionTypeService(CollectionTypeRepository collectionTypeRepository) {
         this.collectionTypeRepository = collectionTypeRepository;
     }
 

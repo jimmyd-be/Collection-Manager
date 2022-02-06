@@ -18,13 +18,17 @@ import java.util.Properties;
 public class CollectionManagerApplication {
 
     @Bean
-    public PasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(CollectionManagerApplication.class, args);
     }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
+    public PasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -39,10 +43,6 @@ public class CollectionManagerApplication {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(CollectionManagerApplication.class, args);
     }
 
 }

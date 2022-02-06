@@ -1,6 +1,6 @@
 package be.jimmyd.cm.controllers;
 
-import be.jimmyd.cm.domain.logic.RoleLogic;
+import be.jimmyd.cm.domain.service.RoleService;
 import be.jimmyd.cm.dto.RoleDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +12,14 @@ import java.util.List;
 @RequestMapping("/api/role")
 public class RoleController {
 
-    private RoleLogic roleLogic;
+    private RoleService roleService;
 
-    public RoleController(RoleLogic roleLogic) {
-        this.roleLogic = roleLogic;
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @GetMapping("/active")
     public List<RoleDto> getActiveRoles() {
-        return roleLogic.getActiveRoles();
+        return roleService.getActiveRoles();
     }
 }

@@ -21,23 +21,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ItemControllerIT {
 
-    @LocalServerPort
-    private int port;
-
     private final String mail = "test@test.be";
     private final String password = "Testpassword12345789";
     private final String username = "Test user";
-
     TestRestTemplate restTemplate = new TestRestTemplate();
+    @LocalServerPort
+    private int port;
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + "/api/" + uri;
     }
 
     private HttpHeaders getHeaders() {
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mail);
-        login.setPassword(password);
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withPassword(password)
+                .withEmail(mail)
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -52,28 +51,31 @@ public class ItemControllerIT {
 
         restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 
-        UserRegisterDto user = new UserRegisterDto();
-        user.setEmail(mail);
-        user.setFullName(username);
-        user.setPassword(password);
+        UserRegisterDto user = new UserRegisterDto.Builder()
+                .withFullName(username)
+                .withPassword(password)
+                .withEmail(mail)
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
 
-        CollectionDto collectionDto = new CollectionDto();
-        collectionDto.setName("Movie collection");
-        collectionDto.setType("Movies");
-
-        FieldDto field = new FieldDto();
-        field.setName("custom field");
-        field.setLabel("Field label");
-        field.setPlaceholder("Placeholder");
-        field.setType("text");
-        field.setWidget("default");
-        field.setPlace("main");
+        FieldDto field = new FieldDto.Builder()
+                .withName("custom field")
+                .withLabel("Field label")
+                .withPlaceholder("Placeholder")
+                .withType("text")
+                .withWidget("default")
+                .withPlace("main")
+                .build();
 
         List<FieldDto> fieldDtoList = new ArrayList<>();
         fieldDtoList.add(field);
-        collectionDto.setFields(fieldDtoList);
+
+        CollectionDto collectionDto = new CollectionDto.Builder()
+                .withName("Movie collection")
+                .withType("Movies")
+                .withFields(fieldDtoList)
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("collection/add"), new HttpEntity<>(collectionDto, getHeaders()), Object.class);
     }

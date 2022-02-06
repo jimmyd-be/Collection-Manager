@@ -1,8 +1,5 @@
 package be.jimmyd.cm.domain.external;
 
-import lombok.Getter;
-
-@Getter
 public enum CollectionTypeEnum {
     MOVIES("Movies"),
     GAMES("Games"),
@@ -15,5 +12,9 @@ public enum CollectionTypeEnum {
 
     CollectionTypeEnum(String type) {
         this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 }

@@ -21,4 +21,7 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
 
     @Query("SELECT c FROM Collection c WHERE c.userCollections IS EMPTY ")
     List<Collection> getWithoutLink();
+
+    @Query("SELECT c FROM Collection c JOIN c.userCollections u WHERE u.user.mail = :user")
+    List<Collection> getByUser(@Param("user") String userMail);
 }

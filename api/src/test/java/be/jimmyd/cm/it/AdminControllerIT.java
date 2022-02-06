@@ -1,7 +1,10 @@
 package be.jimmyd.cm.it;
 
 
-import be.jimmyd.cm.dto.*;
+import be.jimmyd.cm.dto.TokenDto;
+import be.jimmyd.cm.dto.UserDto;
+import be.jimmyd.cm.dto.UserLoginDto;
+import be.jimmyd.cm.dto.UserRegisterDto;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,11 +14,10 @@ import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
@@ -23,11 +25,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AdminControllerIT {
 
+    TestRestTemplate restTemplate = new TestRestTemplate();
     @LocalServerPort
     private int port;
-
-    TestRestTemplate restTemplate = new TestRestTemplate();
-
     private UserRegisterDto admin;
     private UserRegisterDto user;
 
@@ -36,9 +36,10 @@ public class AdminControllerIT {
     }
 
     private HttpHeaders getHeaders(UserRegisterDto dto) {
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(dto.getEmail());
-        login.setPassword(dto.getPassword());
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withEmail(dto.getEmail())
+                .withPassword(dto.getPassword())
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -53,17 +54,19 @@ public class AdminControllerIT {
 
         restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 
-        admin = new UserRegisterDto();
-        admin.setEmail("admin@test.be");
-        admin.setFullName("admin");
-        admin.setPassword("Test123456789");
+        admin = new UserRegisterDto.Builder()
+                .withEmail("admin@test.be")
+                .withFullName("admin")
+                .withPassword("Test123456789")
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), admin, Object.class);
 
-        user = new UserRegisterDto();
-        user.setEmail("user@test.be");
-        user.setFullName("user");
-        user.setPassword("Test123456789");
+        user = new UserRegisterDto.Builder()
+                .withEmail("user@test.be")
+                .withFullName("user")
+                .withPassword("Test123456789")
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
 
@@ -125,8 +128,7 @@ public class AdminControllerIT {
         assertTrue(
                 Arrays.stream(userResult.getBody())
                         .filter(n -> !n.isActive())
-                        .filter(n -> n.getId() == 2)
-                        .findFirst().isPresent());
+                        .anyMatch(n -> n.getId() == 2));
     }
 
     @Test
@@ -140,7 +142,7 @@ public class AdminControllerIT {
 
         assertTrue(
                 Arrays.stream(userResult.getBody())
-                        .filter(n -> n.isActive())
+                        .filter(UserDto::isActive)
                         .anyMatch(n -> n.getId() == 2));
     }
 
@@ -159,18 +161,18 @@ public class AdminControllerIT {
 
         final ResponseEntity<UserDto[]> users = restTemplate.exchange(createURLWithPort("admin/users"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
 
-        assertEquals(2L, Arrays.stream(users.getBody()).filter(n -> n.isAdmin()).count());
+        assertEquals(2L, Arrays.stream(users.getBody()).filter(UserDto::isAdmin).count());
     }
 
     @Test
     @Order(10)
     public void disableAdmin() {
-        final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/user/set/admin/2"), HttpMethod.PATCH, new HttpEntity<>(getHeaders(admin)), Object.class);
+        final ResponseEntity<Object> result = restTemplate.exchange(createURLWithPort("admin/user/remove/admin/2"), HttpMethod.PATCH, new HttpEntity<>(getHeaders(admin)), Object.class);
         assertEquals(HttpStatus.OK, result.getStatusCode());
 
         final ResponseEntity<UserDto[]> users = restTemplate.exchange(createURLWithPort("admin/users"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
 
-        assertEquals(1L, Arrays.stream(users.getBody()).filter(n -> n.isAdmin()).count());
+        assertEquals(1L, Arrays.stream(users.getBody()).filter(UserDto::isAdmin).count());
     }
 
     @Test
@@ -192,6 +194,6 @@ public class AdminControllerIT {
 
         final ResponseEntity<UserDto[]> users = restTemplate.exchange(createURLWithPort("admin/users"), HttpMethod.GET, new HttpEntity<>(getHeaders(admin)), UserDto[].class);
 
-        assertEquals(1L, Arrays.stream(users.getBody()).filter(n -> n.isAdmin()).count());
+        assertEquals(1L, Arrays.stream(users.getBody()).filter(UserDto::isAdmin).count());
     }
 }

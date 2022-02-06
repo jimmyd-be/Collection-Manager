@@ -2,53 +2,56 @@ package be.jimmyd.cm.domain.mappers;
 
 import be.jimmyd.cm.dto.FieldDto;
 import be.jimmyd.cm.entities.Field;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.factory.Mappers;
+import be.jimmyd.cm.repositories.FieldTypeRepository;
 
+import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
-public interface FieldMapper {
+@Named
+public class FieldMapper {
 
-    FieldMapper INSTANCE = Mappers.getMapper(FieldMapper.class);
+    private final FieldTypeRepository fieldTypeRepository;
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "type.type", target = "type"),
-            @Mapping(source = "otherOptions", target = "options"),
-            @Mapping(source = "required", target = "required"),
-            @Mapping(source = "placeHolder", target = "placeholder"),
-            @Mapping(source = "fieldOrder", target = "fieldOrder"),
-            @Mapping(source = "place", target = "place"),
-            @Mapping(source = "multiValues", target = "multivalues"),
-            @Mapping(source = "labelPosition", target = "labelPosition"),
-            @Mapping(source = "label", target = "label"),
-            @Mapping(source = "widget", target = "widget")
-    })
-    FieldDto fieldToDto(Field field);
+    public FieldMapper(FieldTypeRepository fieldTypeRepository) {
+        this.fieldTypeRepository = fieldTypeRepository;
+    }
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "options", target = "otherOptions"),
-            @Mapping(source = "required", target = "required"),
-            @Mapping(source = "placeholder", target = "placeHolder"),
-            @Mapping(source = "fieldOrder", target = "fieldOrder"),
-            @Mapping(source = "place", target = "place"),
-            @Mapping(source = "multivalues", target = "multiValues"),
-            @Mapping(source = "labelPosition", target = "labelPosition"),
-            @Mapping(source = "label", target = "label"),
-            @Mapping(source = "widget", target = "widget"),
-            @Mapping(target = "type", ignore = true)
-    })
-    Field dtoToField(FieldDto field);
+    public FieldDto map(Field field) {
+        return new FieldDto.Builder()
+                .withId(field.getId())
+                .withName(field.getName())
+                .withType(field.getType().getType())
+                .withOptions(field.getOtherOptions())
+                .withRequired(field.getRequired())
+                .withPlaceholder(field.getPlaceHolder())
+                .withFieldOrder(field.getFieldOrder())
+                .withPlace(field.getPlace())
+                .withMultivalues(field.getMultiValues())
+                .withLabelPosition(field.getLabelPosition())
+                .withLabel(field.getLabel())
+                .withWidget(field.getWidget())
+                .build();
+    }
 
-    default List<FieldDto> mapMultiFieldToDto(List<Field> fields) {
+    public Field map(FieldDto field) {
+        return new Field.Builder()
+                .withId(field.getId())
+                .withName(field.getName())
+                .withOtherOptions(field.getOptions())
+                .withRequired(field.isRequired())
+                .withPlaceHolder(field.getPlaceholder())
+                .withFieldOrder(field.getFieldOrder())
+                .withPlace(field.getPlace())
+                .withMultiValues(field.isMultivalues())
+                .withLabelPosition(field.getLabelPosition())
+                .withLabel(field.getLabel())
+                .withWidget(field.getWidget())
+                .withType(fieldTypeRepository.findByName(field.getType()))
+                .build();
+    }
 
-        return fields.stream().map(field -> fieldToDto(field)).collect(Collectors.toList());
+    public List<FieldDto> mapMultiFieldToDto(List<Field> fields) {
+        return fields.stream().map(field -> map(field)).collect(Collectors.toList());
     }
 }

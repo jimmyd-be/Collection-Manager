@@ -1,10 +1,17 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
+import {
+  NbMediaBreakpointsService,
+  NbMenuService,
+  NbSearchService,
+  NbSidebarService,
+  NbThemeService
+} from '@nebular/theme';
 
 import {UserService} from '../../../Services/user.service';
 import {User} from '../../../Entities/user';
 import {map, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -22,7 +29,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private menuService: NbMenuService,
               private userService: UserService,
               private breakpointService: NbMediaBreakpointsService,
-              private themeService: NbThemeService) {
+              private themeService: NbThemeService,
+              private searchService: NbSearchService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -39,6 +48,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
+
+    this.searchService.onSearchSubmit()
+      .subscribe((data: any) => {
+        this.router.navigate(['/pages/search'], {queryParams: {searchTerm: data.term}});
+      })
   }
 
   ngOnDestroy() {

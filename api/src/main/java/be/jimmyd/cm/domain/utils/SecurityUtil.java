@@ -31,7 +31,7 @@ public class SecurityUtil {
         this.itemRepository = itemRepository;
     }
 
-    public boolean hasUserAccessToCollection(long collectionId, Permission permission) throws UserPermissionException {
+    public void hasUserAccessToCollection(long collectionId, Permission permission) throws UserPermissionException {
 
         String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = userRepository.findByMail(userMail);
@@ -39,18 +39,18 @@ public class SecurityUtil {
         final UserCollection userCollection = collectionUserRepository.getByCollectionAndUser(collectionId, user.getId());
 
         if (userCollection != null && checkPermission(userCollection.getRole(), permission)) {
-            return true;
+            return;
         }
 
         throw new UserPermissionException("User " + user.getId() + " hasn't access to collection " + collectionId);
     }
 
     private boolean checkPermission(Role role, Permission permission) {
-        if(role.getActive()){
+        if (role.getActive()) {
             Permission userPermission = permissionToEnum(role.getName());
 
             if (permission == Permission.READ) {
-                return  userPermission == Permission.READ || userPermission == Permission.EDIT || userPermission == Permission.ADMIN;
+                return userPermission == Permission.READ || userPermission == Permission.EDIT || userPermission == Permission.ADMIN;
             } else if (permission == Permission.EDIT) {
                 return userPermission == Permission.EDIT || userPermission == Permission.ADMIN;
             } else if (permission == Permission.ADMIN) {
@@ -63,9 +63,9 @@ public class SecurityUtil {
 
     private Permission permissionToEnum(String name) {
 
-        if(name.equalsIgnoreCase("admin")) {
+        if (name.equalsIgnoreCase("admin")) {
             return Permission.ADMIN;
-        } else if(name.equalsIgnoreCase("editor")) {
+        } else if (name.equalsIgnoreCase("editor")) {
             return Permission.EDIT;
         } else if (name.equalsIgnoreCase("viewer")) {
             return Permission.READ;
@@ -79,7 +79,7 @@ public class SecurityUtil {
 
         final Optional<Item> item = itemRepository.findById(itemId);
 
-        if(item.isPresent()) {
+        if (item.isPresent()) {
 
             final Optional<UserCollection> userCollection = item.get().getCollections()
                     .stream()
