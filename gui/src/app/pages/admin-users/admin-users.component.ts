@@ -48,7 +48,7 @@ export class AdminUsersComponent implements OnInit {
   setAdmin(userId: number) {
     const user = this.users.find(element => element.id === userId);
 
-    this.userService.setAdmin(userId).subscribe(
+    this.userService.setAdmin(userId, !user.admin).subscribe(
       response => user.admin = !user.admin,
       error => user.admin = user.admin
     );

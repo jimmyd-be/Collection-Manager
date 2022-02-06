@@ -5,8 +5,14 @@ import be.jimmyd.cm.domain.mappers.CollectionMapper;
 import be.jimmyd.cm.domain.mappers.FieldMapper;
 import be.jimmyd.cm.dto.CollectionDto;
 import be.jimmyd.cm.dto.FieldDto;
-import be.jimmyd.cm.entities.*;
-import be.jimmyd.cm.repositories.*;
+import be.jimmyd.cm.entities.Collection;
+import be.jimmyd.cm.entities.CollectionType;
+import be.jimmyd.cm.entities.Field;
+import be.jimmyd.cm.entities.User;
+import be.jimmyd.cm.repositories.CollectionRepository;
+import be.jimmyd.cm.repositories.CollectionTypeRepository;
+import be.jimmyd.cm.repositories.FieldRepository;
+import be.jimmyd.cm.repositories.UserRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,21 +31,25 @@ public class CollectionService {
     private final UserCollectionService userCollectionService;
     private final CollectionTypeRepository collectionTypeRepository;
     private final FieldMapper fieldMapper;
-    private final FieldTypeRepository fieldTypeRepository;
     private final ItemService itemService;
     private final FieldService fieldService;
 
-    public CollectionService(CollectionRepository collectionRepository, UserRepository userRepository, FieldRepository fieldRepository,
-                             final UserCollectionService userCollectionService, final CollectionTypeRepository collectionTypeRepository,
-                             final FieldTypeRepository fieldTypeRepository, final ItemService itemService, final FieldService fieldService) {
+    public CollectionService(CollectionRepository collectionRepository,
+                             UserRepository userRepository,
+                             FieldRepository fieldRepository,
+                             UserCollectionService userCollectionService,
+                             CollectionTypeRepository collectionTypeRepository,
+                             ItemService itemService,
+                             FieldService fieldService,
+                             CollectionMapper collectionMapper,
+                             FieldMapper fieldMapper) {
         this.collectionRepository = collectionRepository;
         this.userRepository = userRepository;
-        this.collectionMapper = CollectionMapper.INSTANCE;
+        this.collectionMapper = collectionMapper;
         this.fieldRepository = fieldRepository;
         this.userCollectionService = userCollectionService;
         this.collectionTypeRepository = collectionTypeRepository;
-        this.fieldMapper = FieldMapper.INSTANCE;
-        this.fieldTypeRepository = fieldTypeRepository;
+        this.fieldMapper = fieldMapper;
         this.itemService = itemService;
         this.fieldService = fieldService;
     }
@@ -49,13 +59,13 @@ public class CollectionService {
 
         final List<Collection> collections = collectionRepository.getByUser(user.getId());
 
-        return collectionMapper.collectionToDto(collections);
+        return collectionMapper.map(collections);
     }
 
     public Optional<CollectionDto> getById(long collectionId) throws UserPermissionException {
 
         return collectionRepository.findById(collectionId)
-                .map(collectionMapper::collectionToDto);
+                .map(collectionMapper::map);
 
     }
 
@@ -83,12 +93,12 @@ public class CollectionService {
 
         final CollectionType type = collectionTypeRepository.getByName(collectionDto.getType());
 
-        Collection collection = new Collection();
-        collection.setName(collectionDto.getName());
-        collection.setActive(true);
-        collection.setType(type);
-
-        collection.setFields(new ArrayList<>());
+        Collection collection = new Collection.Builder()
+                .withName(collectionDto.getName())
+                .withActive(true)
+                .withType(type)
+                .withFields(new ArrayList<>())
+                .build();
 
         for (FieldDto dto : collectionDto.getFields()) {
             addFieldToCollection(dto, collection);
@@ -101,10 +111,7 @@ public class CollectionService {
     }
 
     private void addFieldToCollection(FieldDto dto, Collection collection) {
-        final Field field = fieldMapper.dtoToField(dto);
-        final FieldType fieldType = fieldTypeRepository.findByName(dto.getType());
-        field.setType(fieldType);
-        field.setActive(true);
+        final Field field = fieldMapper.map(dto);
 
         switch (field.getType().getType()) {
             case "url":
@@ -123,7 +130,6 @@ public class CollectionService {
                 field.setWidget("default");
         }
 
-
         collection.getFields().add(fieldRepository.save(field));
     }
 
@@ -135,46 +141,47 @@ public class CollectionService {
             collection.setName(collectionDto.getName());
 
             //Add new fields to collection
-            collectionDto.getFields().stream().filter(field -> field.getId() == 0).forEach(fieldDto -> {
-                addFieldToCollection(fieldDto, collection);
-            });
+            collectionDto.getFields()
+                    .stream()
+                    .filter(field -> field.getId() == 0)
+                    .forEach(fieldDto -> addFieldToCollection(fieldDto, collection));
 
-            final List<Long> fieldIds = collectionDto.getFields().stream().map(fields -> fields.getId()).collect(Collectors.toList());
+            final List<Long> fieldIds = collectionDto.getFields()
+                    .stream()
+                    .map(FieldDto::getId)
+                    .collect(Collectors.toList());
 
             //Edit existent fields
             collectionDto.getFields()
                     .stream()
-                    .filter(field -> field.getId() != 0)
-                    .forEach(fieldDto -> {
-
-                        collection.getFields().stream().filter(field -> field.getId() == fieldDto.getId()).findFirst().ifPresent(field -> {
-                            field.setName(fieldDto.getName());
-                            field.setLabel(fieldDto.getLabel());
-
-                            field.setPlaceHolder(fieldDto.getPlaceholder());
-                            field.setRequired(fieldDto.isRequired());
-                            field.setMultiValues(fieldDto.isMultivalues());
-                            field.setLabelPosition(fieldDto.getLabelPosition());
-                            field.setPlace(fieldDto.getPlace());
-                            field.setFieldOrder(fieldDto.getFieldOrder());
-                            field.setOtherOptions(fieldDto.getOptions());
-
-                            fieldRepository.save(field);
-
-                        });
-                    });
+                    .filter(fieldDto -> fieldDto.getId() != 0)
+                    .forEach(fieldDto -> editCollectionField(collection, fieldDto));
 
             //Delete deleted fields
             collection.getFields()
                     .stream()
-                    .filter(field -> fieldIds.contains(field.getId()))
-                    .filter(field -> field.getCollectiontype() != null)
-                    .forEach(field -> fieldRepository.delete(field));
+                    .filter(field -> !fieldIds.contains(field.getId()))
+                    .forEach(fieldRepository::delete);
 
             collectionRepository.save(collection);
         });
+    }
 
+    private void editCollectionField(Collection collection, FieldDto fieldDto) {
+        collection.getFields().stream().filter(field -> field.getId() == fieldDto.getId()).findFirst().ifPresent(field -> {
+            field.setName(fieldDto.getName());
+            field.setLabel(fieldDto.getLabel());
 
+            field.setPlaceHolder(fieldDto.getPlaceholder());
+            field.setRequired(fieldDto.isRequired());
+            field.setMultiValues(fieldDto.isMultivalues());
+            field.setLabelPosition(fieldDto.getLabelPosition());
+            field.setPlace(fieldDto.getPlace());
+            field.setFieldOrder(fieldDto.getFieldOrder());
+            field.setOtherOptions(fieldDto.getOptions());
+
+            fieldRepository.save(field);
+        });
     }
 
     public void deleteWithoutLink() {

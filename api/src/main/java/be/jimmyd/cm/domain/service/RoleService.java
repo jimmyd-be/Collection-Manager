@@ -12,15 +12,17 @@ import java.util.List;
 public class RoleService {
 
     private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, RoleMapper roleMapper) {
         this.roleRepository = roleRepository;
+        this.roleMapper = roleMapper;
     }
 
     public List<RoleDto> getActiveRoles() {
 
         List<Role> activeRoles = roleRepository.getActiveRoles();
 
-        return RoleMapper.roleToDto(activeRoles);
+        return roleMapper.map(activeRoles);
     }
 }

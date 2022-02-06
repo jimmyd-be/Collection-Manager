@@ -15,7 +15,6 @@ import be.jimmyd.cm.repositories.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class UserCollectionService {
@@ -26,10 +25,13 @@ public class UserCollectionService {
     private final CollectionUserRepository collectionUserRepository;
     private final CollectionRepository collectionRepository;
 
-    public UserCollectionService(final CollectionUserRepository collectionUserRepository, final UserRepository userRepository,
-                                 final RoleRepository roleRepository, final CollectionRepository collectionRepository) {
+    public UserCollectionService(CollectionUserRepository collectionUserRepository,
+                                 UserRepository userRepository,
+                                 RoleRepository roleRepository,
+                                 CollectionRepository collectionRepository,
+                                 CollectionUserMapper collectionUserMapper) {
         this.collectionUserRepository = collectionUserRepository;
-        this.collectionUserMapper = CollectionUserMapper.INSTANCE;
+        this.collectionUserMapper = collectionUserMapper;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.collectionRepository = collectionRepository;
@@ -39,7 +41,7 @@ public class UserCollectionService {
 
         final List<UserCollection> users = collectionUserRepository.getByCollectionId(collectionId);
 
-        return collectionUserMapper.userCollectionToDto(users);
+        return collectionUserMapper.map(users);
     }
 
     public void deleteUserFromCollection(long collectionId, long userId) throws UserPermissionException {
@@ -63,17 +65,14 @@ public class UserCollectionService {
             userCollection.setRole(role);
             collectionUserRepository.save(userCollection);
         } else {
-            final Optional<Collection> collectionOptional = collectionRepository.findById(collectionId);
-
-            if (collectionOptional.isPresent()) {
-                userCollection = new UserCollection();
-                userCollection.setRole(role);
-                userCollection.setUser(user);
-                userCollection.setCollection(collectionOptional.get());
-                collectionUserRepository.save(userCollection);
-            }
+            collectionRepository.findById(collectionId).ifPresent(collection ->
+                collectionUserRepository.save(new UserCollection.Builder()
+                        .withUser(user)
+                        .withCollection(collection)
+                        .withRole(role)
+                        .build())
+            );
         }
-
     }
 
     public void addUserToCollection(String mail, String roleName, Collection collection) {
@@ -81,10 +80,11 @@ public class UserCollectionService {
         final User user = userRepository.findByMail(mail);
         final Role role = roleRepository.getByName(roleName);
 
-        UserCollection userCollection = new UserCollection();
-        userCollection.setCollection(collection);
-        userCollection.setRole(role);
-        userCollection.setUser(user);
+        UserCollection userCollection = new UserCollection.Builder()
+                .withUser(user)
+                .withCollection(collection)
+                .withRole(role)
+                .build();
 
         collectionUserRepository.save(userCollection);
     }

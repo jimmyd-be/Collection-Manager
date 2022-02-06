@@ -18,7 +18,7 @@ public class SettingService {
     private final SettingRepository settingRepository;
     private final List<ExternalApi> externalApiList;
 
-    public SettingService(final SettingRepository settingRepository, final List<ExternalApi> externalApiList) {
+    public SettingService(SettingRepository settingRepository, List<ExternalApi> externalApiList) {
         this.settingRepository = settingRepository;
         this.externalApiList = externalApiList;
     }
@@ -30,16 +30,16 @@ public class SettingService {
 
         return properties.stream()
                 .map(property -> {
-                    SettingDto dto = new SettingDto();
-                    dto.setKey(property);
+                    SettingDto.Builder dto = new SettingDto.Builder();
+                    dto.withKey(property);
 
                     settings.stream()
                             .filter(n -> n.getId().equals(property))
-                            .map(setting -> setting.getValue())
+                            .map(Setting::getValue)
                             .findFirst()
-                            .ifPresent(value -> dto.setValue(value));
+                            .ifPresent(dto::withValue);
 
-                    return dto;
+                    return dto.build();
                 })
                 .collect(Collectors.toList());
     }
@@ -57,29 +57,33 @@ public class SettingService {
         return properties;
     }
 
-
     public void saveSettings(List<SettingDto> settings) {
 
         final List<Setting> previousSettings = settingRepository.findAll();
         final List<String> allSettings = getAllApiProperties();
 
         settings.parallelStream()
-                .map(setting -> {
-                    final Optional<Setting> settingOptional = previousSettings.stream().filter(n -> n.getId().equals(setting.getKey())).findFirst();
-
-                    Setting newSetting = null;
-                    if (settingOptional.isPresent()) {
-                        newSetting = settingOptional.get();
-                        newSetting.setValue(setting.getValue());
-                    } else if (allSettings.contains(setting.getKey())) {
-                        newSetting = new Setting();
-                        newSetting.setId(setting.getKey());
-                        newSetting.setValue(setting.getValue());
-                    }
-
-                    return newSetting;
-                })
+                .map(setting ->
+                    editOrCreateSetting(previousSettings, allSettings, setting)
+                )
                 .filter(Objects::nonNull)
-                .forEach(setting -> settingRepository.save(setting));
+                .forEach(settingRepository::save);
+    }
+
+    private Setting editOrCreateSetting(List<Setting> previousSettings, List<String> allSettings, SettingDto setting) {
+        final Optional<Setting> settingOptional = previousSettings.stream().filter(n -> n.getId().equals(setting.getKey())).findFirst();
+
+        Setting newSetting = null;
+        if (settingOptional.isPresent()) {
+            newSetting = settingOptional.get();
+            newSetting.setValue(setting.getValue());
+        } else if (allSettings.contains(setting.getKey())) {
+            newSetting = new Setting.Builder()
+                    .withId(setting.getKey())
+                    .withValue(setting.getValue())
+                    .build();
+        }
+
+        return newSetting;
     }
 }

@@ -16,13 +16,15 @@ import java.util.stream.Collectors;
 @Service
 public class SearchService {
 
-    private ItemRepository itemRepository;
-    private ItemMapper itemMapper = ItemMapper.INSTANCE;
-    private CollectionRepository collectionRepository;
+    private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
+    private final CollectionRepository collectionRepository;
 
     public SearchService(ItemRepository itemRepository,
+                         ItemMapper itemMapper,
                          CollectionRepository collectionRepository) {
         this.itemRepository = itemRepository;
+        this.itemMapper = itemMapper;
         this.collectionRepository = collectionRepository;
     }
 
@@ -35,14 +37,15 @@ public class SearchService {
         collections.forEach(collection -> {
             List<ItemDto> itemResult = items.parallelStream()
                     .filter(item -> item.getCollections().contains(collection))
-                    .map(itemMapper::itemToDto)
+                    .map(itemMapper::map)
                     .collect(Collectors.toList());
 
             if (!itemResult.isEmpty()) {
-                SearchResultDto result = new SearchResultDto();
-                result.setCollectionId(collection.getId());
-                result.setCollectionName(collection.getName());
-                result.setItems(itemResult);
+                SearchResultDto result = new SearchResultDto.Builder()
+                        .withCollectionId(collection.getId())
+                        .withCollectionName(collection.getName())
+                        .withItems(itemResult)
+                        .build();
 
                 searchResult.add(result);
             }

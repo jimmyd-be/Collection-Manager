@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 @Component
 public class CollectionTypeService {
 
-    private CollectionTypeRepository collectionTypeRepository;
+    private final CollectionTypeRepository collectionTypeRepository;
 
-    public CollectionTypeService(final CollectionTypeRepository collectionTypeRepository) {
+    public CollectionTypeService(CollectionTypeRepository collectionTypeRepository) {
         this.collectionTypeRepository = collectionTypeRepository;
     }
 

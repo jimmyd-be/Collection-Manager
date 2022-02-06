@@ -1,5 +1,6 @@
 package be.jimmyd.cm.config;
 
+import be.jimmyd.cm.repositories.InvalidTokenRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +20,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private long expirationtime;
     private UserDetailsServiceImpl userDetailsService;
     private String secret;
+    private final InvalidTokenRepository invalidTokenRepository;
 
     public SecurityConfig(PasswordEncoder bCryptPasswordEncoder, UserDetailsServiceImpl userDetailsService, @Value("${cm.secretKey}") String secret,
-                          @Value("${cm.secret.expiration}") long expirationTime) {
+                          @Value("${cm.secret.expiration}") long expirationTime, InvalidTokenRepository invalidTokenRepository) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;
         this.secret = secret;
         this.expirationtime = expirationTime;
+        this.invalidTokenRepository = invalidTokenRepository;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), secret, expirationtime))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), userDetailsService, secret))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), userDetailsService, secret, invalidTokenRepository))
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/admin/**").hasRole("ADMIN")

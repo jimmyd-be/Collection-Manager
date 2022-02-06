@@ -7,5 +7,6 @@
 
 
     <include file="./database/init.xml"/>
+    <include file="./database/invalid_token.xml"/>
 
 </databaseChangeLog>

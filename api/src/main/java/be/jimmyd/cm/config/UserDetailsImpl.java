@@ -24,7 +24,7 @@ public class UserDetailsImpl implements UserDetails {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
-        if (user.getIsAdmin() != null && user.getIsAdmin()) {
+        if (user.getAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         }

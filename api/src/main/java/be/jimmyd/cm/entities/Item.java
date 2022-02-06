@@ -1,15 +1,13 @@
 package be.jimmyd.cm.entities;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cm_item")
-@Data
 public class Item {
 
     @Id
@@ -56,4 +54,144 @@ public class Item {
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "itemid")
     private List<Itemdata> itemdata;
+
+    private Item(){
+
+    }
+
+    private Item(Builder builder) {
+        id = builder.id;
+        name = builder.name;
+        image = builder.image;
+        creationDate = builder.creationDate;
+        lastModified = builder.lastModified;
+        modifiedBy = builder.modifiedBy;
+        active = builder.active;
+        collections = builder.collections == null ? new ArrayList<>(): builder.collections;
+        author = builder.author;
+        itemdata = builder.itemdata;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
+
+    public Long getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public List<Collection> getCollections() {
+        return collections;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public List<Itemdata> getItemdata() {
+        return itemdata;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return id == item.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public static final class Builder {
+        private long id;
+        private String name;
+        private String image;
+        private LocalDateTime creationDate;
+        private LocalDateTime lastModified;
+        private Long modifiedBy;
+        private Boolean active;
+        private List<Collection> collections;
+        private User author;
+        private List<Itemdata> itemdata;
+
+        public Builder() {
+        }
+
+        public Builder withId(long val) {
+            id = val;
+            return this;
+        }
+
+        public Builder withName(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder withImage(String val) {
+            image = val;
+            return this;
+        }
+
+        public Builder withCreationDate(LocalDateTime val) {
+            creationDate = val;
+            return this;
+        }
+
+        public Builder withLastModified(LocalDateTime val) {
+            lastModified = val;
+            return this;
+        }
+
+        public Builder withModifiedBy(Long val) {
+            modifiedBy = val;
+            return this;
+        }
+
+        public Builder withActive(Boolean val) {
+            active = val;
+            return this;
+        }
+
+        public Builder withCollections(List<Collection> val) {
+            collections = val;
+            return this;
+        }
+
+        public Builder withAuthor(User val) {
+            author = val;
+            return this;
+        }
+
+        public Builder withItemdata(List<Itemdata> val) {
+            itemdata = val;
+            return this;
+        }
+
+        public Item build() {
+            return new Item(this);
+        }
+    }
 }

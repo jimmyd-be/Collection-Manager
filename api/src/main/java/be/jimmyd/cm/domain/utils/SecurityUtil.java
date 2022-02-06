@@ -31,7 +31,7 @@ public class SecurityUtil {
         this.itemRepository = itemRepository;
     }
 
-    public boolean hasUserAccessToCollection(long collectionId, Permission permission) throws UserPermissionException {
+    public void hasUserAccessToCollection(long collectionId, Permission permission) throws UserPermissionException {
 
         String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = userRepository.findByMail(userMail);
@@ -39,7 +39,7 @@ public class SecurityUtil {
         final UserCollection userCollection = collectionUserRepository.getByCollectionAndUser(collectionId, user.getId());
 
         if (userCollection != null && checkPermission(userCollection.getRole(), permission)) {
-            return true;
+            return;
         }
 
         throw new UserPermissionException("User " + user.getId() + " hasn't access to collection " + collectionId);

@@ -2,28 +2,24 @@ package be.jimmyd.cm.domain.mappers;
 
 import be.jimmyd.cm.dto.UserCollectionDto;
 import be.jimmyd.cm.entities.UserCollection;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.factory.Mappers;
 
+import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
-public interface CollectionUserMapper {
+@Named
+public class CollectionUserMapper {
+    
+    public UserCollectionDto map(UserCollection userCollection) {
+        return new UserCollectionDto.Builder()
+                .withUserId(userCollection.getUser().getId())
+                .withUserName(userCollection.getUser().getUsername())
+                .withRoleName(userCollection.getRole().getName())
+                .withRoleId(userCollection.getRole().getId())
+                .build();
+    }
 
-    CollectionUserMapper INSTANCE = Mappers.getMapper(CollectionUserMapper.class);
-
-    @Mappings({
-            @Mapping(source = "user.id", target = "userId"),
-            @Mapping(source = "user.username", target = "userName"),
-            @Mapping(source = "role.id", target = "roleId"),
-            @Mapping(source = "role.name", target = "roleName")
-    })
-    UserCollectionDto userCollectionToDto(UserCollection userCollection);
-
-    default List<UserCollectionDto> userCollectionToDto(List<UserCollection> userCollections) {
-        return userCollections.stream().map(userCollection -> userCollectionToDto(userCollection)).collect(Collectors.toList());
+    public List<UserCollectionDto> map(List<UserCollection> userCollections) {
+        return userCollections.stream().map(userCollection -> map(userCollection)).collect(Collectors.toList());
     }
 }

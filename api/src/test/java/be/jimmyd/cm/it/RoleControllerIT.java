@@ -35,9 +35,10 @@ public class RoleControllerIT {
     }
 
     private HttpHeaders getHeaders() {
-        UserLoginDto login = new UserLoginDto();
-        login.setEmail(mail);
-        login.setPassword(password);
+        UserLoginDto login = new UserLoginDto.Builder()
+                .withPassword(password)
+                .withEmail(mail)
+                .build();
 
         final ResponseEntity<TokenDto> userLogin = restTemplate.postForEntity(createURLWithPort("auth/login"), login, TokenDto.class);
 
@@ -49,10 +50,11 @@ public class RoleControllerIT {
 
     @BeforeAll
     public void init() {
-        UserRegisterDto user = new UserRegisterDto();
-        user.setEmail(mail);
-        user.setFullName(username);
-        user.setPassword(password);
+        UserRegisterDto user = new UserRegisterDto.Builder()
+                .withEmail(mail)
+                .withFullName(username)
+                .withPassword(password)
+                .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
 
