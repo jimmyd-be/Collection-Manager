@@ -52,11 +52,7 @@ public class FieldController {
         try {
             securityUtil.hasUserAccessToCollection(id, Permission.READ);
 
-            List<FieldDto> result = new ArrayList<>();
-
-            result.addAll(fieldService.getBasicFieldsByCollection(id));
-
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(fieldService.getBasicFieldsByCollection(id));
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -68,11 +64,8 @@ public class FieldController {
 
         try {
             securityUtil.hasUserAccessToCollection(id, Permission.READ);
-            List<FieldDto> result = new ArrayList<>();
 
-            result.addAll(fieldService.getCustomFieldsByCollection(id));
-
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(fieldService.getCustomFieldsByCollection(id));
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
