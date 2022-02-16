@@ -8,8 +8,28 @@ on:
       - '**'        # matches every branch
 
 jobs:
+  gui:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./gui
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build GUI docker image
+        run: docker build .
+  api:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./api
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build API docker image
+        run: docker build .
+
   tests:
     runs-on: ubuntu-latest
+    need: [gui, api]
 
     strategy:
       matrix:
@@ -17,12 +37,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build API docker image
-      working-directory: ./api
-      run: docker build .
-    - name: Build GUI docker image
-      working-directory: ./gui
-      run: docker build .
     - name: Cypress run
       uses: cypress-io/github-action@v2
       with:
