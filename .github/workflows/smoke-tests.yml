@@ -23,5 +23,6 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
         working-directory: ./gui
+        build: docker-compose -f ../docker-compose-e2e.yml build
         start: docker-compose -f ../docker-compose-e2e.yml up
         wait-on: http://localhost:4200
