@@ -17,10 +17,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Build API docker image
+      working-directory: ./api
+      run: docker build .
+    - name: Build GUI docker image
+      working-directory: ./gui
+      run: docker build .
     - name: Cypress run
       uses: cypress-io/github-action@v2
       with:
         working-directory: ./gui
-        build: docker-compose -f ../docker-compose-e2e.yml build
         start: docker-compose -f ../docker-compose-e2e.yml up
         wait-on: http://localhost:4200
