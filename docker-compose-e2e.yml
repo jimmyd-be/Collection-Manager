@@ -1,0 +1,35 @@
+version: "3"
+
+volumes:
+    logs:
+        driver: local
+
+services:
+    db:
+        image: postgres:alpine
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: testDatabase
+            POSTGRES_DB: newcm
+        ports:
+            - "5432:5432"
+        expose:
+            - 5432
+    api:
+        build: ./api
+        depends_on:
+            - db
+        ports:
+            - "8080:8080"
+        expose:
+            - 8080
+    gui:
+        build: /gui
+        ports:
+            - "4200:80"
+        depends_on:
+            - api
+
+volumes:
+  container-volume:
+
