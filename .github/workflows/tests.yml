@@ -48,10 +48,10 @@ jobs:
       working-directory: ${{env.working-directory}}
       run: ng build --configuration production
     - name: Cypress run
-        uses: cypress-io/github-action@v1
-        with:
-          build: npm run cypress:run
-          wait-on: http://localhost:4200
+      uses: cypress-io/github-action@v1
+      with:
+        build: npm run cypress:run
+        wait-on: http://localhost:4200
   api:
     runs-on: [ubuntu-latest]
     steps:
