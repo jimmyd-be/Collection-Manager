@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./api
+      DOCKER_BUILDKIT: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
