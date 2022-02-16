@@ -24,7 +24,7 @@ services:
         expose:
             - 8080
     gui:
-        build: /gui
+        build: ./gui
         ports:
             - "4200:80"
         depends_on:
