@@ -22,7 +22,7 @@
         <mockito.version>3.12.4</mockito.version>
         <imdb.api.version>2.0.4</imdb.api.version>
         <gameDb.version>1.2</gameDb.version>
-        <postgresql.version>42.2.25</postgresql.version>
+        <postgresql.version>42.3.3</postgresql.version>
     </properties>
 
     <dependencies>
