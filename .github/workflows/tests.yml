@@ -47,13 +47,6 @@ jobs:
     - name: Angular prod build
       working-directory: ${{env.working-directory}}
       run: ng build --configuration production
-    - name: Cypress run
-      uses: cypress-io/github-action@v2
-      with:
-        project: ./gui
-        start: npm run start
-        build: npm run e2e
-        wait-on: http://localhost:4200
   api:
     runs-on: [ubuntu-latest]
     steps:
