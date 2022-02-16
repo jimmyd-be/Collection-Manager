@@ -48,7 +48,7 @@ jobs:
       working-directory: ${{env.working-directory}}
       run: ng build --configuration production
     - name: Cypress run
-      uses: cypress-io/github-action@v1
+      uses: cypress-io/github-action@v2
       with:
         project: ./gui
         start: npm run start
