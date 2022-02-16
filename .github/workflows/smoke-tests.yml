@@ -17,9 +17,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: KengoTODA/actions-setup-docker-compose@main
-      with:
-        version: '1.29.2'
     - name: Cypress run
       uses: cypress-io/github-action@v2
       with:
