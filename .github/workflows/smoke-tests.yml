@@ -45,3 +45,4 @@ jobs:
         working-directory: ./gui
         start: docker-compose -f ../docker-compose-e2e.yml up
         wait-on: http://localhost:4200
+        record: true
