@@ -54,6 +54,7 @@ public class ItemControllerIT {
         UserRegisterDto user = new UserRegisterDto.Builder()
                 .withFullName(username)
                 .withPassword(password)
+                .withConfirmPassword(password)
                 .withEmail(mail)
                 .build();
 

@@ -54,6 +54,7 @@ public class RoleControllerIT {
                 .withEmail(mail)
                 .withFullName(username)
                 .withPassword(password)
+                .withConfirmPassword(password)
                 .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);

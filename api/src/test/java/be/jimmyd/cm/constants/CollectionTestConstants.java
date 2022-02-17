@@ -27,6 +27,7 @@ public class CollectionTestConstants {
     public static final String USER_MAIL = "test@test.com";
     public static final String USER_NAME = "user 1";
     public static final String USER_PASSWORD = "SecurePassword";
+    public static final String ANOTHER_USER_PASSWORD = "AnotherSecurePassword";
     public static final LocalDate USER_CREATION_DATE = LocalDate.now();
     public static final int ROLE_ID = 25;
     public static final String ROLE_NAME = "Editor";

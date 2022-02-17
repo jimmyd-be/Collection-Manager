@@ -73,12 +73,14 @@ public class CollectionControllerIT {
         UserRegisterDto user = new UserRegisterDto.Builder()
                 .withEmail(mail)
                 .withPassword(password)
+                .withConfirmPassword(password)
                 .withFullName(username)
                 .build();
 
         UserRegisterDto user2 = new UserRegisterDto.Builder()
                 .withEmail(mailSecondUser)
                 .withPassword(passwordSecondUser)
+                .withConfirmPassword(passwordSecondUser)
                 .withFullName(usernameSecondUser)
                 .build();
 
