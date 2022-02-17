@@ -58,6 +58,7 @@ public class AdminControllerIT {
                 .withEmail("admin@test.be")
                 .withFullName("admin")
                 .withPassword("Test123456789")
+                .withConfirmPassword("Test123456789")
                 .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), admin, Object.class);
@@ -66,6 +67,7 @@ public class AdminControllerIT {
                 .withEmail("user@test.be")
                 .withFullName("user")
                 .withPassword("Test123456789")
+                .withConfirmPassword("Test123456789")
                 .build();
 
         restTemplate.postForEntity(createURLWithPort("auth/register"), user, Object.class);
