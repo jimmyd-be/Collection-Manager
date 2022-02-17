@@ -28,7 +28,7 @@ describe('Authentication', () => {
     cy.get('.custom-checkbox').click()
     cy.get('.appearance-filled').click()
     cy.wait('@registerApi').then((interception) => {
-      assert.equal(interception.response.statusCode, 409)
+      assert.equal(interception.response.statusCode, 400)
     })
     cy.get('.outline-danger').contains('Oh snap!')
   })

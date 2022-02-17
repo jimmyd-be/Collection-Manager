@@ -1,5 +1,6 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.service.UserService;
 import be.jimmyd.cm.dto.UserRegisterDto;
@@ -28,6 +29,8 @@ public class AuthController {
             return ResponseEntity.ok().build();
         } catch (UserAlreadyExists ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (PasswordIncorrectException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
     }

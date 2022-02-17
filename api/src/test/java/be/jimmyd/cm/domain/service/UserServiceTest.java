@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.mappers.UserMapper;
 import be.jimmyd.cm.dto.UserDto;
@@ -41,7 +42,7 @@ class UserServiceTest {
     private ArgumentCaptor<User> userCaptor;
 
     @Test
-    void registerUser_firstUser() throws UserAlreadyExists {
+    void registerUser_firstUser() throws UserAlreadyExists, PasswordIncorrectException {
         when(userRepository.findByMail(USER_MAIL)).thenReturn(null);
         when(userMapper.map(userRegisterDto())).thenReturn(user());
         when(passwordEncoder.encode(USER_PASSWORD)).thenReturn("Encrypted Password");
