@@ -8,30 +8,10 @@ on:
       - '**'        # matches every branch
 
 jobs:
-  gui:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./gui
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Build GUI docker image
-        working-directory: ${{env.working-directory}}
-        run: docker build .
-  api:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./api
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Build API docker image
-        working-directory: ${{env.working-directory}}
-        run: docker build .
-
   tests:
     runs-on: ubuntu-latest
-    needs: [gui, api]
+    env:
+      DOCKER_BUILDKIT: 1
 
     strategy:
       matrix:
@@ -43,6 +23,7 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
         working-directory: ./gui
+        build: docker-compose -f ../docker-compose-e2e.yml build
         start: docker-compose -f ../docker-compose-e2e.yml up
         wait-on: http://localhost:4200
         record: true
