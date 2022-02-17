@@ -15,8 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static be.jimmyd.cm.constants.CollectionTestConstants.*;
-import static be.jimmyd.cm.constants.UserDtoTestConstant.userDto;
-import static be.jimmyd.cm.constants.UserDtoTestConstant.userRegisterDto;
+import static be.jimmyd.cm.constants.UserDtoTestConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -69,6 +68,14 @@ class UserServiceTest {
 
         assertThrows(UserAlreadyExists.class, () -> {
             userService.registerUser(userRegisterDto());
+        });
+    }
+
+    @Test
+    void registerUserWithWrongConfirmPassword() {
+
+        assertThrows(PasswordIncorrectException.class, () -> {
+            userService.registerUser(userRegisterWithFaultyConfirmPasswordDto());
         });
     }
 

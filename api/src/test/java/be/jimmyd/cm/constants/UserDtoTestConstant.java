@@ -14,6 +14,16 @@ public class UserDtoTestConstant {
                 .withFullName(USER_NAME)
                 .withEmail(USER_MAIL)
                 .withPassword(USER_PASSWORD)
+                .withConfirmPassword(USER_PASSWORD)
+                .build();
+    }
+
+    public static UserRegisterDto userRegisterWithFaultyConfirmPasswordDto() {
+        return new UserRegisterDto.Builder()
+                .withFullName(USER_NAME)
+                .withEmail(USER_MAIL)
+                .withPassword(USER_PASSWORD)
+                .withConfirmPassword(ANOTHER_USER_PASSWORD)
                 .build();
     }
 
