@@ -3,7 +3,7 @@ FROM node:14-alpine as build-step
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
-RUN npm install
+RUN npm install --production
 RUN npm install -g @angular/cli
 COPY . /app
 RUN ng build --configuration production
