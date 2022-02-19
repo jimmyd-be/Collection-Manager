@@ -39,6 +39,20 @@ describe('Authentication', () => {
     cy.url().should('eq', 'http://localhost:4200/pages/dashboard')
   })
 
+  it('Login with faulty user', () => {
+
+    cy.intercept('POST', 'http://localhost:4200/api/auth/login').as('loginApi')
+    cy.visit('/auth/login')
+    cy.get('#title').contains("Login")
+    cy.get('[id=input-email]').type('user@user.com')
+    cy.get('[id=input-password]').type("WrongPassword")
+    cy.get('.appearance-filled').click()
+    cy.wait('@loginApi').then((interception) => {
+      assert.equal(interception.response.statusCode, 401)
+    })
+    //cy.get('.outline-danger').contains('Login/Email combination is not correct, please try again.')
+  })
+
   it('Visits the registration page and register a faulty user', () => {
     cy.intercept('POST', 'http://localhost:4200/api/auth/register').as('registerApi')
     cy.visit('/auth/register')

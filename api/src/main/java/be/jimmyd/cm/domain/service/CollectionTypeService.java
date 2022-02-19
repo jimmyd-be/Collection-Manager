@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.entities.CollectionType;
 import be.jimmyd.cm.repositories.CollectionTypeRepository;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,10 @@ public class CollectionTypeService {
     }
 
     public List<String> getAllTypes() {
-        return collectionTypeRepository.getAllTypes().stream().map(type -> type.getType()).collect(Collectors.toList());
+        return collectionTypeRepository.getAllTypes()
+                .stream()
+                .map(CollectionType::getType)
+                .sorted()
+                .collect(Collectors.toList());
     }
 }

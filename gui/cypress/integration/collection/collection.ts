@@ -9,10 +9,14 @@ function randomText(length) {
 }
 
 describe('Collection', () => {
-  it('Create movie collection', () => {
+
+  beforeEach(() => {
+    cy.loginUser('user')
+  })
+
+  it('Create collection with type 1', () => {
     cy.intercept('POST', 'http://localhost:4200/api/collection/add').as('collectionApi')
 
-    cy.loginUser('user')
     cy.visit('/pages/collection/add')
     cy.get('nb-card-header').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
@@ -24,10 +28,9 @@ describe('Collection', () => {
     })
   })
 
-  it('Create game collection', () => {
+  it('Create collection with type 2', () => {
     cy.intercept('POST', 'http://localhost:4200/api/collection/add').as('collectionApi')
 
-    cy.loginUser('user')
     cy.visit('/pages/collection/add')
     cy.get('nb-card-header').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
@@ -39,10 +42,9 @@ describe('Collection', () => {
     })
   })
 
-  it('Create magazines collection', () => {
+  it('Create collection with type 3', () => {
     cy.intercept('POST', 'http://localhost:4200/api/collection/add').as('collectionApi')
 
-    cy.loginUser('user')
     cy.visit('/pages/collection/add')
     cy.get('nb-card-header').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
@@ -54,10 +56,9 @@ describe('Collection', () => {
     })
   })
 
-  it('Create books collection', () => {
+  it('Create collection with type 4', () => {
     cy.intercept('POST', 'http://localhost:4200/api/collection/add').as('collectionApi')
 
-    cy.loginUser('user')
     cy.visit('/pages/collection/add')
     cy.get('nb-card-header').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
@@ -69,10 +70,9 @@ describe('Collection', () => {
     })
   })
 
-  it('Create disks collection', () => {
+  it('Create collection with type 5', () => {
     cy.intercept('POST', 'http://localhost:4200/api/collection/add').as('collectionApi')
 
-    cy.loginUser('user')
     cy.visit('/pages/collection/add')
     cy.get('nb-card-header').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
@@ -84,10 +84,9 @@ describe('Collection', () => {
     })
   })
 
-  it('Create comics collection', () => {
+  it('Create collection with type 6', () => {
     cy.intercept('POST', 'http://localhost:4200/api/collection/add').as('collectionApi')
 
-    cy.loginUser('user')
     cy.visit('/pages/collection/add')
     cy.get('nb-card-header').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
