@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <liquibase.version>4.5.0</liquibase.version>
+        <liquibase.version>4.8.0</liquibase.version>
         <java.jwt.version>3.18.2</java.jwt.version>
         <liquibase.plugin.version>4.5.0</liquibase.plugin.version>
         <mockito.version>3.12.4</mockito.version>
