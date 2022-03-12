@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.PasswordIncorrectException;
 import be.jimmyd.cm.domain.exceptions.UserAlreadyExists;
 import be.jimmyd.cm.domain.mappers.UserMapper;
 import be.jimmyd.cm.dto.UserDto;
@@ -14,8 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static be.jimmyd.cm.constants.CollectionTestConstants.*;
-import static be.jimmyd.cm.constants.UserDtoTestConstant.userDto;
-import static be.jimmyd.cm.constants.UserDtoTestConstant.userRegisterDto;
+import static be.jimmyd.cm.constants.UserDtoTestConstant.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -41,7 +41,7 @@ class UserServiceTest {
     private ArgumentCaptor<User> userCaptor;
 
     @Test
-    void registerUser_firstUser() throws UserAlreadyExists {
+    void registerUser_firstUser() throws UserAlreadyExists, PasswordIncorrectException {
         when(userRepository.findByMail(USER_MAIL)).thenReturn(null);
         when(userMapper.map(userRegisterDto())).thenReturn(user());
         when(passwordEncoder.encode(USER_PASSWORD)).thenReturn("Encrypted Password");
@@ -68,6 +68,14 @@ class UserServiceTest {
 
         assertThrows(UserAlreadyExists.class, () -> {
             userService.registerUser(userRegisterDto());
+        });
+    }
+
+    @Test
+    void registerUserWithWrongConfirmPassword() {
+
+        assertThrows(PasswordIncorrectException.class, () -> {
+            userService.registerUser(userRegisterWithFaultyConfirmPasswordDto());
         });
     }
 

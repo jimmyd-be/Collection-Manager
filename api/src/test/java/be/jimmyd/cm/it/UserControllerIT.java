@@ -52,6 +52,7 @@ public class UserControllerIT {
     public void init() {
         UserRegisterDto user = new UserRegisterDto.Builder()
                 .withPassword(password)
+                .withConfirmPassword(password)
                 .withFullName(username)
                 .withEmail(mail)
                 .build();
@@ -59,6 +60,7 @@ public class UserControllerIT {
         UserRegisterDto user2 = new UserRegisterDto.Builder()
                 .withEmail("test2@tests.com")
                 .withPassword("test21345678")
+                .withConfirmPassword("test21345678")
                 .withFullName("user2")
                 .build();
 

@@ -18,6 +18,10 @@ public class UserRegisterDto {
     @NotNull
     private String password;
 
+    @Size(min = 8)
+    @NotNull
+    private String confirmPassword;
+
     private UserRegisterDto(){
 
     }
@@ -26,6 +30,7 @@ public class UserRegisterDto {
         fullName = builder.fullName;
         email = builder.email;
         password = builder.password;
+        confirmPassword = builder.confirmPassword;
     }
 
     public String getFullName() {
@@ -38,6 +43,10 @@ public class UserRegisterDto {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
     @Override
@@ -57,6 +66,7 @@ public class UserRegisterDto {
         private @NotNull String fullName;
         private @NotNull @Email String email;
         private @Size(min = 8) @NotNull String password;
+        private @Size(min = 8) @NotNull String confirmPassword;
 
         public Builder() {
         }
@@ -73,6 +83,11 @@ public class UserRegisterDto {
 
         public Builder withPassword(@Size(min = 8) @NotNull String val) {
             password = val;
+            return this;
+        }
+
+        public Builder withConfirmPassword(@Size(min = 8) @NotNull String val) {
+            confirmPassword = val;
             return this;
         }
 

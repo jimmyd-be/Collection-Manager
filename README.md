@@ -1,5 +1,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Full build](https://github.com/jimmyd-be/Collection-Manager/workflows/Full%20build/badge.svg?branch=master)
+![Full build](https://github.com/jimmyd-be/Collection-Manager/workflows/Full%20build/badge.svg)
+[![Smoke tests](https://github.com/jimmyd-be/Collection-Manager/actions/workflows/smoke-tests.yml/badge.svg)](https://github.com/jimmyd-be/Collection-Manager/actions/workflows/smoke-tests.yml)
+[![Unit/Integration tests](https://github.com/jimmyd-be/Collection-Manager/actions/workflows/tests.yml/badge.svg)](https://github.com/jimmyd-be/Collection-Manager/actions/workflows/tests.yml)
 
 # Collection manager
 

@@ -12,7 +12,7 @@ public class Setting {
     private String id;
 
     @Basic
-    @Column(name = "value")
+    @Column(name = "setting")
     private String value;
 
     private Setting(){

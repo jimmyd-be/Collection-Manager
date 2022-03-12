@@ -3,7 +3,6 @@
     <nb-card-header>Add new Collections</nb-card-header>
 
     <nb-card-body>
-
       <div class="form-group">
         <label for="name">Name</label>
         <input class="form-control" formControlName="name" id="name" nbInput placeholder="Give unique name of the collection"
@@ -11,9 +10,12 @@
       </div>
       <div class="form-group">
         <label for="type">Collection type</label>
-        <select class="form-control" formControlName="type" id="type" nbInput required>
-          <option *ngFor="let type of collectionTypes" [ngValue]="type">{{ type }}</option>
-        </select>
+
+        <div>
+        <nb-select placeholder="Please select a collection type" formControlName="type" id="type" required status="primary">
+          <nb-option *ngFor="let type of collectionTypes" [value]="type">{{type}}</nb-option>
+        </nb-select>
+        </div>
       </div>
 
       <nb-accordion multi>

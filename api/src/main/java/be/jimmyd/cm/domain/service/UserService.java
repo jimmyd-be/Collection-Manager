@@ -46,12 +46,14 @@ public class UserService {
         this.invalidTokenRepository = invalidTokenRepository;
     }
 
-    public void registerUser(UserRegisterDto userDto) throws UserAlreadyExists {
+    public void registerUser(UserRegisterDto userDto) throws UserAlreadyExists, PasswordIncorrectException {
 
         final User userCheck = userRepository.findByMail(userDto.getEmail());
 
         if (userCheck != null) {
             throw new UserAlreadyExists("User with mail " + userDto.getEmail() + " already exists");
+        } else if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+            throw new PasswordIncorrectException("Password is not equals to confirm password");
         }
 
         final User user = userMapper.map(userDto);

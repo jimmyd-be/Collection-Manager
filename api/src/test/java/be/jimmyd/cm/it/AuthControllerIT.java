@@ -53,6 +53,7 @@ public class AuthControllerIT {
         UserRegisterDto user = new UserRegisterDto.Builder()
                 .withEmail(mail)
                 .withPassword(password)
+                .withConfirmPassword(password)
                 .withFullName("Test user")
                 .build();
 
@@ -97,6 +98,7 @@ public class AuthControllerIT {
         UserRegisterDto user = new UserRegisterDto.Builder()
                 .withEmail(mail)
                 .withPassword(password)
+                .withConfirmPassword(password)
                 .withFullName("Test user")
                 .build();
 
