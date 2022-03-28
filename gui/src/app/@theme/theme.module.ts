@@ -2,7 +2,6 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   NbActionsModule,
-  NbButtonModule,
   NbContextMenuModule,
   NbIconModule,
   NbLayoutModule,
@@ -31,7 +30,6 @@ const NB_MODULES = [
   NbSidebarModule,
   NbContextMenuModule,
   NbSecurityModule,
-  NbButtonModule,
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,

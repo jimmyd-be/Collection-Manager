@@ -28,9 +28,9 @@
           <p-accordionTab *ngFor="let item of items" header="{{item.name}}">
             <app-view-item [fields]="fields" [item]="item"></app-view-item>
 
-            <button nbButton status="warning" size="small" (click)="editItem(item)">Edit item</button>
+            <button pButton class="p-button-warning" size="small" (click)="editItem(item)">Edit item</button>
 
-            <button nbButton status="danger" size="small" (click)="deleteItem(item)">Remove from collection</button>
+            <button pButton class="p-button-danger" size="small" (click)="deleteItem(item)">Remove from collection</button>
 
           </p-accordionTab>
       </p-accordion>

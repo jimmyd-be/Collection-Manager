@@ -11,7 +11,6 @@ import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.co
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {
-    NbButtonModule,
     NbCheckboxModule,
     NbDatepickerModule,
     NbDialogModule,
@@ -48,6 +47,7 @@ import { UrlWidgetComponent } from './view-item/item-field/url-widget/url-widget
 import { GlobalSearchComponent } from './global-search/global-search.component';
 import {CardModule} from 'primeng/card';
 import {AccordionModule} from "primeng/accordion";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
     imports: [
@@ -71,7 +71,7 @@ import {AccordionModule} from "primeng/accordion";
         NbToastrModule.forRoot({
             duration: 5000,
         }),
-        NbButtonModule,
+      ButtonModule,
       CardModule,
       AccordionModule
     ],

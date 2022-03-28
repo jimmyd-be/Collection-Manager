@@ -12,9 +12,9 @@
           <p>Created on: {{user.creationDate}}</p>
         </ng-template>
         <ng-template pTemplate="footer">
-          <button (click)="openpage('edit')" nbButton size="small" status="primary">Edit account</button>
-          <button (click)="openpage('changePassword')"  nbButton size="small" status="primary">Change password</button>
-          <button (click)="openpage('delete')" nbButton size="small" status="danger">Delete account</button>
+          <button (click)="openpage('edit')" pButton size="small">Edit account</button>
+          <button (click)="openpage('changePassword')"  pButton size="small">Change password</button>
+          <button (click)="openpage('delete')" pButton size="small" class="p-button-danger">Delete account</button>
         </ng-template>
       </p-card>
     </div>

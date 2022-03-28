@@ -10,19 +10,19 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-          <button nbButton status="primary" size="tiny" (click)="viewCollection(col.id)">
+          <button pButton size="tiny" (click)="viewCollection(col.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="viewIcon"></fa-icon>
           </button>
 
-          <button nbButton status="primary" size="tiny" (click)="shareCollection(col.id)">
+          <button pButton size="tiny" (click)="shareCollection(col.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="shareIcon"></fa-icon>
           </button>
 
-          <button nbButton status="warning" size="tiny" (click)="editCollection(col.id)">
+          <button pButton class="p-button-warning" size="tiny" (click)="editCollection(col.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
           </button>
 
-          <button nbButton status="danger" size="tiny" (click)="deleteCollection(col.id, col.name)">
+          <button pButton class="p-button-danger" size="tiny" (click)="deleteCollection(col.id, col.name)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
           </button>
         </ng-template>

@@ -5,8 +5,8 @@
   <ng-template pTemplate="content">
     <app-view-item [fields]="field" [item]="item"></app-view-item>
 
-  <button nbButton status="warning" size="small"  (click)="editItem()">Edit item</button>
+  <button pButton class="warning" size="small"  (click)="editItem()">Edit item</button>
 
-  <button nbButton status="danger" size="small" (click)="deleteItem()">Remove from collection</button>
+  <button pButton status="danger" size="small" (click)="deleteItem()">Remove from collection</button>
   </ng-template>
 </p-card>

@@ -29,11 +29,11 @@
 
     <ng-template pTemplate="footer">
       <button [disabled]="!addCollectionGroup.valid"
-              nbButton status="primary" size="medium"
+              pButton size="medium"
               type="submit">Submit
       </button>
-      <button (click)="addCustomField()" size="medium" nbButton
-              status="info" type="button">Add custom field
+      <button (click)="addCustomField()" size="medium" pButton
+              class="p-button-info" type="button">Add custom field
       </button>
     </ng-template>
 
