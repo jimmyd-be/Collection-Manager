@@ -11,7 +11,6 @@ import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.co
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {
-  NbDialogModule,
   NbMenuModule,
   NbSelectModule,
 } from '@nebular/theme';
@@ -25,13 +24,11 @@ import {RateWidgetComponent} from './view-item/item-field/rate-widget/rate-widge
 import {DefaultWidgetComponent} from './view-item/item-field/default-widget/default-widget.component';
 import {RatingModule} from 'ng-starrating';
 import {ItemDialogComponent} from './item-dialog/item-dialog.component';
-import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {ViewUserComponent} from './view-user/view-user.component';
 import {EditUserComponent} from './edit-user/edit-user.component';
 import {EditPasswordUserComponent} from './edit-password-user/edit-password-user.component';
 import {DeleteUserComponent} from './delete-user/delete-user.component';
 import {ShareCollectionComponent} from './share-collection/share-collection.component';
-import {NbEvaIconsModule} from '@nebular/eva-icons';
 import {ShareCollectionDialogComponent} from './share-collection-dialog/share-collection-dialog.component';
 import {AddItemExternallyComponent} from './add-item-externally/add-item-externally.component';
 import {SearchItemResultComponent} from './search-item-result/search-item-result.component';
@@ -49,6 +46,7 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {CheckboxModule} from "primeng/checkbox";
 import {RadioButtonModule} from "primeng/radiobutton";
 import {ToastModule} from "primeng/toast";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   imports: [
@@ -61,13 +59,11 @@ import {ToastModule} from "primeng/toast";
     CheckboxModule,
     CalendarModule,
     InputNumberModule,
-    NbEvaIconsModule,
     RadioButtonModule,
     FormsModule,
     ReactiveFormsModule,
     NbSelectModule,
     InfiniteScrollModule,
-    NbDialogModule.forRoot(),
     RatingModule,
     NbMenuModule,
     ToastModule,
@@ -75,6 +71,7 @@ import {ToastModule} from "primeng/toast";
     CardModule,
     AccordionModule,
     RatingModule,
+    DialogModule
   ],
     declarations: [
         PagesComponent,
@@ -90,7 +87,6 @@ import {ToastModule} from "primeng/toast";
         RateWidgetComponent,
         DefaultWidgetComponent,
         ItemDialogComponent,
-        ConfirmationDialogComponent,
         ViewUserComponent,
         EditUserComponent,
         EditPasswordUserComponent,

@@ -7,17 +7,16 @@ import {faList, faTh} from '@fortawesome/free-solid-svg-icons';
 import {ItemService} from '../../Services/item.service';
 import {Item} from '../../Entities/item';
 import {FieldService} from '../../Services/field.service';
-import {NbDialogService} from '@nebular/theme';
 import {ItemDialogComponent} from '../item-dialog/item-dialog.component';
 import {ItemFieldDirective} from '../../Entities/ItemField';
-import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
-import {MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
+import {DialogService} from "primeng/dynamicdialog";
 
 @Component({
   selector: 'app-view-collection',
   templateUrl: './view-collection.component.html',
   styleUrls: ['./view-collection.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService, DialogService, ConfirmationService],
 })
 export class ViewCollectionComponent implements OnInit {
 
@@ -38,9 +37,10 @@ export class ViewCollectionComponent implements OnInit {
               private collectionService: CollectionService,
               private itemService: ItemService,
               private fieldService: FieldService,
-              private dialogService: NbDialogService,
+              private confirmationService: ConfirmationService,
               private router: Router,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              public dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -84,7 +84,7 @@ export class ViewCollectionComponent implements OnInit {
   }
 
   openModal(item: Item) {
-    this.dialogService.open(ItemDialogComponent, {context: new ItemFieldDirective(item, this.fields, this.collection)})
+    this.dialogService.open(ItemDialogComponent, {data: new ItemFieldDirective(item, this.fields, this.collection)})
       .onClose.subscribe(
       data => {
         if (data === 'delete') {
@@ -101,21 +101,19 @@ export class ViewCollectionComponent implements OnInit {
 
   deleteItem(item: Item) {
 
-    this.dialogService.open(ConfirmationDialogComponent)
-      .onClose.subscribe(response => {
-        if (response === 'delete') {
-          this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
-            this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
-            const index = this.items.indexOf(item, 0);
-            if (index > -1) {
-              this.items.splice(index, 1);
-            }
-          });
-        }
-      },
-      error => {
-        this.messageService.add({severity:'error', summary: item.name + ' could not be deleted because of an error!'});
-      });
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
+          this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
+          const index = this.items.indexOf(item, 0);
+          if (index > -1) {
+            this.items.splice(index, 1);
+          }
+        });
+      }
+    });
+
   }
 
   onScroll() {

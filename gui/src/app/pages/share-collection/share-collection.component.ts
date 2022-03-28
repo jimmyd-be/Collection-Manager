@@ -4,10 +4,10 @@ import {CollectionService} from '../../Services/collection.service';
 import {Role} from '../../Entities/Role';
 import {RoleService} from '../../Services/role.service';
 import {ActivatedRoute} from '@angular/router';
-import {NbDialogService} from '@nebular/theme';
 import {ShareCollectionDialogComponent} from '../share-collection-dialog/share-collection-dialog.component';
 import {UserCollection} from '../../Entities/UserCollection';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {DialogService} from "primeng/dynamicdialog";
 
 @Component({
   selector: 'app-share-collection',
@@ -25,7 +25,7 @@ export class ShareCollectionComponent implements OnInit {
   constructor(private collectionService: CollectionService,
               private roleService: RoleService,
               private route: ActivatedRoute,
-              private dialogService: NbDialogService) {
+              public dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -42,7 +42,9 @@ export class ShareCollectionComponent implements OnInit {
 
   openDialog() {
 
-    this.dialogService.open(ShareCollectionDialogComponent, {context: {collectionId: this.collectionId}}).onClose.subscribe(response => {
+    this.dialogService.open(ShareCollectionDialogComponent, {data: {collectionId: this.collectionId}})
+      .onClose
+      .subscribe(response => {
       this.collectionService.getUsers(this.collectionId).subscribe(data => this.userCollections = data);
     });
   }

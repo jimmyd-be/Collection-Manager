@@ -3,10 +3,8 @@ import {Collection} from '../../Entities/collection';
 import {CollectionService} from '../../Services/collection.service';
 import {faEdit, faEye, faShareAltSquare, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
-import {NbDialogService} from '@nebular/theme';
-import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 import {NbAuthJWTToken, NbAuthService} from '@nebular/auth';
-import {MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 
 @Component({
@@ -26,7 +24,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private collectionService: CollectionService,
               private router: Router,
-              private dialogService: NbDialogService,
+              private confirmationService: ConfirmationService,
               private authService: NbAuthService,
               private messageService: MessageService) {
   }
@@ -51,23 +49,20 @@ export class DashboardComponent implements OnInit {
 
   deleteCollection(id: number, name: string) {
 
-    this.dialogService.open(ConfirmationDialogComponent)
-      .onClose.subscribe(response => {
-        if (response === 'delete') {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.collectionService.deleteCollection(id).subscribe(data => {
+          location.reload();
 
-          this.collectionService.deleteCollection(id).subscribe(data => {
-            location.reload();
+          this.messageService.add({severity:'success', summary:'Collection ' + name + ' has been deleted.'});
 
-            this.messageService.add({severity:'success', summary:'Collection ' + name + ' has been deleted.'});
+          this.router.navigate(['/pages/dashboard']);
 
-            this.router.navigate(['/pages/dashboard']);
-
-            this.loadCollections();
-          });
-        }
-      },
-      error =>
-        this.messageService.add({severity:'error', summary:'Collection ' + name + ' has nog been delete because of an error!'}));
+          this.loadCollections();
+        });
+      }
+    });
   }
 
   viewCollection(id: number) {

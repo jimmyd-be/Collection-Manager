@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Item} from '../../Entities/item';
 import {CustomField} from '../../Entities/custom-field';
 import {Collection} from '../../Entities/collection';
-import {NbDialogRef} from '@nebular/theme';
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 
 @Component({
   selector: 'app-item-dialog',
@@ -15,16 +15,16 @@ export class ItemDialogComponent {
   field: CustomField[];
   collection: Collection;
 
-  constructor(private dialogRef: NbDialogRef<ItemDialogComponent>) {
+  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
   }
 
 
   deleteItem() {
-    this.dialogRef.close('delete');
+    this.ref.close('delete');
   }
 
   editItem() {
-    this.dialogRef.close('edit');
+    this.ref.close('edit');
   }
 
 }
