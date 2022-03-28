@@ -1,13 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {
-  NbAuthComponent,
-  NbLoginComponent,
-  NbLogoutComponent,
-  NbRegisterComponent,
-  NbRequestPasswordComponent,
-  NbResetPasswordComponent,
-} from '@nebular/auth';
 
 const routes: Routes = [
   {
@@ -15,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },
-  {
+ /* {
     path: 'auth',
     component: NbAuthComponent,
     children: [
@@ -44,7 +36,7 @@ const routes: Routes = [
         component: NbResetPasswordComponent,
       },
     ],
-  },
+  },*/
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];

@@ -1,6 +1,3 @@
-@import '../../@theme/styles/themes';
-
-@include nb-install-component() {
   fa-icon {
     margin: 5px;
   }
@@ -8,16 +5,16 @@
   .collectionText {
     text-align: center;
     font-size: 32px;
-    color: nb-theme(text-basic-color);
+    //color: nb-theme(text-basic-color);
     margin-bottom: 20px;
   }
 
   .activeItem {
-    color: nb-theme(text-alternate-color);
+    //color: nb-theme(text-alternate-color);
   }
 
   .itemList {
-    color: nb-theme(text-basic-color);
+    //color: nb-theme(text-basic-color);
   }
 
   .row {
@@ -34,9 +31,9 @@
   .searchBar {
     float: right;
     width: 100%;
-    background-color: nb-theme(background-basic-color-1);
+    /*background-color: nb-theme(background-basic-color-1);
     color: nb-theme(text-basic-color);
-    border-color: nb-theme(border-basic-color-1);
+    border-color: nb-theme(border-basic-color-1);*/
   }
 
   .itemCardImage {
@@ -56,7 +53,7 @@
   }
 
   .itemCard {
-    background-color: nb-theme(background-basic-color-1);
+   // background-color: nb-theme(background-basic-color-1);
   }
 
   @media only screen and (max-width: 600px) {
@@ -68,5 +65,3 @@
     }
 
   }
-
-}

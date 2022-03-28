@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {EditUser} from '../../Entities/EditUser';
 import {UserService} from '../../Services/user.service';
 import {Router} from '@angular/router';
-import {NbThemeService} from '@nebular/theme';
-import {map, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
 @Component({

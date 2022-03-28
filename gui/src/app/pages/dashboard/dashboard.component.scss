@@ -1,19 +1,10 @@
-@import '../../@theme/styles/themes';
 
 fa-icon {
   margin: 5px;
 }
 
-nb-card {
+p-card {
   max-width: 18rem;
 }
 
-@include nb-install-component() {
-  .headerTable {
-    background-color: nb-theme(background-basic-color-4);
-  }
 
-  .table {
-    color: nb-theme(text-basic-color);
-  }
-}

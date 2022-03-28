@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 
 import {MENU_ITEMS} from './pages-menu';
 import {CollectionService} from '../Services/collection.service';
-import {NbMenuItem} from '@nebular/theme';
 import {UserService} from '../Services/user.service';
 
 @Component({
@@ -42,7 +41,7 @@ export class PagesComponent implements OnInit {
       this.menu = [];
       this.originalArray.forEach(val => this.menu.push(Object.assign({}, val)));
 
-      for (const collection of collections) {
+      /*for (const collection of collections) {
         const newItem = new NbMenuItem();
         newItem.title = collection.name;
         newItem.link = '/pages/collection/view/' + collection.id;
@@ -64,7 +63,7 @@ export class PagesComponent implements OnInit {
         }
 
         this.menu.push(newItem);
-      }
+      }*/
     });
 
   }

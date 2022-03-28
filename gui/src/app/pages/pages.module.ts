@@ -9,9 +9,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
-import {
-  NbMenuModule,
-} from '@nebular/theme';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ViewCollectionComponent} from './view-collection/view-collection.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
@@ -49,6 +46,12 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {RatingModule} from "primeng/rating";
 import {DropdownModule} from "primeng/dropdown";
 import {CommonModule} from "@angular/common";
+import {AppConfigComponent} from "./app.config.component";
+import {AppFooterComponent} from "./app.footer.component";
+import {AppMainComponent} from "./app.main.component";
+import {AppMenuitemComponent} from "./app.menuitem.component";
+import {AppTopBarComponent} from "./app.topbar.component";
+import {AppMenuComponent} from "./app.menu.component";
 
 @NgModule({
   imports: [
@@ -66,7 +69,6 @@ import {CommonModule} from "@angular/common";
     ReactiveFormsModule,
     InfiniteScrollModule,
     RatingModule,
-    NbMenuModule,
     ToastModule,
     ButtonModule,
     CardModule,
@@ -78,34 +80,40 @@ import {CommonModule} from "@angular/common";
     RatingModuleNG,
     DropdownModule
   ],
-    declarations: [
-        PagesComponent,
-        AddCollectionComponent,
-        AddCustomFieldComponent,
-        AddItemManuallyComponent,
-        CustomFieldFormComponent,
-        DashboardComponent,
-        ViewCollectionComponent,
-        ViewItemComponent,
-        ItemFieldComponent,
-        ImageWidgetComponent,
-        RateWidgetComponent,
-        DefaultWidgetComponent,
-        ItemDialogComponent,
-        ViewUserComponent,
-        EditUserComponent,
-        EditPasswordUserComponent,
-        DeleteUserComponent,
-        ShareCollectionComponent,
-        ShareCollectionDialogComponent,
-        AddItemExternallyComponent,
-        SearchItemResultComponent,
-        AdminSettingsComponent,
-        AdminUsersComponent,
-        EmailWidgetComponent,
-        UrlWidgetComponent,
-        GlobalSearchComponent,
-    ]
+  declarations: [
+    AppFooterComponent,
+    AppConfigComponent,
+    AppMainComponent,
+    AppMenuitemComponent,
+    AppTopBarComponent,
+    PagesComponent,
+    AddCollectionComponent,
+    AddCustomFieldComponent,
+    AddItemManuallyComponent,
+    CustomFieldFormComponent,
+    DashboardComponent,
+    ViewCollectionComponent,
+    ViewItemComponent,
+    ItemFieldComponent,
+    ImageWidgetComponent,
+    RateWidgetComponent,
+    DefaultWidgetComponent,
+    ItemDialogComponent,
+    ViewUserComponent,
+    EditUserComponent,
+    EditPasswordUserComponent,
+    DeleteUserComponent,
+    ShareCollectionComponent,
+    ShareCollectionDialogComponent,
+    AddItemExternallyComponent,
+    SearchItemResultComponent,
+    AdminSettingsComponent,
+    AdminUsersComponent,
+    EmailWidgetComponent,
+    UrlWidgetComponent,
+    GlobalSearchComponent,
+    AppMenuComponent,
+  ]
 })
 export class PagesModule {
 }
