@@ -1,7 +1,7 @@
-<nb-card>
-  <nb-card-header>CM settings</nb-card-header>
+<p-card>
+  <ng-template pTemplate="title">CM settings</ng-template>
 
-  <nb-card-body>
+  <ng-template pTemplate="content">
 
     <form (ngSubmit)="onFormSubmit()" [formGroup]="myForm">
 
@@ -15,8 +15,8 @@
       </div>
     </form>
 
-  </nb-card-body>
+  </ng-template>
 
-  <nb-card-footer></nb-card-footer>
+  <ng-template pTemplate="footer"></ng-template>
 
-</nb-card>
+</p-card>

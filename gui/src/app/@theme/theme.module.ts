@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {
   NbActionsModule,
   NbButtonModule,
-  NbCardModule,
   NbContextMenuModule,
   NbIconModule,
   NbLayoutModule,
@@ -35,7 +34,6 @@ const NB_MODULES = [
   NbButtonModule,
   NbSelectModule,
   NbIconModule,
-  NbCardModule,
   NbEvaIconsModule,
   NbMenuModule,
 ];

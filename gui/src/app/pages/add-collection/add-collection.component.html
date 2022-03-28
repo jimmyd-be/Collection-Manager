@@ -1,8 +1,8 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="addCollectionGroup">
-  <nb-card>
-    <nb-card-header>Add new Collections</nb-card-header>
+  <p-card>
+    <ng-template pTemplate="title">Add new Collections</ng-template>
 
-    <nb-card-body>
+    <ng-template pTemplate="content">
       <div class="form-group">
         <label for="name">Name</label>
         <input class="form-control" formControlName="name" id="name" nbInput placeholder="Give unique name of the collection"
@@ -18,19 +18,16 @@
         </div>
       </div>
 
-      <nb-accordion multi>
-        <nb-accordion-item *ngFor="let fields of customFields.controls; let i = index">
-          <nb-accordion-item-header>Custom field {{ i + 1 }}</nb-accordion-item-header>
-          <nb-accordion-item-body>
+      <p-accordion [multiple]="true">
+          <p-accordionTab *ngFor="let fields of customFields.controls; let i = index" header="Custom field {{ i + 1 }}">
             <app-add-custom-field (deleteCustomField)="deletePlayer($event)" [customFieldForm]="fields" [index]="i">
             </app-add-custom-field>
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion>
+          </p-accordionTab>
+      </p-accordion>
 
-    </nb-card-body>
+    </ng-template>
 
-    <nb-card-footer>
+    <ng-template pTemplate="footer">
       <button [disabled]="!addCollectionGroup.valid"
               nbButton status="primary" size="medium"
               type="submit">Submit
@@ -38,7 +35,7 @@
       <button (click)="addCustomField()" size="medium" nbButton
               status="info" type="button">Add custom field
       </button>
-    </nb-card-footer>
+    </ng-template>
 
-  </nb-card>
+  </p-card>
 </form>

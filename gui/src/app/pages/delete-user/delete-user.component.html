@@ -3,9 +3,9 @@
   <div class="row justify-content-center">
 
     <div class="col-md-12 col-lg-6">
-      <nb-card>
-        <nb-card-header>Delete user</nb-card-header>
-        <nb-card-body>
+      <p-card>
+        <ng-template pTemplate="title">Delete user</ng-template>
+        <ng-template pTemplate="content">
 
           <form #editForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
@@ -33,11 +33,11 @@
             </button>
           </form>
 
-        </nb-card-body>
-        <nb-card-footer>
+        </ng-template>
+        <ng-template pTemplate="footer">
 
-        </nb-card-footer>
-      </nb-card>
+        </ng-template>
+      </p-card>
     </div>
   </div>
 </div>

@@ -11,8 +11,7 @@ import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.co
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {
-    NbAccordionModule, NbButtonModule,
-    NbCardModule,
+    NbButtonModule,
     NbCheckboxModule,
     NbDatepickerModule,
     NbDialogModule,
@@ -47,6 +46,8 @@ import {AdminUsersComponent} from './admin-users/admin-users.component';
 import { EmailWidgetComponent } from './view-item/item-field/email-widget/email-widget.component';
 import { UrlWidgetComponent } from './view-item/item-field/url-widget/url-widget.component';
 import { GlobalSearchComponent } from './global-search/global-search.component';
+import {CardModule} from 'primeng/card';
+import {AccordionModule} from "primeng/accordion";
 
 @NgModule({
     imports: [
@@ -58,8 +59,6 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
         NbInputModule,
         NbCheckboxModule,
         NbDatepickerModule,
-        NbAccordionModule,
-        NbCardModule,
         NbEvaIconsModule,
         NbRadioModule,
         FormsModule,
@@ -73,6 +72,8 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
             duration: 5000,
         }),
         NbButtonModule,
+      CardModule,
+      AccordionModule
     ],
     declarations: [
         PagesComponent,

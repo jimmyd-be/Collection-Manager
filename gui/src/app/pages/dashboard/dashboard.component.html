@@ -2,14 +2,14 @@
   <div class="row">
 
     <div class="col-md-3 col-sm-12" *ngFor="let col of collections">
-      <nb-card [size]="'tiny'">
-        <nb-card-header>{{col.name}}</nb-card-header>
-        <nb-card-body>
+      <p-card> <!--[size]="'tiny'"-->
+        <ng-template pTemplate="title">{{col.name}}</ng-template>
+        <ng-template pTemplate="content">
           Type: {{col.type}} <br/>
           Members: {{col.members}}
-        </nb-card-body>
+        </ng-template>
 
-        <nb-card-footer>
+        <ng-template pTemplate="footer">
           <button nbButton status="primary" size="tiny" (click)="viewCollection(col.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="viewIcon"></fa-icon>
           </button>
@@ -25,8 +25,8 @@
           <button nbButton status="danger" size="tiny" (click)="deleteCollection(col.id, col.name)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
           </button>
-        </nb-card-footer>
-      </nb-card>
+        </ng-template>
+        </p-card>
     </div>
   </div>
 </div>

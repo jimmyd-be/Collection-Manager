@@ -1,12 +1,12 @@
-<nb-card>
-  <nb-card-header>{{item.name}}
+<p-card>
+  <ng-template pTemplate="title">{{item.name}}
 
-  </nb-card-header>
-  <nb-card-body>
+  </ng-template>
+  <ng-template pTemplate="content">
     <app-view-item [fields]="field" [item]="item"></app-view-item>
 
   <button nbButton status="warning" size="small"  (click)="editItem()">Edit item</button>
 
   <button nbButton status="danger" size="small" (click)="deleteItem()">Remove from collection</button>
-  </nb-card-body>
-</nb-card>
+  </ng-template>
+</p-card>

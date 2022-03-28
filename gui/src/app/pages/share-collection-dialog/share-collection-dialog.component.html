@@ -1,14 +1,14 @@
-<nb-card>
-  <nb-card-header>Share collection to</nb-card-header>
-  <nb-card-body>
+<p-card>
+  <ng-template pTemplate="title">Share collection to</ng-template>
+  <ng-template pTemplate="content">
     <form [formGroup]="form">
       <input formControlName="userName" nbInput placeholder="User name of the user" type="text">
       <nb-select formControlName="role" placeholder="Select role of the user">
         <nb-option *ngFor="let role of roles" [value]="role.name"> {{ role.name }}</nb-option>
       </nb-select>
     </form>
-  </nb-card-body>
-  <nb-card-footer>
+  </ng-template>
+  <ng-template pTemplate="footer">
     <button (click)="share()"
             size="medium"
             nbButton
@@ -18,5 +18,5 @@
             size="medium"
             status="danger">Cancel
     </button>
-  </nb-card-footer>
-</nb-card>
+  </ng-template>
+</p-card>

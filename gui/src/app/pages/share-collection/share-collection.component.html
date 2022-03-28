@@ -1,7 +1,7 @@
-<nb-card>
-  <nb-card-header>Share collection with other users</nb-card-header>
+<p-card>
+  <ng-template pTemplate="title">Share collection with other users</ng-template>
 
-  <nb-card-body>
+  <ng-template pTemplate="content">
 
     <table class="table">
       <thead class="headerTable">
@@ -25,15 +25,15 @@
       </tbody>
     </table>
 
-  </nb-card-body>
+  </ng-template>
 
-  <nb-card-footer>
+  <ng-template pTemplate="footer">
     <button (click)="openDialog()" nbButton
             size="medium"
             status="primary">Add user
     </button>
 
 
-  </nb-card-footer>
+  </ng-template>
 
-</nb-card>
+</p-card>

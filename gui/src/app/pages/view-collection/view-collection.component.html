@@ -24,19 +24,16 @@
        infiniteScroll>
 
     <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
-      <nb-accordion>
-        <nb-accordion-item *ngFor="let item of items">
-          <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
-          <nb-accordion-item-body>
+      <p-accordion>
+          <p-accordionTab *ngFor="let item of items" header="{{item.name}}">
             <app-view-item [fields]="fields" [item]="item"></app-view-item>
 
             <button nbButton status="warning" size="small" (click)="editItem(item)">Edit item</button>
 
             <button nbButton status="danger" size="small" (click)="deleteItem(item)">Remove from collection</button>
 
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion>
+          </p-accordionTab>
+      </p-accordion>
     </div>
 
     <div *ngIf="currentView === 'cards'">
