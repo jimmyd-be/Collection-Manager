@@ -12,19 +12,19 @@
               <label for="password">Current password</label>
               <input #name="ngModel" [(ngModel)]="model.password" class="form-control" id="password"
                      name="password"
-                     nbInput required
+                     pPassword required
                      type="password">
             </div>
 
             <div class="form-group">
               <label for="username">New username</label>
-              <input [(ngModel)]="model.newUser" class="form-control" id="username" name="username" nbInput
+              <input [(ngModel)]="model.newUser" class="form-control" id="username" name="username" pInputText
                      required type="text">
             </div>
 
             <div class="form-group">
               <label for="newmail">New mail</label>
-              <input [(ngModel)]="model.newMail" class="form-control" id="newmail" name="newmail" nbInput
+              <input [(ngModel)]="model.newMail" class="form-control" id="newmail" name="newmail" pInputText
                      required type="email">
             </div>
 

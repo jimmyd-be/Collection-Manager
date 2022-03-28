@@ -2,7 +2,7 @@
   <ng-template pTemplate="title">Share collection to</ng-template>
   <ng-template pTemplate="content">
     <form [formGroup]="form">
-      <input formControlName="userName" nbInput placeholder="User name of the user" type="text">
+      <input formControlName="userName" pInputText placeholder="User name of the user" type="text">
       <nb-select formControlName="role" placeholder="Select role of the user">
         <nb-option *ngFor="let role of roles" [value]="role.name"> {{ role.name }}</nb-option>
       </nb-select>

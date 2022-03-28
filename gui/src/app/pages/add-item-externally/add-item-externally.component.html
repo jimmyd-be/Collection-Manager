@@ -6,7 +6,7 @@
                status="primary">
       <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
     </nb-select>
-    <input (keyup)="onKey($event)" fieldSize="medium" nbInput placeholder="Input" type="text">
+    <input (keyup)="onKey($event)" fieldSize="medium" pInputText placeholder="Input" type="text">
 
     <button (click)="searchItems()" size="medium" pButton>Search
     </button>

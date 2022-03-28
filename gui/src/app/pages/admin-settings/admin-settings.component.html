@@ -7,11 +7,11 @@
 
       <div *ngFor="let setting of settings">
         <label>{{setting.key}}</label>
-        <input formControlName="{{setting.key}}" nbInput type="text" value="{{setting.value}}">
+        <input formControlName="{{setting.key}}" pInputText type="text" value="{{setting.value}}">
       </div>
 
       <div>
-        <input nbInput type="submit" value="Save settings">
+        <button pButton type="submit" label="Save settings" ></button>
       </div>
     </form>
 

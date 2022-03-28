@@ -11,9 +11,7 @@ import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.co
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {
-  NbCheckboxModule,
   NbDialogModule,
-  NbInputModule,
   NbMenuModule,
   NbRadioModule,
   NbSelectModule,
@@ -48,33 +46,38 @@ import {CardModule} from 'primeng/card';
 import {AccordionModule} from "primeng/accordion";
 import {ButtonModule} from "primeng/button";
 import {CalendarModule} from "primeng/calendar";
+import {InputTextModule} from "primeng/inputtext";
+import {InputNumberModule} from "primeng/inputnumber";
+import {CheckboxModule} from "primeng/checkbox";
 
 @NgModule({
-    imports: [
-        PagesRoutingModule,
-        ThemeModule,
-        MiscellaneousModule,
-        FontAwesomeModule,
-        ReactiveFormsModule,
-        NbInputModule,
-        NbCheckboxModule,
-      CalendarModule,
-        NbEvaIconsModule,
-        NbRadioModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NbSelectModule,
-        InfiniteScrollModule,
-        NbDialogModule.forRoot(),
-        RatingModule,
-        NbMenuModule,
-        NbToastrModule.forRoot({
-            duration: 5000,
-        }),
-      ButtonModule,
-      CardModule,
-      AccordionModule
-    ],
+  imports: [
+    PagesRoutingModule,
+    ThemeModule,
+    MiscellaneousModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    CheckboxModule,
+    CalendarModule,
+    InputNumberModule,
+    NbEvaIconsModule,
+    NbRadioModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbSelectModule,
+    InfiniteScrollModule,
+    NbDialogModule.forRoot(),
+    RatingModule,
+    NbMenuModule,
+    NbToastrModule.forRoot({
+      duration: 5000,
+    }),
+    ButtonModule,
+    CardModule,
+    AccordionModule,
+    RatingModule,
+  ],
     declarations: [
         PagesComponent,
         AddCollectionComponent,
