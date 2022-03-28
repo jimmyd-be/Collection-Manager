@@ -14,7 +14,6 @@ import {
   NbDialogModule,
   NbMenuModule,
   NbSelectModule,
-  NbToastrModule
 } from '@nebular/theme';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ViewCollectionComponent} from './view-collection/view-collection.component';
@@ -49,6 +48,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {InputNumberModule} from "primeng/inputnumber";
 import {CheckboxModule} from "primeng/checkbox";
 import {RadioButtonModule} from "primeng/radiobutton";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   imports: [
@@ -70,9 +70,7 @@ import {RadioButtonModule} from "primeng/radiobutton";
     NbDialogModule.forRoot(),
     RatingModule,
     NbMenuModule,
-    NbToastrModule.forRoot({
-      duration: 5000,
-    }),
+    ToastModule,
     ButtonModule,
     CardModule,
     AccordionModule,

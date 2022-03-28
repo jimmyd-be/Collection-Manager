@@ -3,13 +3,15 @@ import {User} from '../../Entities/user';
 import {AdminService} from '../../Services/admin.service';
 import {faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../Services/user.service';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.scss']
+  styleUrls: ['./admin-users.component.scss'],
+  providers: [MessageService]
 })
 export class AdminUsersComponent implements OnInit {
 
@@ -20,7 +22,7 @@ export class AdminUsersComponent implements OnInit {
   constructor(public adminService: AdminService,
               public userService: UserService,
               private dialogService: NbDialogService,
-              private toastrService: NbToastrService) {
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -72,6 +74,6 @@ export class AdminUsersComponent implements OnInit {
           );
         }
       },
-      error => this.toastrService.danger('User has been delete by admin!'));
+      error => this.messageService.add({severity:'succes', summary:'User has been delete by admin!'}));
   }
 }

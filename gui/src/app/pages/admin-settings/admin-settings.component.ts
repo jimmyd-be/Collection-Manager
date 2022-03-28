@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {NbToastrService} from '@nebular/theme';
 import {Setting} from 'src/app/Entities/Setting';
 import {SettingService} from '../../Services/setting.service';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-admin-settings',
   templateUrl: './admin-settings.component.html',
-  styleUrls: ['./admin-settings.component.scss']
+  styleUrls: ['./admin-settings.component.scss'],
+  providers: [MessageService],
 })
 export class AdminSettingsComponent implements OnInit {
   settings: Setting[];
@@ -15,7 +16,7 @@ export class AdminSettingsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private settingService: SettingService,
-              private toastrService: NbToastrService) {
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -38,8 +39,8 @@ export class AdminSettingsComponent implements OnInit {
     }
 
     this.settingService.saveSettings(values).subscribe(
-      x => this.toastrService.success('Settings are saved', 'Settings'),
-      err => this.toastrService.danger('Something went wrong when saving settings', 'Settings')
+      x => this.messageService.add({severity:'success', summary:'Settings are saved'}),
+      err => this.messageService.add({severity:'error', summary:'Settings are not saved'})
     );
 
   }

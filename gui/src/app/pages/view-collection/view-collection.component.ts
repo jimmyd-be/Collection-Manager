@@ -7,15 +7,17 @@ import {faList, faTh} from '@fortawesome/free-solid-svg-icons';
 import {ItemService} from '../../Services/item.service';
 import {Item} from '../../Entities/item';
 import {FieldService} from '../../Services/field.service';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {ItemDialogComponent} from '../item-dialog/item-dialog.component';
 import {ItemFieldDirective} from '../../Entities/ItemField';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-view-collection',
   templateUrl: './view-collection.component.html',
   styleUrls: ['./view-collection.component.scss'],
+  providers: [MessageService],
 })
 export class ViewCollectionComponent implements OnInit {
 
@@ -38,7 +40,7 @@ export class ViewCollectionComponent implements OnInit {
               private fieldService: FieldService,
               private dialogService: NbDialogService,
               private router: Router,
-              private toastrService: NbToastrService) {
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -103,7 +105,7 @@ export class ViewCollectionComponent implements OnInit {
       .onClose.subscribe(response => {
         if (response === 'delete') {
           this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
-            this.toastrService.success(item.name + ' has been removed from the collection.');
+            this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
             const index = this.items.indexOf(item, 0);
             if (index > -1) {
               this.items.splice(index, 1);
@@ -112,7 +114,7 @@ export class ViewCollectionComponent implements OnInit {
         }
       },
       error => {
-        this.toastrService.danger(item.name + ' could not be deleted because of an error!');
+        this.messageService.add({severity:'error', summary: item.name + ' could not be deleted because of an error!'});
       });
   }
 

@@ -3,15 +3,17 @@ import {Collection} from '../../Entities/collection';
 import {CollectionService} from '../../Services/collection.service';
 import {faEdit, faEye, faShareAltSquare, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 import {NbAuthJWTToken, NbAuthService} from '@nebular/auth';
+import {MessageService} from "primeng/api";
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  providers: [MessageService],
 })
 export class DashboardComponent implements OnInit {
 
@@ -26,7 +28,7 @@ export class DashboardComponent implements OnInit {
               private router: Router,
               private dialogService: NbDialogService,
               private authService: NbAuthService,
-              private toastrService: NbToastrService) {
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -56,14 +58,16 @@ export class DashboardComponent implements OnInit {
           this.collectionService.deleteCollection(id).subscribe(data => {
             location.reload();
 
-            this.toastrService.success('Collection ' + name + ' has been deleted.');
+            this.messageService.add({severity:'success', summary:'Collection ' + name + ' has been deleted.'});
+
             this.router.navigate(['/pages/dashboard']);
 
             this.loadCollections();
           });
         }
       },
-      error => this.toastrService.danger('Collection ' + name + ' has nog been delete because of an error!'));
+      error =>
+        this.messageService.add({severity:'error', summary:'Collection ' + name + ' has nog been delete because of an error!'}));
   }
 
   viewCollection(id: number) {

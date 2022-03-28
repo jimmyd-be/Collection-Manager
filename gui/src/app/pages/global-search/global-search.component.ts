@@ -6,13 +6,15 @@ import {FieldService} from "../../Services/field.service";
 import {CustomField} from "../../Entities/custom-field";
 import {Item} from "../../Entities/item";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
-import {NbDialogService, NbToastrService} from "@nebular/theme";
+import {NbDialogService} from "@nebular/theme";
 import {ItemService} from "../../Services/item.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-global-search',
   templateUrl: './global-search.component.html',
-  styleUrls: ['./global-search.component.scss']
+  styleUrls: ['./global-search.component.scss'],
+  providers: [MessageService],
 })
 export class GlobalSearchComponent implements OnInit {
 
@@ -27,7 +29,7 @@ export class GlobalSearchComponent implements OnInit {
               private router: Router,
               private dialogService: NbDialogService,
               private itemService: ItemService,
-              private toastrService: NbToastrService) {
+              private messageService: MessageService) {
     this.searchTerm = this.route.snapshot.queryParamMap.get("searchTerm");
 
     this.searchService.globalSearch(this.searchTerm)
@@ -59,7 +61,7 @@ export class GlobalSearchComponent implements OnInit {
       .onClose.subscribe(response => {
         if (response === 'delete') {
           this.itemService.deleteItemFromCollection(item.id, collectionId).subscribe(data => {
-            this.toastrService.success(item.name + ' has been removed from the collection.');
+            this.messageService.add({severity:'success', summary:item.name + ' has been removed from the collection.'});
             const index = this.items.get(collectionId).indexOf(item, 0);
             if (index > -1) {
               this.items.get(collectionId).splice(index, 1);
@@ -68,7 +70,7 @@ export class GlobalSearchComponent implements OnInit {
         }
       },
       error => {
-        this.toastrService.danger(item.name + ' could not be deleted because of an error!');
+        this.messageService.add({severity:'error', summary: item.name + ' could not be deleted because of an error!'});
       });
   }
 
