@@ -11,14 +11,13 @@ import {AddItemManuallyComponent} from './add-item-manually/add-item-manually.co
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {
-    NbCheckboxModule,
-    NbDatepickerModule,
-    NbDialogModule,
-    NbInputModule,
-    NbMenuModule,
-    NbRadioModule,
-    NbSelectModule,
-    NbToastrModule
+  NbCheckboxModule,
+  NbDialogModule,
+  NbInputModule,
+  NbMenuModule,
+  NbRadioModule,
+  NbSelectModule,
+  NbToastrModule
 } from '@nebular/theme';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ViewCollectionComponent} from './view-collection/view-collection.component';
@@ -48,6 +47,7 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
 import {CardModule} from 'primeng/card';
 import {AccordionModule} from "primeng/accordion";
 import {ButtonModule} from "primeng/button";
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
     imports: [
@@ -58,7 +58,7 @@ import {ButtonModule} from "primeng/button";
         ReactiveFormsModule,
         NbInputModule,
         NbCheckboxModule,
-        NbDatepickerModule,
+      CalendarModule,
         NbEvaIconsModule,
         NbRadioModule,
         FormsModule,

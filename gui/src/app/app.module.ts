@@ -13,12 +13,13 @@ import { ServerInterceptor } from './Interceptors/server-interceptor';
 import { RatingModule } from 'ng-starrating';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { NbDatepickerModule, NbMenuModule, NbSidebarService } from '@nebular/theme';
+import {NbMenuModule, NbSidebarService} from '@nebular/theme';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NbRoleProvider, NbSecurityModule } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
+import {CalendarModule} from "primeng/calendar";
 
 @Injectable()
 export class NbSimpleRoleProvider extends NbRoleProvider {
@@ -40,8 +41,8 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
     ReactiveFormsModule,
     RatingModule,
     NgbModule,
+    CalendarModule,
     ThemeModule.forRoot(),
-    NbDatepickerModule.forRoot(),
     NbMenuModule.forRoot(),
     NbAuthModule.forRoot({
       strategies: [

@@ -41,9 +41,7 @@
              placeholder="Place full URL" type="url">
 
       <div *ngSwitchCase="'date'">
-        <input [formControlName]="field.formId" [id]="field.formId" [nbDatepicker]="formpicker" [placeholder]="field.placeholder"
-               nbInput>
-        <nb-datepicker #formpicker format="dd-MM-yyyy"></nb-datepicker>
+        <p-calendar dateFormat="dd-MM-yyyy" formControlName="{{field.formId}}" [id]="field.formId" [placeholder]="field.placeholder"></p-calendar>
       </div>
 
       <div *ngSwitchCase="'url'" class="row">
