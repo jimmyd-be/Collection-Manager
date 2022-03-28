@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 
 import {PagesComponent} from './pages.component';
 import {PagesRoutingModule} from './pages-routing.module';
-import {ThemeModule} from '../@theme/theme.module';
 import {MiscellaneousModule} from './miscellaneous/miscellaneous.module';
 import {AddCollectionComponent} from './add-collection/add-collection.component';
 import {AddCustomFieldComponent} from './add-collection/add-custom-field/add-custom-field.component';
@@ -48,13 +47,13 @@ import {ToastModule} from "primeng/toast";
 import {DialogModule} from "primeng/dialog";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {RatingModule} from "primeng/rating";
-import {from} from "rxjs";
 import {DropdownModule} from "primeng/dropdown";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   imports: [
+    CommonModule,
     PagesRoutingModule,
-    ThemeModule,
     MiscellaneousModule,
     FontAwesomeModule,
     ReactiveFormsModule,

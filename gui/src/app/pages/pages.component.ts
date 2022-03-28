@@ -8,10 +8,7 @@ import {UserService} from '../Services/user.service';
 @Component({
   selector: 'app-pages',
   template: `
-    <app-one-column-layout>
-      <nb-menu [items]="menu"></nb-menu>
-      <router-outlet></router-outlet>
-    </app-one-column-layout>
+
   `,
 })
 export class PagesComponent implements OnInit {

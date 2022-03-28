@@ -7,7 +7,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { ThemeModule } from './@theme/theme.module';
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { ServerInterceptor } from './Interceptors/server-interceptor';
 import { RatingModule } from 'ng-starrating';
@@ -20,6 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { NbRoleProvider, NbSecurityModule } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 import {CalendarModule} from "primeng/calendar";
+
+
 
 @Injectable()
 export class NbSimpleRoleProvider extends NbRoleProvider {
@@ -42,7 +43,6 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
     RatingModule,
     NgbModule,
     CalendarModule,
-    ThemeModule.forRoot(),
     NbMenuModule.forRoot(),
     NbAuthModule.forRoot({
       strategies: [
