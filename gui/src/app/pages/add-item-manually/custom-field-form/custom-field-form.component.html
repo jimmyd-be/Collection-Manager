@@ -28,11 +28,9 @@
 
       <p-checkbox *ngSwitchCase="'checkBox'" [formControlName]="field.formId" label="{{field.name}}"></p-checkbox>
 
-      <nb-radio-group *ngSwitchCase="'radio'" [formControlName]="field.formId" [id]="field.formId">
-        <nb-radio *ngFor="let option of field.options" [value]="option">
-          {{ option }}
-        </nb-radio>
-      </nb-radio-group>
+        <div class="p-inputgroup" *ngSwitchCase="'radio'">
+          <p-radioButton [formControlName]="field.formId" [id]="field.formId" *ngFor="let option of field.options" [value]="option" label="option"></p-radioButton>
+        </div>
 
       <textarea *ngSwitchCase="'textarea'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder" fullWidth
                 maxlength="1024"

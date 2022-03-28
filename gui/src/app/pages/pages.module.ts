@@ -13,7 +13,6 @@ import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/cu
 import {
   NbDialogModule,
   NbMenuModule,
-  NbRadioModule,
   NbSelectModule,
   NbToastrModule
 } from '@nebular/theme';
@@ -49,6 +48,7 @@ import {CalendarModule} from "primeng/calendar";
 import {InputTextModule} from "primeng/inputtext";
 import {InputNumberModule} from "primeng/inputnumber";
 import {CheckboxModule} from "primeng/checkbox";
+import {RadioButtonModule} from "primeng/radiobutton";
 
 @NgModule({
   imports: [
@@ -62,7 +62,7 @@ import {CheckboxModule} from "primeng/checkbox";
     CalendarModule,
     InputNumberModule,
     NbEvaIconsModule,
-    NbRadioModule,
+    RadioButtonModule,
     FormsModule,
     ReactiveFormsModule,
     NbSelectModule,
