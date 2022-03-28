@@ -14,9 +14,7 @@
     <div class="form-group col">
       <label for="name">Type</label>
       <div>
-        <nb-select (selectedChange)="typeChanged($event)" formControlName="type" id="type" required status="primary">
-          <nb-option *ngFor="let type of types" [value]="type">{{ type }}</nb-option>
-        </nb-select>
+        <p-dropdown [options]="types" formControlName="type" id="type" (onChange)="typeChanged($event)" optionLabel="type" optionValue="type" required></p-dropdown>
       </div>
     </div>
 
@@ -62,9 +60,7 @@
     <div class="form-group col">
       <label for="labelPosition">Label Position</label>
       <div>
-        <nb-select formControlName="labelposition" id="labelPosition" required status="primary">
-          <nb-option *ngFor="let position of labelPositions" [value]="position"> {{position}}</nb-option>
-        </nb-select>
+        <p-dropdown [options]="labelPositions" formControlName="labelposition" id="labelPosition" required></p-dropdown>
       </div>
 
     </div>
@@ -72,9 +68,7 @@
     <div class="form-group col">
       <label for="place">Position</label>
       <div>
-        <nb-select formControlName="place" id="place" required status="primary">
-          <nb-option *ngFor="let position of fieldPositions" [value]="position"> {{position}}</nb-option>
-        </nb-select>
+        <p-dropdown [options]="fieldPositions" formControlName="place" id="place" required></p-dropdown>
       </div>
     </div>
 

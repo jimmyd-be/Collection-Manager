@@ -12,9 +12,9 @@
         <label for="type">Collection type</label>
 
         <div>
-        <nb-select placeholder="Please select a collection type" formControlName="type" id="type" required status="primary">
-          <nb-option *ngFor="let type of collectionTypes" [value]="type">{{type}}</nb-option>
-        </nb-select>
+
+          <p-dropdown [options]="collectionTypes" required id="type" formControlName="type"></p-dropdown>
+
         </div>
       </div>
 

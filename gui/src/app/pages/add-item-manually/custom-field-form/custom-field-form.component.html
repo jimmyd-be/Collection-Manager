@@ -18,13 +18,7 @@
 
       <p-inputNumber *ngSwitchCase="'number'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder"></p-inputNumber>
 
-
-
-
-      <nb-select *ngSwitchCase="'dropdown'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder"
-                 class="col-sm-9" status="primary">
-        <nb-option *ngFor="let opt of field.options" [value]="opt">{{opt}}</nb-option>
-      </nb-select>
+      <p-dropdown *ngSwitchCase="'dropdown'" [options]="field.options" formControlName="field.formId"></p-dropdown>
 
       <p-checkbox *ngSwitchCase="'checkBox'" [formControlName]="field.formId" label="{{field.name}}"></p-checkbox>
 

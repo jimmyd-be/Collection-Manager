@@ -2,10 +2,9 @@
   <ng-template pTemplate="title">Search for items on external databases</ng-template>
 
   <ng-template pTemplate="content">
-    <nb-select (selectedChange)="collectionSelectionChanged($event)" placeholder="Please select collection"
-               status="primary">
-      <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
-    </nb-select>
+
+    <p-dropdown [options]="collectionList" (onChange)="collectionSelectionChanged($event)" optionValue="id" optionLabel="name"></p-dropdown>
+
     <input (keyup)="onKey($event)" fieldSize="medium" pInputText placeholder="Input" type="text">
 
     <button (click)="searchItems()" size="medium" pButton>Search

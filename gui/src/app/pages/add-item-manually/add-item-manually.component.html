@@ -3,10 +3,9 @@
   <ng-template pTemplate="title" *ngIf="item">Edit Item</ng-template>
 
   <ng-template pTemplate="content" *ngIf="!item">
-    <nb-select (selectedChange)="collectionSelectionChanged($event)" placeholder="Please select collection"
-               status="primary">
-      <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
-    </nb-select>
+
+    <p-dropdown [options]="collectionList" (onChange)="collectionSelectionChanged($event)" optionValue="id" optionLabel="name"></p-dropdown>
+
   </ng-template>
 
   <ng-template pTemplate="footer">

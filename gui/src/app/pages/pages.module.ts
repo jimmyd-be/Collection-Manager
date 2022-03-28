@@ -12,7 +12,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {
   NbMenuModule,
-  NbSelectModule,
 } from '@nebular/theme';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ViewCollectionComponent} from './view-collection/view-collection.component';
@@ -22,7 +21,7 @@ import {ItemFieldComponent} from './view-item/item-field/item-field.component';
 import {ImageWidgetComponent} from './view-item/item-field/image-widget/image-widget.component';
 import {RateWidgetComponent} from './view-item/item-field/rate-widget/rate-widget.component';
 import {DefaultWidgetComponent} from './view-item/item-field/default-widget/default-widget.component';
-import {RatingModule} from 'ng-starrating';
+import {RatingModule as RatingModuleNG} from 'ng-starrating';
 import {ItemDialogComponent} from './item-dialog/item-dialog.component';
 import {ViewUserComponent} from './view-user/view-user.component';
 import {EditUserComponent} from './edit-user/edit-user.component';
@@ -47,6 +46,10 @@ import {CheckboxModule} from "primeng/checkbox";
 import {RadioButtonModule} from "primeng/radiobutton";
 import {ToastModule} from "primeng/toast";
 import {DialogModule} from "primeng/dialog";
+import {SelectButtonModule} from "primeng/selectbutton";
+import {RatingModule} from "primeng/rating";
+import {from} from "rxjs";
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   imports: [
@@ -62,7 +65,6 @@ import {DialogModule} from "primeng/dialog";
     RadioButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    NbSelectModule,
     InfiniteScrollModule,
     RatingModule,
     NbMenuModule,
@@ -71,7 +73,11 @@ import {DialogModule} from "primeng/dialog";
     CardModule,
     AccordionModule,
     RatingModule,
-    DialogModule
+    DialogModule,
+    SelectButtonModule,
+    RatingModule,
+    RatingModuleNG,
+    DropdownModule
   ],
     declarations: [
         PagesComponent,

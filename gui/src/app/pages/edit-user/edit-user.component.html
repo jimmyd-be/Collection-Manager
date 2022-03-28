@@ -30,10 +30,8 @@
 
             <div class="form-group">
               <label for="theme">Theme</label> <br/>
-              <nb-select (selectedChange)="changeTheme($event)" [(ngModel)]="model.theme" [selected]="currentTheme"
-                         id="theme" name="theme">
-                <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-              </nb-select>
+
+              <p-dropdown [options]="themes" id="theme" name="theme" (onChange)="changeTheme($event)" optionValue="value" optionLabel="name"></p-dropdown>
 
             </div>
             <button [disabled]="!editForm.form.valid"
