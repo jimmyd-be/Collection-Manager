@@ -28,70 +28,70 @@ describe('Collection', () => {
     })
   })
 
-  it('Create collection with type 2', () => {
+  it('Create collection with Comics', () => {
     cy.intercept('POST', '/api/collection/add').as('collectionApi')
 
     cy.visit('/pages/collection/add')
     cy.get('.p-card-title').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
     cy.get('[id=type]').click()
-    cy.get('#nb-option-1').click()
+    cy.get('[id=type]').contains('Comics').click({ force: true })
     cy.get('[type=submit]').click()
     cy.wait('@collectionApi').then((interception) => {
       assert.equal(interception.response.statusCode, 200)
     })
   })
 
-  it('Create collection with type 3', () => {
+  it('Create collection with Diskcs', () => {
     cy.intercept('POST', '/api/collection/add').as('collectionApi')
 
     cy.visit('/pages/collection/add')
     cy.get('.p-card-title').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
     cy.get('[id=type]').click()
-    cy.get('#nb-option-2').click()
+    cy.get('[id=type]').contains('Disks').click({ force: true })
     cy.get('[type=submit]').click()
     cy.wait('@collectionApi').then((interception) => {
       assert.equal(interception.response.statusCode, 200)
     })
   })
 
-  it('Create collection with type 4', () => {
+  it('Create collection with Games', () => {
     cy.intercept('POST', '/api/collection/add').as('collectionApi')
 
     cy.visit('/pages/collection/add')
     cy.get('.p-card-title').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
     cy.get('[id=type]').click()
-    cy.get('#nb-option-3').click()
+    cy.get('[id=type]').contains('Games').click({ force: true })
     cy.get('[type=submit]').click()
     cy.wait('@collectionApi').then((interception) => {
       assert.equal(interception.response.statusCode, 200)
     })
   })
 
-  it('Create collection with type 5', () => {
+  it('Create collection with Magazines', () => {
     cy.intercept('POST', '/api/collection/add').as('collectionApi')
 
     cy.visit('/pages/collection/add')
     cy.get('.p-card-title').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
     cy.get('[id=type]').click()
-    cy.get('#nb-option-4').click()
+    cy.get('[id=type]').contains('Magazines').click({ force: true })
     cy.get('[type=submit]').click()
     cy.wait('@collectionApi').then((interception) => {
       assert.equal(interception.response.statusCode, 200)
     })
   })
 
-  it('Create collection with type 6', () => {
+  it('Create collection with Movies', () => {
     cy.intercept('POST', '/api/collection/add').as('collectionApi')
 
     cy.visit('/pages/collection/add')
     cy.get('.p-card-title').contains("Add new Collections")
     cy.get('[id=name]').type(randomText(5))
     cy.get('[id=type]').click()
-    cy.get('#nb-option-5').click()
+    cy.get('[id=type]').contains('Movies').click({ force: true })
     cy.get('[type=submit]').click()
     cy.wait('@collectionApi').then((interception) => {
       assert.equal(interception.response.statusCode, 200)
