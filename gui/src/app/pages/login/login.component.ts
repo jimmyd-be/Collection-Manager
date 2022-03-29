@@ -10,7 +10,7 @@ import {Message, MessageService} from "primeng/api";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
@@ -20,10 +20,6 @@ export class LoginComponent implements OnInit {
               private tokenService: TokenService,
               private router: Router,
               private messageService: MessageService) {
-  }
-
-  ngOnInit(): void {
-
   }
 
   onSubmit() {

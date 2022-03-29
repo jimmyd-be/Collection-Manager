@@ -177,6 +177,7 @@ public class ItemControllerIT {
         assertTrue(result.getBody().length > 0);
     }
 
+    @Disabled
     @Order(6)
     @Test
     public void addImdbMovieTest() {

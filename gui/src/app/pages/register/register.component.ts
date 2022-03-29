@@ -9,7 +9,7 @@ import {MessageService} from "primeng/api";
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   registerForm = new FormGroup({
     fullName: new FormControl(''),
     email: new FormControl(''),
@@ -20,9 +20,6 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private messageService: MessageService) { }
-
-  ngOnInit(): void {
-  }
 
   onSubmit() {
     this.authService.register(this.registerForm.controls['fullName'].value,
