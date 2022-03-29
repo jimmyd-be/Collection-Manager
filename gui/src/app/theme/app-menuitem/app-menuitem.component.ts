@@ -3,12 +3,12 @@ import {NavigationEnd, Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {AppMainComponent} from './app.main.component';
-import {MenuService} from "../Services/app.menu.service";
+import {AppMainComponent} from '../app-main/app-main.component';
+import {MenuService} from "../../Services/app.menu.service";
 
 @Component({
   selector: 'app-menuitem',
-  templateUrl: './app.menuitem.component.html',
+  templateUrl: './app-menuitem.component.html',
   animations: [
     trigger('children', [
       state('void', style({

@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { AppMainComponent } from './app.main.component';
-import {AppConfig} from "../Entities/appconfig";
-import {ConfigService} from "../Services/app.config.service";
-import {AppComponent} from "../app.component";
+import { AppMainComponent } from '../app-main/app-main.component';
+import {AppConfig} from "../../Entities/appconfig";
+import {ConfigService} from "../../Services/app.config.service";
+import {AppComponent} from "../../app.component";
 
 @Component({
     selector: 'app-config',
-    templateUrl: './app.config.component.html'
+    templateUrl: './app-config.component.html'
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
 

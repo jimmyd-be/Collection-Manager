@@ -19,6 +19,7 @@ import {CalendarModule} from "primeng/calendar";
 import {ConfigService} from "./Services/app.config.service";
 import {ConfirmationService} from "primeng/api";
 import {MenuService} from "./Services/app.menu.service";
+import {ThemeModule} from "./theme/theme.module";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {MenuService} from "./Services/app.menu.service";
     BrowserAnimationsModule,
     HttpClientModule,
     PagesModule,
+    ThemeModule,
     FormsModule,
     ReactiveFormsModule,
     RatingModule,

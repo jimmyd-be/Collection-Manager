@@ -46,12 +46,8 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {RatingModule} from "primeng/rating";
 import {DropdownModule} from "primeng/dropdown";
 import {CommonModule} from "@angular/common";
-import {AppConfigComponent} from "./app.config.component";
-import {AppFooterComponent} from "./app.footer.component";
-import {AppMainComponent} from "./app.main.component";
-import {AppMenuitemComponent} from "./app.menuitem.component";
-import {AppTopBarComponent} from "./app.topbar.component";
-import {AppMenuComponent} from "./app.menu.component";
+import {AppMenuComponent} from "../theme/app-menu/app-menu.component";
+import {ThemeModule} from "../theme/theme.module";
 
 @NgModule({
   imports: [
@@ -78,14 +74,12 @@ import {AppMenuComponent} from "./app.menu.component";
     SelectButtonModule,
     RatingModule,
     RatingModuleNG,
-    DropdownModule
+    DropdownModule,
+    ThemeModule
+  ],
+  exports: [
   ],
   declarations: [
-    AppFooterComponent,
-    AppConfigComponent,
-    AppMainComponent,
-    AppMenuitemComponent,
-    AppTopBarComponent,
     PagesComponent,
     AddCollectionComponent,
     AddCustomFieldComponent,
@@ -112,7 +106,6 @@ import {AppMenuComponent} from "./app.menu.component";
     EmailWidgetComponent,
     UrlWidgetComponent,
     GlobalSearchComponent,
-    AppMenuComponent,
   ]
 })
 export class PagesModule {

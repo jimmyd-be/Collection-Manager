@@ -1,13 +1,13 @@
 import { Component, AfterViewInit, OnDestroy, Renderer2, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription } from 'rxjs';
-import {AppConfig} from "../Entities/appconfig";
-import {ConfigService} from "../Services/app.config.service";
-import {AppComponent} from "../app.component";
+import {AppConfig} from "../../Entities/appconfig";
+import {ConfigService} from "../../Services/app.config.service";
+import {AppComponent} from "../../app.component";
 
 @Component({
     selector: 'app-main',
-    templateUrl: './app.main.component.html',
+    templateUrl: './app-main.component.html',
     animations: [
         trigger('submenu', [
             state('hidden', style({
