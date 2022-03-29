@@ -62,7 +62,6 @@ import {ThemeModule} from "../theme/theme.module";
     InputNumberModule,
     RadioButtonModule,
     FormsModule,
-    ReactiveFormsModule,
     InfiniteScrollModule,
     RatingModule,
     ToastModule,

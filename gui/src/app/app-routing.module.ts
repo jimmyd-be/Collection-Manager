@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {LoginComponent} from "./authentication/login/login.component";
+import {AppComponent} from "./app.component";
 
 const routes: Routes = [
   {
@@ -7,19 +9,19 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },
- /* {
+  {
     path: 'auth',
-    component: NbAuthComponent,
+    //component: NbAuthComponent,
     children: [
       {
         path: '',
-        component: NbLoginComponent,
+        component: LoginComponent,
       },
       {
         path: 'login',
-        component: NbLoginComponent,
+        component: LoginComponent,
       },
-      {
+      /*{
         path: 'register',
         component: NbRegisterComponent,
       },
@@ -34,9 +36,9 @@ const routes: Routes = [
       {
         path: 'reset-password',
         component: NbResetPasswordComponent,
-      },
+      },*/
     ],
-  },*/
+  },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];
