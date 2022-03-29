@@ -30,7 +30,7 @@ Cypress.Commands.add("loginUser", (userType:string) => {
   // grab the user
   const user = types[userType]
 
-  cy.intercept('POST', 'http://localhost:4200/api/auth/login').as('loginApi')
+  cy.intercept('POST', '/api/auth/login').as('loginApi')
   cy.visit('/auth/login')
   cy.get('[id=title]').contains("Welcome Back")
   cy.get('[id=email]').type(user.name)

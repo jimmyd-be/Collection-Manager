@@ -15,7 +15,7 @@ var userName = randomText(10)
 
 describe('Authentication', () => {
   it('Visits the registration page and register a new user', () => {
-    cy.intercept('POST', 'http://localhost:4200/api/auth/register').as('registerApi')
+    cy.intercept('POST', '/api/auth/register').as('registerApi')
 
     cy.visit('/auth/register')
     cy.get('#title').contains("Register a new user")
@@ -40,7 +40,7 @@ describe('Authentication', () => {
 
   it('Login with faulty user', () => {
 
-    cy.intercept('POST', 'http://localhost:4200/api/auth/login').as('loginApi')
+    cy.intercept('POST', '/api/auth/login').as('loginApi')
     cy.visit('/auth/login')
     cy.get('[id=title').contains("Welcome Back")
     cy.get('[id=email]').type('user@user.com')
@@ -49,11 +49,11 @@ describe('Authentication', () => {
     cy.wait('@loginApi').then((interception) => {
       assert.equal(interception.response.statusCode, 401)
     })
-    cy.get('#p-message-detail').contains('Credentials are not valid')
+    cy.get('.p-message-detail').contains('Credentials are not valid')
   })
 
   it('Visits the registration page and register a faulty user', () => {
-    cy.intercept('POST', 'http://localhost:4200/api/auth/register').as('registerApi')
+    cy.intercept('POST', '/api/auth/register').as('registerApi')
     cy.visit('/auth/register')
     cy.get('#title').contains("Register a new user")
     cy.get('[id=fullName]').type("Jeff Nijs")
@@ -64,6 +64,6 @@ describe('Authentication', () => {
     cy.wait('@registerApi').then((interception) => {
       assert.equal(interception.response.statusCode, 400)
     })
-    cy.get('#p-message-detail').contains('Something went wrong')
+    cy.get('.p-message-detail').contains('Something went wrong')
   })
 })
