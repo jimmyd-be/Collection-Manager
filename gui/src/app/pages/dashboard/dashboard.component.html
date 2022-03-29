@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="row">
+  <div class="grid">
 
-    <div class="col-md-3 col-sm-12" *ngFor="let col of collections">
-      <p-card> <!--[size]="'tiny'"-->
+    <div class="col-12 md:col-3 p-fluid" *ngFor="let col of collections">
+      <p-card class="p-card-sm"> <!--[size]="'tiny'"-->
         <ng-template pTemplate="title">{{col.name}}</ng-template>
         <ng-template pTemplate="content">
           Type: {{col.type}} <br/>
@@ -10,19 +10,19 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-          <button pButton size="tiny" (click)="viewCollection(col.id)">
+          <button pButton class="p-button-rounded p-button-icon-only" (click)="viewCollection(col.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="viewIcon"></fa-icon>
           </button>
 
-          <button pButton size="tiny" (click)="shareCollection(col.id)">
+          <button pButton class="p-button-rounded p-button-icon-only" (click)="shareCollection(col.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="shareIcon"></fa-icon>
           </button>
 
-          <button pButton class="p-button-warning" size="tiny" (click)="editCollection(col.id)">
+          <button pButton class="p-button-rounded p-button-icon-only p-button-warning" (click)="editCollection(col.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
           </button>
 
-          <button pButton class="p-button-danger" size="tiny" (click)="deleteCollection(col.id, col.name)">
+          <button pButton class="p-button-rounded p-button-icon-only p-button-danger" (click)="deleteCollection(col.id, col.name)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
           </button>
         </ng-template>

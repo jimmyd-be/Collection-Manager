@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="row">
+  <div class="grid">
     <div class="col-sm-3 text-truncate">
-      <div *ngFor="let field of getFieldsByLocation('left')" class="row">
+      <div *ngFor="let field of getFieldsByLocation('left')" class="grid">
         <app-item-field [field]="field" [item]="item"></app-item-field>
       </div>
     </div>
     <div class="col-sm-9">
-      <div *ngFor="let field of getFieldsByLocation('main')" class="row">
+      <div *ngFor="let field of getFieldsByLocation('main')" class="grid">
         <app-item-field [field]="field" [item]="item"></app-item-field>
       </div>
     </div>

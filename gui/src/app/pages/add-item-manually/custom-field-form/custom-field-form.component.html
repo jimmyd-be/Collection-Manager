@@ -37,7 +37,7 @@
         <p-calendar dateFormat="dd-MM-yyyy" formControlName="{{field.formId}}" [id]="field.formId" [placeholder]="field.placeholder"></p-calendar>
       </div>
 
-      <div *ngSwitchCase="'url'" class="row">
+      <div *ngSwitchCase="'url'" class="grid">
         <div class="col-sm-6">
           <input [formControlName]="field.formId" [id]="field.formId" fullWidth pInputText pattern="https?://.+"
                  placeholder="Place full URL" type="url">

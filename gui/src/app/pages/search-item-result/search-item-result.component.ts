@@ -7,7 +7,6 @@ import {MessageService} from "primeng/api";
   selector: 'app-search-item-result',
   templateUrl: './search-item-result.component.html',
   styleUrls: ['./search-item-result.component.scss'],
-  providers: [MessageService],
 })
 export class SearchItemResultComponent {
 

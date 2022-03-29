@@ -14,7 +14,6 @@ import {MessageService} from "primeng/api";
   selector: 'app-add-item-manually',
   templateUrl: './add-item-manually.component.html',
   styleUrls: ['./add-item-manually.component.scss'],
-  providers: [MessageService],
 })
 export class AddItemManuallyComponent implements OnInit {
 
@@ -41,18 +40,20 @@ export class AddItemManuallyComponent implements OnInit {
     this.collectionService.getUserCollections().subscribe(data => {
       this.collectionList = data;
 
+      if (this.collectionId === 0) {
+        this.collectionId = this.collectionList[0].id;
+      }
+
       if (this.collectionId !== 0) {
-        this.collectionSelectionChanged(this.collectionId);
+        this.collectionSelectionChanged();
       }
 
     });
   }
 
-  collectionSelectionChanged(collectionId: number) {
+  collectionSelectionChanged() {
 
-    this.collectionId = collectionId;
-
-    this.customfieldService.getFieldsByCollection(collectionId).subscribe(data => {
+    this.customfieldService.getFieldsByCollection(this.collectionId).subscribe(data => {
       this.formService.fields = this.customfieldService.sortFields(data);
 
       this.formService.fields.forEach(field => field.valueNumber = 0);

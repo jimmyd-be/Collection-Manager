@@ -4,7 +4,7 @@
 
   <ng-template pTemplate="content" *ngIf="!item">
 
-    <p-dropdown [options]="collectionList" (onChange)="collectionSelectionChanged($event)" optionValue="id" optionLabel="name"></p-dropdown>
+    <p-dropdown [options]="collectionList" (onChange)="collectionSelectionChanged()" [(ngModel)]="collectionId" optionValue="id" optionLabel="name"></p-dropdown>
 
   </ng-template>
 

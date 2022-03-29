@@ -8,7 +8,6 @@ import {MessageService} from "primeng/api";
   selector: 'app-admin-settings',
   templateUrl: './admin-settings.component.html',
   styleUrls: ['./admin-settings.component.scss'],
-  providers: [MessageService],
 })
 export class AdminSettingsComponent implements OnInit {
   settings: Setting[];

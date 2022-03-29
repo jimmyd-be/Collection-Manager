@@ -1,7 +1,7 @@
 <div class="container-fluid p-0">
 
-  <div class="row">
-    <div class="col-md-2 layoutSwitchers">
+  <div class="grid">
+    <div class="md:col-2 layoutSwitchers">
       <a (click)="changeView('list')">
         <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView==='list'}" class="fa-2x"></fa-icon>
       </a>
@@ -11,10 +11,10 @@
       </a>
 
     </div>
-    <div *ngIf="collection" class="col-md-8 col-sm-12 collectionText">
+    <div *ngIf="collection" class="md:col-8 col-sm-12 collectionText">
       {{collection.name}}
     </div>
-    <div class="col-md-2 col-sm-12">
+    <div class="md:col-2 col-sm-12">
       <input (keyup)="search($event)" class="searchBar" placeholder="Search" type="text"/>
     </div>
   </div>

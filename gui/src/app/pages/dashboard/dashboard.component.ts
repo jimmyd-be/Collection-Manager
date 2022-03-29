@@ -11,7 +11,6 @@ import {TokenService} from "../../Services/token.service";
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  providers: [MessageService],
 })
 export class DashboardComponent implements OnInit {
 

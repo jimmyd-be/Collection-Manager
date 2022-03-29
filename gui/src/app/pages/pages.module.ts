@@ -50,35 +50,37 @@ import {ThemeModule} from "../theme/theme.module";
 import {LoginComponent} from "./login/login.component";
 import {MessagesModule} from "primeng/messages";
 import { RegisterComponent } from './register/register.component';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    PagesRoutingModule,
-    MiscellaneousModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    CheckboxModule,
-    CalendarModule,
-    InputNumberModule,
-    RadioButtonModule,
-    FormsModule,
-    InfiniteScrollModule,
-    RatingModule,
-    ToastModule,
-    ButtonModule,
-    CardModule,
-    AccordionModule,
-    RatingModule,
-    DialogModule,
-    SelectButtonModule,
-    RatingModule,
-    RatingModuleNG,
-    DropdownModule,
-    ThemeModule,
-    MessagesModule
-  ],
+    imports: [
+        CommonModule,
+        PagesRoutingModule,
+        MiscellaneousModule,
+        FontAwesomeModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        CheckboxModule,
+        CalendarModule,
+        InputNumberModule,
+        RadioButtonModule,
+        FormsModule,
+        InfiniteScrollModule,
+        RatingModule,
+        ToastModule,
+        ButtonModule,
+        CardModule,
+        AccordionModule,
+        RatingModule,
+        DialogModule,
+        SelectButtonModule,
+        RatingModule,
+        RatingModuleNG,
+        DropdownModule,
+        ThemeModule,
+        MessagesModule,
+        ConfirmDialogModule
+    ],
   exports: [
   ],
   declarations: [

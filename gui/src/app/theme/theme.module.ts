@@ -10,6 +10,7 @@ import {RouterModule} from "@angular/router";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {AppMenuComponent} from "./app-menu/app-menu.component";
 import {FormsModule} from "@angular/forms";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 
@@ -24,12 +25,13 @@ import {FormsModule} from "@angular/forms";
   exports: [
 
   ],
-  imports: [
-    CommonModule,
-    RadioButtonModule,
-    RouterModule,
-    InputSwitchModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        RadioButtonModule,
+        RouterModule,
+        InputSwitchModule,
+        FormsModule,
+        ConfirmDialogModule
+    ]
 })
 export class ThemeModule { }

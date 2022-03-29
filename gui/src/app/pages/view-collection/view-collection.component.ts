@@ -16,7 +16,6 @@ import {DialogService} from "primeng/dynamicdialog";
   selector: 'app-view-collection',
   templateUrl: './view-collection.component.html',
   styleUrls: ['./view-collection.component.scss'],
-  providers: [MessageService, DialogService, ConfirmationService],
 })
 export class ViewCollectionComponent implements OnInit {
 

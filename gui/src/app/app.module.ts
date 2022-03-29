@@ -19,6 +19,7 @@ import {ConfigService} from "./Services/app.config.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {MenuService} from "./Services/app.menu.service";
 import {ThemeModule} from "./theme/theme.module";
+import {DialogService} from "primeng/dynamicdialog";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {ThemeModule} from "./theme/theme.module";
     ConfigService,
     ConfirmationService,
     MenuService,
-    MessageService
+    MessageService,
+    DialogService
   ],
 })
 export class AppModule { }

@@ -9,7 +9,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss'],
-  providers: [MessageService]
+
 })
 export class AdminUsersComponent implements OnInit {
 
