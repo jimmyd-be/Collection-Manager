@@ -49,6 +49,7 @@ import {CommonModule} from "@angular/common";
 import {ThemeModule} from "../theme/theme.module";
 import {LoginComponent} from "./login/login.component";
 import {MessagesModule} from "primeng/messages";
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -108,6 +109,7 @@ import {MessagesModule} from "primeng/messages";
     EmailWidgetComponent,
     UrlWidgetComponent,
     GlobalSearchComponent,
+    RegisterComponent,
   ]
 })
 export class PagesModule {
