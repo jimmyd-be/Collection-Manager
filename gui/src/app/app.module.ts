@@ -4,8 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, Injectable } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import { AppComponent } from './app.component';
 import { ServerInterceptor } from './Interceptors/server-interceptor';
 import { RatingModule } from 'ng-starrating';
@@ -35,7 +33,6 @@ import {AuthInterceptor} from "./Interceptors/auth-interceptor";
     FormsModule,
     ReactiveFormsModule,
     RatingModule,
-    NgbModule,
     CalendarModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
