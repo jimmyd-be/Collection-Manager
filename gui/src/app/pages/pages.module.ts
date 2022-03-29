@@ -46,8 +46,9 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {RatingModule} from "primeng/rating";
 import {DropdownModule} from "primeng/dropdown";
 import {CommonModule} from "@angular/common";
-import {AppMenuComponent} from "../theme/app-menu/app-menu.component";
 import {ThemeModule} from "../theme/theme.module";
+import {LoginComponent} from "./login/login.component";
+import {MessagesModule} from "primeng/messages";
 
 @NgModule({
   imports: [
@@ -74,12 +75,14 @@ import {ThemeModule} from "../theme/theme.module";
     RatingModule,
     RatingModuleNG,
     DropdownModule,
-    ThemeModule
+    ThemeModule,
+    MessagesModule
   ],
   exports: [
   ],
   declarations: [
     PagesComponent,
+    LoginComponent,
     AddCollectionComponent,
     AddCustomFieldComponent,
     AddItemManuallyComponent,

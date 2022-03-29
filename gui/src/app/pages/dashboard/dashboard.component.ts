@@ -4,6 +4,7 @@ import {CollectionService} from '../../Services/collection.service';
 import {faEdit, faEye, faShareAltSquare, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
 import {ConfirmationService, MessageService} from "primeng/api";
+import {TokenService} from "../../Services/token.service";
 
 
 @Component({
@@ -24,7 +25,8 @@ export class DashboardComponent implements OnInit {
   constructor(private collectionService: CollectionService,
               private router: Router,
               private confirmationService: ConfirmationService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private tokenService: TokenService) {
   }
 
   ngOnInit() {
@@ -33,12 +35,10 @@ export class DashboardComponent implements OnInit {
 
   loadCollections() {
 
-   /* this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
-      this.collectionService.getUserCollections().subscribe(data => {
+    this.collectionService.getUserCollections().subscribe(data => {
 
-        this.collections = data;
-      });
-    });*/
+      this.collections = data;
+    });
   }
 
   editCollection(id: number) {

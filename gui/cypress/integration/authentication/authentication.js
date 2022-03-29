@@ -43,14 +43,14 @@ describe('Authentication', () => {
 
     cy.intercept('POST', 'http://localhost:4200/api/auth/login').as('loginApi')
     cy.visit('/auth/login')
-    cy.get('#title').contains("Login")
-    cy.get('[id=input-email]').type('user@user.com')
-    cy.get('[id=input-password]').type("WrongPassword")
-    cy.get('.appearance-filled').click()
+    cy.get('[id=title').contains("Welcome Back")
+    cy.get('[id=email]').type('user@user.com')
+    cy.get('[id=password]').type("WrongPassword")
+    cy.get('[type=submit]').click()
     cy.wait('@loginApi').then((interception) => {
       assert.equal(interception.response.statusCode, 401)
     })
-    //cy.get('.outline-danger').contains('Login/Email combination is not correct, please try again.')
+    cy.get('#p-message-detail').contains('LCredentials are not valid')
   })
 
   it('Visits the registration page and register a faulty user', () => {

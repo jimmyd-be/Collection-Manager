@@ -12,7 +12,6 @@ import {TokenService} from "../Services/token.service";
 @Injectable()
 export class ServerInterceptor implements HttpInterceptor {
 
-  token: string;
 
   constructor(private tokenService: TokenService) {
     //this.tokenService.tokenChange().subscribe(data => { this.token = data.getValue(); });
@@ -25,7 +24,7 @@ export class ServerInterceptor implements HttpInterceptor {
 
     if (token != null && token.length > 0) {
       const updatedRequest = request.clone({
-        setHeaders: { Authorization: 'Bearer ' + this.token },
+        setHeaders: { Authorization: 'Bearer ' + token },
         url: environment.apiUrl + request.url,
       });
       return next.handle(updatedRequest);

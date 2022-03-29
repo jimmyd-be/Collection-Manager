@@ -14,10 +14,9 @@ import { environment } from '../environments/environment';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
 import { AppRoutingModule } from './app-routing.module';
-import { of as observableOf } from 'rxjs';
 import {CalendarModule} from "primeng/calendar";
 import {ConfigService} from "./Services/app.config.service";
-import {ConfirmationService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {MenuService} from "./Services/app.menu.service";
 import {ThemeModule} from "./theme/theme.module";
 
@@ -48,7 +47,8 @@ import {ThemeModule} from "./theme/theme.module";
     },
     ConfigService,
     ConfirmationService,
-    MenuService
+    MenuService,
+    MessageService
   ],
 })
 export class AppModule { }
