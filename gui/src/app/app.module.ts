@@ -20,6 +20,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {MenuService} from "./Services/app.menu.service";
 import {ThemeModule} from "./theme/theme.module";
 import {DialogService} from "primeng/dynamicdialog";
+import {AuthInterceptor} from "./Interceptors/auth-interceptor";
 
 
 @NgModule({
@@ -44,6 +45,11 @@ import {DialogService} from "primeng/dynamicdialog";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
     },
     ConfigService,

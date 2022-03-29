@@ -14,7 +14,6 @@ export class ServerInterceptor implements HttpInterceptor {
 
 
   constructor(private tokenService: TokenService) {
-    //this.tokenService.tokenChange().subscribe(data => { this.token = data.getValue(); });
   }
 
   intercept(request: HttpRequest<any>,
