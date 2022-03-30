@@ -168,6 +168,7 @@ public class ItemControllerIT {
         assertEquals(HttpStatus.NOT_FOUND, getByIdResult.getStatusCode());
     }
 
+    @Disabled
     @Order(5)
     @Test
     public void searchImdbMovieTest() {
