@@ -2,48 +2,51 @@
 
   <div class="grid">
     <div class="md:col-2 layoutSwitchers">
-      <a (click)="changeView('list')">
-        <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView==='list'}" class="fa-2x"></fa-icon>
-      </a>
 
-      <a (click)="changeView('cards')">
-        <fa-icon [icon]="cardIcon" [ngClass]="{'activeItem': currentView==='cards'}" class="fa-2x"></fa-icon>
-      </a>
+      <button pButton type="button" (click)="changeView('list')" icon="pi pi-table" class="p-button-text p-button-lg">
+      </button>
+
+      <button pButton type="button" (click)="changeView('cards')" icon="pi pi-list" class="p-button-text p-button-lg">
+      </button>
 
     </div>
     <div *ngIf="collection" class="md:col-8 sm:col-12 collectionText">
       {{collection.name}}
     </div>
     <div class="md:col-2 sm:col-12">
-      <input (keyup)="search($event)" class="searchBar" placeholder="Search" type="text"/>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search" (keyup)="search($event)">
+      </span>
+
     </div>
   </div>
 
 
-  <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="itemList row"
-       infiniteScroll>
+  <!--  <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="itemList row"-->
+  <!--       infiniteScroll>-->
 
-    <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
-      <p-accordion>
-          <p-accordionTab *ngFor="let item of items" header="{{item.name}}">
-            <app-view-item [fields]="fields" [item]="item"></app-view-item>
+  <!--    <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">-->
+  <!--      <p-accordion>-->
+  <!--          <p-accordionTab *ngFor="let item of items" header="{{item.name}}">-->
+  <!--            <app-view-item [fields]="fields" [item]="item"></app-view-item>-->
 
-            <button pButton class="p-button-warning" size="small" (click)="editItem(item)">Edit item</button>
+  <!--            <button pButton class="p-button-warning" size="small" (click)="editItem(item)">Edit item</button>-->
 
-            <button pButton class="p-button-danger" size="small" (click)="deleteItem(item)">Remove from collection</button>
+  <!--            <button pButton class="p-button-danger" size="small" (click)="deleteItem(item)">Remove from collection</button>-->
 
-          </p-accordionTab>
-      </p-accordion>
-    </div>
+  <!--          </p-accordionTab>-->
+  <!--      </p-accordion>-->
+  <!--    </div>-->
 
-    <div *ngIf="currentView === 'cards'">
-      <div (click)="openModal(item)" *ngFor="let item of items" class="card itemCard">
+  <!--    <div *ngIf="currentView === 'cards'">-->
+  <!--      <div (click)="openModal(item)" *ngFor="let item of items" class="card itemCard">-->
 
-        <img alt="Cover" class="card-img-top itemCardImage" src="{{getImage(item)}}">
-        <div class="card-body itemCardBody">
-          <h6 class="card-title">{{item.name}}</h6>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <!--        <img alt="Cover" class="card-img-top itemCardImage" src="{{getImage(item)}}">-->
+  <!--        <div class="card-body itemCardBody">-->
+  <!--          <h6 class="card-title">{{item.name}}</h6>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</div>-->

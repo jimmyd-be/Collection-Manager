@@ -1,22 +1,7 @@
-<p-card>
-  <ng-template pTemplate="title">Share collection to</ng-template>
-  <ng-template pTemplate="content">
-    <form [formGroup]="form">
-      <input formControlName="userName" pInputText placeholder="User name of the user" type="text">
+<form [formGroup]="form">
+  <input formControlName="userName" pInputText placeholder="User name of the user" type="text">
 
-      <p-dropdown formControlName="role" [options]="roles" optionLabel="name" optionValue="name"></p-dropdown>
+  <p-dropdown formControlName="role" [options]="roles" optionLabel="name" optionValue="name"></p-dropdown>
 
-    </form>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <button (click)="share()"
-            size="medium"
-            pButton
-            class="p-button-warning">Share
-    </button>
-    <button (click)="close()" pButton
-            size="medium"
-            class="p-button-danger">Cancel
-    </button>
-  </ng-template>
-</p-card>
+  <button (click)="share()" pButton class="p-button-warning">Share</button>
+</form>

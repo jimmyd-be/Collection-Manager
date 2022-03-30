@@ -42,7 +42,9 @@ export class ShareCollectionComponent implements OnInit {
 
   openDialog() {
 
-    this.dialogService.open(ShareCollectionDialogComponent, {data: {collectionId: this.collectionId}})
+    this.dialogService.open(ShareCollectionDialogComponent, {data: {collectionId: this.collectionId},
+          header: 'Share collection to',
+          height: '250px'})
       .onClose
       .subscribe(response => {
       this.collectionService.getUsers(this.collectionId).subscribe(data => this.userCollections = data);

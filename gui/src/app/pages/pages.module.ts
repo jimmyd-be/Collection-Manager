@@ -50,36 +50,38 @@ import {MessagesModule} from "primeng/messages";
 import { RegisterComponent } from './register/register.component';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {TableModule} from "primeng/table";
+import {VirtualScrollerModule} from "primeng/virtualscroller";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        PagesRoutingModule,
-        MiscellaneousModule,
-        FontAwesomeModule,
-        ReactiveFormsModule,
-        InputTextModule,
-        CheckboxModule,
-        CalendarModule,
-        InputNumberModule,
-        RadioButtonModule,
-        FormsModule,
-        InfiniteScrollModule,
-        RatingModule,
-        ToastModule,
-        ButtonModule,
-        CardModule,
-        AccordionModule,
-        RatingModule,
-        DialogModule,
-        SelectButtonModule,
-        RatingModule,
-        DropdownModule,
-        ThemeModule,
-        MessagesModule,
-        ConfirmDialogModule,
-        TableModule
-    ],
+  imports: [
+    CommonModule,
+    PagesRoutingModule,
+    MiscellaneousModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    CheckboxModule,
+    CalendarModule,
+    InputNumberModule,
+    RadioButtonModule,
+    FormsModule,
+    InfiniteScrollModule,
+    RatingModule,
+    ToastModule,
+    ButtonModule,
+    CardModule,
+    AccordionModule,
+    RatingModule,
+    DialogModule,
+    SelectButtonModule,
+    RatingModule,
+    DropdownModule,
+    ThemeModule,
+    MessagesModule,
+    ConfirmDialogModule,
+    TableModule,
+    VirtualScrollerModule
+  ],
   exports: [
   ],
   declarations: [
