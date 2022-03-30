@@ -22,6 +22,29 @@
     </div>
   </div>
 
+  <p-virtualScroller [value]="virtualItems" scrollHeight="500px" [rows]="50"
+                     [lazy]="true" (onLazyLoad)="onScroll($event)" >
+    <ng-template pTemplate="item" let-item >
+      <div class="product-item" (click)="openModal(item)">
+        <div class="image-container">
+          <img src="{{getImage(item)}}" [alt]="item.name" class="product-image" />
+        </div>
+        <div class="product-list-detail">
+          <h5 class="mb-2">{{item.name}}</h5>
+          <i class="pi pi-tag product-category-icon"></i>
+          <span class="product-category">{{getGenres(item)}}</span>
+        </div>
+        <div class="product-list-action">
+<!--          <h6 class="mb-2">${{product.price}}</h6>-->
+<!--          <span [class]="'product-badge status-'">test</span>-->
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-car pTemplate="loadingItem">
+      Loading...
+    </ng-template>
+  </p-virtualScroller>
+
 
   <!--  <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="itemList row"-->
   <!--       infiniteScroll>-->
@@ -39,14 +62,7 @@
   <!--      </p-accordion>-->
   <!--    </div>-->
 
-  <!--    <div *ngIf="currentView === 'cards'">-->
-  <!--      <div (click)="openModal(item)" *ngFor="let item of items" class="card itemCard">-->
 
-  <!--        <img alt="Cover" class="card-img-top itemCardImage" src="{{getImage(item)}}">-->
-  <!--        <div class="card-body itemCardBody">-->
-  <!--          <h6 class="card-title">{{item.name}}</h6>-->
-  <!--        </div>-->
-  <!--      </div>-->
   <!--    </div>-->
   <!--  </div>-->
   <!--</div>-->

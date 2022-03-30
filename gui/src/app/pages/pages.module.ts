@@ -11,7 +11,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomFieldFormComponent} from './add-item-manually/custom-field-form/custom-field-form.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ViewCollectionComponent} from './view-collection/view-collection.component';
-import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {ViewItemComponent} from './view-item/view-item.component';
 import {ItemFieldComponent} from './view-item/item-field/item-field.component';
 import {ImageWidgetComponent} from './view-item/item-field/image-widget/image-widget.component';
@@ -65,7 +64,6 @@ import {VirtualScrollerModule} from "primeng/virtualscroller";
     InputNumberModule,
     RadioButtonModule,
     FormsModule,
-    InfiniteScrollModule,
     RatingModule,
     ToastModule,
     ButtonModule,

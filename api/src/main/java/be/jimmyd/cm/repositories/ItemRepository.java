@@ -29,4 +29,10 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("SELECT DISTINCT i FROM Item i JOIN FETCH i.itemdata d JOIN i.collections c JOIN c.userCollections uc " +
             "WHERE uc.user.mail = :userMail AND (LOWER(d.fieldValue) LIKE  %:term% OR LOWER(i.name) LIKE %:term%)")
     List<Item> findBySearch(@Param("term") String searchTerm, @Param("userMail") String mail);
+
+    @Query("SELECT count(i) FROM Item i JOIN i.collections c WHERE c.id = :id and i.active = true")
+    int countByCollectionId(@Param("id") long collectionId);
+
+    @Query("SELECT count(i) FROM Item i JOIN i.collections c WHERE c.id = :id AND upper(i.name) LIKE %:queryName% and i.active = true")
+    int countByCollectionIdAndQuery(@Param("id") long collectionId,  @Param("queryName") String query);
 }

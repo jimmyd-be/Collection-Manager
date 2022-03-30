@@ -185,6 +185,15 @@ public class ItemService {
         return itemMapper.map(items);
     }
 
+    public int countItemsByCollection(long collectionId, String query) {
+
+        if (query == null || query.isBlank()) {
+            return itemRepository.countByCollectionId(collectionId);
+        } else {
+            return itemRepository.countByCollectionIdAndQuery(collectionId, query.toUpperCase());
+        }
+    }
+
     @Transactional
     public void deleteItemsWithoutCollection() {
         List<Item> items = itemRepository.findItemsWithoutCollection();

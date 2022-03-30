@@ -9,7 +9,7 @@ import {Item} from '../../Entities/item';
 import {FieldService} from '../../Services/field.service';
 import {ItemDialogComponent} from '../item-dialog/item-dialog.component';
 import {ItemFieldDirective} from '../../Entities/ItemField';
-import {ConfirmationService, MessageService} from "primeng/api";
+import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 
 @Component({
@@ -29,7 +29,8 @@ export class ViewCollectionComponent implements OnInit {
 
   collection: Collection;
   fields: CustomField[];
-  items: Item[] = Array();
+  // items: Item[] = Array();
+  virtualItems: Item[];
   searchValue = '';
 
   constructor(private route: ActivatedRoute,
@@ -59,13 +60,13 @@ export class ViewCollectionComponent implements OnInit {
   search(event: any) {
 
     this.searchValue = event.target.value;
-    this.items = [];
-
-    this.itemService.getItemOfCollection(this.id, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
-      for (const item of items) {
-        this.items.push(item);
-      }
-    });
+    // this.items = [];
+    //
+    // this.itemService.getItemOfCollection(this.id, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
+    //   for (const item of items) {
+    //     this.items.push(item);
+    //   }
+    // });
   }
 
   getImage(item: Item): string {
@@ -100,28 +101,35 @@ export class ViewCollectionComponent implements OnInit {
 
   deleteItem(item: Item) {
 
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to perform this action?',
-      accept: () => {
-        this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
-          this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
-          const index = this.items.indexOf(item, 0);
-          if (index > -1) {
-            this.items.splice(index, 1);
-          }
-        });
-      }
-    });
+    // this.confirmationService.confirm({
+    //   message: 'Are you sure that you want to perform this action?',
+    //   accept: () => {
+    //     this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
+    //       this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
+    //       const index = this.items.indexOf(item, 0);
+    //       if (index > -1) {
+    //         this.items.splice(index, 1);
+    //       }
+    //     });
+    //   }
+    // });
 
   }
 
-  onScroll() {
+  onScroll(event: LazyLoadEvent) {
     this.currentPage += 1;
 
-    this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
-      for (const item of items) {
+    this.itemService.getItemOfCollection(this.collection.id, event.first, event.rows + event.first, this.searchValue).subscribe(items => {
+      /*for (const item of items) {
         this.items.push(item);
-      }
+      }*/
+
+      var loadedItems = items.slice(event.first, event.first + event.rows);
+      //populate page of virtual cars
+      Array.prototype.splice.apply(this.virtualItems, [...[event.first, event.rows], ...loadedItems]);
+
+      //trigger change detection
+      this.virtualItems = [...this.virtualItems];
     });
 
   }
@@ -133,6 +141,10 @@ export class ViewCollectionComponent implements OnInit {
 
       this.id = currentId;
 
+      this.itemService.countItemOfCollection(this.id).subscribe(count =>
+        this.virtualItems = Array.from({length: count})
+      );
+
       this.fieldService.getFieldsByCollection(currentId).subscribe(data => {
         this.fields = data;
       });
@@ -141,14 +153,23 @@ export class ViewCollectionComponent implements OnInit {
         this.collection = data;
       });
 
-      this.items = [];
-
-      this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
-        for (const item of items) {
-          this.items.push(item);
-        }
-      });
+      // this.items = [];
+      //
+      // this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
+      //   for (const item of items) {
+      //     this.items.push(item);
+      //   }
+      // });
     }
   }
 
+  getGenres(item: Item) {
+
+    let genreField = this.fields.filter(field => field.name==="genre");
+
+    return item.data
+      .filter(data => data.fieldId === genreField[0].id)
+      .map(data => data.value)
+      .join(", ");
+  }
 }
