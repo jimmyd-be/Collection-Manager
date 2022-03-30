@@ -3,11 +3,11 @@
 
   <div [ngSwitch]="field.type" class="form-group row">
 
-    <div class="col-sm-1 inputLabel">
+    <div class="sm:col-1 inputLabel">
       <label *ngIf="field.type !== 'checkBox'" [attr.for]="field.name">{{field.label}}</label>
     </div>
 
-    <div class="col-sm-10">
+    <div class="sm:col-10">
       <input *ngSwitchCase="'text'" [formControlName]="field.formId" [id]="field.formId" [placeholder]="field.placeholder" [type]="field.type"
              fullWidth pInputText>
 
@@ -38,18 +38,18 @@
       </div>
 
       <div *ngSwitchCase="'url'" class="grid">
-        <div class="col-sm-6">
+        <div class="sm:col-6">
           <input [formControlName]="field.formId" [id]="field.formId" fullWidth pInputText pattern="https?://.+"
                  placeholder="Place full URL" type="url">
         </div>
-        <div class="col-sm-6">
+        <div class="sm:col-6">
           <input [type]="field.type" [formControlName]="field.formId+'_label'" fullWidth [id]="field.formId+'_label'"
                  pInputText placeholder="Give a name for the URL">
         </div>
       </div>
     </div>
 
-    <div *ngIf="field.multivalues" class="col-sm-1">
+    <div *ngIf="field.multivalues" class="sm:col-1">
 
       <a (click)="addField()">
         <fa-icon [icon]="addIcon"></fa-icon>

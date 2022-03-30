@@ -3,27 +3,27 @@
 
   <ng-template pTemplate="content">
 
-    <table class="table">
-      <thead class="headerTable">
-      <tr>
-        <th scope="col">User</th>
-        <th scope="col">Role</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let col of userCollections">
-        <td>{{col.userName}}</td>
-        <td>{{col.roleName}}</td>
-        <td>
-          <a (click)="deleteUser(col.userId)">
-            <fa-icon [icon]="removeIcon"></fa-icon>
-          </a>
-        </td>
-      </tr>
-
-      </tbody>
-    </table>
+    <p-table [value]="userCollections" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-userCollection>
+        <tr>
+          <td>{{userCollection.userName}}</td>
+          <td>{{userCollection.roleName}}</td>
+          <td>
+            <button pButton class="p-button-rounded p-button-icon-only p-button-danger"
+                    (click)="deleteUser(userCollection.userId)">
+              <fa-icon class="fas faTrash fa-lg" [icon]="removeIcon"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
 
   </ng-template>
 

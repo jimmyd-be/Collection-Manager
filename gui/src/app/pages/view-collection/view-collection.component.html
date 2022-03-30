@@ -11,10 +11,10 @@
       </a>
 
     </div>
-    <div *ngIf="collection" class="md:col-8 col-sm-12 collectionText">
+    <div *ngIf="collection" class="md:col-8 sm:col-12 collectionText">
       {{collection.name}}
     </div>
-    <div class="md:col-2 col-sm-12">
+    <div class="md:col-2 sm:col-12">
       <input (keyup)="search($event)" class="searchBar" placeholder="Search" type="text"/>
     </div>
   </div>

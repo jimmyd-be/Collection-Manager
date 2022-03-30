@@ -3,12 +3,11 @@
 
   <ng-template pTemplate="content">
 
-    <p-dropdown [options]="collectionList" (onChange)="collectionSelectionChanged($event)" optionValue="id" optionLabel="name"></p-dropdown>
+    <p-dropdown [options]="collectionList" [(ngModel)]="collectionId" optionValue="id" optionLabel="name"></p-dropdown>
 
-    <input (keyup)="onKey($event)" fieldSize="medium" pInputText placeholder="Input" type="text">
+    <input (keyup)="onKey($event)" pInputText placeholder="Input" type="text">
 
-    <button (click)="searchItems()" size="medium" pButton>Search
-    </button>
+    <button (click)="searchItems()"  pButton>Search</button>
 
 
   </ng-template>

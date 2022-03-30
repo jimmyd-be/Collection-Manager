@@ -24,12 +24,11 @@ export class AddItemExternallyComponent implements OnInit {
   ngOnInit() {
     this.collectionService.getUserCollections().subscribe(data => {
       this.collectionList = data;
+
+      if (this.collectionId === 0) {
+        this.collectionId = this.collectionList[0].id;
+      }
     });
-  }
-
-  collectionSelectionChanged(collectionId: number) {
-
-    this.collectionId = collectionId;
   }
 
   searchItems() {

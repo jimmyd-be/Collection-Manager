@@ -51,6 +51,7 @@ import {LoginComponent} from "./login/login.component";
 import {MessagesModule} from "primeng/messages";
 import { RegisterComponent } from './register/register.component';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {TableModule} from "primeng/table";
 
 @NgModule({
     imports: [
@@ -79,7 +80,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         DropdownModule,
         ThemeModule,
         MessagesModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        TableModule
     ],
   exports: [
   ],
