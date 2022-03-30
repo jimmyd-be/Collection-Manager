@@ -84,7 +84,17 @@ export class ViewCollectionComponent implements OnInit {
   }
 
   openModal(item: Item) {
-    this.dialogService.open(ItemDialogComponent, {data: new ItemFieldDirective(item, this.fields, this.collection)})
+
+    let itemFieldDirective = new ItemFieldDirective(item, this.fields, this.collection);
+
+    this.dialogService.open(ItemDialogComponent, {
+      data: {
+        itemFieldDirective: itemFieldDirective
+      },
+      width: "70%",
+      dismissableMask: true,
+      header: item.name
+    })
       .onClose.subscribe(
       data => {
         if (data === 'delete') {

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Item} from '../../../Entities/item';
 import {CustomField} from '../../../Entities/custom-field';
 import {ItemData} from '../../../Entities/ItemData';
@@ -8,12 +8,22 @@ import {ItemData} from '../../../Entities/ItemData';
   templateUrl: './item-field.component.html',
   styleUrls: ['./item-field.component.scss'],
 })
-export class ItemFieldComponent {
+export class ItemFieldComponent implements OnInit{
 
   @Input() item: Item;
   @Input() field: CustomField;
 
+  rating: number;
+
   constructor() {
+  }
+
+  ngOnInit() {
+    if(this.getItemValue().length > 0) {
+      this.rating = parseInt(this.getItemValue()[0]);
+    } else {
+      this.rating = 0;
+    }
   }
 
   getItemValue(): string[] {

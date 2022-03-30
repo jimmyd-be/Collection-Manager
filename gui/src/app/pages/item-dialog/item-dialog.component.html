@@ -1,12 +1,10 @@
-<p-card>
-  <ng-template pTemplate="title">{{item.name}}
+<app-view-item [fields]="itemFieldDirective.field" [item]="itemFieldDirective.item"></app-view-item>
 
-  </ng-template>
-  <ng-template pTemplate="content">
-    <app-view-item [fields]="field" [item]="item"></app-view-item>
 
-  <button pButton class="warning" size="small"  (click)="editItem()">Edit item</button>
+<button pButton class="p-button-rounded p-button-icon-only p-button-warning" (click)="editItem()">
+  <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
+</button>
 
-  <button pButton status="danger" size="small" (click)="deleteItem()">Remove from collection</button>
-  </ng-template>
-</p-card>
+<button pButton class="p-button-rounded p-button-icon-only p-button-danger" (click)="deleteItem()">
+  <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
+</button>
