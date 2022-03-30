@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ServerInterceptor } from './Interceptors/server-interceptor';
-import { RatingModule } from 'ng-starrating';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -19,6 +18,7 @@ import {MenuService} from "./Services/app.menu.service";
 import {ThemeModule} from "./theme/theme.module";
 import {DialogService} from "primeng/dynamicdialog";
 import {AuthInterceptor} from "./Interceptors/auth-interceptor";
+import {RatingModule} from "primeng/rating";
 
 
 @NgModule({

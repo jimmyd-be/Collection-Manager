@@ -15,9 +15,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {ViewItemComponent} from './view-item/view-item.component';
 import {ItemFieldComponent} from './view-item/item-field/item-field.component';
 import {ImageWidgetComponent} from './view-item/item-field/image-widget/image-widget.component';
-import {RateWidgetComponent} from './view-item/item-field/rate-widget/rate-widget.component';
 import {DefaultWidgetComponent} from './view-item/item-field/default-widget/default-widget.component';
-import {RatingModule as RatingModuleNG} from 'ng-starrating';
 import {ItemDialogComponent} from './item-dialog/item-dialog.component';
 import {ViewUserComponent} from './view-user/view-user.component';
 import {EditUserComponent} from './edit-user/edit-user.component';
@@ -76,7 +74,6 @@ import {TableModule} from "primeng/table";
         DialogModule,
         SelectButtonModule,
         RatingModule,
-        RatingModuleNG,
         DropdownModule,
         ThemeModule,
         MessagesModule,
@@ -97,7 +94,6 @@ import {TableModule} from "primeng/table";
     ViewItemComponent,
     ItemFieldComponent,
     ImageWidgetComponent,
-    RateWidgetComponent,
     DefaultWidgetComponent,
     ItemDialogComponent,
     ViewUserComponent,

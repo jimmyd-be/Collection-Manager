@@ -5,7 +5,7 @@
   <span [ngSwitch]="field.widget">
     <app-image-widget *ngSwitchCase="'image'" [value]="getItemValue()"></app-image-widget>
     <app-default-widget *ngSwitchCase="'default'" [value]="getItemValue()"></app-default-widget>
-    <app-rate-widget *ngSwitchCase="'rate'" [value]="getItemValue()"></app-rate-widget>
+    <p-rating *ngSwitchCase="'rate'" [ngModel]="getItemValue()" readonly="true"></p-rating>
     <app-email-widget *ngSwitchCase="'email'" [value]="getItemValue()"></app-email-widget>
     <app-url-widget *ngSwitchCase="'url'" [value]="getItemValue()"></app-url-widget>
     <app-default-widget *ngSwitchDefault [value]="getItemValue()"></app-default-widget>
