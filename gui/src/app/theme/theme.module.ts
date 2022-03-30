@@ -11,6 +11,7 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {AppMenuComponent} from "./app-menu/app-menu.component";
 import {FormsModule} from "@angular/forms";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ToastModule} from "primeng/toast";
 
 
 
@@ -31,7 +32,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         RouterModule,
         InputSwitchModule,
         FormsModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        ToastModule
     ]
 })
 export class ThemeModule { }
