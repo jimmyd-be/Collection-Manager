@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AppMainComponent} from '../app-main/app-main.component';
+import {CollectionService} from "../../Services/collection.service";
+import {MenuItem} from 'primeng/api';
+import {Collection} from "../../Entities/collection";
+
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +13,7 @@ export class AppMenuComponent implements OnInit {
 
   model: any[];
 
-  constructor(public appMain: AppMainComponent) {
+  constructor(private collectionService: CollectionService) {
   }
 
   ngOnInit() {
@@ -34,15 +38,52 @@ export class AppMenuComponent implements OnInit {
           {label: 'Settings', icon: 'pi pi-fw pi-cog', routerLink: ['/pages/admin/settings']},
           {label: 'Users', icon: 'pi pi-fw pi-users', routerLink: ['/pages/admin/users']},
         ]
-      },
-      {
-        label: 'Collections',
-        items: [
-          {label: 'PrimeIcons', icon: 'pi pi-fw pi-prime', routerLink: ['/icons']},
-          {label: 'PrimeFlex', icon: 'pi pi-fw pi-desktop', url: ['https://www.primefaces.org/primeflex/']},
-        ]
       }
     ];
+
+
+
+    this.collectionService.getUserCollections()
+      .subscribe(collections => {
+
+        let collectionMenuItems: MenuItem = {
+          label: "Collections",
+          items: this.getItemByCollections(collections)
+        };
+        this.model.push(collectionMenuItems);
+      })
+
+  }
+
+  private getItemByCollections(collections: Collection[]) {
+
+    let items = [];
+
+    collections.forEach(collection => {
+      let item: MenuItem = {
+        label: collection.name,
+        icon: this.getIcon(collection.type),
+        routerLink: ['/pages/collection/view/' + collection.id]
+      };
+
+      items.push(item);
+    });
+
+
+    return items;
+  }
+
+  private getIcon(type: string) {
+
+    switch (type){
+      case "Books": return "pi pi-fw pi-book";
+      case "Games":
+      case "Movies":
+      case "Comics":
+      case "Magazines":
+    }
+
+    return "";
   }
 
   onKeydown(event: KeyboardEvent) {
