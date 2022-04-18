@@ -3,11 +3,11 @@
   <div class="grid">
     <div class="md:col-2 layoutSwitchers">
 
-      <button pButton type="button" (click)="changeView('list')" icon="pi pi-table" class="p-button-text p-button-lg">
+      <!--<button pButton type="button" (click)="changeView('cards')" icon="pi pi-table" class="p-button-text p-button-lg">
       </button>
 
-      <button pButton type="button" (click)="changeView('cards')" icon="pi pi-list" class="p-button-text p-button-lg">
-      </button>
+      <button pButton type="button" (click)="changeView('list')" icon="pi pi-list" class="p-button-text p-button-lg">
+      </button>-->
 
     </div>
     <div *ngIf="collection" class="md:col-8 sm:col-12 collectionText">
@@ -22,10 +22,10 @@
     </div>
   </div>
 
-  <p-virtualScroller [value]="virtualItems" scrollHeight="500px" [rows]="50"
+  <p-virtualScroller [value]="virtualItems" scrollHeight="{{screenHeight-230}}px" [rows]="50"
                      [lazy]="true" (onLazyLoad)="onScroll($event)" >
     <ng-template pTemplate="item" let-item >
-      <div class="product-item" (click)="openModal(item)">
+      <div class="product-item" (click)="openModal(item)" *ngIf="currentView === 'list'">
         <div class="image-container">
           <img src="{{getImage(item)}}" [alt]="item.name" class="product-image" />
         </div>
@@ -44,25 +44,3 @@
       Loading...
     </ng-template>
   </p-virtualScroller>
-
-
-  <!--  <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="itemList row"-->
-  <!--       infiniteScroll>-->
-
-  <!--    <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">-->
-  <!--      <p-accordion>-->
-  <!--          <p-accordionTab *ngFor="let item of items" header="{{item.name}}">-->
-  <!--            <app-view-item [fields]="fields" [item]="item"></app-view-item>-->
-
-  <!--            <button pButton class="p-button-warning" size="small" (click)="editItem(item)">Edit item</button>-->
-
-  <!--            <button pButton class="p-button-danger" size="small" (click)="deleteItem(item)">Remove from collection</button>-->
-
-  <!--          </p-accordionTab>-->
-  <!--      </p-accordion>-->
-  <!--    </div>-->
-
-
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--</div>-->

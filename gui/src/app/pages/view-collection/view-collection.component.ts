@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CollectionService} from '../../Services/collection.service';
 import {CustomField} from '../../Entities/custom-field';
@@ -32,6 +32,7 @@ export class ViewCollectionComponent implements OnInit {
   // items: Item[] = Array();
   virtualItems: Item[];
   searchValue = '';
+  screenHeight: number;
 
   constructor(private route: ActivatedRoute,
               private collectionService: CollectionService,
@@ -44,7 +45,7 @@ export class ViewCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.screenHeight = window.innerHeight;
     if (localStorage.getItem('collectionView') !== null) {
       this.currentView = localStorage.getItem('collectionView');
     }
@@ -55,6 +56,11 @@ export class ViewCollectionComponent implements OnInit {
     this.router.events.subscribe((val) => {
       this.loadData();
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenHeight = window.innerHeight;
   }
 
   search(event: any) {

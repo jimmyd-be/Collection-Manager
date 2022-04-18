@@ -4,75 +4,39 @@
 }
 
 
-  fa-icon {
-    margin: 5px;
-  }
+fa-icon {
+  margin: 5px;
+}
 
-  .collectionText {
-    text-align: center;
-    font-size: 32px;
-    //color: nb-theme(text-basic-color);
-    margin-bottom: 20px;
-  }
+.collectionText {
+  text-align: center;
+  font-size: 32px;
+  //color: nb-theme(text-basic-color);
+  margin-bottom: 20px;
+}
 
-  .activeItem {
-    //color: nb-theme(text-alternate-color);
-  }
 
-  .itemList {
-    //color: nb-theme(text-basic-color);
-  }
 
-  .row {
-    margin-top: 20px;
-  }
+.searchBar {
+  float: right;
+  width: 100%;
+  /*background-color: nb-theme(background-basic-color-1);
+  color: nb-theme(text-basic-color);
+  border-color: nb-theme(border-basic-color-1);*/
+}
 
-  .card {
-    display: inline-block;
-    width: 200px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-  }
 
+
+
+@media only screen and (max-width: 600px) {
+  .layoutSwitchers{
+    display: none;
+  }
   .searchBar {
-    float: right;
-    width: 100%;
-    /*background-color: nb-theme(background-basic-color-1);
-    color: nb-theme(text-basic-color);
-    border-color: nb-theme(border-basic-color-1);*/
+    float: none;
   }
 
-  .itemCardImage {
-    height: 293px;
-  }
-
-  .itemCardBody {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* number of lines to show */
-    -webkit-box-orient: vertical;
-  }
-
-  .card-title {
-    height: 72px;
-  }
-
-  .itemCard {
-   // background-color: nb-theme(background-basic-color-1);
-  }
-
-  @media only screen and (max-width: 600px) {
-    .layoutSwitchers{
-      display: none;
-    }
-    .searchBar {
-      float: none;
-    }
-
-  }
-
-
+}
 
 .product-item {
   display: flex;
