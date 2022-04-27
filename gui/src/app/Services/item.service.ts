@@ -39,7 +39,7 @@ export class ItemService {
     return this.http.post('/item/external/add/collection/' + collectionId + '/' + source + '/' + externalId, '');
   }
 
-  countItemOfCollection(collectionId: number): Observable<any> {
-    return this.http.get('/item/count/collection/' + collectionId);
+  countItemOfCollection(collectionId: number, search: string): Observable<any> {
+    return this.http.get('/item/count/collection/' + collectionId + '?search=' + search);
   }
 }

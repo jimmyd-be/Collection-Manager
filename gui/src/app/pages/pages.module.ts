@@ -50,6 +50,7 @@ import { RegisterComponent } from './register/register.component';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {TableModule} from "primeng/table";
 import {VirtualScrollerModule} from "primeng/virtualscroller";
+import {DataViewModule} from "primeng/dataview";
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import {VirtualScrollerModule} from "primeng/virtualscroller";
     MessagesModule,
     ConfirmDialogModule,
     TableModule,
-    VirtualScrollerModule
+    VirtualScrollerModule,
+    DataViewModule
   ],
   exports: [
   ],
