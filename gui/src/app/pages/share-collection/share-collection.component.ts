@@ -8,6 +8,7 @@ import {ShareCollectionDialogComponent} from '../share-collection-dialog/share-c
 import {UserCollection} from '../../Entities/UserCollection';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {DialogService} from "primeng/dynamicdialog";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-share-collection',
@@ -25,7 +26,8 @@ export class ShareCollectionComponent implements OnInit {
   constructor(private collectionService: CollectionService,
               private roleService: RoleService,
               private route: ActivatedRoute,
-              public dialogService: DialogService) {
+              public dialogService: DialogService,
+              private confirmationService: ConfirmationService) {
   }
 
   ngOnInit() {
@@ -52,8 +54,14 @@ export class ShareCollectionComponent implements OnInit {
   }
 
   deleteUser(userId: number) {
-    this.collectionService.deleteUserFromCollection(userId, this.collectionId).subscribe(d =>
-      this.collectionService.getUsers(this.collectionId).subscribe(data => this.userCollections = data));
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.collectionService.deleteUserFromCollection(userId, this.collectionId).subscribe(d =>
+          this.collectionService.getUsers(this.collectionId).subscribe(data => this.userCollections = data));
+      }
+    });
+
   }
 
 }
