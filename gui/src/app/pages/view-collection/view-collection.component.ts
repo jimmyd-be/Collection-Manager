@@ -115,18 +115,18 @@ export class ViewCollectionComponent implements OnInit {
 
   deleteItem(item: Item) {
 
-    // this.confirmationService.confirm({
-    //   message: 'Are you sure that you want to perform this action?',
-    //   accept: () => {
-    //     this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
-    //       this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
-    //       const index = this.items.indexOf(item, 0);
-    //       if (index > -1) {
-    //         this.items.splice(index, 1);
-    //       }
-    //     });
-    //   }
-    // });
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
+          this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
+          const index = this.virtualItems.indexOf(item, 0);
+          if (index > -1) {
+            this.virtualItems.splice(index, 1);
+          }
+        });
+      }
+    });
 
   }
 
@@ -136,23 +136,18 @@ export class ViewCollectionComponent implements OnInit {
 
     let first = event.first;
     let rows = event.rows;
+    this.loadItems(collectionId, first, rows);
 
+  }
+
+  private loadItems(collectionId: number, first: number, rows: number) {
     this.itemService.getItemOfCollection(collectionId, first, rows + first, this.searchValue).subscribe(items => {
-
       this.virtualItems = items;
-      //var loadedItems = items.slice(first, first + rows);
-      //populate page of virtual cars
-      //Array.prototype.splice.apply(this.virtualItems, [...[first, rows], ...loadedItems]);
-
-      //trigger change detection
-      //this.virtualItems = [...this.virtualItems];
     });
-
   }
 
   private loadData() {
     const currentId = Number(this.route.snapshot.paramMap.get('id'));
-
     this.id = currentId;
 
     this.itemService.countItemOfCollection(this.id, this.searchValue).subscribe(count =>
@@ -166,7 +161,7 @@ export class ViewCollectionComponent implements OnInit {
     this.collectionService.getUserCollection(currentId).subscribe(data => {
       this.collection = data;
     });
-
+    this.loadItems(this.id, 0, 50);
   }
 
   getGenres(item: Item) {

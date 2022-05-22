@@ -15,68 +15,35 @@
     <ng-template let-item pTemplate="listItem">
       <div class="col-12" (click)="openModal(item)">
         <div class="product-list-item">
-            <img src="{{getImage(item)}}" [alt]="item.name" class="product-image"/>
+          <img src="{{getImage(item)}}" [alt]="item.name" class="product-image"/>
           <div class="product-list-detail">
             <div class="product-name">{{item.name}}</div>
-            <!--          <div class="product-description">{{product.description}}</div>-->
-            <!--          <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
-                      <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{this.getGenres(item)}}</span>
+            <i class="pi pi-tag product-category-icon"></i><span
+            class="product-category">{{this.getGenres(item)}}</span>
           </div>
           <div class="product-list-action">
-            <!--          <span class="product-price">${{product.price}}</span>-->
-            <!--          <p-button icon="pi pi-shopping-cart" label="Add to Cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>-->
-            <!--          <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>-->
           </div>
         </div>
       </div>
     </ng-template>
     <ng-template let-item pTemplate="gridItem">
-      <div class="col-2">
+      <div class="col-2" (click)="openModal(item)">
         <div class="product-grid-item card">
           <img src="{{getImage(item)}}" [alt]="item.name" class="product-image"/>
 
           <div class="product-grid-item-top">
             <div>
-
-              <i class="pi pi-tag product-category-icon"></i>
-                            <span class="product-category">{{this.getGenres(item)}}</span>
             </div>
-            <!--            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>-->
           </div>
           <div class="product-grid-item-content">
             <div class="product-name">{{item.name}}</div>
-            <!--            <div class="product-description">{{product.description}}</div>-->
-            <!--            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
+            <i class="pi pi-tag product-category-icon"></i>
+            <span class="product-category">{{this.getGenres(item)}}</span>
           </div>
           <div class="product-grid-item-bottom">
-            <!--            <span class="product-price">${{product.price}}</span>-->
-            <!--            <p-button icon="pi pi-shopping-cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>-->
           </div>
         </div>
       </div>
     </ng-template>
   </p-dataView>
-
-  <!--  <p-virtualScroller  #vs [value]="virtualItems" scrollHeight="{{screenHeight-230}}px" [rows]="50"-->
-  <!--                     [lazy]="true" (onLazyLoad)="onScroll($event)" >-->
-  <!--    <ng-template pTemplate="item" let-item >-->
-  <!--      <div class="product-item" (click)="openModal(item)" *ngIf="currentView === 'list'">-->
-  <!--        <div class="image-container">-->
-  <!--          <img src="{{getImage(item)}}" [alt]="item.name" class="product-image" />-->
-  <!--        </div>-->
-  <!--        <div class="product-list-detail">-->
-  <!--          <h5 class="mb-2">{{item.name}}</h5>-->
-  <!--          <i class="pi pi-tag product-category-icon"></i>-->
-  <!--          <span class="product-category">{{getGenres(item)}}</span>-->
-  <!--        </div>-->
-  <!--        <div class="product-list-action">-->
-  <!--&lt;!&ndash;          <h6 class="mb-2">${{product.price}}</h6>&ndash;&gt;-->
-  <!--&lt;!&ndash;          <span [class]="'product-badge status-'">test</span>&ndash;&gt;-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </ng-template>-->
-  <!--    <ng-template let-car pTemplate="loadingItem">-->
-  <!--      Loading...-->
-  <!--    </ng-template>-->
-  <!--  </p-virtualScroller>-->
 </div>
