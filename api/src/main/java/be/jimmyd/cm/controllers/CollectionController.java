@@ -1,6 +1,7 @@
 package be.jimmyd.cm.controllers;
 
 import be.jimmyd.cm.domain.enums.Permission;
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.service.CollectionService;
 import be.jimmyd.cm.domain.service.CollectionTypeService;
@@ -110,6 +111,9 @@ public class CollectionController {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.ADMIN);
             userCollectionService.deleteUserFromCollection(collectionId, userId);
         } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        } catch (OneActiveAdminNeededException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

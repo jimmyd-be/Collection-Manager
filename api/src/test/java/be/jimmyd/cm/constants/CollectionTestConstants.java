@@ -3,6 +3,7 @@ package be.jimmyd.cm.constants;
 import be.jimmyd.cm.entities.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionTestConstants {
@@ -23,14 +24,18 @@ public class CollectionTestConstants {
     public static final String FIELD_TYPE = "Checkbox";
     public static final long USER_ID = 12L;
     public static final long USER_COLLECTION_ID = 13L;
+    public static final long USER_COLLECTION_ID_2 = 14L;
+    private static final long USER_ID_2 = 14L;
     public static final String THEME = "default";
     public static final String USER_MAIL = "test@test.com";
+    public static final String USER_MAIL_2 = "test2@test.com";
     public static final String USER_NAME = "user 1";
+    public static final String USER_NAME_2 = "user 2";
     public static final String USER_PASSWORD = "SecurePassword";
     public static final String ANOTHER_USER_PASSWORD = "AnotherSecurePassword";
     public static final LocalDate USER_CREATION_DATE = LocalDate.now();
     public static final int ROLE_ID = 25;
-    public static final String ROLE_NAME = "Editor";
+    public static final String ROLE_NAME = "Admin";
     public static final int FIELD_TYPE_ID = 111;
     public static final String COLLECTION_NAME = "New collection";
     public static final long COLLECTION_ID = 5L;
@@ -79,6 +84,31 @@ public class CollectionTestConstants {
                 .withRole(role())
                 .withId(USER_COLLECTION_ID)
                 .build();
+    }
+
+    public static List<UserCollection> userCollections() {
+        List<UserCollection> userCollections = new ArrayList<>();
+
+        userCollections.add(new UserCollection.Builder()
+                .withUser(user())
+                .withRole(role())
+                .withId(USER_COLLECTION_ID)
+                .build());
+        userCollections.add(new UserCollection.Builder()
+                .withUser(new User.Builder()
+                        .withId(USER_ID_2)
+                        .withIsAdmin(false)
+                        .withTheme(THEME)
+                        .withActive(true)
+                        .withMail(USER_MAIL_2)
+                        .withUsername(USER_NAME_2)
+                        .withUserPassword(USER_PASSWORD)
+                        .build())
+                .withRole(role())
+                .withId(USER_COLLECTION_ID_2)
+                .build());
+
+        return userCollections;
     }
 
     public static UserCollection userCollectionWithCollection() {

@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionMapper;
 import be.jimmyd.cm.domain.mappers.FieldMapper;
@@ -77,7 +78,7 @@ class CollectionServiceTest {
     }
 
     @Test
-    void deleteById() throws UserPermissionException {
+    void deleteById() throws UserPermissionException, OneActiveAdminNeededException {
         when(collectionRepository.findById(COLLECTION_ID)).thenReturn(Optional.of(collection()));
 
         collectionService.deleteById(COLLECTION_ID);
@@ -148,7 +149,7 @@ class CollectionServiceTest {
     }
 
     @Test
-    void deleteWithoutLink() throws UserPermissionException {
+    void deleteWithoutLink() throws UserPermissionException, OneActiveAdminNeededException {
         when(collectionRepository.findById(COLLECTION_ID)).thenReturn(Optional.of(collection()));
         when(collectionRepository.getWithoutLink()).thenReturn(List.of(collection()));
 

@@ -80,6 +80,8 @@ public class UserService {
                 userCollectionService.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
             } catch (UserPermissionException e) {
                 e.printStackTrace();
+            } catch (OneActiveAdminNeededException e) {
+                e.printStackTrace();
             }
         });
 

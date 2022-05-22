@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionMapper;
 import be.jimmyd.cm.domain.mappers.FieldMapper;
@@ -77,6 +78,8 @@ public class CollectionService {
                 try {
                     userCollectionService.deleteUserFromCollection(collectionId, userCollection.getUser().getId());
                 } catch (UserPermissionException e) {
+                    e.printStackTrace();
+                } catch (OneActiveAdminNeededException e) {
                     e.printStackTrace();
                 }
             });
