@@ -76,7 +76,7 @@ public class CollectionService {
         collectionRepository.findById(collectionId).ifPresent(collection -> {
             collection.getUserCollections().forEach(userCollection -> {
                 try {
-                    userCollectionService.deleteUserFromCollection(collectionId, userCollection.getUser().getId());
+                    userCollectionService.deleteUserFromCollection(collectionId, userCollection.getUser().getId(), true);
                 } catch (UserPermissionException e) {
                     e.printStackTrace();
                 } catch (OneActiveAdminNeededException e) {

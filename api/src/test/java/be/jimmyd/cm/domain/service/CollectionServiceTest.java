@@ -83,7 +83,7 @@ class CollectionServiceTest {
 
         collectionService.deleteById(COLLECTION_ID);
 
-        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID);
+        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID, true);
         verify(collectionRepository, times(1)).deleteNative(COLLECTION_ID);
         verify(itemService, times(1)).deleteItemsWithoutCollection();
         verify(fieldService, times(1)).deleteFieldsWithoutCollection();
@@ -155,7 +155,7 @@ class CollectionServiceTest {
 
         collectionService.deleteWithoutLink();
 
-        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID);
+        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID, true);
         verify(collectionRepository, times(1)).deleteNative(COLLECTION_ID);
         verify(itemService, times(1)).deleteItemsWithoutCollection();
         verify(fieldService, times(1)).deleteFieldsWithoutCollection();

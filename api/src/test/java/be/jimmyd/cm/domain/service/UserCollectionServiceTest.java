@@ -57,7 +57,7 @@ class UserCollectionServiceTest {
         when(collectionUserRepository.getByCollectionAndUser(COLLECTION_ID, USER_ID)).thenReturn(userCollection());
         when(collectionUserRepository.getByCollectionId(COLLECTION_ID)).thenReturn(userCollections());
 
-        userCollectionService.deleteUserFromCollection(COLLECTION_ID, USER_ID);
+        userCollectionService.deleteUserFromCollection(COLLECTION_ID, USER_ID, false);
 
         verify(collectionUserRepository, times(1)).delete(userCollection());
     }
@@ -72,7 +72,7 @@ class UserCollectionServiceTest {
         when(collectionUserRepository.getByCollectionId(COLLECTION_ID)).thenReturn(userCollections);
 
         assertThrows(OneActiveAdminNeededException.class, () ->
-                userCollectionService.deleteUserFromCollection(COLLECTION_ID, USER_ID)
+                userCollectionService.deleteUserFromCollection(COLLECTION_ID, USER_ID, false)
         );
 
         verify(collectionUserRepository, times(0)).delete(userCollection());

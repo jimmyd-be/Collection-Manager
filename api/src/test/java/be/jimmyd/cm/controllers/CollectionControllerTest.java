@@ -149,7 +149,7 @@ public class CollectionControllerTest {
     @Test
     public void deleteUserFromCollectionHappyFlow() throws UserPermissionException, OneActiveAdminNeededException {
 
-        doNothing().when(userCollectionService).deleteUserFromCollection(1, 2);
+        doNothing().when(userCollectionService).deleteUserFromCollection(1, 2, false);
 
         ResponseEntity response = controller.deleteUserFromCollection(1, 2);
 

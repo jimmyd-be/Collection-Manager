@@ -77,7 +77,7 @@ public class UserService {
     public void deleteUser(User user) {
         user.getUserCollections().forEach(uc -> {
             try {
-                userCollectionService.deleteUserFromCollection(uc.getCollection().getId(), user.getId());
+                userCollectionService.deleteUserFromCollection(uc.getCollection().getId(), user.getId(), false);
             } catch (UserPermissionException e) {
                 e.printStackTrace();
             } catch (OneActiveAdminNeededException e) {

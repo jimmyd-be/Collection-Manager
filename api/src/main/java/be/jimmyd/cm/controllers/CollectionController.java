@@ -109,7 +109,7 @@ public class CollectionController {
 
         try {
             securityUtil.hasUserAccessToCollection(collectionId, Permission.ADMIN);
-            userCollectionService.deleteUserFromCollection(collectionId, userId);
+            userCollectionService.deleteUserFromCollection(collectionId, userId, false);
         } catch (UserPermissionException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
