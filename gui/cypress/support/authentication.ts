@@ -30,12 +30,12 @@ Cypress.Commands.add("loginUser", (userType:string) => {
   // grab the user
   const user = types[userType]
 
-  cy.intercept('POST', 'http://localhost:4200/api/auth/login').as('loginApi')
+  cy.intercept('POST', '/api/auth/login').as('loginApi')
   cy.visit('/auth/login')
-  cy.get('#title').contains("Login")
-  cy.get('[id=input-email]').type(user.name)
-  cy.get('[id=input-password]').type(user.password)
-  cy.get('.appearance-filled').click()
+  cy.get('[id=title]').contains("Welcome Back")
+  cy.get('[id=email]').type(user.name)
+  cy.get('[id=password]').type(user.password)
+  cy.get('[type=submit]').click()
   cy.wait('@loginApi').then((interception) => {
     assert.equal(interception.response.statusCode, 200)
   })

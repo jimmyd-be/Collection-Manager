@@ -63,6 +63,7 @@ public class SettingService {
         final List<String> allSettings = getAllApiProperties();
 
         settings.parallelStream()
+                .filter(setting -> setting.getValue() != null)
                 .map(setting ->
                     editOrCreateSetting(previousSettings, allSettings, setting)
                 )

@@ -56,3 +56,5 @@ gui/dist/
 gui/.idea/
 gui/.angular/cache/*
 gui/cypress/videos/*
+
+gui/cypress/screenshots/

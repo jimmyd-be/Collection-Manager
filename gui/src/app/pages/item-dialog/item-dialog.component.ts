@@ -1,30 +1,36 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Item} from '../../Entities/item';
 import {CustomField} from '../../Entities/custom-field';
 import {Collection} from '../../Entities/collection';
-import {NbDialogRef} from '@nebular/theme';
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {ItemFieldDirective} from "../../Entities/ItemField";
 
 @Component({
   selector: 'app-item-dialog',
   templateUrl: './item-dialog.component.html',
   styleUrls: ['./item-dialog.component.scss'],
 })
-export class ItemDialogComponent {
+export class ItemDialogComponent implements OnInit {
 
-  item: Item;
-  field: CustomField[];
-  collection: Collection;
+  removeIcon = faTrash;
+  editIcon = faEdit;
+  itemFieldDirective: ItemFieldDirective;
 
-  constructor(private dialogRef: NbDialogRef<ItemDialogComponent>) {
+  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
+  }
+
+  ngOnInit() {
+    this.itemFieldDirective = this.config.data.itemFieldDirective;
   }
 
 
   deleteItem() {
-    this.dialogRef.close('delete');
+    this.ref.close('delete');
   }
 
   editItem() {
-    this.dialogRef.close('edit');
+   this.ref.close('edit');
   }
 
 }

@@ -168,6 +168,7 @@ public class ItemControllerIT {
         assertEquals(HttpStatus.NOT_FOUND, getByIdResult.getStatusCode());
     }
 
+    @Disabled
     @Order(5)
     @Test
     public void searchImdbMovieTest() {
@@ -177,6 +178,7 @@ public class ItemControllerIT {
         assertTrue(result.getBody().length > 0);
     }
 
+    @Disabled
     @Order(6)
     @Test
     public void addImdbMovieTest() {

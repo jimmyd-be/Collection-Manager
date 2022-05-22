@@ -1,15 +1,14 @@
-<nb-card>
-  <nb-card-header *ngIf="!item">Add new Item</nb-card-header>
-  <nb-card-header *ngIf="item">Edit Item</nb-card-header>
+<p-card>
+  <ng-template pTemplate="title" *ngIf="!item">Add new Item</ng-template>
+  <ng-template pTemplate="title" *ngIf="item">Edit Item</ng-template>
 
-  <nb-card-body *ngIf="!item">
-    <nb-select (selectedChange)="collectionSelectionChanged($event)" placeholder="Please select collection"
-               status="primary">
-      <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
-    </nb-select>
-  </nb-card-body>
+  <ng-template pTemplate="content" *ngIf="!item">
 
-  <nb-card-footer>
+    <p-dropdown [options]="collectionList" (onChange)="collectionSelectionChanged()" [(ngModel)]="collectionId" optionValue="id" optionLabel="name"></p-dropdown>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
 
     <form (ngSubmit)="onSubmit()" *ngIf="formService.fields && collectionId !== 0" [formGroup]="form">
 
@@ -19,12 +18,11 @@
       </div>
 
       <div class="form-row">
-        <button [disabled]="!form.valid" size="medium" nbButton
-                status="primary"
+        <button [disabled]="!form.valid" size="medium" pButton
                 type="submit">Save
         </button>
       </div>
     </form>
-  </nb-card-footer>
+  </ng-template>
 
-</nb-card>
+</p-card>

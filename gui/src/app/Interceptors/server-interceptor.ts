@@ -7,24 +7,23 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
-import { NbTokenService } from '@nebular/auth';
-import { isEmpty } from 'rxjs/operators';
+import {TokenService} from "../Services/token.service";
 
 @Injectable()
 export class ServerInterceptor implements HttpInterceptor {
 
-  token: string;
 
-  constructor(private tokenService: NbTokenService) {
-    this.tokenService.tokenChange().subscribe(data => { this.token = data.getValue(); });
+  constructor(private tokenService: TokenService) {
   }
 
   intercept(request: HttpRequest<any>,
             next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (this.token != null && this.token.length > 0) {
+    let token = this.tokenService.getToken();
+
+    if (token != null && token.length > 0) {
       const updatedRequest = request.clone({
-        setHeaders: { Authorization: 'Bearer ' + this.token },
+        setHeaders: { Authorization: 'Bearer ' + token },
         url: environment.apiUrl + request.url,
       });
       return next.handle(updatedRequest);

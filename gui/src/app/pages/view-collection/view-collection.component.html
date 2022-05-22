@@ -1,52 +1,49 @@
-<div class="container-fluid p-0">
+<div class="card">
 
-  <div class="row">
-    <div class="col-md-2 layoutSwitchers">
-      <a (click)="changeView('list')">
-        <fa-icon [icon]="listIcon" [ngClass]="{'activeItem': currentView==='list'}" class="fa-2x"></fa-icon>
-      </a>
-
-      <a (click)="changeView('cards')">
-        <fa-icon [icon]="cardIcon" [ngClass]="{'activeItem': currentView==='cards'}" class="fa-2x"></fa-icon>
-      </a>
-
-    </div>
-    <div *ngIf="collection" class="col-md-8 col-sm-12 collectionText">
-      {{collection.name}}
-    </div>
-    <div class="col-md-2 col-sm-12">
-      <input (keyup)="search($event)" class="searchBar" placeholder="Search" type="text"/>
-    </div>
-  </div>
-
-
-  <div (scrolled)="onScroll()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" class="itemList row"
-       infiniteScroll>
-
-    <div *ngIf="currentView === 'list'" class="col-lg-8 offset-lg-2">
-      <nb-accordion>
-        <nb-accordion-item *ngFor="let item of items">
-          <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
-          <nb-accordion-item-body>
-            <app-view-item [fields]="fields" [item]="item"></app-view-item>
-
-            <button nbButton status="warning" size="small" (click)="editItem(item)">Edit item</button>
-
-            <button nbButton status="danger" size="small" (click)="deleteItem(item)">Remove from collection</button>
-
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion>
-    </div>
-
-    <div *ngIf="currentView === 'cards'">
-      <div (click)="openModal(item)" *ngFor="let item of items" class="card itemCard">
-
-        <img alt="Cover" class="card-img-top itemCardImage" src="{{getImage(item)}}">
-        <div class="card-body itemCardBody">
-          <h6 class="card-title">{{item.name}}</h6>
+  <p-dataView [value]="virtualItems" [rows]="50" [paginator]="true"
+              [lazy]="true" (onLazyLoad)="onScroll($event)" [totalRecords]="totalItems">
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-between">
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        <div class="mb-2 md:mb-0 collectionText">{{collection.name}}</div>
+        <span class="p-input-icon-left mb-2 md:mb-0">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search" (keyup.enter)="search($event)">
+                </span>
+      </div>
+    </ng-template>
+    <ng-template let-item pTemplate="listItem">
+      <div class="col-12" (click)="openModal(item)">
+        <div class="product-list-item">
+          <img src="{{getImage(item)}}" [alt]="item.name" class="product-image"/>
+          <div class="product-list-detail">
+            <div class="product-name">{{item.name}}</div>
+            <i class="pi pi-tag product-category-icon"></i><span
+            class="product-category">{{this.getGenres(item)}}</span>
+          </div>
+          <div class="product-list-action">
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </ng-template>
+    <ng-template let-item pTemplate="gridItem">
+      <div class="col-2" (click)="openModal(item)">
+        <div class="product-grid-item card">
+          <img src="{{getImage(item)}}" [alt]="item.name" class="product-image"/>
+
+          <div class="product-grid-item-top">
+            <div>
+            </div>
+          </div>
+          <div class="product-grid-item-content">
+            <div class="product-name">{{item.name}}</div>
+            <i class="pi pi-tag product-category-icon"></i>
+            <span class="product-category">{{this.getGenres(item)}}</span>
+          </div>
+          <div class="product-grid-item-bottom">
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
 </div>

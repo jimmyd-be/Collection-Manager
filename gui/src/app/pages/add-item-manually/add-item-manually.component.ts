@@ -6,9 +6,9 @@ import {FormGroup} from '@angular/forms';
 import {ManualFormService} from '../../Services/manual-form.service';
 import {CustomField} from '../../Entities/custom-field';
 import {ItemService} from '../../Services/item.service';
-import {NbToastrService} from '@nebular/theme';
 import {ActivatedRoute} from '@angular/router';
 import {Item} from '../../Entities/item';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-add-item-manually',
@@ -26,7 +26,7 @@ export class AddItemManuallyComponent implements OnInit {
               private customfieldService: CustomFieldService,
               public formService: ManualFormService,
               private itemService: ItemService,
-              private toastrService: NbToastrService,
+              private messageService: MessageService,
               private route: ActivatedRoute) {
   }
 
@@ -40,18 +40,20 @@ export class AddItemManuallyComponent implements OnInit {
     this.collectionService.getUserCollections().subscribe(data => {
       this.collectionList = data;
 
+      if (this.collectionId === 0) {
+        this.collectionId = this.collectionList[0].id;
+      }
+
       if (this.collectionId !== 0) {
-        this.collectionSelectionChanged(this.collectionId);
+        this.collectionSelectionChanged();
       }
 
     });
   }
 
-  collectionSelectionChanged(collectionId: number) {
+  collectionSelectionChanged() {
 
-    this.collectionId = collectionId;
-
-    this.customfieldService.getFieldsByCollection(collectionId).subscribe(data => {
+    this.customfieldService.getFieldsByCollection(this.collectionId).subscribe(data => {
       this.formService.fields = this.customfieldService.sortFields(data);
 
       this.formService.fields.forEach(field => field.valueNumber = 0);
@@ -66,13 +68,13 @@ export class AddItemManuallyComponent implements OnInit {
       this.itemService.editItemToCollection(this.item.id, this.collectionId, this.form.value).subscribe(data => {
         this.form.reset();
 
-        this.toastrService.success('success', 'Item has been changed.');
+        this.messageService.add({severity:'success', summary:'Item has been changed.'});
       });
     } else {
       this.itemService.addItemToCollection(this.collectionId, this.form.value).subscribe(data => {
         this.form.reset();
 
-        this.toastrService.success('success', 'Item has been added to collection.');
+        this.messageService.add({severity:'success', summary:'Item has been added to the collection.'});
       });
     }
   }

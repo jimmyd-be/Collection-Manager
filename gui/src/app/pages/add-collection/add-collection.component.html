@@ -1,44 +1,41 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="addCollectionGroup">
-  <nb-card>
-    <nb-card-header>Add new Collections</nb-card-header>
+  <p-card>
+    <ng-template pTemplate="title">Add new Collections</ng-template>
 
-    <nb-card-body>
+    <ng-template pTemplate="content">
       <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control" formControlName="name" id="name" nbInput placeholder="Give unique name of the collection"
-               required type="text">
+        <input class="form-control" formControlName="name" id="name" pInputText placeholder="Give unique name of the collection"
+               required type="text" label="Name">
       </div>
       <div class="form-group">
         <label for="type">Collection type</label>
 
         <div>
-        <nb-select placeholder="Please select a collection type" formControlName="type" id="type" required status="primary">
-          <nb-option *ngFor="let type of collectionTypes" [value]="type">{{type}}</nb-option>
-        </nb-select>
+
+          <p-dropdown [options]="collectionTypes" id="type" formControlName="type" required></p-dropdown>
+
         </div>
       </div>
 
-      <nb-accordion multi>
-        <nb-accordion-item *ngFor="let fields of customFields.controls; let i = index">
-          <nb-accordion-item-header>Custom field {{ i + 1 }}</nb-accordion-item-header>
-          <nb-accordion-item-body>
+      <p-accordion [multiple]="true">
+          <p-accordionTab *ngFor="let fields of customFields.controls; let i = index" header="Custom field {{ i + 1 }}">
             <app-add-custom-field (deleteCustomField)="deletePlayer($event)" [customFieldForm]="fields" [index]="i">
             </app-add-custom-field>
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion>
+          </p-accordionTab>
+      </p-accordion>
 
-    </nb-card-body>
+    </ng-template>
 
-    <nb-card-footer>
+    <ng-template pTemplate="footer">
       <button [disabled]="!addCollectionGroup.valid"
-              nbButton status="primary" size="medium"
+              pButton size="medium"
               type="submit">Submit
       </button>
-      <button (click)="addCustomField()" size="medium" nbButton
-              status="info" type="button">Add custom field
+      <button (click)="addCustomField()" size="medium" pButton
+              class="p-button-info" type="button">Add custom field
       </button>
-    </nb-card-footer>
+    </ng-template>
 
-  </nb-card>
+  </p-card>
 </form>

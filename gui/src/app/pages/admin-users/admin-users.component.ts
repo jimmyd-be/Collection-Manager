@@ -3,13 +3,13 @@ import {User} from '../../Entities/user';
 import {AdminService} from '../../Services/admin.service';
 import {faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../Services/user.service';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
-import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.scss']
+  styleUrls: ['./admin-users.component.scss'],
+
 })
 export class AdminUsersComponent implements OnInit {
 
@@ -19,8 +19,8 @@ export class AdminUsersComponent implements OnInit {
 
   constructor(public adminService: AdminService,
               public userService: UserService,
-              private dialogService: NbDialogService,
-              private toastrService: NbToastrService) {
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -58,20 +58,18 @@ export class AdminUsersComponent implements OnInit {
   deleteUser(userId: number) {
     const user = this.users.find(element => element.id === userId);
 
-    this.dialogService.open(ConfirmationDialogComponent)
-      .onClose.subscribe(response => {
-        if (response === 'delete') {
-
-          this.userService.deleteUserOnId(userId).subscribe(
-            resp => {
-              const index: number = this.users.indexOf(user);
-              if (index !== -1) {
-                this.users.splice(index, 1);
-              }
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.userService.deleteUserOnId(userId).subscribe(
+          resp => {
+            const index: number = this.users.indexOf(user);
+            if (index !== -1) {
+              this.users.splice(index, 1);
             }
-          );
-        }
-      },
-      error => this.toastrService.danger('User has been delete by admin!'));
+          }
+        );
+      }
+    });
   }
 }

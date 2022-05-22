@@ -92,7 +92,7 @@ When starting Collection Manager for the first time there will be no user in the
 ### Used libraries
 
 - [Angular]([https://angular.io/](https://angular.io/))
-- [Nebular]([https://akveo.github.io/nebular/](https://akveo.github.io/nebular/))
+- [PrimeNG](https://www.primefaces.org/primeng/#/](https://www.primefaces.org/primeng/#/))
 - [Spring](https://spring.io)
 
 
