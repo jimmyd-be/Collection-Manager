@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionUserMapper;
 import be.jimmyd.cm.dto.CollectionShareDto;
@@ -44,13 +45,18 @@ public class UserCollectionService {
         return collectionUserMapper.map(users);
     }
 
-    public void deleteUserFromCollection(long collectionId, long userId) throws UserPermissionException {
+    public void deleteUserFromCollection(long collectionId, long userId, boolean forceDeletion) throws UserPermissionException, OneActiveAdminNeededException {
 
-        //TODO check if owner still exist after deletion
-
+        List<UserCollection> allUsers = collectionUserRepository.getByCollectionId(collectionId);
         final UserCollection userCollection = collectionUserRepository.getByCollectionAndUser(collectionId, userId);
 
-        collectionUserRepository.delete(userCollection);
+        allUsers.remove(userCollection);
+
+        if(forceDeletion || allUsers.stream().anyMatch(n -> n.getRole().getName().equalsIgnoreCase("admin"))) {
+            collectionUserRepository.delete(userCollection);
+        } else {
+            throw new OneActiveAdminNeededException();
+        }
     }
 
     public void shareCollection(long collectionId, CollectionShareDto collectionShareDto) throws UserPermissionException {

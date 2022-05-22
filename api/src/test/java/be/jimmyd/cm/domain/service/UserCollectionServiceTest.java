@@ -1,9 +1,11 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionUserMapper;
 import be.jimmyd.cm.dto.CollectionShareDto;
 import be.jimmyd.cm.dto.UserCollectionDto;
+import be.jimmyd.cm.entities.UserCollection;
 import be.jimmyd.cm.repositories.CollectionRepository;
 import be.jimmyd.cm.repositories.CollectionUserRepository;
 import be.jimmyd.cm.repositories.RoleRepository;
@@ -14,12 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static be.jimmyd.cm.constants.CollectionDtoTestConstants.userCollectionDto;
 import static be.jimmyd.cm.constants.CollectionTestConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,12 +53,29 @@ class UserCollectionServiceTest {
     }
 
     @Test
-    void deleteUserFromCollection() throws UserPermissionException {
+    void deleteUserFromCollection() throws UserPermissionException, OneActiveAdminNeededException {
         when(collectionUserRepository.getByCollectionAndUser(COLLECTION_ID, USER_ID)).thenReturn(userCollection());
+        when(collectionUserRepository.getByCollectionId(COLLECTION_ID)).thenReturn(userCollections());
 
-        userCollectionService.deleteUserFromCollection(COLLECTION_ID, USER_ID);
+        userCollectionService.deleteUserFromCollection(COLLECTION_ID, USER_ID, false);
 
         verify(collectionUserRepository, times(1)).delete(userCollection());
+    }
+
+    @Test
+    void deleteLastAdminUserFromCollection() throws UserPermissionException, OneActiveAdminNeededException {
+
+        List<UserCollection> userCollections = new ArrayList<>();
+        userCollections.add(userCollection());
+
+        when(collectionUserRepository.getByCollectionAndUser(COLLECTION_ID, USER_ID)).thenReturn(userCollection());
+        when(collectionUserRepository.getByCollectionId(COLLECTION_ID)).thenReturn(userCollections);
+
+        assertThrows(OneActiveAdminNeededException.class, () ->
+                userCollectionService.deleteUserFromCollection(COLLECTION_ID, USER_ID, false)
+        );
+
+        verify(collectionUserRepository, times(0)).delete(userCollection());
     }
 
     @Test
