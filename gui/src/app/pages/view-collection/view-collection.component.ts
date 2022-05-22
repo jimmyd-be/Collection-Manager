@@ -60,23 +60,13 @@ export class ViewCollectionComponent implements OnInit {
 
     this.searchValue = event.target.value;
 
-    // this.itemService.countItemOfCollection(this.id, this.searchValue).subscribe(count =>
-    //   this.virtualItems = Array.from({length: count})
-    // );
+    this.currentPage = 0;
 
-    // this.vs.scrollToIndex(0, 'smooth');
-    // this.vs.onScrollIndexChange(0);
-    //
-    // this.virtualItems.splice(0,this.virtualItems.length)
-    //
-    // this.itemService.countItemOfCollection(this.id, this.searchValue).subscribe(count => {
-    //   this.virtualItems = Array.from({length: count});
-    //   this.totalItems = count;
-    // });
+    this.itemService.countItemOfCollection(this.id, this.searchValue).subscribe(count =>
+      this.totalItems = count
+    );
 
-
-    // this.virtualItems = [...this.virtualItems];
-
+    this.loadItems(this.id, this.currentPage, this.itemsPerPage);
   }
 
   getImage(item: Item): string {
