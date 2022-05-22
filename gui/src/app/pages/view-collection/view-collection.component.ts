@@ -27,6 +27,7 @@ export class ViewCollectionComponent implements OnInit {
 
   id: number;
   itemsPerPage = 50;
+  currentPage = 0;
 
   totalItems: number;
 
@@ -120,10 +121,8 @@ export class ViewCollectionComponent implements OnInit {
       accept: () => {
         this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
           this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
-          const index = this.virtualItems.indexOf(item, 0);
-          if (index > -1) {
-            this.virtualItems.splice(index, 1);
-          }
+
+          this.loadItems(this.id, this.currentPage, this.itemsPerPage);
         });
       }
     });
@@ -134,9 +133,9 @@ export class ViewCollectionComponent implements OnInit {
 
     const collectionId = Number(this.route.snapshot.paramMap.get('id'));
 
-    let first = event.first;
+    this.currentPage = event.first;
     let rows = event.rows;
-    this.loadItems(collectionId, first, rows);
+    this.loadItems(collectionId, this.currentPage, rows);
 
   }
 
@@ -161,7 +160,7 @@ export class ViewCollectionComponent implements OnInit {
     this.collectionService.getUserCollection(currentId).subscribe(data => {
       this.collection = data;
     });
-    this.loadItems(this.id, 0, 50);
+    this.loadItems(this.id, 0, this.itemsPerPage);
   }
 
   getGenres(item: Item) {

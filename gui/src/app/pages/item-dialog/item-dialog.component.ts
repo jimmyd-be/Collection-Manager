@@ -26,11 +26,11 @@ export class ItemDialogComponent implements OnInit {
 
 
   deleteItem() {
-    //this.ref.close('delete');
+    this.ref.close('delete');
   }
 
   editItem() {
-   // this.ref.close('edit');
+   this.ref.close('edit');
   }
 
 }
