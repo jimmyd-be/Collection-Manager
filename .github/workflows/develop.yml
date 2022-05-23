@@ -50,7 +50,7 @@ jobs:
           push: true
           platforms: linux/arm64, linux/arm/v7
           tags: lonelobo0070/collection_manager_frontend:develop
-          file: Dockerfile_arm
+          file:  ${{env.working-directory}}/Dockerfile_arm
   gui_amd64:
     runs-on: ubuntu-latest
     env:
