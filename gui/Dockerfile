@@ -1,5 +1,5 @@
 # Stage 1
-FROM node:18 as build-step
+FROM node:14 as build-step
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
