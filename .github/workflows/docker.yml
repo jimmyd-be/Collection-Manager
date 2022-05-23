@@ -44,7 +44,7 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: lonelobo0070/collection_manager_frontend:latest
-  gui_amd64:
+  gui_arm:
     runs-on: ubuntu-latest
     env:
       working-directory: ./gui
