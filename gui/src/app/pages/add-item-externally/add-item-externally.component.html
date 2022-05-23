@@ -1,21 +1,18 @@
-<nb-card>
-  <nb-card-header>Search for items on external databases</nb-card-header>
+<p-card>
+  <ng-template pTemplate="title">Search for items on external databases</ng-template>
 
-  <nb-card-body>
-    <nb-select (selectedChange)="collectionSelectionChanged($event)" placeholder="Please select collection"
-               status="primary">
-      <nb-option *ngFor="let collection of collectionList" [value]="collection.id">{{collection.name}}</nb-option>
-    </nb-select>
-    <input (keyup)="onKey($event)" fieldSize="medium" nbInput placeholder="Input" type="text">
+  <ng-template pTemplate="content">
 
-    <button (click)="searchItems()" size="medium" nbButton
-            status="primary">Search
-    </button>
+    <p-dropdown [options]="collectionList" [(ngModel)]="collectionId" optionValue="id" optionLabel="name"></p-dropdown>
+
+    <input (keyup)="onKey($event)" pInputText placeholder="Input" type="text">
+
+    <button (click)="searchItems()"  pButton>Search</button>
 
 
-  </nb-card-body>
+  </ng-template>
 
-  <nb-card-footer>
+  <ng-template pTemplate="footer">
 
     <div *ngFor="let item of searchResults">
 
@@ -23,6 +20,6 @@
     </div>
 
 
-  </nb-card-footer>
+  </ng-template>
 
-</nb-card>
+</p-card>

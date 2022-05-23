@@ -17,10 +17,11 @@ import {AddItemExternallyComponent} from './add-item-externally/add-item-externa
 import {AdminSettingsComponent} from './admin-settings/admin-settings.component';
 import {AdminUsersComponent} from './admin-users/admin-users.component';
 import {GlobalSearchComponent} from "./global-search/global-search.component";
+import {AppMainComponent} from "../theme/app-main/app-main.component";
 
 const routes: Routes = [{
   path: '',
-  component: PagesComponent,
+  component: AppMainComponent,
   children: [
     {
       path: 'dashboard',

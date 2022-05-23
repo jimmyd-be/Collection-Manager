@@ -1,5 +1,7 @@
 # Stage 1
-FROM node:14-alpine as build-step
+FROM node:14 as build-step
+RUN apt-get update && apt-get install build-essential -y
+RUN apt-get install python3 -y
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app

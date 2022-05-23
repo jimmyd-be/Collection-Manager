@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionMapper;
 import be.jimmyd.cm.domain.mappers.FieldMapper;
@@ -75,8 +76,10 @@ public class CollectionService {
         collectionRepository.findById(collectionId).ifPresent(collection -> {
             collection.getUserCollections().forEach(userCollection -> {
                 try {
-                    userCollectionService.deleteUserFromCollection(collectionId, userCollection.getUser().getId());
+                    userCollectionService.deleteUserFromCollection(collectionId, userCollection.getUser().getId(), true);
                 } catch (UserPermissionException e) {
+                    e.printStackTrace();
+                } catch (OneActiveAdminNeededException e) {
                     e.printStackTrace();
                 }
             });

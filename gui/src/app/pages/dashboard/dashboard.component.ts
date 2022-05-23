@@ -3,9 +3,8 @@ import {Collection} from '../../Entities/collection';
 import {CollectionService} from '../../Services/collection.service';
 import {faEdit, faEye, faShareAltSquare, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
-import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
-import {NbAuthJWTToken, NbAuthService} from '@nebular/auth';
+import {ConfirmationService, MessageService} from "primeng/api";
+import {TokenService} from "../../Services/token.service";
 
 
 @Component({
@@ -24,9 +23,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(private collectionService: CollectionService,
               private router: Router,
-              private dialogService: NbDialogService,
-              private authService: NbAuthService,
-              private toastrService: NbToastrService) {
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService,
+              private tokenService: TokenService) {
   }
 
   ngOnInit() {
@@ -35,11 +34,9 @@ export class DashboardComponent implements OnInit {
 
   loadCollections() {
 
-    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
-      this.collectionService.getUserCollections().subscribe(data => {
+    this.collectionService.getUserCollections().subscribe(data => {
 
-        this.collections = data;
-      });
+      this.collections = data;
     });
   }
 
@@ -49,21 +46,20 @@ export class DashboardComponent implements OnInit {
 
   deleteCollection(id: number, name: string) {
 
-    this.dialogService.open(ConfirmationDialogComponent)
-      .onClose.subscribe(response => {
-        if (response === 'delete') {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.collectionService.deleteCollection(id).subscribe(data => {
+          location.reload();
 
-          this.collectionService.deleteCollection(id).subscribe(data => {
-            location.reload();
+          this.messageService.add({severity:'success', summary:'Collection ' + name + ' has been deleted.'});
 
-            this.toastrService.success('Collection ' + name + ' has been deleted.');
-            this.router.navigate(['/pages/dashboard']);
+          this.router.navigate(['/pages/dashboard']);
 
-            this.loadCollections();
-          });
-        }
-      },
-      error => this.toastrService.danger('Collection ' + name + ' has nog been delete because of an error!'));
+          this.loadCollections();
+        });
+      }
+    });
   }
 
   viewCollection(id: number) {

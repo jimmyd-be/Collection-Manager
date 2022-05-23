@@ -2,53 +2,51 @@
 
   <div class="row justify-content-center">
 
-    <div class="col-md-12 col-lg-6">
-      <nb-card>
-        <nb-card-header>Edit user</nb-card-header>
-        <nb-card-body>
+    <div class="md:col-12 col-lg-6">
+      <p-card>
+        <ng-template pTemplate="title">Edit user</ng-template>
+        <ng-template pTemplate="content">
 
           <form #editForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="password">Current password</label>
               <input #name="ngModel" [(ngModel)]="model.password" class="form-control" id="password"
                      name="password"
-                     nbInput required
+                     pPassword required
                      type="password">
             </div>
 
             <div class="form-group">
               <label for="username">New username</label>
-              <input [(ngModel)]="model.newUser" class="form-control" id="username" name="username" nbInput
+              <input [(ngModel)]="model.newUser" class="form-control" id="username" name="username" pInputText
                      required type="text">
             </div>
 
             <div class="form-group">
               <label for="newmail">New mail</label>
-              <input [(ngModel)]="model.newMail" class="form-control" id="newmail" name="newmail" nbInput
+              <input [(ngModel)]="model.newMail" class="form-control" id="newmail" name="newmail" pInputText
                      required type="email">
             </div>
 
             <div class="form-group">
               <label for="theme">Theme</label> <br/>
-              <nb-select (selectedChange)="changeTheme($event)" [(ngModel)]="model.theme" [selected]="currentTheme"
-                         id="theme" name="theme">
-                <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-              </nb-select>
+
+              <p-dropdown [options]="themes" id="theme" name="theme" (onChange)="changeTheme($event)" optionValue="value" optionLabel="name"></p-dropdown>
 
             </div>
             <button [disabled]="!editForm.form.valid"
-                    nbButton
+                    pButton
                     size="medium"
-                    status="success"
+                    class="p-button-success"
                     type="submit">Edit user
             </button>
           </form>
 
-        </nb-card-body>
-        <nb-card-footer>
+        </ng-template>
+        <ng-template pTemplate="footer">
 
-        </nb-card-footer>
-      </nb-card>
+        </ng-template>
+      </p-card>
     </div>
   </div>
 </div>

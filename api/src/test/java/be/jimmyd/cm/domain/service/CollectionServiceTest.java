@@ -1,5 +1,6 @@
 package be.jimmyd.cm.domain.service;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.mappers.CollectionMapper;
 import be.jimmyd.cm.domain.mappers.FieldMapper;
@@ -77,12 +78,12 @@ class CollectionServiceTest {
     }
 
     @Test
-    void deleteById() throws UserPermissionException {
+    void deleteById() throws UserPermissionException, OneActiveAdminNeededException {
         when(collectionRepository.findById(COLLECTION_ID)).thenReturn(Optional.of(collection()));
 
         collectionService.deleteById(COLLECTION_ID);
 
-        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID);
+        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID, true);
         verify(collectionRepository, times(1)).deleteNative(COLLECTION_ID);
         verify(itemService, times(1)).deleteItemsWithoutCollection();
         verify(fieldService, times(1)).deleteFieldsWithoutCollection();
@@ -148,13 +149,13 @@ class CollectionServiceTest {
     }
 
     @Test
-    void deleteWithoutLink() throws UserPermissionException {
+    void deleteWithoutLink() throws UserPermissionException, OneActiveAdminNeededException {
         when(collectionRepository.findById(COLLECTION_ID)).thenReturn(Optional.of(collection()));
         when(collectionRepository.getWithoutLink()).thenReturn(List.of(collection()));
 
         collectionService.deleteWithoutLink();
 
-        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID);
+        verify(userCollectionService, times(1)).deleteUserFromCollection(COLLECTION_ID, USER_ID, true);
         verify(collectionRepository, times(1)).deleteNative(COLLECTION_ID);
         verify(itemService, times(1)).deleteItemsWithoutCollection();
         verify(fieldService, times(1)).deleteFieldsWithoutCollection();

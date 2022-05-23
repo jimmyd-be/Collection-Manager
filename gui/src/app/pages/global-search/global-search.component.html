@@ -1,26 +1,23 @@
-<nb-card>
-  <nb-card-header>Searched on: {{searchTerm}}</nb-card-header>
-  <nb-card-body>
+<p-card>
+  <ng-template pTemplate="title">Searched on: {{searchTerm}}</ng-template>
+  <ng-template pTemplate="content">
 
-    <nb-accordion multi>
-      <nb-accordion-item *ngFor="let search of result">
-        <nb-accordion-item-header>{{search.collectionName}}</nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <nb-accordion>
-            <nb-accordion-item *ngFor="let item of items.get(search.collectionId)">
-              <nb-accordion-item-header>{{item.name}}</nb-accordion-item-header>
-              <nb-accordion-item-body>
+    <p-accordion [multiple]="true">
+      <div *ngFor="let search of result">
+        <p-accordionTab header="{{search.collectionName}}">
+          <p-accordion>
+            <div *ngFor="let item of items.get(search.collectionId)">
+              <p-accordionTab header="{{item.name}}">
                 <app-view-item [fields]="fields.get(search.collectionId)" [item]="item"></app-view-item>
 
-                <button nbButton status="warning" size="small" (click)="editItem(item, search.collectionId)">Edit item</button>
+                <button pButton class="p-button-warning" size="small" (click)="editItem(item, search.collectionId)">Edit item</button>
 
-                <button nbButton status="danger" size="small" (click)="deleteItem(item, search.collectionId)">Remove from collection</button>
-
-              </nb-accordion-item-body>
-            </nb-accordion-item>
-          </nb-accordion>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-    </nb-accordion>
-  </nb-card-body>
-</nb-card>
+                <button pButton class="p-button-danger" size="small" (click)="deleteItem(item, search.collectionId)">Remove from collection</button>
+              </p-accordionTab>
+            </div>
+          </p-accordion>
+        </p-accordionTab>
+      </div>
+    </p-accordion>
+  </ng-template>
+</p-card>

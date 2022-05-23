@@ -39,7 +39,7 @@ public class ImdbMovieApi implements ExternalApi {
 
     @Override
     public boolean isReadyToUse() {
-        return true; //Nothing to check here
+        return false; //Nothing to check here
     }
 
     @Override

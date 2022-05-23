@@ -1,16 +1,13 @@
-@import '../../@theme/styles/themes';
 
 fa-icon {
   margin: 5px;
 }
 
 
-@include nb-install-component() {
-  .headerTable {
-    background-color: nb-theme(background-basic-color-4);
-  }
+.headerTable {
+  //background-color: nb-theme(background-basic-color-4);
+}
 
-  .table {
-    color: nb-theme(text-basic-color);
-  }
+.table {
+  //color: nb-theme(text-basic-color);
 }

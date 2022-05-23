@@ -1,22 +1,7 @@
-<nb-card>
-  <nb-card-header>Share collection to</nb-card-header>
-  <nb-card-body>
-    <form [formGroup]="form">
-      <input formControlName="userName" nbInput placeholder="User name of the user" type="text">
-      <nb-select formControlName="role" placeholder="Select role of the user">
-        <nb-option *ngFor="let role of roles" [value]="role.name"> {{ role.name }}</nb-option>
-      </nb-select>
-    </form>
-  </nb-card-body>
-  <nb-card-footer>
-    <button (click)="share()"
-            size="medium"
-            nbButton
-            status="success">Share
-    </button>
-    <button (click)="close()" nbButton
-            size="medium"
-            status="danger">Cancel
-    </button>
-  </nb-card-footer>
-</nb-card>
+<form [formGroup]="form">
+  <input formControlName="userName" pInputText placeholder="User name of the user" type="text">
+
+  <p-dropdown formControlName="role" [options]="roles" optionLabel="name" optionValue="name"></p-dropdown>
+
+  <button (click)="share()" pButton class="p-button-warning">Share</button>
+</form>

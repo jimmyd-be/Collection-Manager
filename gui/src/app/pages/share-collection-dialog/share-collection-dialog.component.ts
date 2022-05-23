@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NbDialogRef} from '@nebular/theme';
 import {FormControl, FormGroup} from '@angular/forms';
 import {CollectionShare} from '../../Entities/collectionShare';
 import {CollectionService} from '../../Services/collection.service';
 import {Role} from '../../Entities/Role';
 import {RoleService} from '../../Services/role.service';
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 
 @Component({
   selector: 'app-share-collection-dialog',
@@ -22,7 +22,8 @@ export class ShareCollectionDialogComponent implements OnInit {
   private usernameLabel = 'userName';
   private roleLabel = 'role';
 
-  constructor(private dialogRef: NbDialogRef<number>, private collectionService: CollectionService, private roleService: RoleService) {
+  constructor(private collectionService: CollectionService, private roleService: RoleService,
+              public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
   }
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class ShareCollectionDialogComponent implements OnInit {
   }
 
   close() {
-    this.dialogRef.close();
+    this.ref.close();
   }
 
   share() {

@@ -84,6 +84,18 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/count/collection/{id}")
+    public ResponseEntity<Integer> countItemFromCollection(@PathVariable("id") long collectionId,
+                                                           @RequestParam(value = "query", required = false) String query) {
+        try {
+            securityUtil.hasUserAccessToCollection(collectionId, Permission.READ);
+            return ResponseEntity.ok(itemService.countItemsByCollection(collectionId, query));
+        } catch (UserPermissionException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
+
     @GetMapping("/get/{id}")
     public ResponseEntity<ItemDto> getItemById(@PathVariable("id") long itemId) {
 

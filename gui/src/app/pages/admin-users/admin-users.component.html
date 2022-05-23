@@ -1,39 +1,40 @@
-<nb-card>
+<p-card>
+  <ng-template pTemplate="title">Users</ng-template>
 
-  <nb-card-header>Users</nb-card-header>
-
-  <nb-card-body>
-    <table class="table text-basic">
-      <thead>
-      <th scope="col">Name</th>
-      <th scope="col">Mail</th>
-      <th scope="col">creation date</th>
-      <th scope="col">Is admin</th>
-      <th scrope="col">Is active</th>
-      <th scrope="col"></th>
-      <th></th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.username}}</td>
-        <td>{{user.mail}}</td>
-        <td>{{user.creationDate}}</td>
-        <td>{{user.admin}}<a (click)="setAdmin(user.id)">
-          <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
-        </a></td>
-        <td>{{user.active}}
-          <a (click)="disableUser(user.id)">
+  <ng-template pTemplate="content">
+    <p-table [value]="users" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <th>Name</th>
+        <th>Mail</th>
+        <th>creation date</th>
+        <th>Is admin</th>
+        <th>Is active</th>
+        <th></th>
+        <th></th>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{user.username}}</td>
+          <td>{{user.mail}}</td>
+          <td>{{user.creationDate}}</td>
+          <td>{{user.admin}}<a (click)="setAdmin(user.id)">
             <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
-          </a>
-        </td>
-        <td>
-          <button nbButton status="danger" size="tiny" (click)="deleteUser(user.id)">
-            <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
-          </button>
-        </td>
-      </tr>
+          </a></td>
+          <td>{{user.active}}
+            <a (click)="disableUser(user.id)">
+              <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
+            </a>
+          </td>
+          <td>
 
-      </tbody>
-    </table>
-  </nb-card-body>
-</nb-card>
+            <button pButton class="p-button-rounded p-button-icon-only p-button-danger" (click)="deleteUser(user.id)">
+              <fa-icon [icon]="removeIcon"></fa-icon>
+            </button>
+
+          </td>
+        </tr>
+
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-card>

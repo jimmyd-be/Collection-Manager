@@ -1,13 +1,12 @@
-<nb-card>
-  <nb-card-body>
+<p-card>
+  <ng-template pTemplate="content">
     <a href="{{item.url}}" target="_blank"><img src="{{item.image}}"></a> {{item.name}}
     <span *ngIf="item.releaseDate">({{item.releaseDate}})</span>
-  </nb-card-body>
-  <nb-card-footer>
+  </ng-template>
+  <ng-template pTemplate="footer">
     <button (click)="addItemToCollection(item.source, item.externalId, item.name)" [disabled]="disableActions"
-            nbButton
-            size="medium"
-            status="primary">Add to collection
+            pButton
+            size="medium">Add to collection
     </button>
-  </nb-card-footer>
-</nb-card>
+  </ng-template>
+</p-card>

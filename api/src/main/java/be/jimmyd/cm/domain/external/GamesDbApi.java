@@ -17,11 +17,9 @@ import java.util.stream.Collectors;
 public class GamesDbApi implements ExternalApi {
 
     private final SettingRepository settingRepository;
-    private final RestTemplate restTemplate;
 
     public GamesDbApi(final SettingRepository settingRepository, final RestTemplate restTemplate) {
         this.settingRepository = settingRepository;
-        this.restTemplate = restTemplate;
     }
 
     @Override

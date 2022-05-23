@@ -1,5 +1,6 @@
 package be.jimmyd.cm.controllers;
 
+import be.jimmyd.cm.domain.exceptions.OneActiveAdminNeededException;
 import be.jimmyd.cm.domain.exceptions.UserPermissionException;
 import be.jimmyd.cm.domain.service.CollectionService;
 import be.jimmyd.cm.domain.service.CollectionTypeService;
@@ -146,9 +147,9 @@ public class CollectionControllerTest {
     }
 
     @Test
-    public void deleteUserFromCollectionHappyFlow() throws UserPermissionException {
+    public void deleteUserFromCollectionHappyFlow() throws UserPermissionException, OneActiveAdminNeededException {
 
-        doNothing().when(userCollectionService).deleteUserFromCollection(1, 2);
+        doNothing().when(userCollectionService).deleteUserFromCollection(1, 2, false);
 
         ResponseEntity response = controller.deleteUserFromCollection(1, 2);
 

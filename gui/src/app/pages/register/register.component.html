@@ -1,0 +1,31 @@
+
+<div class="align-items-center flex justify-content-center lg:px-8 md:px-6 px-4 py-8 surface-ground ng-star-inserted">
+  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+    <div class="text-center mb-5"><img src="../../../assets/icons/icon-72x72.png" alt="Image" class="mb-3">
+      <div id="title" class="text-900 text-3xl font-medium mb-3">Register a new user</div>
+      <span class="text-600 font-medium line-height-3">Do you have already an account?</span>
+      <a href="/auth/login" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Login today!</a></div>
+    <div>
+      <p-messages></p-messages>
+
+      <form [formGroup]="registerForm" (submit)="onSubmit()">
+
+        <label for="fullName" class="block text-900 font-medium mb-2">Username</label>
+        <input id="fullName" type="text" pInputText class="p-inputtext p-component p-element w-full mb-3" formControlName="fullName" required>
+
+        <label for="email" class="block text-900 font-medium mb-2">Email</label>
+        <input id="email" type="text" pInputText class="p-inputtext p-component p-element w-full mb-3" formControlName="email" required>
+        <label for="password" class="block text-900 font-medium mb-2">Password</label>
+        <input id="password" type="password" pPassword class="p-inputtext p-component p-element w-full mb-3" formControlName="password" required>
+
+        <label for="confirmPassword" class="block text-900 font-medium mb-2">Confirm password</label>
+        <input id="confirmPassword" type="password" pPassword class="p-inputtext p-component p-element w-full mb-3" formControlName="confirmPassword" required>
+
+        <div class="flex align-items-center justify-content-between mb-6"></div>
+        <button pButton pRipple label="Register" icon="pi pi-user" class="p-element p-ripple w-full p-button p-component" type="submit">
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+

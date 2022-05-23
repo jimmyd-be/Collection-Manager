@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CollectionService} from '../../Services/collection.service';
 import {CustomField} from '../../Entities/custom-field';
@@ -7,10 +7,11 @@ import {faList, faTh} from '@fortawesome/free-solid-svg-icons';
 import {ItemService} from '../../Services/item.service';
 import {Item} from '../../Entities/item';
 import {FieldService} from '../../Services/field.service';
-import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {ItemDialogComponent} from '../item-dialog/item-dialog.component';
 import {ItemFieldDirective} from '../../Entities/ItemField';
-import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {ConfirmationService, LazyLoadEvent, MessageService} from "primeng/api";
+import {DialogService} from "primeng/dynamicdialog";
+import {VirtualScroller} from "primeng/virtualscroller";
 
 @Component({
   selector: 'app-view-collection',
@@ -19,33 +20,33 @@ import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-d
 })
 export class ViewCollectionComponent implements OnInit {
 
+  @ViewChild('vs') vs: VirtualScroller;
+
   listIcon = faList;
   cardIcon = faTh;
 
   id: number;
   itemsPerPage = 50;
   currentPage = 0;
-  currentView = 'list';
+
+  totalItems: number;
 
   collection: Collection;
   fields: CustomField[];
-  items: Item[] = Array();
+  virtualItems: Item[];
   searchValue = '';
 
   constructor(private route: ActivatedRoute,
               private collectionService: CollectionService,
               private itemService: ItemService,
               private fieldService: FieldService,
-              private dialogService: NbDialogService,
+              private confirmationService: ConfirmationService,
               private router: Router,
-              private toastrService: NbToastrService) {
+              private messageService: MessageService,
+              public dialogService: DialogService) {
   }
 
   ngOnInit() {
-
-    if (localStorage.getItem('collectionView') !== null) {
-      this.currentView = localStorage.getItem('collectionView');
-    }
     if (this.id == null) {
       this.loadData();
     }
@@ -58,13 +59,14 @@ export class ViewCollectionComponent implements OnInit {
   search(event: any) {
 
     this.searchValue = event.target.value;
-    this.items = [];
 
-    this.itemService.getItemOfCollection(this.id, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
-      for (const item of items) {
-        this.items.push(item);
-      }
-    });
+    this.currentPage = 0;
+
+    this.itemService.countItemOfCollection(this.id, this.searchValue).subscribe(count =>
+      this.totalItems = count
+    );
+
+    this.loadItems(this.id, this.currentPage, this.itemsPerPage);
   }
 
   getImage(item: Item): string {
@@ -76,13 +78,18 @@ export class ViewCollectionComponent implements OnInit {
     return '../../../assets/images/noImage.jpeg';
   }
 
-  changeView(view: string): void {
-    this.currentView = view;
-    localStorage.setItem('collectionView', view);
-  }
-
   openModal(item: Item) {
-    this.dialogService.open(ItemDialogComponent, {context: new ItemFieldDirective(item, this.fields, this.collection)})
+
+    let itemFieldDirective = new ItemFieldDirective(item, this.fields, this.collection);
+
+    this.dialogService.open(ItemDialogComponent, {
+      data: {
+        itemFieldDirective: itemFieldDirective
+      },
+      width: "70%",
+      dismissableMask: true,
+      header: item.name
+    })
       .onClose.subscribe(
       data => {
         if (data === 'delete') {
@@ -99,57 +106,60 @@ export class ViewCollectionComponent implements OnInit {
 
   deleteItem(item: Item) {
 
-    this.dialogService.open(ConfirmationDialogComponent)
-      .onClose.subscribe(response => {
-        if (response === 'delete') {
-          this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
-            this.toastrService.success(item.name + ' has been removed from the collection.');
-            const index = this.items.indexOf(item, 0);
-            if (index > -1) {
-              this.items.splice(index, 1);
-            }
-          });
-        }
-      },
-      error => {
-        this.toastrService.danger(item.name + ' could not be deleted because of an error!');
-      });
-  }
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.itemService.deleteItemFromCollection(item.id, this.collection.id).subscribe(data => {
+          this.messageService.add({severity:'success', summary: item.name + ' has been removed from the collection.'});
 
-  onScroll() {
-    this.currentPage += 1;
-
-    this.itemService.getItemOfCollection(this.collection.id, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
-      for (const item of items) {
-        this.items.push(item);
+          this.loadItems(this.id, this.currentPage, this.itemsPerPage);
+        });
       }
     });
 
   }
 
-  private loadData() {
-    const currentId = Number(this.route.snapshot.paramMap.get('id'));
+  onScroll(event: LazyLoadEvent) {
 
-    if (currentId !== null && this.id !== currentId) {
+    const collectionId = Number(this.route.snapshot.paramMap.get('id'));
 
-      this.id = currentId;
+    this.currentPage = event.first;
+    let rows = event.rows;
+    this.loadItems(collectionId, this.currentPage, rows);
 
-      this.fieldService.getFieldsByCollection(currentId).subscribe(data => {
-        this.fields = data;
-      });
-
-      this.collectionService.getUserCollection(currentId).subscribe(data => {
-        this.collection = data;
-      });
-
-      this.items = [];
-
-      this.itemService.getItemOfCollection(currentId, this.currentPage, this.itemsPerPage, this.searchValue).subscribe(items => {
-        for (const item of items) {
-          this.items.push(item);
-        }
-      });
-    }
   }
 
+  private loadItems(collectionId: number, first: number, rows: number) {
+    this.itemService.getItemOfCollection(collectionId, first, rows + first, this.searchValue).subscribe(items => {
+      this.virtualItems = items;
+    });
+  }
+
+  private loadData() {
+    const currentId = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = currentId;
+
+    this.itemService.countItemOfCollection(this.id, this.searchValue).subscribe(count =>
+      this.totalItems = count
+    );
+
+    this.fieldService.getFieldsByCollection(currentId).subscribe(data => {
+      this.fields = data;
+    });
+
+    this.collectionService.getUserCollection(currentId).subscribe(data => {
+      this.collection = data;
+    });
+    this.loadItems(this.id, 0, this.itemsPerPage);
+  }
+
+  getGenres(item: Item) {
+
+    let genreField = this.fields.filter(field => field.name === "genre");
+
+    return item.data
+      .filter(data => data.fieldId === genreField[0].id)
+      .map(data => data.value)
+      .join(", ");
+  }
 }

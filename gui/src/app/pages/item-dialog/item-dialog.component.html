@@ -1,12 +1,10 @@
-<nb-card>
-  <nb-card-header>{{item.name}}
+<app-view-item [fields]="itemFieldDirective.field" [item]="itemFieldDirective.item"></app-view-item>
 
-  </nb-card-header>
-  <nb-card-body>
-    <app-view-item [fields]="field" [item]="item"></app-view-item>
 
-  <button nbButton status="warning" size="small"  (click)="editItem()">Edit item</button>
+<button pButton class="p-button-rounded p-button-icon-only p-button-warning" (click)="editItem()">
+  <fa-icon class="fas fa-camera fa-lg" [icon]="editIcon"></fa-icon>
+</button>
 
-  <button nbButton status="danger" size="small" (click)="deleteItem()">Remove from collection</button>
-  </nb-card-body>
-</nb-card>
+<button pButton class="p-button-rounded p-button-icon-only p-button-danger" (click)="deleteItem()">
+  <fa-icon class="fas fa-camera fa-lg" [icon]="removeIcon"></fa-icon>
+</button>
