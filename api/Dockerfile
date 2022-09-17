@@ -1,12 +1,14 @@
 #
 # Build stage
 #
-FROM maven:3.6.0-jdk-11-slim AS build
-COPY src /home/app/src
-COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean install -DskipTests=true
-RUN mkdir -p /home/app/target/dependency && (cd /home/app/target/dependency; jar -xf ../*.jar)
-RUN java -Djarmode=layertools -jar /home/app/target/*.jar extract --destination /home/app/target/extracted
+FROM gradle:jdk11-alpine AS build
+COPY src /home/gradle/src
+COPY build.gradle /home/gradle
+COPY settings.gradle /home/gradle
+RUN gradle build
+RUN mkdir -p /home/gradle/build/libs/dependency && (cd /home/gradle/build/libs/dependency; jar -xf ../collection-manager-1.0.0.jar)
+RUN mkdir /home/gradle/extracted
+RUN java -Djarmode=layertools -jar /home/gradle/build/libs/collection-manager-1.0.0.jar extract --destination /home/gradle/extracted
 
 
 #
@@ -14,7 +16,7 @@ RUN java -Djarmode=layertools -jar /home/app/target/*.jar extract --destination 
 #
 FROM eclipse-temurin:11-jre-focal
 VOLUME /tmp
-ARG EXTRACTED=/home/app/target/extracted
+ARG EXTRACTED=/home/gradle/extracted
 COPY --from=build ${EXTRACTED}/dependencies/ ./
 COPY --from=build ${EXTRACTED}/spring-boot-loader/ ./
 COPY --from=build ${EXTRACTED}/snapshot-dependencies/ ./
