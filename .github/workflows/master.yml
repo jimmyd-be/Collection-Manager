@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -77,11 +77,9 @@ jobs:
                 "password": "${{ secrets.MAVEN_PASSWORD }}"
             }]
           githubServer: false
-      - name: Unit test + integration tests
-        run: mvn verify --file api/pom.xml
-      - name: Build with Maven
-        run: mvn -B package --file api/pom.xml
-      - run: mkdir artifacts && cp api/target/*.jar artifacts
+      - name: Unit test + integration tests + build
+        run: gradle buld -p api/
+      - run: mkdir artifacts && cp api/build/libs/*.jar artifacts
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:

@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -57,4 +57,4 @@ jobs:
           distribution: 'adopt'
           java-version: 11
       - name: Unit test + integration tests
-        run: mvn --batch-mode --update-snapshots verify --file api/pom.xml
+        run: gradle build -p api/
