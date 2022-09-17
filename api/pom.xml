@@ -24,6 +24,7 @@
         <gameDb.version>1.2</gameDb.version>
         <postgresql.version>42.3.3</postgresql.version>
         <omdb.verion>1.5</omdb.verion>
+        <theMovieDb.version>1.12</theMovieDb.version>
     </properties>
 
     <dependencies>
@@ -85,6 +86,12 @@
             <groupId>io.github.jimmyd-be</groupId>
             <artifactId>imdb-api</artifactId>
             <version>${imdb.api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.holgerbrandl</groupId>
+            <artifactId>themoviedbapi</artifactId>
+            <version>${theMovieDb.version}</version>
         </dependency>
 
         <dependency>
