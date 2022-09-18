@@ -3,14 +3,14 @@ package be.jimmyd.cm.domain.mappers;
 import be.jimmyd.cm.dto.UserDto;
 import be.jimmyd.cm.dto.UserRegisterDto;
 import be.jimmyd.cm.entities.User;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Named;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Named
+@Component
 public class UserMapper {
 
     public User map(UserRegisterDto user) {

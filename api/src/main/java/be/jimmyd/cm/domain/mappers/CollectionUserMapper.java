@@ -2,12 +2,12 @@ package be.jimmyd.cm.domain.mappers;
 
 import be.jimmyd.cm.dto.UserCollectionDto;
 import be.jimmyd.cm.entities.UserCollection;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Named
+@Component
 public class CollectionUserMapper {
     
     public UserCollectionDto map(UserCollection userCollection) {
