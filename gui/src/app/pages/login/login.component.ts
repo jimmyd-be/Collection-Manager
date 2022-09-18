@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../Services/auth.service";
 import {TokenService} from "../../Services/token.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Message, MessageService} from "primeng/api";
 
@@ -11,9 +11,9 @@ import {Message, MessageService} from "primeng/api";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+  loginForm = new UntypedFormGroup({
+    email: new UntypedFormControl(''),
+    password: new UntypedFormControl(''),
   });
 
   constructor(private authService: AuthService,

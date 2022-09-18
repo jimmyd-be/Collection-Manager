@@ -64,3 +64,6 @@ gui/cypress/screenshots/
 
 # Ignore Gradle build output directory
 build
+
+gradle-wrapper.jar
+gradle-wrapper.properties

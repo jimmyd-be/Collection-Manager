@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {AuthService} from "../../Services/auth.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
@@ -10,11 +10,11 @@ import {MessageService} from "primeng/api";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  registerForm = new FormGroup({
-    fullName: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
+  registerForm = new UntypedFormGroup({
+    fullName: new UntypedFormControl(''),
+    email: new UntypedFormControl(''),
+    password: new UntypedFormControl(''),
+    confirmPassword: new UntypedFormControl(''),
   });
 
   constructor(private authService: AuthService,

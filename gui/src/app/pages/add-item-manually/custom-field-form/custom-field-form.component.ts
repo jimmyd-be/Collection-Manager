@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {CustomField} from '../../../Entities/custom-field';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {faMinusCircle, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import {AddItemManuallyComponent} from '../add-item-manually.component';
 
@@ -11,7 +11,7 @@ import {AddItemManuallyComponent} from '../add-item-manually.component';
 })
 export class CustomFieldFormComponent {
   @Input() field: CustomField;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Input() parentComponent: AddItemManuallyComponent;
 
   addIcon = faPlusCircle;

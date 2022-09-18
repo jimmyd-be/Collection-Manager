@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {Setting} from 'src/app/Entities/Setting';
 import {SettingService} from '../../Services/setting.service';
 import {MessageService} from "primeng/api";
@@ -11,9 +11,9 @@ import {MessageService} from "primeng/api";
 })
 export class AdminSettingsComponent implements OnInit {
   settings: Setting[];
-  myForm: FormGroup;
+  myForm: UntypedFormGroup;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private settingService: SettingService,
               private messageService: MessageService) {
   }
