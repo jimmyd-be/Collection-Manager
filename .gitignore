@@ -67,3 +67,7 @@ gradle/*
 build
 
 
+
+api/gradle/wrapper/gradle-wrapper.jar
+
+api/gradle/wrapper/gradle-wrapper.properties
