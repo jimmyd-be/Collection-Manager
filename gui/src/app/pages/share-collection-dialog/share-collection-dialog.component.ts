@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {CollectionShare} from '../../Entities/collectionShare';
 import {CollectionService} from '../../Services/collection.service';
 import {Role} from '../../Entities/Role';
@@ -15,9 +15,9 @@ export class ShareCollectionDialogComponent implements OnInit {
 
   @Input() public collectionId: number;
   roles: Role[];
-  public form: FormGroup = new FormGroup({
-    userName: new FormControl(''),
-    role: new FormControl(''),
+  public form: UntypedFormGroup = new UntypedFormGroup({
+    userName: new UntypedFormControl(''),
+    role: new UntypedFormControl(''),
   });
   private usernameLabel = 'userName';
   private roleLabel = 'role';

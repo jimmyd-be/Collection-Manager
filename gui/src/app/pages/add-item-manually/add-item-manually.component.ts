@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CollectionService} from '../../Services/collection.service';
 import {Collection} from '../../Entities/collection';
 import {CustomFieldService} from '../../Services/custom-field.service';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {ManualFormService} from '../../Services/manual-form.service';
 import {CustomField} from '../../Entities/custom-field';
 import {ItemService} from '../../Services/item.service';
@@ -19,7 +19,7 @@ export class AddItemManuallyComponent implements OnInit {
 
   collectionList: Collection[];
   collectionId: number;
-  form: FormGroup;
+  form: UntypedFormGroup;
   item: Item;
 
   constructor(private collectionService: CollectionService,
