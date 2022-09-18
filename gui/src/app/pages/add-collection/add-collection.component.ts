@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormArray, FormGroup} from '@angular/forms';
+import {UntypedFormArray, UntypedFormGroup} from '@angular/forms';
 import {CollectionService} from '../../Services/collection.service';
 import {Subscription} from 'rxjs';
 import {AddCollectionService} from '../../Services/add-collection.service';
@@ -14,10 +14,10 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 })
 export class AddCollectionComponent implements OnInit, OnDestroy {
 
-  addCollectionGroup: FormGroup;
+  addCollectionGroup: UntypedFormGroup;
   customFieldFormSub: Subscription;
   collectionTypes: string[];
-  customFields: FormArray = new FormArray([]);
+  customFields: UntypedFormArray = new UntypedFormArray([]);
   collection: Collection;
   fields: CustomField[];
   editMode = false;
@@ -61,7 +61,7 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
       this.customFieldFormSub = this.formService.collectionForm
         .subscribe(group => {
           this.addCollectionGroup = group;
-          this.customFields = this.addCollectionGroup.get('fields') as FormArray;
+          this.customFields = this.addCollectionGroup.get('fields') as UntypedFormArray;
         });
     });
 

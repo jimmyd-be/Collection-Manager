@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {CustomFieldService} from '../../../Services/custom-field.service';
 
@@ -11,7 +11,7 @@ import {CustomFieldService} from '../../../Services/custom-field.service';
 })
 export class AddCustomFieldComponent implements OnInit {
 
-  @Input() customFieldForm: FormGroup;
+  @Input() customFieldForm: UntypedFormGroup;
   @Input() index: number;
   @Output() deleteCustomField: EventEmitter<number> = new EventEmitter();
   removeIcon = faTrash;

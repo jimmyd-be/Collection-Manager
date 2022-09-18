@@ -3,12 +3,12 @@ package be.jimmyd.cm.domain.mappers;
 import be.jimmyd.cm.dto.FieldDto;
 import be.jimmyd.cm.entities.Field;
 import be.jimmyd.cm.repositories.FieldTypeRepository;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Named
+@Component
 public class FieldMapper {
 
     private final FieldTypeRepository fieldTypeRepository;

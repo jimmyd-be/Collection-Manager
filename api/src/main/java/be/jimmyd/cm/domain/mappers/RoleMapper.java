@@ -2,12 +2,12 @@ package be.jimmyd.cm.domain.mappers;
 
 import be.jimmyd.cm.dto.RoleDto;
 import be.jimmyd.cm.entities.Role;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Named
+@Component
 public class RoleMapper {
 
     public List<RoleDto> map(List<Role> activeRoles) {

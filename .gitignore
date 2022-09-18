@@ -61,6 +61,15 @@ gui/cypress/screenshots/
 
 # Ignore Gradle project-specific cache directory
 .gradle
+gradle/*
 
 # Ignore Gradle build output directory
 build
+
+
+
+api/gradle/wrapper/gradle-wrapper.jar
+
+api/gradle/wrapper/gradle-wrapper.properties
+
+api/gradle/wrapper/

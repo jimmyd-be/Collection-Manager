@@ -1,22 +1,22 @@
-import {FormControl, FormArray} from '@angular/forms';
+import {UntypedFormControl, UntypedFormArray} from '@angular/forms';
 
 export class CollectionForm {
 
-  id = new FormControl();
-  name = new FormControl();
-  type = new FormControl();
-  choises = new FormControl();
-  label = new FormControl();
-  placeholder = new FormControl();
-  required = new FormControl();
-  multiValue = new FormControl();
+  id = new UntypedFormControl();
+  name = new UntypedFormControl();
+  type = new UntypedFormControl();
+  choises = new UntypedFormControl();
+  label = new UntypedFormControl();
+  placeholder = new UntypedFormControl();
+  required = new UntypedFormControl();
+  multiValue = new UntypedFormControl();
 
-  fieldOrder = new FormControl();
-  place = new FormControl();
-  labelposition = new FormControl();
-  widget = new FormControl();
+  fieldOrder = new UntypedFormControl();
+  place = new UntypedFormControl();
+  labelposition = new UntypedFormControl();
+  widget = new UntypedFormControl();
 
-  fields = new FormArray([]);
+  fields = new UntypedFormArray([]);
 
   constructor() {
   }

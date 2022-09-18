@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CustomField } from '../Entities/custom-field';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { Item } from '../Entities/item';
 import { CustomFieldService } from './custom-field.service';
 
@@ -31,7 +31,7 @@ export class ManualFormService {
     return newField;
   }
 
-  addField(field: CustomField, form: FormGroup) {
+  addField(field: CustomField, form: UntypedFormGroup) {
 
     const newField = this.addFieldToList(field, null);
 
@@ -58,16 +58,16 @@ export class ManualFormService {
         currentField.formId = currentField.id + '_' + currentField.valueNumber;
 
         if (currentField.type === 'url') {
-          group[currentField.formId + '_label'] = currentField.required ? new FormControl(value[i] || '', Validators.required)
-                                                : new FormControl(value[i] || '');
+          group[currentField.formId + '_label'] = currentField.required ? new UntypedFormControl(value[i] || '', Validators.required)
+                                                : new UntypedFormControl(value[i] || '');
         }
 
-        group[currentField.formId] = currentField.required ? new FormControl(value[i] || '', Validators.required)
-                                                : new FormControl(value[i] || '');
+        group[currentField.formId] = currentField.required ? new UntypedFormControl(value[i] || '', Validators.required)
+                                                : new UntypedFormControl(value[i] || '');
       }
     }
     });
-    return new FormGroup(group);
+    return new UntypedFormGroup(group);
   }
   getValueOfField(field: CustomField, item: Item): string[] {
     let value: Array<string> = new Array();
@@ -89,18 +89,18 @@ export class ManualFormService {
     return value;
   }
 
-  addFieldToForm(field: CustomField, form: FormGroup) {
+  addFieldToForm(field: CustomField, form: UntypedFormGroup) {
     field.formId = field.id + '_' + field.valueNumber;
 
-    form.addControl(field.formId, field.required ? new FormControl(field.value || '', Validators.required)
-    : new FormControl(field.value || ''));
+    form.addControl(field.formId, field.required ? new UntypedFormControl(field.value || '', Validators.required)
+    : new UntypedFormControl(field.value || ''));
   }
 
-  deleteFieldToForm(field: CustomField, form: FormGroup) {
+  deleteFieldToForm(field: CustomField, form: UntypedFormGroup) {
     form.removeControl(field.formId);
   }
 
-  deleteField(field: CustomField, form: FormGroup) {
+  deleteField(field: CustomField, form: UntypedFormGroup) {
     const index =  this.fields.indexOf(field, 0);
     if (index > -1) {
       this.fields.splice(index, 1);

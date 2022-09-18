@@ -4,12 +4,12 @@ import be.jimmyd.cm.dto.ItemDataDto;
 import be.jimmyd.cm.dto.ItemDto;
 import be.jimmyd.cm.entities.Item;
 import be.jimmyd.cm.entities.Itemdata;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Named
+@Component
 public class ItemMapper {
 
 
