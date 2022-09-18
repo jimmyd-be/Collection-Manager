@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM gradle:jdk11-alpine AS build
+FROM gradle:jdk11-jammy AS build
 COPY src /home/gradle/src
 COPY build.gradle /home/gradle
 COPY settings.gradle /home/gradle
